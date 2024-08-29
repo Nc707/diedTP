@@ -4,6 +4,8 @@
  */
 package nc.diedtp;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author lucia
@@ -12,21 +14,41 @@ public class Vendedor {
     private int id;
     private String nombre;
     private String direccion;
-    //CORDENADAS;
+    private ArrayList<Coordenada> coordenadas;
   
     
-    public Vendedor( int id, String nombre, String direccion ){
-        setId(id);
-        setNombre(nombre);
-        setDireccion(direccion);
+    public Vendedor(int id, String nombre, String direccion){
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.coordenadas = new ArrayList<>();
+        
     }
-   public void setId(int id)
-   {this.id = id;
+    public void añadirCoordenada(Coordenada c){
+        this.coordenadas.add(c);
+    }
+    public Coordenada verCoordenada(int index){
+        return coordenadas.get(index);
+    }
+    public int cantidadCoordenadas(){
+        return coordenadas.size();
+    }
+    public void eliminarCoordenada(int index){
+        this.coordenadas.remove(index);
+    }
+    public void eliminarCoordenada(Coordenada c){
+        this.coordenadas.remove(c);
+    }
+    public String getDireccion(){
+        return direccion;
+    }
+    public int getId()
+   {
+       return id;
    }
-   public void setNombre(String nombre)
-   {this.nombre = nombre;
+   public String getNombre()
+   {
+       return nombre;
    }
-    public void setDireccion(String direccion)
-   {this.direccion = direccion;
-   }
+    
 }
