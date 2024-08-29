@@ -11,14 +11,16 @@ import java.util.ArrayList;
  * @author lucia
  */
 public class Vendedor {
+    private static int next_id = 0;
     private int id;
     private String nombre;
     private String direccion;
     private ArrayList<Coordenada> coordenadas;
   
     
-    public Vendedor(int id, String nombre, String direccion){
-        this.id = id;
+    public Vendedor(String nombre, String direccion){
+        this.id = next_id;
+        next_id++;
         this.nombre = nombre;
         this.direccion = direccion;
         this.coordenadas = new ArrayList<>();
