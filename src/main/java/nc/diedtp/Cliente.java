@@ -23,6 +23,7 @@ public class Cliente {
         this.direccion = direccion;
         this.coordenadas = new ArrayList<>();
     }
+    
     public void anadirCoordenada(Coordenada c){
         this.coordenadas.add(c);
     }
@@ -38,4 +39,19 @@ public class Cliente {
      public void eliminarCoordenada(int c){
         this.coordenadas.remove(c);
     }
+      public String getDireccion(){
+        return direccion;
+    }
+    public int getId()
+   {
+       return id;
+   }
+   public int getCuit()
+   {
+       return cuit;
+   }
+     public String getEmail(){
+        return email;
+    }
+     
 }
