@@ -22,7 +22,7 @@ public class Main {
       
       vendedores.add(new Vendedor("Jeremias", "Belgrano 9624"));
       vendedores.add(new Vendedor("Luis", "Tucuman 8080"));
-      vendedores.add(new Vendedor("Juan", "San Jeronimo 2656"));
+      vendedores.add(new Vendedor("Juan", "San Jeronimo 2654"));
       
     }
     
