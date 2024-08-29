@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package nc.diedtp;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,5 +14,28 @@ public class Cliente {
     private int cuit;
     private String email;
     private String direccion;
+    private ArrayList<Coordenada> coordenadas;
     //CORDENADAS;
+    public Cliente( int id,int cuit, String email, String direccion ){
+        this.id = id;
+        this.cuit = cuit;
+        this.email = email;
+        this.direccion = direccion;
+        this.coordenadas = new ArrayList<>();
+    }
+    public void anadirCoordenada(Coordenada c){
+        this.coordenadas.add(c);
+    }
+    public Coordenada verCoordenada(int index){
+        return coordenadas.get(index);
+    }
+    public int cantidadCoordenadas(){
+        return coordenadas.size();
+    }
+    public void eliminarCoordenada(Coordenada c){
+        this.coordenadas.remove(c);
+    }
+     public void eliminarCoordenada(int c){
+        this.coordenadas.remove(c);
+    }
 }
