@@ -36,10 +36,20 @@ public class Vendedor {
         return coordenadas.size();
     }
     public void eliminarCoordenada(int index){
+        try{
         this.coordenadas.remove(index);
+        }
+        catch(Error e){
+            System.out.println(e);
+        }
     }
     public void eliminarCoordenada(Coordenada c){
-        this.coordenadas.remove(c);
+        try{
+            this.coordenadas.remove(c);
+        }
+        catch(Error e){
+            System.out.println(e);
+        }
     }
     public String getDireccion(){
         return direccion;
