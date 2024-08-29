@@ -20,7 +20,7 @@ public class Main {
       clientes.add(new Cliente(1,58487,"pablo.perez@hotmail.com","Calchines 1562"));
       clientes.add(new Cliente(2,45872,"segundo@gmail.com","Francia 2022"));
       
-      vendedores.add(new Vendedor("Jeremias", "Belgrano 9624"));
+      vendedores.add(new Vendedor("Jeremias", "Belgrano 962d4"));
       vendedores.add(new Vendedor("Luis", "Tucuman 8080"));
       vendedores.add(new Vendedor("Juan", "San Jeronimo 2654"));
       
