@@ -11,21 +11,21 @@ package nc.diedtp;
 public class Coordenada {
     public static final double R = 6371; // radio de la tierra en km
     
-    private int lat;
-    private int lng;
-    Coordenada(int lat,int lng)
+    private double lat;
+    private double lng;
+    public Coordenada(double lat,double lng)
     {
     this.lat = lat;
     this.lng = lng;
     }
     @Override
     public String toString(){
-        return "Latitude: "+Integer.toString(lat)+"\nLongitude: "+Integer.toString(lng);
+        return "Latitude: "+Double.toString(lat)+"\nLongitude: "+Double.toString(lng);
     }
-    public int getLatitude(){
+    public double getLatitude(){
         return this.lat;
     }
-    public int getLongitude(){
+    public double getLongitude(){
         return this.lng;
     }
             
