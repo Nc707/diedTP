@@ -27,27 +27,5 @@ public class Coordenada {
     }
     public double getLongitude(){
         return this.lng;
-    }
-            
-    public double distance(Coordenada coord) {
-        // convertir de grados a radianes
-        double lat1Rad = Math.toRadians(this.lat);
-        double lon1Rad = Math.toRadians(this.lng);
-        double lat2Rad = Math.toRadians(coord.lat);
-        double lon2Rad = Math.toRadians(coord.lng);
-
-        // lat2 - lat1
-        double dLat = lat2Rad - lat1Rad;
-        double dLon = lon2Rad - lon1Rad;
-
-        // Haversine
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                   Math.cos(lat1Rad) * Math.cos(lat2Rad) *
-                   Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        // devuelve la distnacia en km entre los dos puntos
-        return R * c;
-    }
-    
+    }    
 }
