@@ -12,7 +12,6 @@ import java.util.Scanner;
  * @author nicol
  */
 public class Main {
-    @SuppressWarnings("UnusedAssignment")
     public static void main(String[] args) {
       ArrayList<Cliente> clientes = new ArrayList<>();
     
