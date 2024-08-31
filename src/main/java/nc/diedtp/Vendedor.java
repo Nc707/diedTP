@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package nc.diedtp;
-
+import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -62,5 +62,16 @@ public class Vendedor {
    {
        return nombre;
    }
-    
+   public Vendedor buscarVendedor(ArrayList<Vendedor> vendedores){
+        String vend;
+        Scanner entrada = new Scanner (System.in);
+      vend = entrada.next(); 
+      for(int i=0; i<vendedores.size();i++){
+           if (vendedores.get(i).nombre.equals(vend) || vendedores.get(i).getId() == Integer.parseInt(vend)){
+                return vendedores.get(i);
+          }
+        }
+      entrada.close();
+      return null;
+      }
 }
