@@ -15,7 +15,8 @@ public class Main {
       ArrayList<Cliente> clientes = new ArrayList<>();
     
       
-      ArrayList<Vendedor> vendedores = new ArrayList<>();
+      ArrayList<Vendedor> vendedores;
+      vendedores = new ArrayList<>();
       
       clientes.add(new Cliente("roberta",0,34558,"robertafernandez@gmail.com","San Martin 6165"));
       clientes.add(new Cliente("pablo",1,58487,"pablo.perez@hotmail.com","Calchines 1562"));
