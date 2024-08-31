@@ -15,41 +15,19 @@ public class Vendedor {
     private int id;
     private String nombre;
     private String direccion;
-    private ArrayList<Coordenada> coordenadas;
+    private Coordenada coordenada;
   
     
-    public Vendedor(String nombre, String direccion){
+    public Vendedor(String nombre, String direccion, double cx, double cy){
         this.id = next_id;
         next_id++;
         this.nombre = nombre;
         this.direccion = direccion;
-        this.coordenadas = new ArrayList<>();
+        this.coordenada = new Coordenada(cx, cy);
         
     }
-    public void añadirCoordenada(Coordenada c){
-        this.coordenadas.add(c);
-    }
-    public Coordenada verCoordenada(int index){
-        return coordenadas.get(index);
-    }
-    public int cantidadCoordenadas(){
-        return coordenadas.size();
-    }
-    public void eliminarCoordenada(int index){
-        try{
-        this.coordenadas.remove(index);
-        }
-        catch(Error e){
-            System.out.println(e);
-        }
-    }
-    public void eliminarCoordenada(Coordenada c){
-        try{
-            this.coordenadas.remove(c);
-        }
-        catch(Error e){
-            System.out.println(e);
-        }
+   public Coordenada getCoordenada(){
+       return coordenada;
     }
     public String getDireccion(){
         return direccion;
@@ -62,6 +40,37 @@ public class Vendedor {
    {
        return nombre;
    }
+
+   private static final double R = 6371; // radio de la tierra en km
+
+    public double distancia (Cliente cliente) {
+        // convertir de grados a radianes
+        // double lat1 = coordenada.lat;
+        // double lon1 = coordenada.lng;
+        // double lat2 = c.getCoordenada().lat;
+        // double lon2 = c.getCoordenada().lng;
+        double lat1Rad = Math.toRadians(this.getCoordenada().lat);
+        double lon1Rad = Math.toRadians(this.getCoordenada().lng);
+        double lat2Rad = Math.toRadians(cliente.getCoordenada().lat);
+        double lon2Rad = Math.toRadians(cliente.getCoordenada().lng);
+        // double lat1Rad = Math.toRadians(lat1);
+        // double lon1Rad = Math.toRadians(lon1);
+        // double lat2Rad = Math.toRadians(lat2);
+        // double lon2Rad = Math.toRadians(lon2);
+
+        // lat2 - lat1
+        double dLat = lat2Rad - lat1Rad;
+        double dLon = lon2Rad - lon1Rad;
+
+        // Haversine
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                   Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                   Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        // devuelve la distnacia en km entre los dos puntos
+        return R * c;
+    }
    public Vendedor buscarVendedor(ArrayList<Vendedor> vendedores){
         String vend;
         Scanner entrada = new Scanner (System.in);
