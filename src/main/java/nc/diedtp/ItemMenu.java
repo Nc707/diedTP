@@ -12,4 +12,27 @@ public abstract class ItemMenu {
     private float precio;
     private Categoria categoria;
     public abstract float peso();
+    public abstract boolean esComida();
+    public abstract boolean aptoVegano();
+    public abstract boolean esBebida();
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }
