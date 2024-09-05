@@ -7,10 +7,7 @@ package nc.diedtp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author nicol
- */
+
 public class Main {
     public static void main(String[] args) {
       ArrayList<Cliente> clientes = new ArrayList<>();

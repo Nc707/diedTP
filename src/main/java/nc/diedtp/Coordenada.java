@@ -4,10 +4,7 @@
  */
 package nc.diedtp;
 
-/**
- *
- * @author lucia
- */
+
 public class Coordenada {
     public static final double R = 6371; // radio de la tierra en km
     

@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package nc.diedtp;
-/**
- *
- * @author lucia
- */
+
 public class Cliente {
     private static int next_id = 0;
     private int id;
@@ -15,7 +12,7 @@ public class Cliente {
     private String direccion;
     private Coordenada coordenadas;
     private String nombre;
-    //CORDENADAS;
+  
     public Cliente(){} //constructor generico para poder instanciar un cliente sin parametros
     public Cliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud ){
         this.id = next_id;

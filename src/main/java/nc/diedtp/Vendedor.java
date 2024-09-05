@@ -4,10 +4,7 @@
  */
 package nc.diedtp;
 
-/**
- *
- * @author lucia
- */
+
 public class Vendedor {
     private static int next_id = 0;
     private int id;
