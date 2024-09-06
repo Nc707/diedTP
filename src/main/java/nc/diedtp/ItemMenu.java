@@ -35,4 +35,7 @@ public abstract class ItemMenu {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
 }

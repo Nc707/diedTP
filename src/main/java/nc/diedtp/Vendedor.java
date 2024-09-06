@@ -6,13 +6,21 @@ package nc.diedtp;
 import java.util.ArrayList;
 
 public class Vendedor {
+    public enum TipoItem{
+        BEBIDAS,
+        COMIDAS,
+        COMIDAS_VEGANAS,
+        BIBIDAS_SIN_ALCOHOL
+    }
     private static int next_id = 0;
     private int id;
     private String nombre;
     private String direccion;
     private Coordenada coordenada;
-    private ItemMenu itemmenu;//??
-    
+    private ArrayList<ItemMenu> menu;
+    public void addItem(ItemMenu item){
+        menu.add(item);
+    }
     
     
     public Vendedor(String nombre, String direccion, double cx, double cy){
@@ -23,6 +31,7 @@ public class Vendedor {
         this.coordenada = new Coordenada(cx, cy);
         
     }
+    
    public Coordenada getCoordenada(){
        return coordenada;
     }
