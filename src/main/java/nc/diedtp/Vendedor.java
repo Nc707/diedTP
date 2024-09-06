@@ -10,7 +10,7 @@ public class Vendedor {
         BEBIDAS,
         COMIDAS,
         COMIDAS_VEGANAS,
-        BIBIDAS_SIN_ALCOHOL
+        BEBIDAS_SIN_ALCOHOL
     }
     private static int next_id = 0;
     private int id;
@@ -21,6 +21,7 @@ public class Vendedor {
     public void addItem(ItemMenu item){
         menu.add(item);
     }
+    
     public ArrayList<ItemMenu> getItems(TipoItem tipo){
         ArrayList<ItemMenu> aux = new ArrayList();
         for(ItemMenu item: menu){
@@ -30,7 +31,25 @@ public class Vendedor {
         }
         return aux;
     }
-    
+     // Método para obtener la lista de Bebidas
+    public ArrayList<ItemMenu> getBebidas() {
+        return getItems(TipoItem.BEBIDAS);
+    }
+
+    // Método para obtener la lista de Comidas
+    public ArrayList<ItemMenu> getComidas() {
+        return getItems(TipoItem.COMIDAS);
+    }
+
+    // Método para obtener la lista de Comidas Veganas
+    public ArrayList<ItemMenu> getComidasVeganas() {
+        return getItems(TipoItem.COMIDAS_VEGANAS);
+    }
+
+    // Método para obtener la lista de Bebidas sin Alcohol
+    public ArrayList<ItemMenu> getBebidasSinAlcohol() {
+        return getItems(TipoItem.BEBIDAS_SIN_ALCOHOL);
+    }
     
     public Vendedor(String nombre, String direccion, double cx, double cy){
         this.id = next_id;
@@ -38,7 +57,7 @@ public class Vendedor {
         this.nombre = nombre;
         this.direccion = direccion;
         this.coordenada = new Coordenada(cx, cy);
-        
+        this.menu =new ArrayList<>();// aca se inicializa la lista del menu;
     }
     
    public Coordenada getCoordenada(){

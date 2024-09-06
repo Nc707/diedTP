@@ -23,6 +23,8 @@ public class Main {
       vendedores.add(new Vendedor("Jeremias", "Belgrano 9624", 4.0, 5.2));
       vendedores.add(new Vendedor("Luis", "Tucuman 8080", 2.1,-4.0));
       vendedores.add(new Vendedor("Juan", "San Jeronimo 2654",1.0,-1.12));
+      
+      
       Scanner entrada = new Scanner(System.in);
       listarVendedores(vendedores);
       Vendedor v_encontrado = buscarVendedor(vendedores, entrada);
@@ -153,5 +155,9 @@ public class Main {
         }
         return null;
     }
+    
+    
+    
+    
 }
 

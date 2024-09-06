@@ -15,7 +15,7 @@ public abstract class ItemMenu {
     public abstract boolean esComida();
     public abstract boolean aptoVegano();
     public abstract boolean esBebida();
-
+   
     public void setId(int id) {
         this.id = id;
     }
