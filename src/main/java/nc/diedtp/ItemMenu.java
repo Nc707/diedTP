@@ -11,7 +11,7 @@ public abstract class ItemMenu {
     private String descripcion;
     private float precio;
     private Categoria categoria;
-    public abstract float peso();
+    public abstract float pesoItem(float peso);
     public abstract boolean esComida();
     public abstract boolean aptoVegano();
     public abstract boolean esBebida();

@@ -11,7 +11,11 @@ public class Plato extends ItemMenu{
     private boolean aptoVegetariano;
     private float peso;
 
-    public float peso(float peso) {
+    public Plato(int calo, float pes){
+        this.calorias = calo;
+        this.peso = pes;
+    }
+    public float pesoItem(float peso) {
         peso =  (float) (peso * 0.10);
         return peso ;
     }

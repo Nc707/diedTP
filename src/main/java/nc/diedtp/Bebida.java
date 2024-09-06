@@ -10,7 +10,13 @@ public class Bebida extends ItemMenu{
     private float tamaño; // tamaño en mL.
     private float peso;
 
-    public float peso(float peso) {
+    public Bebida(int grado,float tam, float pes){
+        this.graduacionAlcoholica = grado;
+        this.peso = pes;
+        this.tamaño = tam;
+    }
+    
+    public float pesoItem(float peso) {
         if(graduacionAlcoholica == 0){
             peso =(float)(( tamaño * 1.04) + (peso *0.20));
             
