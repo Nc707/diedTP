@@ -12,6 +12,7 @@ public class Categoria {
     private int id;
     private String descripcion;
     private TipoItem tipo_item;
+  
     public Categoria(TipoItem tipo, String descripcion){
         this.id = next_id;
         ++next_id;

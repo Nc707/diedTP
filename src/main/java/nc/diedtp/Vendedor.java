@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class Vendedor {
     public enum TipoItem{
         BEBIDAS,
+        BEBIDAS_SIN_ALCOHOLICA,
         COMIDAS,
         COMIDAS_VEGANAS,
-        BEBIDAS_SIN_ALCOHOL
-    }
+        BEBIDAS_CON_ALCOHOL
+    } 
+    
     private static int next_id = 0;
     private int id;
     private String nombre;
@@ -31,22 +33,18 @@ public class Vendedor {
         }
         return aux;
     }
-     // Método para obtener la lista de Bebidas
     public ArrayList<ItemMenu> getBebidas() {
         return getItems(TipoItem.BEBIDAS);
     }
 
-    // Método para obtener la lista de Comidas
     public ArrayList<ItemMenu> getComidas() {
         return getItems(TipoItem.COMIDAS);
     }
-
-    // Método para obtener la lista de Comidas Veganas
+    
     public ArrayList<ItemMenu> getComidasVeganas() {
         return getItems(TipoItem.COMIDAS_VEGANAS);
     }
 
-    // Método para obtener la lista de Bebidas sin Alcohol
     public ArrayList<ItemMenu> getBebidasSinAlcohol() {
         return getItems(TipoItem.BEBIDAS_SIN_ALCOHOL);
     }

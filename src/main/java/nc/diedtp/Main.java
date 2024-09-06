@@ -24,6 +24,31 @@ public class Main {
       vendedores.add(new Vendedor("Luis", "Tucuman 8080", 2.1,-4.0));
       vendedores.add(new Vendedor("Juan", "San Jeronimo 2654",1.0,-1.12));
       
+     //categorias
+     Categoria Alcoholica= new Categoria ();
+     Categoria sinalcoholica= new Categoria ();
+     Categoria vegana= new Categoria ();
+     Categoria celiaca= new Categoria ();
+     Categoria comida= new Categoria ();
+     
+
+    //bebidas sin alcohol
+      Bebida lataCocaCola = new Bebida (0,500,250);
+      Bebida lataSprite = new Bebida (0,500,250);
+      Bebida Sprite = new Bebida (0,1000,500);
+      
+      //bebidas con alcohol
+      Bebida lataHeineken = new Bebida (4,750,350);
+      Bebida lataMiller = new Bebida (3,500,250);
+      Bebida quilmes = new Bebida (3,1000,500);
+      
+  
+
+
+
+
+
+      
       
       Scanner entrada = new Scanner(System.in);
       listarVendedores(vendedores);

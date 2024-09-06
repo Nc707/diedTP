@@ -6,7 +6,7 @@ package nc.diedtp;
 
 
 public class Bebida extends ItemMenu{
-    private int graduacionAlcoholica;
+    private float graduacionAlcoholica;
     private float tamaño; // tamaño en mL.
     private float peso;
 
