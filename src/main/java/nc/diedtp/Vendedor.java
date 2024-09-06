@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package nc.diedtp;
-
+import java.util.ArrayList;
 
 public class Vendedor {
     private static int next_id = 0;
@@ -11,7 +11,9 @@ public class Vendedor {
     private String nombre;
     private String direccion;
     private Coordenada coordenada;
-  
+    private ItemMenu itemmenu;//??
+    
+    
     
     public Vendedor(String nombre, String direccion, double cx, double cy){
         this.id = next_id;
@@ -61,4 +63,10 @@ public class Vendedor {
         // devuelve la distnacia en km entre los dos puntos
         return R * c;
     }
+    
+   
+   
+    
+   
+    
 }
