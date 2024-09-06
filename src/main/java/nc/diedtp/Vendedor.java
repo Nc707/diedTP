@@ -21,6 +21,15 @@ public class Vendedor {
     public void addItem(ItemMenu item){
         menu.add(item);
     }
+    public ArrayList<ItemMenu> getItems(TipoItem tipo){
+        ArrayList<ItemMenu> aux = new ArrayList();
+        for(ItemMenu item: menu){
+            if(tipo == item.getCategoria().getTipo()){
+                aux.add(item);
+            }
+        }
+        return aux;
+    }
     
     
     public Vendedor(String nombre, String direccion, double cx, double cy){
