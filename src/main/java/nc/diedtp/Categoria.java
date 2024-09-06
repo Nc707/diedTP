@@ -10,8 +10,9 @@ import nc.diedtp.Vendedor.TipoItem;
 public class Categoria {
     private static int next_id = 0;
     private int id;
-    private String descripcion;
     private TipoItem tipo_item;
+    private String descripcion;
+   
   
     public Categoria(TipoItem tipo, String descripcion){
         this.id = next_id;

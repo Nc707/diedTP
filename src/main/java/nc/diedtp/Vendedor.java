@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class Vendedor {
     public enum TipoItem{
-        BEBIDAS,
-        BEBIDAS_SIN_ALCOHOLICA,
+        BEBIDAS_SIN_ALCOHOL,
         COMIDAS,
-        COMIDAS_VEGANAS,
+        COMIDAS_VEGANAS
+        COMIDAS_APTOCELIACOS,
         BEBIDAS_CON_ALCOHOL
     } 
     

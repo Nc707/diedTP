@@ -6,6 +6,7 @@ package nc.diedtp;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import nc.diedtp.Vendedor.TipoItem;
 
 
 public class Main {
@@ -24,14 +25,13 @@ public class Main {
       vendedores.add(new Vendedor("Luis", "Tucuman 8080", 2.1,-4.0));
       vendedores.add(new Vendedor("Juan", "San Jeronimo 2654",1.0,-1.12));
       
-     //categorias
-     Categoria Alcoholica= new Categoria ();
-     Categoria sinalcoholica= new Categoria ();
-     Categoria vegana= new Categoria ();
-     Categoria celiaca= new Categoria ();
-     Categoria comida= new Categoria ();
+     //Categorias
+     Categoria Alcoholica= new Categoria (TipoItem.BEBIDAS_CON_ALCOHOL,"Bebida con graduacion alcoholica mayor que 0");
+     Categoria sinalcohol= new Categoria (TipoItem.BEBIDAS_SIN_ALCOHOL,"Bebida sin graduacion alcoholica");
+     Categoria vegana= new Categoria (TipoItem.COMIDAS_VEGANAS,"Comida aptas para veganas");
+     Categoria celiaca= new Categoria (TipoItem.COMIDAS_APTOCELIACOS,"Comida sin gluten");
+     Categoria comida= new Categoria (TipoItem.COMIDAS,"Producto comestible");
      
-
     //bebidas sin alcohol
       Bebida lataCocaCola = new Bebida (0,500,250);
       Bebida lataSprite = new Bebida (0,500,250);
