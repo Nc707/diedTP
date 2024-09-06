@@ -9,7 +9,7 @@ public class Vendedor {
     public enum TipoItem{
         BEBIDAS_SIN_ALCOHOL,
         COMIDAS,
-        COMIDAS_VEGANAS
+        COMIDAS_VEGANAS,
         COMIDAS_APTOCELIACOS,
         BEBIDAS_CON_ALCOHOL
     } 
@@ -34,11 +34,18 @@ public class Vendedor {
         return aux;
     }
     public ArrayList<ItemMenu> getBebidas() {
-        return getItems(TipoItem.BEBIDAS);
+        ArrayList<ItemMenu> aux = new ArrayList();
+        aux.addAll(getItems(TipoItem.BEBIDAS_SIN_ALCOHOL));
+        aux.addAll(getItems(TipoItem.BEBIDAS_CON_ALCOHOL));
+        return aux;
     }
 
     public ArrayList<ItemMenu> getComidas() {
-        return getItems(TipoItem.COMIDAS);
+        ArrayList<ItemMenu> aux = new ArrayList();
+        aux.addAll(getItems(TipoItem.COMIDAS));
+        aux.addAll(getItems(TipoItem.COMIDAS_VEGANAS));
+        aux.addAll(getItems(TipoItem.COMIDAS_APTOCELIACOS));
+        return aux;
     }
     
     public ArrayList<ItemMenu> getComidasVeganas() {

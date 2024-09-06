@@ -26,7 +26,7 @@ public class Main {
       vendedores.add(new Vendedor("Juan", "San Jeronimo 2654",1.0,-1.12));
       
      //Categorias
-     Categoria Alcoholica= new Categoria (TipoItem.BEBIDAS_CON_ALCOHOL,"Bebida con graduacion alcoholica mayor que 0");
+     Categoria alcoholica= new Categoria (TipoItem.BEBIDAS_CON_ALCOHOL,"Bebida con graduacion alcoholica mayor que 0");
      Categoria sinalcohol= new Categoria (TipoItem.BEBIDAS_SIN_ALCOHOL,"Bebida sin graduacion alcoholica");
      Categoria vegana= new Categoria (TipoItem.COMIDAS_VEGANAS,"Comida aptas para veganas");
      Categoria celiaca= new Categoria (TipoItem.COMIDAS_APTOCELIACOS,"Comida sin gluten");
@@ -41,6 +41,29 @@ public class Main {
       Bebida lataHeineken = new Bebida (4,750,350);
       Bebida lataMiller = new Bebida (3,500,250);
       Bebida quilmes = new Bebida (3,1000,500);
+      
+      //Plato aptos veganos
+      Plato ensaladaSinHuevo= new Plato(211,500,true,true);
+      Plato hamburguesaDeLentejas = new Plato(450,300,true,false);
+      Plato milanesaDeLenteja = new Plato(400,363,true,false);
+
+      //Plato aptos celiacos
+      Plato browniesDeAlmendra = new Plato(200,500,true,true);
+      Plato polloAlHorno = new Plato(800,750,false,true);
+      
+      //Plato comida
+      Plato hamburguesaCompleta= new Plato(2000.8f,500,false,false);
+      Plato hamburguesaSimple = new Plato(1800.5f,300,false,false);
+      Plato papasFritas = new Plato(1200,363,false,false);
+      Plato papasAlHorno= new Plato(900,500,false,false);
+      Plato milanesaACaballo = new Plato(3000,300,false,false);
+      Plato milanesaAlaPizza = new Plato(2250.35f,363,false,false);
+      
+      
+      
+              
+      
+             
       
   
 

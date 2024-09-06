@@ -27,7 +27,7 @@ public class Bebida extends ItemMenu{
         return peso;
         }
 
-    public int getGraduacionAlcoholica() {
+    public float getGraduacionAlcoholica() {
         return graduacionAlcoholica;
     }
 
