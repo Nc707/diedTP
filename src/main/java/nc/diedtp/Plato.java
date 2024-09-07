@@ -4,26 +4,26 @@
  */
 package nc.diedtp;
 
+public class Plato extends ItemMenu {
 
-public class Plato extends ItemMenu{
     private float calorias;
     private boolean aptoCeliaco;
     private boolean aptoVegano;
     private float peso;
 
-    public Plato(float calo, float pes, boolean b1, boolean b2){
+    public Plato(float calo, float pes, boolean b1, boolean b2) {
         this.calorias = calo;
-        this.peso = pes;
+        this.peso = pes * 0.10f;
         this.aptoVegano = b1;
-        this.aptoCeliaco=b2;
-    }
-    public float pesoItem(float peso) {
-        peso =  (float) (peso * 0.10);
-        return peso ;
+        this.aptoCeliaco = b2;
     }
 
-    public float getCalorias(){
-        return  calorias;
+    // public float pesoItem(float peso) {
+    //    peso = (float) (peso * 0.10);
+    //    return peso;
+    //}
+    public float getCalorias() {
+        return calorias;
     }
 
     public void setCalorias(int calorias) {
@@ -45,11 +45,11 @@ public class Plato extends ItemMenu{
     public void setAptoVegetariano(boolean aptoVegetariano) {
         this.aptoVegano = aptoVegetariano;
     }
- 
+
     public boolean esComida() {
         return true;
     }
-    
+
     public boolean aptoVegano() {
         return aptoVegano;
     }

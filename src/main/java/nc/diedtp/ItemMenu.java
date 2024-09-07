@@ -4,19 +4,22 @@
  */
 package nc.diedtp;
 
-
 public abstract class ItemMenu {
+
     private int id;
     private String nombre;
     private String descripcion;
     private float precio;
     private Categoria categoria;
-    
-    public abstract float pesoItem(float peso);
+
+    //public abstract float pesoItem(float peso);
+    //quito metodo abstracto y solo lo implemento en bebida porq en comida se guarda directo como atributo
     public abstract boolean esComida();
+
     public abstract boolean aptoVegano();
+
     public abstract boolean esBebida();
-   
+
     public void setId(int id) {
         this.id = id;
     }
@@ -36,6 +39,7 @@ public abstract class ItemMenu {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
     public Categoria getCategoria() {
         return this.categoria;
     }

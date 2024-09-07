@@ -4,28 +4,32 @@
  */
 package nc.diedtp;
 
+public class Bebida extends ItemMenu {
 
-public class Bebida extends ItemMenu{
     private float graduacionAlcoholica;
     private float tamaño; // tamaño en mL.
     private float peso;
 
-    public Bebida(int grado,float tam, float pes){
+    public Bebida(int grado, float tam, float pes) {
         this.graduacionAlcoholica = grado;
-        this.peso = pes;
+        this.peso = peso(pes);
         this.tamaño = tam;
     }
-    
-    public float pesoItem(float peso) {
-        if(graduacionAlcoholica == 0){
-            peso =(float)(( tamaño * 1.04) + (peso *0.20));
-            
-        }else{
-            peso =(float)(( tamaño * 0.99)+ (peso *0.20));
-          
+
+    private float peso(float weight) {
+        if (graduacionAlcoholica == 0) {
+            weight = (float) ((tamaño * 1.04) + (weight * 0.20));
+
+        } else {
+            weight = (float) ((tamaño * 0.99) + (weight * 0.20));
+
         }
+        return weight;
+    }
+
+    public float getPeso() {
         return peso;
-        }
+    }
 
     public float getGraduacionAlcoholica() {
         return graduacionAlcoholica;
@@ -42,11 +46,11 @@ public class Bebida extends ItemMenu{
     public void setTamaño(float tamaño) {
         this.tamaño = tamaño;
     }
-    
+
     public boolean esComida() {
         return false;
     }
-    
+
     public boolean aptoVegano() {
         return false;
     }
