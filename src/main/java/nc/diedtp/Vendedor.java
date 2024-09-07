@@ -32,8 +32,10 @@ public class Vendedor {
         for (ItemMenu item : menu) {
             if (tipo == item.getCategoria().getTipo()) {
                 aux.add(item);
+                System.out.println("    -"+item.getNombre());
             }
         }
+        
         return aux;
     }
 

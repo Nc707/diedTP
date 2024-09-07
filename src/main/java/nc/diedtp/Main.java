@@ -31,43 +31,76 @@ public class Main {
         Categoria comida = new Categoria(TipoItem.COMIDAS, "Producto comestible");
 
         //bebidas sin alcohol
-        Bebida lataCocaCola = new Bebida(0, 500, 250);
-        Bebida lataSprite = new Bebida(0, 500, 250);
-        Bebida sprite = new Bebida(0, 1000, 500);
-        Bebida agua = new Bebida(0, 500, 500);
+        Bebida lataCocaCola = new Bebida(0, 500, 250, sinalcohol, "Lata de Cocacola");
+        Bebida lataSprite = new Bebida(0, 500, 250, sinalcohol, "Lata de Sprite");
+        Bebida sprite = new Bebida(0, 1000, 500, sinalcohol, "Botella de Sprite");
+        Bebida agua = new Bebida(0, 500, 500, sinalcohol, "Botella de Agua");
 
         //bebidas con alcohol
-        Bebida lataHeineken = new Bebida(4, 750, 350);
-        Bebida lataMiller = new Bebida(3, 500, 250);
-        Bebida quilmes = new Bebida(3, 1000, 500);
+        Bebida lataHeineken = new Bebida(4, 750, 350, alcoholica, "Lata de Heineken");
+        Bebida lataMiller = new Bebida(3, 500, 250, alcoholica, "Lata de Miller");
+        Bebida quilmes = new Bebida(3, 1000, 500, alcoholica, "Botella de Quilmes");
 
-        vendedores.get(0).addItem(sprite);
-        vendedores.get(1).addItem(lataMiller);
-        vendedores.get(1).addItem(lataCocaCola);
-        vendedores.get(2).addItem(agua);
 
         //Plato aptos veganos
-        Plato ensaladaSinHuevo = new Plato(211, 500, true, true);
-        Plato hamburguesaDeLentejas = new Plato(450, 300, true, false);
-        Plato milanesaDeLenteja = new Plato(400, 363, true, false);
-        vendedores.get(1).addItem(ensaladaSinHuevo);
-        vendedores.get(2).addItem(milanesaDeLenteja);
+        Plato ensaladaSinHuevo = new Plato(211, 500, true, true, vegana, "Ensalada de Lechuga, Tomate y Repollo");
+        Plato hamburguesaDeLentejas = new Plato(450, 300, true, false, vegana, "Hamburguesa de Lentejas");
+        Plato milanesaDeLenteja = new Plato(400, 363, true, false, vegana, "Milanesa de Lentejas");
+        
 
         //Plato aptos celiacos
-        Plato browniesDeAlmendra = new Plato(200, 500, true, true);
-        Plato polloAlHorno = new Plato(800, 750, false, true);
-        vendedores.get(0).addItem(polloAlHorno);
+        Plato browniesDeAlmendra = new Plato(200, 500, true, true, celiaca, "Brownies de Almendra");
+        Plato polloAlHorno = new Plato(800, 750, false, true, celiaca, "Pollo al Horno");
 
         //Plato comida
-        Plato hamburguesaCompleta = new Plato(2000.8f, 500, false, false);
-        Plato hamburguesaSimple = new Plato(1800.5f, 300, false, false);
-        Plato papasFritas = new Plato(1200, 363, false, false);
-        Plato papasAlHorno = new Plato(900, 500, false, false);
-        Plato milanesaACaballo = new Plato(3000, 300, false, false);
-        Plato milanesaAlaPizza = new Plato(2250.35f, 363, false, false);
+        Plato hamburguesaCompleta = new Plato(2000.8f, 500, false, false, comida, "Hambusguesa Completa con Queso, tomate y huevo");
+        Plato hamburguesaSimple = new Plato(1800.5f, 300, false, false, comida, "Hamburquesa con queso simple");
+        Plato papasFritas = new Plato(1200, 363, false, false, comida, "Papas Fritas");
+        Plato papasAlHorno = new Plato(900, 500, false, false, comida, "Papas al horno");
+        Plato milanesaACaballo = new Plato(3000, 300, false, false, comida, "Milanesa a caballo");
+        Plato milanesaAlaPizza = new Plato(2250.35f, 363, false, false, comida, "Milanesa a la pizza");
+        
+        vendedores.get(0).addItem(lataCocaCola);
+        vendedores.get(1).addItem(lataSprite);
+        vendedores.get(2).addItem(sprite);
+        vendedores.get(0).addItem(agua);
+        vendedores.get(1).addItem(lataHeineken);
+        vendedores.get(2).addItem(lataMiller);
+        vendedores.get(0).addItem(quilmes);
+        vendedores.get(1).addItem(ensaladaSinHuevo);
+        vendedores.get(2).addItem(hamburguesaDeLentejas);
+        vendedores.get(0).addItem(milanesaDeLenteja);
+        vendedores.get(1).addItem(browniesDeAlmendra);
+        vendedores.get(2).addItem(polloAlHorno);
+        vendedores.get(0).addItem(hamburguesaCompleta);
+        vendedores.get(1).addItem(hamburguesaSimple);
         vendedores.get(2).addItem(papasFritas);
+        vendedores.get(0).addItem(papasAlHorno);
+        vendedores.get(1).addItem(milanesaACaballo);
+        vendedores.get(2).addItem(milanesaAlaPizza);
 
-        Scanner entrada = new Scanner(System.in);
+        //ETAPA 2
+        for (Vendedor vendedor : vendedores){
+            System.out.println("Menu del vendedor "+vendedor.getNombre());
+            System.out.println("BEBICAS ACLOHOLICAS: ");
+            vendedor.getItems(TipoItem.BEBIDAS_CON_ALCOHOL);
+            System.out.println(" ");
+            System.out.println("BEBIDAS SIN ALCOHOL: ");
+            vendedor.getItems(TipoItem.BEBIDAS_SIN_ALCOHOL);
+            System.out.println(" ");
+            System.out.println("COMIDAS VEGANAS:");
+            vendedor.getItems(TipoItem.COMIDAS_VEGANAS);
+            System.out.println(" ");
+            System.out.println("COMIDAS APTAS PARA CELIACOS:");
+            vendedor.getItems(TipoItem.COMIDAS_APTOCELIACOS);
+            System.out.println(" ");
+            System.out.println("PLATOS COMUNES:");
+            vendedor.getItems(TipoItem.COMIDAS);
+            System.out.println("-----------------------");
+        }        
+        
+        //ETAPA 1
+       /* Scanner entrada = new Scanner(System.in);
         listarVendedores(vendedores);
         Vendedor v_encontrado = buscarVendedor(vendedores, entrada);
         if (v_encontrado != null) {
@@ -199,7 +232,7 @@ public class Main {
                 // Ignorar la excepcion
             }
         }
-        return null;
+        return null; */
     }
-
+    
 }

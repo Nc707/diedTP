@@ -11,7 +11,14 @@ public abstract class ItemMenu {
     private String descripcion;
     private float precio;
     private Categoria categoria;
-
+    
+    public ItemMenu(Categoria cat, String nombre){
+        this.categoria = cat;
+        this.nombre = nombre;
+    }
+    public String getNombre(){
+        return nombre;
+    }
     //public abstract float pesoItem(float peso);
     //quito metodo abstracto y solo lo implemento en bebida porq en comida se guarda directo como atributo
     public abstract boolean esComida();
