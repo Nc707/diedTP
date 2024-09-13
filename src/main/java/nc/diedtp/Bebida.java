@@ -10,15 +10,14 @@ public class Bebida extends ItemMenu {
     private float tamaño; // tamaño en mL.
     private float peso;
 
-    public Bebida(int grado, float tam, float pes, Categoria cat, String nombre) {
-        super(cat, nombre);
+    public Bebida(String nombre, float precio, float pes, int grado, float tam) {
+        super(nombre, precio);
         this.graduacionAlcoholica = grado;
         this.peso = peso(pes);
         this.tamaño = tam;
+        this.addTag(Tag.tagBebidas);
     }
-    public String getNombre(){
-        return super.getNombre();
-    }
+    
     private float peso(float weight) {
         if (graduacionAlcoholica == 0) {
             weight = (float) ((tamaño * 1.04) + (weight * 0.20));
@@ -50,15 +49,39 @@ public class Bebida extends ItemMenu {
         this.tamaño = tamaño;
     }
 
+    @Override
     public boolean esComida() {
         return false;
     }
 
+    @Override
     public boolean aptoVegano() {
         return false;
     }
 
+    @Override
     public boolean esBebida() {
         return true;
     }
+    @Override
+    public boolean addTag(String tag){
+        Tag aux = Tag.getTag(tag);
+        if(aux != null && !aux.getEsComida()){
+            this.tags.add(aux);
+            return true;
+        }else return false;
+    }
+    private boolean addTag(Tag tag){
+        if(tag != null && tag.getEsComida()){
+            this.tags.add(tag);
+            return true;
+        }else return false;
+    }
+    @Override
+    public boolean removeTag(String tag){
+        Tag aux = Tag.getTag(tag);
+        return aux != null && Tag.tagBebidas !=aux && this.tags.remove(aux);
+    }
+
+
 }

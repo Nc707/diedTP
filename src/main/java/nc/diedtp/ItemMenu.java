@@ -4,21 +4,64 @@
  */
 package nc.diedtp;
 
+import java.util.HashSet;
+
 public abstract class ItemMenu {
 
     private int id;
+    private static int next_id=0;
     private String nombre;
     private String descripcion;
     private float precio;
-    private Categoria categoria;
+    protected HashSet<Tag> tags;
     
-    public ItemMenu(Categoria cat, String nombre){
-        this.categoria = cat;
+    public ItemMenu(String nombre, float precio){
+        this.setNombre(nombre);
+        this.setPrecio(precio);
+        this.setId();
+        this.descripcion = new String();
+        this.tags = new HashSet();
+    }
+    private void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getNombre(){
+    private void setPrecio(float precio) {
+        this.precio = precio;
+    }
+    private void setId(){
+        this.id = next_id;
+        next_id++;
+    }
+    @Override
+    public String toString(){
         return nombre;
     }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    public boolean hasTag(Tag tag){
+        return this.tags.contains(tag);
+    }
+    public boolean hasTag(String tag){
+        Tag aux = Tag.getTag(tag);
+        if(aux!=null) return this.tags.contains(aux);
+        return false;
+    }
+    public HashSet<Tag> getTags(){
+        return (HashSet<Tag>) this.tags.clone();
+    }
+    public int getId(){
+        return this.id;
+    }
+    public float getPrecio(){
+        return this.precio;
+    }
+    public String getDescripcion(){
+        return this.descripcion;
+    }
+    public abstract boolean addTag(String tag);
+    public abstract boolean removeTag(String tag);
     //public abstract float pesoItem(float peso);
     //quito metodo abstracto y solo lo implemento en bebida porq en comida se guarda directo como atributo
     public abstract boolean esComida();
@@ -26,28 +69,4 @@ public abstract class ItemMenu {
     public abstract boolean aptoVegano();
 
     public abstract boolean esBebida();
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Categoria getCategoria() {
-        return this.categoria;
-    }
 }

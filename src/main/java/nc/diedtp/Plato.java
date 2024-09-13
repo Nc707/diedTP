@@ -11,26 +11,32 @@ public class Plato extends ItemMenu {
     private boolean aptoVegano;
     private float peso;
 
-    public Plato(float calo, float pes, boolean b1, boolean b2, Categoria cat, String nombre) {
-        super(cat, nombre);
-        this.calorias = calo;
-        this.peso = pes * 0.10f;
-        this.aptoVegano = b1;
-        this.aptoCeliaco = b2;
+    public Plato(String nombre,float precio,float peso, float calorias) {
+        super(nombre, precio);
+        this.setCalorias(calorias);
+        this.setPeso(peso);
+        this.addTag(Tag.tagComidas);
     }
-    public String getNombre(){
-        return super.getNombre();
+    public Plato(String nombre,float precio,float peso, float calorias, Tag tags){
+        this(nombre, precio, peso, calorias);
+        
     }
+    private void setCalorias(float calorias) {
+        this.calorias = calorias;
+    }
+    private void setPeso(float peso){
+        this.peso = peso * 0.10f;
+    }
+    
     // public float pesoItem(float peso) {
     //    peso = (float) (peso * 0.10);
     //    return peso;
     //}
+    public float getPeso() {
+        return peso;
+    }
     public float getCalorias() {
         return calorias;
-    }
-
-    public void setCalorias(int calorias) {
-        this.calorias = calorias;
     }
 
     public boolean isAptoCeliaco() {
@@ -48,15 +54,36 @@ public class Plato extends ItemMenu {
     public void setAptoVegetariano(boolean aptoVegetariano) {
         this.aptoVegano = aptoVegetariano;
     }
-
+    @Override
+    public boolean addTag(String tag){
+        Tag aux = Tag.getTag(tag);
+        if(aux != null && aux.getEsComida()){
+            this.tags.add(aux);
+            return true;
+        }else return false;
+    }
+    private boolean addTag(Tag tag){
+        if(tag != null && tag.getEsComida()){
+            this.tags.add(tag);
+            return true;
+        }else return false;
+    }
+    @Override
+    public boolean removeTag(String tag){
+        Tag aux = Tag.getTag(tag);
+        return aux != null && Tag.tagComidas != aux && this.tags.remove(aux);
+    }
+    @Override
     public boolean esComida() {
         return true;
     }
 
+    @Override
     public boolean aptoVegano() {
         return aptoVegano;
     }
 
+    @Override
     public boolean esBebida() {
         return false;
     }

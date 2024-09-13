@@ -5,7 +5,6 @@ package nc.diedtp;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import nc.diedtp.Vendedor.TipoItem;
 
 public class Main {
 
@@ -24,17 +23,26 @@ public class Main {
         vendedores.add(new Vendedor("Juan", "San Jeronimo 2654", 1.0, -1.12));
 
         //Categorias
-        Categoria alcoholica = new Categoria(TipoItem.BEBIDAS_CON_ALCOHOL, "Bebida con graduacion alcoholica mayor que 0");
-        Categoria sinalcohol = new Categoria(TipoItem.BEBIDAS_SIN_ALCOHOL, "Bebida sin graduacion alcoholica");
-        Categoria vegana = new Categoria(TipoItem.COMIDAS_VEGANAS, "Comida aptas para veganas");
-        Categoria celiaca = new Categoria(TipoItem.COMIDAS_APTOCELIACOS, "Comida sin gluten");
-        Categoria comida = new Categoria(TipoItem.COMIDAS, "Producto comestible");
-
+        Tag.tagsInit();
+        Tag.createTag("Bebidas Alcoholicas", false);
+        Tag.createTag("Bebidas sin alcohol", false);
+        Tag.createTag("Vegano", true);
+        Tag.createTag("Celiaco", true);
+        
         //bebidas sin alcohol
-        Bebida lataCocaCola = new Bebida(0, 500, 250, sinalcohol, "Lata de Cocacola");
-        Bebida lataSprite = new Bebida(0, 500, 250, sinalcohol, "Lata de Sprite");
-        Bebida sprite = new Bebida(0, 1000, 500, sinalcohol, "Botella de Sprite");
-        Bebida agua = new Bebida(0, 500, 500, sinalcohol, "Botella de Agua");
+        
+        Bebida lataCocaCola = new Bebida("Lata Cocacola",100,0, 500, 250);
+        Bebida lataSprite = new Bebida("Lata Sprite",100,0, 500, 250);
+        Bebida coca = new Bebida("Botella Cocacola",100,0, 500, 500);
+        Bebida sprite = new Bebida("Botella Sprite",100,0, 500, 500);
+        Bebida agua = new Bebida("Botella Agua",100,0, 500, 500);
+        
+        lataCocaCola.addTag("Bebidas sin alcohol");
+        lataSprite.addTag("Bebidas sin alcohol");
+        coca.addTag("Bebidas sin alcohol");
+        sprite.addTag("Bebidas sin alcohol");
+        agua.addTag("Bebidas sin alcohol");
+        
 
         //bebidas con alcohol
         Bebida lataHeineken = new Bebida(4, 750, 350, alcoholica, "Lata de Heineken");

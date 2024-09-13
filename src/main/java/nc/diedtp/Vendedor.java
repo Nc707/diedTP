@@ -7,15 +7,6 @@ package nc.diedtp;
 import java.util.ArrayList;
 
 public class Vendedor {
-
-    public enum TipoItem {
-        BEBIDAS_SIN_ALCOHOL,
-        COMIDAS,
-        COMIDAS_VEGANAS,
-        COMIDAS_APTOCELIACOS,
-        BEBIDAS_CON_ALCOHOL
-    }
-
     private static int next_id = 0;
     private int id;
     private String nombre;
@@ -27,39 +18,15 @@ public class Vendedor {
         menu.add(item);
     }
 
-    public ArrayList<ItemMenu> getItems(TipoItem tipo) {
+    public ArrayList<ItemMenu> getItems(String tag) {
         ArrayList<ItemMenu> aux = new ArrayList();
         for (ItemMenu item : menu) {
-            if (tipo == item.getCategoria().getTipo()) {
+            if (item.hasTag(tag)) {
                 aux.add(item);
-                System.out.println("    -"+item.getNombre());
             }
         }
         
         return aux;
-    }
-
-    public ArrayList<ItemMenu> getBebidas() {
-        ArrayList<ItemMenu> aux = new ArrayList();
-        aux.addAll(getItems(TipoItem.BEBIDAS_SIN_ALCOHOL));
-        aux.addAll(getItems(TipoItem.BEBIDAS_CON_ALCOHOL));
-        return aux;
-    }
-
-    public ArrayList<ItemMenu> getComidas() {
-        ArrayList<ItemMenu> aux = new ArrayList();
-        aux.addAll(getItems(TipoItem.COMIDAS));
-        aux.addAll(getItems(TipoItem.COMIDAS_VEGANAS));
-        aux.addAll(getItems(TipoItem.COMIDAS_APTOCELIACOS));
-        return aux;
-    }
-
-    public ArrayList<ItemMenu> getComidasVeganas() {
-        return getItems(TipoItem.COMIDAS_VEGANAS);
-    }
-
-    public ArrayList<ItemMenu> getBebidasSinAlcohol() {
-        return getItems(TipoItem.BEBIDAS_SIN_ALCOHOL);
     }
 
     public Vendedor(String nombre, String direccion, double cx, double cy) {
