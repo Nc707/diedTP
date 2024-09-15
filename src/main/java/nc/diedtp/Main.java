@@ -45,29 +45,37 @@ public class Main {
         
 
         //bebidas con alcohol
-        Bebida lataHeineken = new Bebida(4, 750, 350, alcoholica, "Lata de Heineken");
-        Bebida lataMiller = new Bebida(3, 500, 250, alcoholica, "Lata de Miller");
-        Bebida quilmes = new Bebida(3, 1000, 500, alcoholica, "Botella de Quilmes");
-
+        Bebida lataHeineken = new Bebida("Lata Heineken",499.99f ,350, 4, 750);
+        Bebida lataMiller = new Bebida("Lata Miller",499.99f ,250, 3, 250);
+        Bebida quilmes = new Bebida("Botella de Quilmes",499.99f ,500, 3, 1000);
+        lataHeineken.addTag("Bebidas Alcoholicas");
+        lataMiller.addTag("Bebidas Alcoholicas");
+        quilmes.addTag("Bebidas Alcoholicas");
 
         //Plato aptos veganos
-        Plato ensaladaSinHuevo = new Plato(211, 500, true, true, vegana, "Ensalada de Lechuga, Tomate y Repollo");
-        Plato hamburguesaDeLentejas = new Plato(450, 300, true, false, vegana, "Hamburguesa de Lentejas");
-        Plato milanesaDeLenteja = new Plato(400, 363, true, false, vegana, "Milanesa de Lentejas");
+        Plato ensaladaSinHuevo = new Plato("Ensalada de Lechuga, Tomate y Repollo", 1500 , 500 ,211);
+        ensaladaSinHuevo.addTag("Vegano");
+        ensaladaSinHuevo.addTag("Celiaco");
+        Plato hamburguesaDeLentejas = new Plato("Hamburguesa de Lentejas", 799, 450, 300);
+        hamburguesaDeLentejas.addTag("Vegano");
+        Plato milanesaDeLenteja = new Plato("Milanesa de Lentejas", 1499, 363, 400);
+        milanesaDeLenteja.addTag("Vegano");
         
 
         //Plato aptos celiacos
-        Plato browniesDeAlmendra = new Plato(200, 500, true, true, celiaca, "Brownies de Almendra");
-        Plato polloAlHorno = new Plato(800, 750, false, true, celiaca, "Pollo al Horno");
+        Plato browniesDeAlmendra = new Plato("Milanesa de Lentejas", 3652, 500, 200);
+        browniesDeAlmendra.addTag("Celiaco");
+        browniesDeAlmendra.addTag("Vegano");
+        Plato polloAlHorno = new Plato("Milanesa de Lentejas", 3500, 750, 800);
+        polloAlHorno.addTag("Celiaco");
 
         //Plato comida
-        Plato hamburguesaCompleta = new Plato(2000.8f, 500, false, false, comida, "Hambusguesa Completa con Queso, tomate y huevo");
-        Plato hamburguesaSimple = new Plato(1800.5f, 300, false, false, comida, "Hamburquesa con queso simple");
-        Plato papasFritas = new Plato(1200, 363, false, false, comida, "Papas Fritas");
-        Plato papasAlHorno = new Plato(900, 500, false, false, comida, "Papas al horno");
-        Plato milanesaACaballo = new Plato(3000, 300, false, false, comida, "Milanesa a caballo");
-        Plato milanesaAlaPizza = new Plato(2250.35f, 363, false, false, comida, "Milanesa a la pizza");
-        
+        Plato hamburguesaCompleta = new Plato("Hambusguesa Completa", 4000.0f, 500, 2000.8f);
+        Plato hamburguesaSimple = new Plato("Hamburquesa simple", 3500, 300, 1800.5f);
+        Plato papasFritas = new Plato("Papas Fritas", 2500, 363, 1200);
+        Plato papasAlHorno = new Plato("Papas al horno", 3500, 500, 900);
+        Plato milanesaACaballo = new Plato("Milanesa a caballo", 3500, 300, 3000);
+        Plato milanesaAlaPizza = new Plato("Milanesa a la pizza", 3500, 363, 2250.35f);
         vendedores.get(0).addItem(lataCocaCola);
         vendedores.get(1).addItem(lataSprite);
         vendedores.get(2).addItem(sprite);
@@ -88,22 +96,28 @@ public class Main {
         vendedores.get(2).addItem(milanesaAlaPizza);
 
         //ETAPA 2
+        ArrayList<ItemMenu> lista;
         for (Vendedor vendedor : vendedores){
             System.out.println("Menu del vendedor "+vendedor.getNombre());
             System.out.println("BEBICAS ACLOHOLICAS: ");
-            vendedor.getItems(TipoItem.BEBIDAS_CON_ALCOHOL);
+            lista = vendedor.getItems("Bebidas Alcoholicas");
+            for(ItemMenu item: lista)   System.out.println(item);
             System.out.println(" ");
             System.out.println("BEBIDAS SIN ALCOHOL: ");
-            vendedor.getItems(TipoItem.BEBIDAS_SIN_ALCOHOL);
+            lista = vendedor.getItems("Bebidas sin alcohol");
+            for(ItemMenu item: lista)   System.out.println(item);
             System.out.println(" ");
             System.out.println("COMIDAS VEGANAS:");
-            vendedor.getItems(TipoItem.COMIDAS_VEGANAS);
+            lista = vendedor.getItems("Vegano");
+            for(ItemMenu item: lista)   System.out.println(item);
             System.out.println(" ");
             System.out.println("COMIDAS APTAS PARA CELIACOS:");
-            vendedor.getItems(TipoItem.COMIDAS_APTOCELIACOS);
+            lista = vendedor.getItems("Celiaco");
+            for(ItemMenu item: lista)   System.out.println(item);
             System.out.println(" ");
             System.out.println("PLATOS COMUNES:");
-            vendedor.getItems(TipoItem.COMIDAS);
+            lista = vendedor.getItems("Comida");
+            for(ItemMenu item: lista)   System.out.println(item);
             System.out.println("-----------------------");
         }        
         

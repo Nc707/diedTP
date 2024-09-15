@@ -56,7 +56,7 @@ public class Bebida extends ItemMenu {
 
     @Override
     public boolean aptoVegano() {
-        return false;
+        return this.hasTag("Vegano");
     }
 
     @Override
