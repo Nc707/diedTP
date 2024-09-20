@@ -13,6 +13,7 @@ public abstract class ItemMenu {
     private String nombre;
     private String descripcion;
     private float precio;
+    private Vendedor vendedor;
     protected HashSet<Tag> tags;
     
     public ItemMenu(String nombre, float precio){
@@ -34,6 +35,10 @@ public abstract class ItemMenu {
     private void setId(){
         this.id = next_id;
         next_id++;
+    }
+    
+    public Vendedor getVendedor(){
+        return vendedor;
     }
     @Override
     public String toString(){

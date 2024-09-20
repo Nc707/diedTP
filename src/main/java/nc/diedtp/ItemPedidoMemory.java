@@ -38,18 +38,48 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
         }
         return aux;
     }
+    /*public class Vendedor {
+    private static int next_id = 0;
+    private int id;
+    private String nombre;
+    private String direccion;
+    private Coordenada coordenada;
+    private ArrayList<ItemMenu> menu;*/
+    
     @Override
-    public void buscarPorRestaurante(Vendedor vendedor){
-        
+    public ArrayList<ItemPedido> buscarPorVendedor(int idVendedor){
+      ArrayList<ItemPedido> aux = new ArrayList();
+      for(Pedido pedido: listaPedidos){
+          for(ItemPedido item: pedido.getItemsPedido()){
+              if(item.getItemMenu().getVendedor().getId() == idVendedor){
+                aux.add(item);  
+              }
+          }
+      }
+        return aux;
     }
-    @Override
-    public void filtrarId(int id){
+       @Override
+    public ArrayList<ItemPedido> filtrarCliente(int id){
+        ArrayList<ItemPedido> aux = new ArrayList();
+        Cliente cliente = new Cliente();
         
-    }
-    @Override
-    public void filtrarCliente(Cliente cliente){
+        for(Pedido ped:listaPedidos){
+           if( id == ped.getCliente().getId()){
+               cliente = ped.getCliente();
+           }      
+        }
         
-    }
+        System.out.println("Items pedidos por "+cliente.getNombre()+":");
+        for(Pedido ped:listaPedidos){
+            if(cliente.equals(ped.getCliente())){
+                aux.addAll(ped.getItemsPedido());
+                ped.mostrarItems();
+            }
+        }
+        return aux;
+     }
+    
+  
     @Override
     public void filtrarCategoria(){
         

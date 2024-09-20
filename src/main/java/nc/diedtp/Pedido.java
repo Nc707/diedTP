@@ -34,4 +34,17 @@ public class Pedido {
         this.listaItemsPedido.add(item);
         
     }
+       public void mostrarItems(){
+         String cant, nombreItemMenu, precio;
+        for(ItemPedido item:listaItemsPedido){
+            cant = String.valueOf(item.getCantidad());
+            nombreItemMenu = item.getItemMenu().getNombre();
+            precio = String.valueOf(item.getItemMenu().getPrecio());
+            System.out.println(cant + " "+nombreItemMenu+" "+precio);
+        }
+        
+    }
+         public Cliente getCliente(){
+        return cliente;
+    }
 }
