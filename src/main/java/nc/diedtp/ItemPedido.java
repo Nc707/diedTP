@@ -22,5 +22,8 @@ public class ItemPedido {
         this.itemMenu=item;
     }
     public ItemPedido(){}
+    public ItemMenu getItemMenu(){
+        return itemMenu;
+    }
 }
 

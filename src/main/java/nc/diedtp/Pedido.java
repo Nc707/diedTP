@@ -26,6 +26,10 @@ public class Pedido {
     this.listaItemsPedido=items;
     this.cliente=clie;
     }
+    //gets
+    public ArrayList<ItemPedido> getItemsPedido(){
+        return listaItemsPedido;
+    }
     public void addItemPedido(ItemPedido item){
         this.listaItemsPedido.add(item);
         

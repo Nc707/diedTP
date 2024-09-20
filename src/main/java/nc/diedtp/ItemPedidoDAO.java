@@ -1,9 +1,11 @@
 
 package nc.diedtp;
 
+import java.util.ArrayList;
+
 
 public interface ItemPedidoDAO {
-    void busquedaPorRango(int x, int y);
+    ArrayList<ItemPedido> busquedaPorRango(float piso, float tope);
     void buscarPorRestaurante(Vendedor vendedor);
     void filtrarId(int id);
     void filtrarCliente(Cliente cliente);

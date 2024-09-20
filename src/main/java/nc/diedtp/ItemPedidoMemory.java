@@ -3,27 +3,33 @@ package nc.diedtp;
 import java.util.ArrayList;
 
 public class ItemPedidoMemory implements ItemPedidoDAO{
-    private ArrayList <ItemPedido> listaItemsPedido;
+    private ArrayList <Pedido> listaPedidos;
     
- public ItemPedidoMemory(ArrayList<ItemPedido> listaItemsPedido) {
-        this.listaItemsPedido = listaItemsPedido;
+ public ItemPedidoMemory(ArrayList<Pedido> listaPedido) {
+        this.listaPedidos = listaPedido;
     }
 
-    public ArrayList<ItemPedido> getListaItemsPedido() {
-        return listaItemsPedido;
+    public ArrayList<Pedido> getListaItemsPedido() {
+        return listaPedidos;
     }
 
-    public void setListaItemsPedido(ArrayList<ItemPedido> listaItemsPedido) {
-        this.listaItemsPedido = listaItemsPedido;
+    public void setListaItemsPedido(ArrayList<Pedido> listaPedido) {
+        this.listaPedidos = listaPedido;
     }
  
-    public void addItemPedido(ItemPedido item){
-        this.listaItemsPedido.add(item);
+    public void addItemPedido(Pedido pedido){
+        this.listaPedidos.add(pedido);
         
     }
     @Override
-    public void busquedaPorRango(int x, int y){
-        
+    public ArrayList<ItemPedido> busquedaPorRango(float piso, float tope){
+        ArrayList<ItemPedido> aux = new ArrayList();
+        //for (Pedido ped : listaPedidos) {
+        //    if ((ped.getItemsPedido().getItemMenu().getPrecio() >= piso) && (ped.getItemsPedido().getItemMenu().getPrecio() <= tope)){
+        //       aux.add(ped);
+        //    }
+        //}
+        return aux;
     }
     @Override
     public void buscarPorRestaurante(Vendedor vendedor){
