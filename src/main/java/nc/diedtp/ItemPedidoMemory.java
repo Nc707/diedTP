@@ -22,7 +22,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
         
     }
     @Override
-    public void buscqedaPorRango(int x, int y){
+    public void busquedaPorRango(int x, int y){
         
     }
     @Override
