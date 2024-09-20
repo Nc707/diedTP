@@ -22,8 +22,12 @@ public class ItemPedido {
         this.itemMenu=item;
     }
     public ItemPedido(){}
+    //gets
     public ItemMenu getItemMenu(){
         return itemMenu;
+    }
+    public int getCantidad(){
+        return cantidad;
     }
 }
 

@@ -22,6 +22,9 @@ public abstract class ItemMenu {
         this.descripcion = new String();
         this.tags = new HashSet();
     }
+    public String getNombre(){
+        return nombre;
+    }
     private void setNombre(String nombre) {
         this.nombre = nombre;
     }

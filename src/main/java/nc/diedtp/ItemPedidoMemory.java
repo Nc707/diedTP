@@ -24,11 +24,18 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
     @Override
     public ArrayList<ItemPedido> busquedaPorRango(float piso, float tope){
         ArrayList<ItemPedido> aux = new ArrayList();
-        //for (Pedido ped : listaPedidos) {
-        //    if ((ped.getItemsPedido().getItemMenu().getPrecio() >= piso) && (ped.getItemsPedido().getItemMenu().getPrecio() <= tope)){
-        //       aux.add(ped);
-        //    }
-        //}
+        String cant, nombreItemMenu, precio;
+        for (Pedido ped : listaPedidos) {
+            for (ItemPedido item : ped.getItemsPedido()){
+            if ((item.getItemMenu().getPrecio() >= piso) && (item.getItemMenu().getPrecio() <= tope)){
+                 aux.add(item);
+                 cant = String.valueOf(item.getCantidad());
+                 nombreItemMenu = item.getItemMenu().getNombre();
+                 precio = String.valueOf(item.getItemMenu().getPrecio());
+                 System.out.println(cant + " "+nombreItemMenu+" "+precio); 
+                }
+            }
+        }
         return aux;
     }
     @Override
