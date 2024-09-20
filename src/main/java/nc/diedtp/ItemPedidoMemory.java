@@ -2,7 +2,7 @@ package nc.diedtp;
 
 import java.util.ArrayList;
 
-public class ItemPedidoMemory {
+public class ItemPedidoMemory implements ItemPedidoDAO{
     private ArrayList <ItemPedido> listaItemsPedido;
     
  public ItemPedidoMemory(ArrayList<ItemPedido> listaItemsPedido) {
@@ -21,6 +21,25 @@ public class ItemPedidoMemory {
         this.listaItemsPedido.add(item);
         
     }
-
+    @Override
+    public void buscqedaPorRango(int x, int y){
+        
+    }
+    @Override
+    public void buscarPorRestaurante(Vendedor vendedor){
+        
+    }
+    @Override
+    public void filtrarId(int id){
+        
+    }
+    @Override
+    public void filtrarCliente(Cliente cliente){
+        
+    }
+    @Override
+    public void filtrarCategoria(){
+        
+    }
 
 }
