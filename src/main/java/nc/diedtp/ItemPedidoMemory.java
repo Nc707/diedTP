@@ -2,10 +2,10 @@ package nc.diedtp;
 
 import java.util.ArrayList;
 
-public class ItemsPedidoMemory {
+public class ItemPedidoMemory {
     private ArrayList <ItemPedido> listaItemsPedido;
     
- public ItemsPedidoMemory(ArrayList<ItemPedido> listaItemsPedido) {
+ public ItemPedidoMemory(ArrayList<ItemPedido> listaItemsPedido) {
         this.listaItemsPedido = listaItemsPedido;
     }
 
