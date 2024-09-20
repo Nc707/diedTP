@@ -51,7 +51,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
       ArrayList<ItemPedido> aux = new ArrayList();
       for(Pedido pedido: listaPedidos){
           for(ItemPedido item: pedido.getItemsPedido()){
-              if(item.getItemMenu().getVendedor().getId() == idVendedor){
+              if(item.getItemMenu().getVendedor().getId() == idVendedor ){
                 aux.add(item);  
               }
           }
