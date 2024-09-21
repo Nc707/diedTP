@@ -4,8 +4,13 @@
 package nc.diedtp;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 import nc.diedtp.excepciones.CategoriaIncompatibleException;
+import nc.diedtp.excepciones.ItemNoEncontradoException;
+import nc.diedtp.excepciones.PedidoNoEncontradoException;
+import nc.diedtp.excepciones.VendedorIncorrectoException;
 
 public class Main {
 
@@ -31,8 +36,8 @@ public class Main {
            System.out.println("No fué posible agregar uno de los items debido a que su categoria era incompatible con su tipo");
         }
         //ETAPA 2
-        ArrayList<ItemMenu> lista;
         for (Vendedor vendedor : vendedores){
+            ArrayList<ItemMenu> lista = new ArrayList<>();
             System.out.println("Menu del vendedor "+vendedor.getNombre());
             System.out.println("BEBICAS ACLOHOLICAS: ");
             lista = Vendedor.getItems("Bebidas Alcoholicas",vendedor, items);
@@ -55,8 +60,87 @@ public class Main {
             for(ItemMenu item: lista)   System.out.println(item);
             System.out.println("-----------------------");
         }
+        //ETAPA 3
+        Pedido p1 = new Pedido(vendedores.get(0), clientes.get(0));
+        Pedido p2 = new Pedido(vendedores.get(0), clientes.get(1));
+        Pedido p3 = new Pedido(vendedores.get(1), clientes.get(2));
+        Pedido p4 = new Pedido(vendedores.get(2), clientes.get(0));
+        Random rand = new Random(new Date().getTime());
+        createRandomPedido(p1,rand.nextInt(2, 15), items);
+        createRandomPedido(p2,rand.nextInt(2, 15), items);
+        createRandomPedido(p3,rand.nextInt(2, 15), items);
+        createRandomPedido(p4,rand.nextInt(2, 15), items);
         ItemPedidoMemory pedidos = new ItemPedidoMemory();
+        pedidos.addItemPedido(p1);
+        pedidos.addItemPedido(p2);
+        pedidos.addItemPedido(p3);
+        pedidos.addItemPedido(p4);
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO PISO: 0 MAXIMO: 1000000 ");
+        ArrayList<ItemPedido> lista = new ArrayList<>();
+        lista = pedidos.busquedaPorPrecio(0, 1000000);
+        for(ItemPedido item: lista) System.out.println(item);
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO PISO: 2000 MAXIMO: 5000 ");
+        lista = pedidos.busquedaPorPrecio(2000, 5000);
+        for(ItemPedido item: lista) System.out.println(item);
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO PISO: 200 MAXIMO: 2500 ");
+        lista = pedidos.busquedaPorPrecio(200, 2500);
+        for(ItemPedido item: lista) System.out.println(item);
+         System.out.println("-----------------------");
+        try{
+            System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(0));
+            lista = pedidos.busquedaPorVendedor(vendedores.get(0).getId());
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+            System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(1));
+            lista = pedidos.busquedaPorVendedor(vendedores.get(1).getId());
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+           System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(2));
+            lista = pedidos.busquedaPorVendedor(vendedores.get(2).getId());
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+        }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
         
+        try{
+            System.out.println("FILTRADO POR CLIENTE: " + vendedores.get(0));
+            lista = pedidos.busquedaPorCliente(clientes.get(0).getId());
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+            System.out.println("FILTRADO POR CLIENTE: " + vendedores.get(1));
+            lista = pedidos.busquedaPorCliente(clientes.get(1).getId());
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+           System.out.println("FILTRADO POR CLIENTE: " + vendedores.get(2));
+            lista = pedidos.busquedaPorCliente(clientes.get(2).getId());
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+        }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
+        try{
+            System.out.println("FILTRADO POR PEDIDO: 0");
+            lista = pedidos.OrdenarPorCantidadASC(0);
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+            System.out.println("FILTRADO POR PEDIDO: 1");
+            lista = pedidos.OrdenarPorCantidadASC(1);
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+            System.out.println("FILTRADO POR PEDIDO: 2");
+            lista = pedidos.OrdenarPorCantidadASC(2);
+            for(ItemPedido item: lista) System.out.println(item);
+             System.out.println("-----------------------");
+            System.out.println("FILTRADO POR PEDIDO: 3");
+            lista = pedidos.OrdenarPorCantidadASC(3);
+            for(ItemPedido item: lista) System.out.println(item);
+        }catch(PedidoNoEncontradoException e){
+            System.out.println(e);
+        }
         //ETAPA 1
        /* Scanner entrada = new Scanner(System.in);
         listarVendedores(vendedores);
@@ -263,6 +347,17 @@ public class Main {
         items.add(papasAlHorno);
         items.add(milanesaACaballo);
         items.add(milanesaAlaPizza);
+    }
+    private static void createRandomPedido(Pedido p, int cantidad,  ArrayList<ItemMenu> menu){
+        Random rGen = new Random(new Date().getTime());
+        for(int i = 0; i<cantidad;i++){
+            ItemMenu item = menu.get(rGen.nextInt(0, menu.size()));
+            try{
+                p.addItemPedido(new ItemPedido(item, rGen.nextInt(1,10)));
+            }catch(VendedorIncorrectoException e){
+                i--;
+            }
+        }
     }
     
 }

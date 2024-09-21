@@ -27,31 +27,25 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
     }
 
     @Override
-    public ArrayList<ItemPedido> busquedaPorRango(float piso, float tope) throws ItemNoEncontradoException {
+    public ArrayList<ItemPedido> busquedaPorPrecio(float piso, float tope){
         ArrayList<ItemPedido> aux = new ArrayList<>();
         String cant, nombreItemMenu, precio;
 
         for (Pedido ped : listaPedidos) {
             for (ItemPedido item : ped.getItemsPedido()) {
-                if ((item.getItemMenu().getPrecio() >= piso) && (item.getItemMenu().getPrecio() <= tope)) {
+                if ((item.getPrecio() >= piso) && (item.getPrecio() <= tope)) {
                     aux.add(item);
                     cant = String.valueOf(item.getCantidad());
                     nombreItemMenu = item.getItemMenu().getNombre();
-                    precio = String.valueOf(item.getItemMenu().getPrecio());
-                    System.out.println(cant + " " + nombreItemMenu + " " + precio);
+                    precio = String.valueOf(item.getPrecio());
                 }
             }
         }
-
-        if (aux.isEmpty()) {
-            throw new ItemNoEncontradoException("No se encontraron ítems en el rango de precios: " + piso + " a " + tope);
-        }
-
         return aux;
     }
 
     @Override
-    public ArrayList<ItemPedido> buscarPorVendedor(int idVendedor) throws ItemNoEncontradoException {
+    public ArrayList<ItemPedido> busquedaPorVendedor(int idVendedor) throws ItemNoEncontradoException {
         ArrayList<ItemPedido> aux = new ArrayList<>();
         for (Pedido pedido : listaPedidos) {
             for (ItemPedido item : pedido.getItemsPedido()) {
@@ -69,7 +63,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
     }
 
     @Override
-    public ArrayList<ItemPedido> filtrarCliente(int id) throws ItemNoEncontradoException {
+    public ArrayList<ItemPedido> busquedaPorCliente(int id) throws ItemNoEncontradoException {
         // semanticamente no deberia lanzar esta excepcion porque no es que no encuentra items, sino que no encuentra el cliente
         ArrayList<ItemPedido> aux = new ArrayList<>();
         Cliente cliente = null;
@@ -86,12 +80,10 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
             throw new ItemNoEncontradoException("No se encontró un cliente con el ID: " + id);
         }
 
-        System.out.println("Items pedidos por " + cliente.getNombre() + ":");
 
         for (Pedido ped : listaPedidos) {
             if (cliente.equals(ped.getCliente())) {
                 aux.addAll(ped.getItemsPedido());
-                ped.mostrarItems();
             }
         }
 

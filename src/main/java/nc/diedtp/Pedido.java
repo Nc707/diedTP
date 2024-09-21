@@ -5,6 +5,7 @@
 package nc.diedtp;
 
 import java.util.ArrayList;
+import nc.diedtp.excepciones.VendedorIncorrectoException;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Pedido {
     private static int next_id=0;
     private int id;
-
+    private Vendedor vendedor;
     public int getId() {
         return id;
     }
@@ -21,20 +22,32 @@ public class Pedido {
     private Cliente cliente;
     
     //cons
-    public Pedido(){
-    this.id = next_id;
-    nect:id ++;}
-    public Pedido(ArrayList<ItemPedido> items, Cliente clie){
-    this.id = next_id;
-    nect:id ++;
-    this.listaItemsPedido=items;
-    this.cliente=clie;
+    public Pedido(Vendedor vendedor, Cliente cliente){
+        this.listaItemsPedido = new ArrayList<>();
+        this.vendedor = vendedor;
+        this.id = next_id;
+        next_id++;
+        this.cliente = cliente;
+    }
+    
+    public Pedido(Vendedor vendedor, ArrayList<ItemPedido> items, Cliente clie) throws VendedorIncorrectoException{
+        this(vendedor, clie);
+        this.addItems(items);
+        this.cliente=clie;
     }
     //gets
     public ArrayList<ItemPedido> getItemsPedido(){
         return listaItemsPedido;
     }
-    public void addItemPedido(ItemPedido item){
+    private void addItems(ArrayList<ItemPedido> items) throws VendedorIncorrectoException{
+        for(ItemPedido item: items){
+            listaItemsPedido.add(item);
+        }
+    }
+    public void addItemPedido(ItemPedido item)  throws VendedorIncorrectoException{
+        if(item.getVendedor() != this.vendedor){
+            throw new VendedorIncorrectoException("El item con ID: " + item.getId()+ "no corresponde al vendedor: " + vendedor.toString());
+        }
         this.listaItemsPedido.add(item);
         
     }
@@ -48,7 +61,11 @@ public class Pedido {
         }
         
     }
-         public Cliente getCliente(){
+    public Cliente getCliente(){
         return cliente;
     }
+    public Vendedor getVendedor(){
+        return vendedor;
+    }
+         
 }

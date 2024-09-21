@@ -5,11 +5,11 @@ import nc.diedtp.excepciones.*;
 
 public interface ItemPedidoDAO {
 
-    ArrayList<ItemPedido> busquedaPorRango(float piso, float tope) throws ItemNoEncontradoException;
+    ArrayList<ItemPedido> busquedaPorPrecio(float piso, float tope) throws ItemNoEncontradoException;
 
-    ArrayList<ItemPedido> buscarPorVendedor(int id) throws ItemNoEncontradoException;
+    ArrayList<ItemPedido> busquedaPorVendedor(int id) throws ItemNoEncontradoException;
 
-    ArrayList<ItemPedido> filtrarCliente(int id) throws ItemNoEncontradoException;
+    ArrayList<ItemPedido> busquedaPorCliente(int id) throws ItemNoEncontradoException;
 
     void filtrarCategoria(); // no se implemento;
 
