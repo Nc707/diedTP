@@ -50,15 +50,15 @@ public abstract class ItemMenu {
         this.descripcion = descripcion;
     }
     
-    public boolean hasTag(Categoria tag){
-        return this.categorias.contains(tag);
+    public boolean tieneCategoria(Categoria cat){
+        return this.categorias.contains(cat);
     }
-    public boolean hasTag(String tag){
-        Categoria aux = Categoria.getCategoria(tag);
+    public boolean tieneCategoria(String cat){
+        Categoria aux = Categoria.getCategoria(cat);
         if(aux!=null) return this.categorias.contains(aux);
         return false;
     }
-    public HashSet<Categoria> getTags(){
+    public HashSet<Categoria> getCategorias(){
         return (HashSet<Categoria>) this.categorias.clone();
     }
     public int getId(){
@@ -70,8 +70,8 @@ public abstract class ItemMenu {
     public String getDescripcion(){
         return this.descripcion;
     }
-    public abstract void addCategoria(String tag) throws CategoriaIncompatibleException;
-    public abstract boolean removeCategoria(String tag);
+    public abstract void addCategoria(String cat) throws CategoriaIncompatibleException;
+    public abstract boolean removeCategoria(String cat);
     public int cantidadCategorias(){
         return this.categorias.size();
     }
