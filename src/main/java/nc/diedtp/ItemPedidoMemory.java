@@ -17,11 +17,11 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         return listaPedidos;
     }
 
-    public void setListaItemsPedido(ArrayList<Pedido> listaPedido) {
+    public void setListaPedidos(ArrayList<Pedido> listaPedido) {
         this.listaPedidos = listaPedido;
     }
 
-    public void addItemPedido(Pedido pedido) {
+    public void addPedido(Pedido pedido) {
         this.listaPedidos.add(pedido);
 
     }

@@ -13,10 +13,10 @@ public class Vendedor {
     private String direccion;
     private Coordenada coordenada;
 
-    public static ArrayList<ItemMenu> getItems(String tag, Vendedor vend, ArrayList<ItemMenu> items) {
+    public static ArrayList<ItemMenu> getItems(String cat, Vendedor vend, ArrayList<ItemMenu> items) {
         ArrayList<ItemMenu> aux = new ArrayList();
         for (ItemMenu item : items) {
-            if (item.hasTag(tag) && item.getVendedor() == vend) {
+            if (item.tieneCategoria(cat) && item.getVendedor() == vend) {
                 aux.add(item);
             }
         }
@@ -29,7 +29,7 @@ public class Vendedor {
         Categoria cat = Categoria.getCategoria(tag);
         if(cat == Categoria.categoriaBebidas || cat == Categoria.categoriaPlatos) catMax=1;
         for (ItemMenu item : items) {
-            if (item.hasTag(tag)&& item.cantidadCategorias() == catMax && item.getVendedor() == vend) {
+            if (item.tieneCategoria(tag)&& item.cantidadCategorias() == catMax && item.getVendedor() == vend) {
                 aux.add(item);
             }
         }

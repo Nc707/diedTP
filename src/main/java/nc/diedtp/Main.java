@@ -71,10 +71,10 @@ public class Main {
         createRandomPedido(p3,rand.nextInt(2, 15), items);
         createRandomPedido(p4,rand.nextInt(2, 15), items);
         ItemPedidoMemory pedidos = new ItemPedidoMemory();
-        pedidos.addItemPedido(p1);
-        pedidos.addItemPedido(p2);
-        pedidos.addItemPedido(p3);
-        pedidos.addItemPedido(p4);
+        pedidos.addPedido(p1);
+        pedidos.addPedido(p2);
+        pedidos.addPedido(p3);
+        pedidos.addPedido(p4);
          System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO PISO: 0 MAXIMO: 1000000 ");
         ArrayList<ItemPedido> lista = new ArrayList<>();

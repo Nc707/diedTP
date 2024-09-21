@@ -20,7 +20,7 @@ public class Pedido {
     }
     private ArrayList <ItemPedido> listaItemsPedido;
     private Cliente cliente;
-    
+        
     //cons
     public Pedido(Vendedor vendedor, Cliente cliente){
         this.listaItemsPedido = new ArrayList<>();
