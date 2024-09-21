@@ -2,6 +2,8 @@ package nc.diedtp;
 
 import java.util.ArrayList;
 
+import nc.diedtp.excepciones.ItemNoEncontradoException;
+
 public class ItemPedidoMemory implements ItemPedidoDAO{
     private ArrayList <Pedido> listaPedidos;
     
@@ -21,56 +23,82 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
         this.listaPedidos.add(pedido);
         
     }
-    @Override
-    public ArrayList<ItemPedido> busquedaPorRango(float piso, float tope){
-        ArrayList<ItemPedido> aux = new ArrayList();
-        String cant, nombreItemMenu, precio;
-        for (Pedido ped : listaPedidos) {
-            for (ItemPedido item : ped.getItemsPedido()){
-            if ((item.getItemMenu().getPrecio() >= piso) && (item.getItemMenu().getPrecio() <= tope)){
-                 aux.add(item);
-                 cant = String.valueOf(item.getCantidad());
-                 nombreItemMenu = item.getItemMenu().getNombre();
-                 precio = String.valueOf(item.getItemMenu().getPrecio());
-                 System.out.println(cant + " "+nombreItemMenu+" "+precio); 
-                }
+
+    @Override 
+    public ArrayList<ItemPedido> busquedaPorRango(float piso, float tope) throws ItemNoEncontradoException {
+    ArrayList<ItemPedido> aux = new ArrayList<>();
+    String cant, nombreItemMenu, precio;
+    
+    for (Pedido ped : listaPedidos) {
+        for (ItemPedido item : ped.getItemsPedido()) {
+            if ((item.getItemMenu().getPrecio() >= piso) && (item.getItemMenu().getPrecio() <= tope)) {
+                aux.add(item);
+                cant = String.valueOf(item.getCantidad());
+                nombreItemMenu = item.getItemMenu().getNombre();
+                precio = String.valueOf(item.getItemMenu().getPrecio());
+                System.out.println(cant + " " + nombreItemMenu + " " + precio);
             }
         }
-        return aux;
     }
+    
+    if (aux.isEmpty()) {
+        throw new ItemNoEncontradoException("No se encontraron ítems en el rango de precios: " + piso + " a " + tope);
+    }
+    
+    return aux;
+}
+
     
     
     @Override
-    public ArrayList<ItemPedido> buscarPorVendedor(int idVendedor){
-      ArrayList<ItemPedido> aux = new ArrayList();
-      for(Pedido pedido: listaPedidos){
-          for(ItemPedido item: pedido.getItemsPedido()){
-              if(item.getItemMenu().getVendedor().getId() == idVendedor ){
-                aux.add(item);  
-              }
-          }
-      }
-        return aux;
-    }
-       @Override
-    public ArrayList<ItemPedido> filtrarCliente(int id){
-        ArrayList<ItemPedido> aux = new ArrayList();
-        Cliente cliente = new Cliente();
-        
-        for(Pedido ped:listaPedidos){
-           if( id == ped.getCliente().getId()){
-               cliente = ped.getCliente();
-           }      
-        }
-            System.out.println("Items pedidos por "+cliente.getNombre()+":");
-        for(Pedido ped:listaPedidos){
-            if(cliente.equals(ped.getCliente())){
-                aux.addAll(ped.getItemsPedido());
-                ped.mostrarItems();
+    public ArrayList<ItemPedido> buscarPorVendedor(int idVendedor) throws ItemNoEncontradoException {
+    ArrayList<ItemPedido> aux = new ArrayList<>();
+    for (Pedido pedido : listaPedidos) {
+        for (ItemPedido item : pedido.getItemsPedido()) {
+            if (item.getItemMenu().getVendedor().getId() == idVendedor) {
+                aux.add(item);
             }
         }
-        return aux;
-     }
+    }
+    
+    if (aux.isEmpty()) {
+        throw new ItemNoEncontradoException("No se encontraron ítems para el vendedor con ID: " + idVendedor);
+    }
+    
+    return aux;
+}
+
+    @Override
+    public ArrayList<ItemPedido> filtrarCliente(int id) throws ItemNoEncontradoException { 
+        // semanticamente no deberia lanzar esta excepcion porque no es que no encuentra items, sino que no encuentra el cliente
+    ArrayList<ItemPedido> aux = new ArrayList<>();
+    Cliente cliente = null;
+
+    for (Pedido ped : listaPedidos) {
+        if (id == ped.getCliente().getId()) {
+            cliente = ped.getCliente();
+            break;
+        }
+    }
+
+    // Lanza excepcin si no se encuentra el cliente
+    if (cliente == null) {
+        throw new ItemNoEncontradoException("No se encontró un cliente con el ID: " + id);
+    }
+
+    System.out.println("Items pedidos por " + cliente.getNombre() + ":");
+    
+    for (Pedido ped : listaPedidos) {
+        if (cliente.equals(ped.getCliente())) {
+            aux.addAll(ped.getItemsPedido());
+            ped.mostrarItems();
+        }
+    }
+
+    return aux;
+}
+
+
     
   
     @Override
