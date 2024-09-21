@@ -5,6 +5,7 @@ package nc.diedtp;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import nc.diedtp.excepciones.CategoriaIncompatibleException;
 
 public class Main {
 
@@ -13,6 +14,7 @@ public class Main {
 
         ArrayList<Vendedor> vendedores;
         vendedores = new ArrayList<>();
+        
         
         ArrayList<ItemMenu> items = new ArrayList<>();
 
@@ -23,9 +25,11 @@ public class Main {
         vendedores.add(new Vendedor("Jeremias", "Belgrano 9624", 4.0, 5.2));
         vendedores.add(new Vendedor("Luis", "Tucuman 8080", 2.1, -4.0));
         vendedores.add(new Vendedor("Juan", "San Jeronimo 2654", 1.0, -1.12));
-
+        try{
         makeItems(vendedores, items);
-
+        }catch(CategoriaIncompatibleException error){
+           System.out.println("No fué posible agregar uno de los items debido a que su categoria era incompatible con su tipo");
+        }
         //ETAPA 2
         ArrayList<ItemMenu> lista;
         for (Vendedor vendedor : vendedores){
@@ -187,7 +191,7 @@ public class Main {
         }
         return null; */
     }
-    private static void makeItems(ArrayList<Vendedor> vendedores, ArrayList<ItemMenu> items){
+    private static void makeItems(ArrayList<Vendedor> vendedores, ArrayList<ItemMenu> items) throws CategoriaIncompatibleException{
         //bebidas sin alcohol
         
         Bebida lataCocaCola = new Bebida("Lata Cocacola",vendedores.get(0),100,0, 500, 250);

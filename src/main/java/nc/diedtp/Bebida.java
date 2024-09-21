@@ -4,6 +4,8 @@
  */
 package nc.diedtp;
 
+import nc.diedtp.excepciones.CategoriaIncompatibleException;
+
 public class Bebida extends ItemMenu {
 
     private float graduacionAlcoholica;
@@ -64,13 +66,11 @@ public class Bebida extends ItemMenu {
         return true;
     }
     @Override
-    public boolean addCategoria(String categoria){
+    public void addCategoria(String categoria) throws CategoriaIncompatibleException{
         Categoria cat = Categoria.getCategoria(categoria);
-        if(cat!=Categoria.categoriaPlatos){//Posible punto de exepcion
-            this.categorias.add(cat);
-            return true;
-        }
-        return false;
+        if(cat==Categoria.categoriaPlatos) throw new CategoriaIncompatibleException("Error: No es posible agregar categoria: " + categoria + "a un item tipo Bebida");
+        this.categorias.add(cat);
+           
     }
     @Override
     public boolean removeCategoria(String tag){

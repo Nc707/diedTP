@@ -5,6 +5,7 @@
 package nc.diedtp;
 
 import java.util.HashSet;
+import nc.diedtp.excepciones.CategoriaIncompatibleException;
 
 public abstract class ItemMenu {
 
@@ -69,7 +70,7 @@ public abstract class ItemMenu {
     public String getDescripcion(){
         return this.descripcion;
     }
-    public abstract boolean addCategoria(String tag);
+    public abstract void addCategoria(String tag) throws CategoriaIncompatibleException;
     public abstract boolean removeCategoria(String tag);
     public int cantidadCategorias(){
         return this.categorias.size();
