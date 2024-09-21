@@ -38,13 +38,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
         }
         return aux;
     }
-    /*public class Vendedor {
-    private static int next_id = 0;
-    private int id;
-    private String nombre;
-    private String direccion;
-    private Coordenada coordenada;
-    private ArrayList<ItemMenu> menu;*/
+    
     
     @Override
     public ArrayList<ItemPedido> buscarPorVendedor(int idVendedor){
@@ -68,8 +62,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
                cliente = ped.getCliente();
            }      
         }
-        
-        System.out.println("Items pedidos por "+cliente.getNombre()+":");
+            System.out.println("Items pedidos por "+cliente.getNombre()+":");
         for(Pedido ped:listaPedidos){
             if(cliente.equals(ped.getCliente())){
                 aux.addAll(ped.getItemsPedido());
@@ -84,5 +77,55 @@ public class ItemPedidoMemory implements ItemPedidoDAO{
     public void filtrarCategoria(){
         
     }
+    
+    
+    @Override
+    public ArrayList<ItemPedido> OrdenarPorCantidadASC (int idPedido){
+        ArrayList<ItemPedido> aux =new ArrayList();
+        for(Pedido pedido : listaPedidos){
+        if( pedido.getId()== idPedido){
+            aux = pedido.getItemsPedido();
+            break;
+        }
+        }
+        
+          return mergeSort(aux);
+    }
 
+    private ArrayList<ItemPedido> mergeSort(ArrayList<ItemPedido> aux) {
+        if( aux.size() <=1){
+            return aux;
+        }
+        
+        int medio= aux.size()/2;
+        ArrayList<ItemPedido> izq= new ArrayList<>(aux.subList(0, medio));
+        ArrayList<ItemPedido> der= new ArrayList<>(aux.subList(medio, aux.size()));
+       return merge(mergeSort(izq), mergeSort(der));        
+    }
+   
+    private ArrayList<ItemPedido> merge(ArrayList<ItemPedido> izq, ArrayList<ItemPedido> der) {
+        int i = 0, j =0; //i recorre el izq y j recorre el der;
+        ArrayList<ItemPedido> resultado= new ArrayList<>();
+        while(i < izq.size() && j< der.size()){
+                if(izq.get(i).getCantidad() <= der.get(j).getCantidad()){
+                    resultado.add(izq.get(i));
+                    i++;
+                }else {
+                    resultado.add(der.get(j));
+                    j++;
+                    }
+                }
+        while (i <izq.size()) {
+        resultado.add(izq.get(i));
+        i++;
+    }
+    
+    while (j<der.size()) {
+        resultado.add(der.get(j));
+        j++;
+    }
+    
+    return resultado;
 }
+    }
+

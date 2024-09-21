@@ -13,6 +13,10 @@ import java.util.ArrayList;
 public class Pedido {
     private static int next_id=0;
     private int id;
+
+    public int getId() {
+        return id;
+    }
     private ArrayList <ItemPedido> listaItemsPedido;
     private Cliente cliente;
     

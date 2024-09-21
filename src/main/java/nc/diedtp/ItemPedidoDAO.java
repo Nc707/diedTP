@@ -8,5 +8,6 @@ public interface ItemPedidoDAO {
     ArrayList<ItemPedido> busquedaPorRango(float piso, float tope);
     ArrayList<ItemPedido> buscarPorVendedor(int id);
     ArrayList<ItemPedido> filtrarCliente(int id);
-    void filtrarCategoria();
+    void filtrarCategoria(); // no se implemento;
+    ArrayList<ItemPedido> OrdenarPorCantidadASC (int idPedido);
 }
