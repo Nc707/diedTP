@@ -5,6 +5,7 @@
 package nc.diedtp;
 
 import java.util.HashSet;
+import nc.diedtp.excepciones.CategoriaIncompatibleException;
 
 public abstract class ItemMenu {
 
@@ -14,14 +15,15 @@ public abstract class ItemMenu {
     private String descripcion;
     private float precio;
     private Vendedor vendedor;
-    protected HashSet<Tag> tags;
+    protected HashSet<Categoria> categorias;
     
-    public ItemMenu(String nombre, float precio){
+    public ItemMenu(String nombre, float precio, Vendedor vendedor){
         this.setNombre(nombre);
         this.setPrecio(precio);
         this.setId();
         this.descripcion = new String();
-        this.tags = new HashSet();
+        this.categorias = new HashSet();
+        this.vendedor = vendedor;
     }
     public String getNombre(){
         return nombre;
@@ -48,16 +50,16 @@ public abstract class ItemMenu {
         this.descripcion = descripcion;
     }
     
-    public boolean hasTag(Tag tag){
-        return this.tags.contains(tag);
+    public boolean hasTag(Categoria tag){
+        return this.categorias.contains(tag);
     }
     public boolean hasTag(String tag){
-        Tag aux = Tag.getTag(tag);
-        if(aux!=null) return this.tags.contains(aux);
+        Categoria aux = Categoria.getCategoria(tag);
+        if(aux!=null) return this.categorias.contains(aux);
         return false;
     }
-    public HashSet<Tag> getTags(){
-        return (HashSet<Tag>) this.tags.clone();
+    public HashSet<Categoria> getTags(){
+        return (HashSet<Categoria>) this.categorias.clone();
     }
     public int getId(){
         return this.id;
@@ -68,8 +70,11 @@ public abstract class ItemMenu {
     public String getDescripcion(){
         return this.descripcion;
     }
-    public abstract boolean addTag(String tag);
-    public abstract boolean removeTag(String tag);
+    public abstract void addCategoria(String tag) throws CategoriaIncompatibleException;
+    public abstract boolean removeCategoria(String tag);
+    public int cantidadCategorias(){
+        return this.categorias.size();
+    }
     //public abstract float pesoItem(float peso);
     //quito metodo abstracto y solo lo implemento en bebida porq en comida se guarda directo como atributo
     public abstract boolean esComida();

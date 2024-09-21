@@ -4,6 +4,8 @@
  */
 package nc.diedtp;
 
+import nc.diedtp.excepciones.CategoriaIncompatibleException;
+
 public class Plato extends ItemMenu {
 
     private float calorias;
@@ -11,15 +13,11 @@ public class Plato extends ItemMenu {
     private boolean aptoVegano;
     private float peso;
 
-    public Plato(String nombre,float precio,float peso, float calorias) {
-        super(nombre, precio);
+    public Plato(String nombre, Vendedor vendedor, float precio,float peso, float calorias) {
+        super(nombre, precio, vendedor);
         this.setCalorias(calorias);
         this.setPeso(peso);
-        this.addTag(Tag.tagComidas);
-    }
-    public Plato(String nombre,float precio,float peso, float calorias, Tag tags){
-        this(nombre, precio, peso, calorias);
-        
+        this.categorias.add(Categoria.categoriaPlatos);
     }
     private void setCalorias(float calorias) {
         this.calorias = calorias;
@@ -55,23 +53,16 @@ public class Plato extends ItemMenu {
         this.aptoVegano = aptoVegetariano;
     }
     @Override
-    public boolean addTag(String tag){
-        Tag aux = Tag.getTag(tag);
-        if(aux != null && aux.getEsComida()){
-            this.tags.add(aux);
-            return true;
-        }else return false;
-    }
-    private boolean addTag(Tag tag){
-        if(tag != null && tag.getEsComida()){
-            this.tags.add(tag);
-            return true;
-        }else return false;
+    public void addCategoria(String categoria) throws CategoriaIncompatibleException{
+        Categoria cat = Categoria.getCategoria(categoria);
+        if(cat==Categoria.categoriaBebidas) throw new CategoriaIncompatibleException("Error: No es posible agregar categoria: " + categoria + "a un item tipo Plato");
+        this.categorias.add(cat);
+           
     }
     @Override
-    public boolean removeTag(String tag){
-        Tag aux = Tag.getTag(tag);
-        return aux != null && Tag.tagComidas != aux && this.tags.remove(aux);
+    public boolean removeCategoria(String tag){
+        Categoria aux = Categoria.getCategoria(tag);
+        return aux != null && Categoria.categoriaPlatos != aux && this.categorias.remove(aux);
     }
     @Override
     public boolean esComida() {

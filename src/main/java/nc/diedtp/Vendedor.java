@@ -12,16 +12,24 @@ public class Vendedor {
     private String nombre;
     private String direccion;
     private Coordenada coordenada;
-    private ArrayList<ItemMenu> menu;
 
-    public void addItem(ItemMenu item) {
-        menu.add(item);
-    }
-
-    public ArrayList<ItemMenu> getItems(String tag) {
+    public static ArrayList<ItemMenu> getItems(String tag, Vendedor vend, ArrayList<ItemMenu> items) {
         ArrayList<ItemMenu> aux = new ArrayList();
-        for (ItemMenu item : menu) {
-            if (item.hasTag(tag)) {
+        for (ItemMenu item : items) {
+            if (item.hasTag(tag) && item.getVendedor() == vend) {
+                aux.add(item);
+            }
+        }
+        
+        return aux;
+    }
+     public static ArrayList<ItemMenu> getItemsWithOnly(String tag, Vendedor vend, ArrayList<ItemMenu> items) {
+        ArrayList<ItemMenu> aux = new ArrayList();
+        int catMax = 2;
+        Categoria cat = Categoria.getCategoria(tag);
+        if(cat == Categoria.categoriaBebidas || cat == Categoria.categoriaPlatos) catMax=1;
+        for (ItemMenu item : items) {
+            if (item.hasTag(tag)&& item.cantidadCategorias() == catMax && item.getVendedor() == vend) {
                 aux.add(item);
             }
         }
@@ -35,7 +43,6 @@ public class Vendedor {
         this.nombre = nombre;
         this.direccion = direccion;
         this.coordenada = new Coordenada(cx, cy);
-        this.menu = new ArrayList<>();// aca se inicializa la lista del menu;
     }
 
     public Coordenada getCoordenada() {
@@ -56,8 +63,7 @@ public class Vendedor {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre + "\nId: " + Integer.toString(id) + "\nDireccion: " + direccion
-                + "\nMenu: " + menu;
+        return "Nombre: " + nombre + "\nId: " + Integer.toString(id) + "\nDireccion: " + direccion;
     }
 
     private static final double R = 6371; // radio de la tierra en km

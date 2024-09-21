@@ -4,18 +4,20 @@
  */
 package nc.diedtp;
 
+import nc.diedtp.excepciones.CategoriaIncompatibleException;
+
 public class Bebida extends ItemMenu {
 
     private float graduacionAlcoholica;
     private float tamaño; // tamaño en mL.
     private float peso;
 
-    public Bebida(String nombre, float precio, float pes, int grado, float tam) {
-        super(nombre, precio);
+    public Bebida(String nombre,Vendedor vendedor , float precio, float pes, int grado, float tam) {
+        super(nombre, precio, vendedor);
         this.graduacionAlcoholica = grado;
         this.peso = peso(pes);
         this.tamaño = tam;
-        this.addTag(Tag.tagBebidas);
+        this.categorias.add(Categoria.categoriaBebidas);
     }
     
     private float peso(float weight) {
@@ -64,23 +66,16 @@ public class Bebida extends ItemMenu {
         return true;
     }
     @Override
-    public boolean addTag(String tag){
-        Tag aux = Tag.getTag(tag);
-        if(aux != null && !aux.getEsComida()){
-            this.tags.add(aux);
-            return true;
-        }else return false;
-    }
-    private boolean addTag(Tag tag){
-        if(tag != null && tag.getEsComida()){
-            this.tags.add(tag);
-            return true;
-        }else return false;
+    public void addCategoria(String categoria) throws CategoriaIncompatibleException{
+        Categoria cat = Categoria.getCategoria(categoria);
+        if(cat==Categoria.categoriaPlatos) throw new CategoriaIncompatibleException("Error: No es posible agregar categoria: " + categoria + "a un item tipo Bebida");
+        this.categorias.add(cat);
+           
     }
     @Override
-    public boolean removeTag(String tag){
-        Tag aux = Tag.getTag(tag);
-        return aux != null && Tag.tagBebidas !=aux && this.tags.remove(aux);
+    public boolean removeCategoria(String tag){
+        Categoria aux = Categoria.getCategoria(tag);
+        return aux != null && Categoria.categoriaBebidas !=aux && this.categorias.remove(aux);
     }
 
 
