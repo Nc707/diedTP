@@ -54,7 +54,8 @@ public class Main {
             lista = Vendedor.getItemsWithOnly("plato", vendedor, items);
             for(ItemMenu item: lista)   System.out.println(item);
             System.out.println("-----------------------");
-        }        
+        }
+        ItemPedidoMemory pedidos = new ItemPedidoMemory();
         
         //ETAPA 1
        /* Scanner entrada = new Scanner(System.in);

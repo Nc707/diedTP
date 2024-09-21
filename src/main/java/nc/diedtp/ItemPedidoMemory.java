@@ -10,7 +10,9 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
     public ItemPedidoMemory(ArrayList<Pedido> listaPedido) {
         this.listaPedidos = listaPedido;
     }
-
+    public ItemPedidoMemory() {
+        this.listaPedidos = new ArrayList<>();
+    }
     public ArrayList<Pedido> getListaItemsPedido() {
         return listaPedidos;
     }
