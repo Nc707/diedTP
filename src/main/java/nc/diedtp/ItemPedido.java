@@ -8,12 +8,13 @@ package nc.diedtp;
  *
  * @author jereb
  */
-public class ItemPedido {
+public class ItemPedido implements Comparable {
     private static int next_id = 0;
     private final int id;
     private int cantidad;
     private ItemMenu itemMenu;
     private float precio;
+    private CompareStrategyInterface compareStrategy;
     //cons
     public ItemPedido(ItemMenu item,int cant){
         this.cantidad=cant;
@@ -21,6 +22,7 @@ public class ItemPedido {
         next_id ++;
         this.itemMenu=item;
         this.precio = item.getPrecio() * cant;
+        this.compareStrategy = new ItemPedidoPriceCompSt(this);
     }
     //gets
     public ItemMenu getItemMenu(){
@@ -41,6 +43,11 @@ public class ItemPedido {
     }
     public float getPrecio(){
         return precio;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.compareStrategy.compareTo((ItemPedido)o);
     }
 }
 
