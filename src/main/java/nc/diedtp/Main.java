@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Scanner;
 import nc.diedtp.excepciones.CategoriaIncompatibleException;
 import nc.diedtp.excepciones.ItemNoEncontradoException;
+import nc.diedtp.excepciones.PedidoIncorrectoException;
 import nc.diedtp.excepciones.PedidoNoEncontradoException;
 import nc.diedtp.excepciones.VendedorIncorrectoException;
 
@@ -85,8 +86,8 @@ public class Main {
          System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO PISO: 0 MAXIMO: 1000000 ");
        try{
-        ArrayList<ItemPedido> lista = new ArrayList<>();
-        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(ItemPedidoDAO.tipoFiltradoRango.PRECIO_PEDIDO , 0 , 1000000);
+        ArrayList<ItemPedido> lista;
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(ItemPedidoDAO.tipoFiltradoRango.PRECIO_PEDIDO , 0.0f, 600.0f);
         for(ItemPedido item: lista) System.out.println(item);
          System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO PISO: 2000 MAXIMO: 5000 ");
@@ -231,7 +232,13 @@ public class Main {
             ItemMenu item = menu.get(rGen.nextInt(0, menu.size()));
             
             if(p.getVendedor()== item.getVendedor()){
-                itemP.add(new ItemPedido(item, rGen.nextInt(1,10),p));
+                ItemPedido ped = new ItemPedido(item, rGen.nextInt(1,10),p);
+                try{
+                p.addItem(ped);
+                }catch(PedidoIncorrectoException | VendedorIncorrectoException e){
+                    System.out.println(e);
+                }
+                itemP.add(ped);
             }else
                 i--;
         }
