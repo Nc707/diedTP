@@ -1,40 +1,63 @@
 package ItemPedidoManagement;
 
+import static ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
 import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
-import static java.util.Arrays.stream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import static java.util.stream.StreamSupport.stream;
 import nc.diedtp.Cliente;
+import nc.diedtp.ItemMenu;
 import nc.diedtp.Pedido;
 import nc.diedtp.Vendedor;
 import nc.diedtp.excepciones.*;
 
 public class ItemPedidoMemory implements ItemPedidoDAO {
-    /*
+    
     private ArrayList<ItemPedido> memory;
-    @Override
-    public ArrayList<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) {
-        ArrayList<ItemPedido> filtrado;
-        switch(tipoFiltro){
-            case VENDEDOR:
-                filtrado = memory.toArray().stream();
-                break;
+    public ItemPedidoMemory() {
+        this.memory = new ArrayList<>();
+    }
+    public void addPedido(List<ItemPedido> items) {
+        memory.addAll(items);
+    }
+    public void removePedido(Pedido p) throws ItemNoEncontradoException{
+        List<ItemPedido> elementsToRemove = this.filtrarPor(PEDIDO, p);
+        memory.removeAll(elementsToRemove);
         
+    }
+    @Override
+    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException{
+        List<ItemPedido> filtrado = new ArrayList();
+        switch(tipoFiltro){
+            case PEDIDO -> filtrado = memory.stream().filter(item->item.getPedido() == (Pedido)filtro).collect(Collectors.toList());
+            case VENDEDOR -> filtrado = memory.stream().filter(item->item.getVendedor() == (Vendedor)filtro).collect(Collectors.toList());
+            case CLIENTE -> filtrado = memory.stream().filter(item->item.getPedido().getCliente() == (Cliente)filtro).collect(Collectors.toList());
+            case ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu() == (ItemMenu)filtro).collect(Collectors.toList());
+            case PRECIO_TOPE_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() <=  (float)filtro).collect(Collectors.toList());
+            case PRECIO_TOPE_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() <=  (float)filtro).collect(Collectors.toList());
+            case PRECIO_MINIMO_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() >=  (float)filtro).collect(Collectors.toList());
+            case PRECIO_MINIMO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >=  (float)filtro).collect(Collectors.toList());
         }
-        return memory
+        if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
+        return filtrado;
     }
 
     @Override
-    public ArrayList<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope) {
-        return memory;
-    }*/
+    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope) throws ItemNoEncontradoException{
+        List<ItemPedido> filtrado = new ArrayList();
+        switch(tipoFiltrado){
+            case PRECIO_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() >= (float) piso && item.getPrecio() <= (float)tope).collect(Collectors.toList());
+            case PRECIO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >= (float) piso && item.getItemMenu().getPrecio() <= (float)tope).collect(Collectors.toList());
+
+        }
+        if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
+        return filtrado;
+    }
 /*
-    public ItemPedidoMemory(ArrayList<Pedido> listaPedido) {
-        this.listaPedidos = listaPedido;
-    }
-    public ItemPedidoMemory() {
-        this.listaPedidos = new ArrayList<>();
-    }
+    
     public ArrayList<Pedido> getListaItemsPedido() {
         return listaPedidos;
     }
@@ -43,10 +66,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         this.listaPedidos = listaPedido;
     }
 
-    public void addPedido(Pedido pedido) {
-        this.listaPedidos.add(pedido);
-
-    }
+    
 
     @Override
     public ArrayList<ItemPedido> busquedaPorPrecio(float piso, float tope){

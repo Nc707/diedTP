@@ -2,28 +2,27 @@ package ItemPedidoManagement;
 
 import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
+import java.util.List;
 import nc.diedtp.excepciones.*;
 
 public interface ItemPedidoDAO {
 
     enum tipoFiltrado{
         PEDIDO,
+        VENDEDOR,
         CLIENTE,
-        CATEGORIAS,
+        ITEMMENU,
+        //CATEGORIAS,
         PRECIO_TOPE_ITEMPEDIDO,
-        PRECIO_TOPE_PEDIDO,
         PRECIO_TOPE_ITEMMENU,
         PRECIO_MINIMO_ITEMPEDIDO,
-        PRECIO_MINIMO_PEDIDO,
         PRECIO_MINIMO_ITEMMENU,
-        ITEMMENU,
-        VENDEDOR
         
     }
     enum tipoFiltradoRango{
     
         PRECIO_ITEMPEDIDO,
-        PRECIO_PEDIDO,
+        //PRECIO_PEDIDO,
         PRECIO_ITEMMENU   
     }
     enum tipoOrdenamiento{
@@ -33,6 +32,6 @@ public interface ItemPedidoDAO {
         PRECIO_PEDIDO,
         PRECIO_ITEMMENU
     }
-    public ItemPedido filtrarPor(tipoFiltrado tipoFiltro, Object filtro);
-    public ItemPedido filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope);
+    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException;
+    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope)throws ItemNoEncontradoException;
 }
