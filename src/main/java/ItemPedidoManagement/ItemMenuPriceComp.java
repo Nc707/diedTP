@@ -24,7 +24,6 @@ public class ItemMenuPriceComp implements CompareStrategyInterface {
             return 1;
         else if( self.getItemMenu().getPrecio() < otherItem.getItemMenu().getPrecio() )
             return -1;
- 
         else
             return 0;
     }
