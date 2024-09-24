@@ -14,7 +14,6 @@ public class ItemPedidoPriceCompSt implements CompareStrategyInterface {
     private ItemPedido self;
     public ItemPedidoPriceCompSt(ItemPedido self){
         this.self= self;
-        
     }
     @Override
     public int compareTo(ItemPedido otherPedido) {
@@ -25,5 +24,4 @@ public class ItemPedidoPriceCompSt implements CompareStrategyInterface {
         else
             return 0;
     }
-    
 }
