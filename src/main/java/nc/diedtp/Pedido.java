@@ -15,15 +15,13 @@ public class Pedido {
     private static int next_id=0;
     private int id;
     private Vendedor vendedor;
+    private Cliente cliente;
     public int getId() {
         return id;
     }
-    private ArrayList <ItemPedido> listaItemsPedido;
-    private Cliente cliente;
         
     //cons
     public Pedido(Vendedor vendedor, Cliente cliente){
-        this.listaItemsPedido = new ArrayList<>();
         this.vendedor = vendedor;
         this.id = next_id;
         next_id++;
@@ -32,11 +30,10 @@ public class Pedido {
     
     public Pedido(Vendedor vendedor, ArrayList<ItemPedido> items, Cliente clie) throws VendedorIncorrectoException{
         this(vendedor, clie);
-        this.addItems(items);
         this.cliente=clie;
     }
     //gets
-    public ArrayList<ItemPedido> getItemsPedido(){
+    /*public ArrayList<ItemPedido> getItemsPedido(){
         return listaItemsPedido;
     }
     private void addItems(ArrayList<ItemPedido> items) throws VendedorIncorrectoException{
@@ -60,7 +57,7 @@ public class Pedido {
             System.out.println(cant + " "+nombreItemMenu+" "+precio);
         }
         
-    }
+    }*/
     public Cliente getCliente(){
         return cliente;
     }

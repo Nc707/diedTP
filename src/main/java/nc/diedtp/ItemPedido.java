@@ -17,16 +17,21 @@ public class ItemPedido implements Comparable {
     private static int next_id = 0;
     private final int id;
     private int cantidad;
-    private ItemMenu itemMenu;
     private float precio;
+    
+    private ItemMenu itemMenu;
+    private Pedido pedido;
+    
     private CompareStrategyInterface compareStrategy;
+    
     //cons
-    public ItemPedido(ItemMenu item,int cant){
+    public ItemPedido(ItemMenu item,int cant, Pedido pedido){
         this.cantidad=cant;
         this.id=next_id;
         next_id ++;
         this.itemMenu=item;
         this.precio = item.getPrecio() * cant;
+        this.pedido= pedido;
         this.compareStrategy = new ItemPedidoPriceCompSt(this);
     }
     //gets
@@ -42,14 +47,22 @@ public class ItemPedido implements Comparable {
     public int getId(){
         return id;
     }
-    @Override
-    public String toString(){
-        return  ("Item: " + itemMenu.toString() + " ,Cantidad: " + cantidad + " ,Coste:" + precio);
+    public Pedido getPedido(){
+        return pedido;
     }
     public float getPrecio(){
         return precio;
     }
-
+    
+    
+    
+    
+    
+    
+     @Override
+    public String toString(){
+        return  ("Item: " + itemMenu.toString() + " ,Cantidad: " + cantidad + " ,Coste:" + precio);
+    }
     @Override
     public int compareTo(Object o) {
         return this.compareStrategy.compareTo((ItemPedido)o);
