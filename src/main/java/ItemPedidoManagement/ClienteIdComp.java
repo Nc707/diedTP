@@ -15,10 +15,10 @@ public class ClienteIdComp implements CompareStrategyInterface{
     }
    
     @Override
-    public int compareTo(ItemPedido other) {
-        if(self.getPedido().getCliente().getId() > other.getPedido().getCliente().getId())
+    public int compareTo(ItemPedido otherItem) {
+        if(self.getPedido().getCliente().getId() > otherItem.getPedido().getCliente().getId())
             return 1;
-        else if(self.getPedido().getCliente().getId() < other.getPedido().getCliente().getId())
+        else if(self.getPedido().getCliente().getId() < otherItem.getPedido().getCliente().getId())
             return -1;
         else
             return 0;
