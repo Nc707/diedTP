@@ -4,10 +4,17 @@
  */
 package ItemPedidoManagement;
 
+import nc.diedtp.ItemPedido;
+
 /**
  *
  * @author Pc
  */
-public class PedidoPriceComp implements {
+public class PedidoPriceComp implements CompareStrategyInterface {
+
+    @Override
+    public int compareTo(ItemPedido otherPedido) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
