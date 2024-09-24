@@ -2,14 +2,33 @@ package ItemPedidoManagement;
 
 import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
+import static java.util.Arrays.stream;
+import static java.util.stream.StreamSupport.stream;
 import nc.diedtp.Cliente;
 import nc.diedtp.Pedido;
+import nc.diedtp.Vendedor;
 import nc.diedtp.excepciones.*;
 
 public class ItemPedidoMemory implements ItemPedidoDAO {
+    /*
+    private ArrayList<ItemPedido> memory;
+    @Override
+    public ArrayList<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) {
+        ArrayList<ItemPedido> filtrado;
+        switch(tipoFiltro){
+            case VENDEDOR:
+                filtrado = memory.toArray().stream();
+                break;
+        
+        }
+        return memory
+    }
 
-    private ArrayList<Pedido> listaPedidos;
-
+    @Override
+    public ArrayList<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope) {
+        return memory;
+    }*/
+/*
     public ItemPedidoMemory(ArrayList<Pedido> listaPedido) {
         this.listaPedidos = listaPedido;
     }
@@ -147,5 +166,7 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         }
 
         return resultado;
-    }
+    }*/
+
+   
 }

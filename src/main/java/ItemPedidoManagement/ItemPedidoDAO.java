@@ -6,13 +6,33 @@ import nc.diedtp.excepciones.*;
 
 public interface ItemPedidoDAO {
 
-    ArrayList<ItemPedido> busquedaPorPrecio(float piso, float tope) throws ItemNoEncontradoException;
-
-    ArrayList<ItemPedido> busquedaPorVendedor(int id) throws ItemNoEncontradoException;
-
-    ArrayList<ItemPedido> busquedaPorCliente(int id) throws ItemNoEncontradoException;
-
-    void filtrarCategoria(); // no se implemento;
-
-    ArrayList<ItemPedido> OrdenarPorCantidadASC(int idPedido) throws PedidoNoEncontradoException;
+    enum tipoFiltrado{
+        PEDIDO,
+        CLIENTE,
+        CATEGORIAS,
+        PRECIO_TOPE_ITEMPEDIDO,
+        PRECIO_TOPE_PEDIDO,
+        PRECIO_TOPE_ITEMMENU,
+        PRECIO_MINIMO_ITEMPEDIDO,
+        PRECIO_MINIMO_PEDIDO,
+        PRECIO_MINIMO_ITEMMENU,
+        ITEMMENU,
+        VENDEDOR
+        
+    }
+    enum tipoFiltradoRango{
+    
+        PRECIO_ITEMPEDIDO,
+        PRECIO_PEDIDO,
+        PRECIO_ITEMMENU   
+    }
+    enum tipoOrdenamiento{
+        PEDIDO,
+        CLIENTE,
+        PRECIO_ITEMPEDIDO,
+        PRECIO_PEDIDO,
+        PRECIO_ITEMMENU
+    }
+    public ItemPedido filtrarPor(tipoFiltrado tipoFiltro, Object filtro);
+    public ItemPedido filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope);
 }
