@@ -53,7 +53,9 @@ public class ItemPedido implements Comparable {
     public float getPrecio(){
         return precio;
     }
-    
+    public void setStrategy(CompareStrategyInterface cmp){
+        this.compareStrategy = cmp;
+    }
     
     
     

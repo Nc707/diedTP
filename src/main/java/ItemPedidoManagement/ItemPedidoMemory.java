@@ -4,6 +4,7 @@ import static ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
 import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
 import java.util.Arrays;
+import static java.util.Collections.sort;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,7 +43,14 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
             case PRECIO_MINIMO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >=  (float)filtro).collect(Collectors.toList());
         }
         if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
+        //switch()
+        //filtrado = filtrado.stream().forEach(item->item.setStrategy())
         return filtrado;
+    }
+    @Override
+    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden) throws ItemNoEncontradoException{
+        List<ItemPedido> filtrado = this.filtrarPor(tipoFiltro, filtro);
+        return this.ordenar(tipoOrden, filtrado);
     }
 
     @Override
@@ -55,6 +63,20 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         }
         if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
         return filtrado;
+    }
+    @Override
+    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope, tipoOrdenamiento tipoOrden) throws ItemNoEncontradoException{
+        List<ItemPedido> filtrado = this.filtrarRango(tipoFiltrado, piso, tope);
+        return this.ordenar(tipoOrden, filtrado);
+    }
+    private List<ItemPedido> ordenar(tipoOrdenamiento orden,List<ItemPedido> items){
+         List<ItemPedido> ordered = new ArrayList();
+         switch(orden){
+             case PRECIO_ITEMPEDIDO -> items.stream().forEach(itp -> itp.setStrategy(new ItemPedidoPriceCompSt(itp)));
+             case CLIENTE_ID -> items.stream().forEach(itp -> itp.setStrategy(new ClienteIdComp(itp)));
+         }
+         sort(ordered);
+         return ordered;
     }
 /*
     
