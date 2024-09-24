@@ -56,12 +56,14 @@ public class ItemPedido implements Comparable {
     public void setStrategy(CompareStrategyInterface cmp){
         this.compareStrategy = cmp;
     }
-    
-    
-    
-    
-    
-     @Override
+    public void modificarCantidad(int nuevaCantidad){
+        float precioNuevo = nuevaCantidad * this.itemMenu.getPrecio();
+        this.pedido.updatePrecio(this.precio, precioNuevo);
+        this.precio = precioNuevo;
+        this.cantidad = nuevaCantidad;
+        
+    }
+    @Override
     public String toString(){
         return  ("Item: " + itemMenu.toString() + " ,Cantidad: " + cantidad + " ,Coste:" + precio);
     }

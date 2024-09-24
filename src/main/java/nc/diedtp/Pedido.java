@@ -5,6 +5,7 @@
 package nc.diedtp;
 
 import java.util.ArrayList;
+import nc.diedtp.excepciones.PedidoIncorrectoException;
 import nc.diedtp.excepciones.VendedorIncorrectoException;
 
 /**
@@ -16,6 +17,7 @@ public class Pedido {
     private int id;
     private Vendedor vendedor;
     private Cliente cliente;
+    private float precio;
     public int getId() {
         return id;
     }
@@ -26,12 +28,26 @@ public class Pedido {
         this.id = next_id;
         next_id++;
         this.cliente = cliente;
+        this.precio = 0.0f;
+    }
+    public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException{
+        if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
+        if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
+        this.precio += item.getPrecio();
+    }
+    public void deleteItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException{
+        if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
+        if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
+        this.precio -= item.getPrecio();
+    }
+    public void updatePrecio(float precioViejo, float precioNuevo){
+        this.precio+=(precioNuevo - precioViejo);
+        
+    }
+    public float getPrecio(){
+        return this.precio;
     }
     
-    public Pedido(Vendedor vendedor, ArrayList<ItemPedido> items, Cliente clie) throws VendedorIncorrectoException{
-        this(vendedor, clie);
-        this.cliente=clie;
-    }
     //gets
     /*public ArrayList<ItemPedido> getItemsPedido(){
         return listaItemsPedido;
