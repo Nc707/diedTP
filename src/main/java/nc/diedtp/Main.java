@@ -3,6 +3,7 @@
  */
 package nc.diedtp;
 
+import ItemPedidoManagement.ItemPedidoDAO;
 import ItemPedidoManagement.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,35 +63,44 @@ public class Main {
             System.out.println("-----------------------");
         }
         //ETAPA 3
+         ArrayList<ItemPedido> itemP1 = new ArrayList<>();
+         ArrayList<ItemPedido> itemP2 = new ArrayList<>();
+         ArrayList<ItemPedido> itemP3 = new ArrayList<>();
+         ArrayList<ItemPedido> itemP4 = new ArrayList<>();
         Pedido p1 = new Pedido(vendedores.get(0), clientes.get(0));
         Pedido p2 = new Pedido(vendedores.get(0), clientes.get(1));
         Pedido p3 = new Pedido(vendedores.get(1), clientes.get(2));
         Pedido p4 = new Pedido(vendedores.get(2), clientes.get(0));
+        
         Random rand = new Random(new Date().getTime());
-        createRandomPedido(p1,rand.nextInt(2, 15), items);
-        createRandomPedido(p2,rand.nextInt(2, 15), items);
-        createRandomPedido(p3,rand.nextInt(2, 15), items);
-        createRandomPedido(p4,rand.nextInt(2, 15), items);
+        createRandomPedido(p1,rand.nextInt(2, 15), items, itemP1);
+        createRandomPedido(p2,rand.nextInt(2, 15), items, itemP2);
+        createRandomPedido(p3,rand.nextInt(2, 15), items, itemP3);
+        createRandomPedido(p4,rand.nextInt(2, 15), items, itemP4);
         ItemPedidoMemory pedidos = new ItemPedidoMemory();
-        pedidos.addPedido(p1);
-        pedidos.addPedido(p2);
-        pedidos.addPedido(p3);
-        pedidos.addPedido(p4);
+        pedidos.addPedido(itemP1);
+        pedidos.addPedido(itemP2);
+        pedidos.addPedido(itemP3);
+        pedidos.addPedido(itemP4);
          System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO PISO: 0 MAXIMO: 1000000 ");
+       try{
         ArrayList<ItemPedido> lista = new ArrayList<>();
-        lista = pedidos.busquedaPorPrecio(0, 1000000);
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(ItemPedidoDAO.tipoFiltradoRango.PRECIO_PEDIDO , 0 , 1000000);
         for(ItemPedido item: lista) System.out.println(item);
          System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO PISO: 2000 MAXIMO: 5000 ");
-        lista = pedidos.busquedaPorPrecio(2000, 5000);
+       /* lista = pedidos.busquedaPorPrecio(2000, 5000);
         for(ItemPedido item: lista) System.out.println(item);
          System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO PISO: 200 MAXIMO: 2500 ");
         lista = pedidos.busquedaPorPrecio(200, 2500);
         for(ItemPedido item: lista) System.out.println(item);
-         System.out.println("-----------------------");
-        try{
+         System.out.println("-----------------------");*/
+       }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
+        /*try{
             System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(0));
             lista = pedidos.busquedaPorVendedor(vendedores.get(0).getId());
             for(ItemPedido item: lista) System.out.println(item);
@@ -141,141 +151,7 @@ public class Main {
             for(ItemPedido item: lista) System.out.println(item);
         }catch(PedidoNoEncontradoException e){
             System.out.println(e);
-        }
-        //ETAPA 1
-       /* Scanner entrada = new Scanner(System.in);
-        listarVendedores(vendedores);
-        Vendedor v_encontrado = buscarVendedor(vendedores, entrada);
-        if (v_encontrado != null) {
-            System.out.println("Vendedor encontrado: " + v_encontrado.getNombre());
-        } else {
-            System.out.println("Vendedor no encontrado.");
-        }
-        v_encontrado = null;
-        v_encontrado = eliminarVendedor(vendedores, entrada);
-
-        if (v_encontrado != null) {
-            System.out.println("Vendedor eliminado: " + v_encontrado.getNombre());
-        } else {
-            System.out.println("Vendedor no encontrado ni eliminado.");
-        }
-        listarVendedores(vendedores);
-        listarClientes(clientes);
-        // Llamar al método buscarCliente
-        Cliente encontrado = buscarCliente(clientes, entrada);
-
-        // Verificar si se encontró el cliente
-        if (encontrado != null) {
-            System.out.println("Cliente encontrado: " + encontrado.getNombre());
-        } else {
-            System.out.println("Cliente no encontrado.");
-        }
-
-        // Llamar al método buscarCliente
-        Cliente c1 = eliminarCliente(clientes, entrada);
-
-        // Verificar si se encontró el cliente
-        if (c1 != null) {
-            System.out.println("Cliente eliminado: " + c1.getNombre());
-        } else {
-            System.out.println("Cliente no encontrado ni eliminado.");
-        }
-        entrada.close();
-        listarClientes(clientes);
-    }
-
-    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner entrada) {
-        String clie;
-        System.out.println("Ingrese el nombre o id del cliente que desea buscar");
-        clie = entrada.nextLine();
-        for (Cliente cliente : clientes) {
-            if (cliente.getNombre().equals(clie)) {
-                return cliente;
-            }
-            try {
-                if (cliente.getId() == Integer.parseInt(clie)) {
-                    return cliente;
-                }
-            } catch (NumberFormatException e) {
-                // Ignorar la excepcion
-            }
-        }
-        return null;
-    }
-
-    public static void listarClientes(ArrayList<Cliente> clientes) {
-        System.out.println("Lista de Clientes:");
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
-        }
-    }
-
-    public static void listarVendedores(ArrayList<Vendedor> vendedores) {
-        System.out.println("Lista de Vendedores:");
-        for (Vendedor vendedor : vendedores) {
-            System.out.println(vendedor);
-        }
-    }
-
-    public static Cliente eliminarCliente(ArrayList<Cliente> clientes, Scanner entrada) {
-        String clie;
-        System.out.println("Ingrese el nombre o id del cliente que desea eliminar");
-        clie = entrada.nextLine();
-        for (Cliente cliente : clientes) {
-            if (cliente.getNombre().equals(clie)) {
-                clientes.remove(cliente);
-                return cliente;
-            }
-            try {
-                if (cliente.getId() == Integer.parseInt(clie)) {
-                    clientes.remove(cliente);
-                    return cliente;
-                }
-            } catch (NumberFormatException e) {
-                // Ignorar la excepccion. esta se puede dar por el mismo motivo q en la busqueda
-            }
-        }
-        return null;
-    }
-
-    public static Vendedor eliminarVendedor(ArrayList<Vendedor> vendedores, Scanner entrada) {
-        String clie;
-        System.out.println("Ingrese el nombre o id del vendedor que desea eliminar");
-        clie = entrada.nextLine();
-        for (Vendedor vendedor : vendedores) {
-            if (vendedor.getNombre().equals(clie)) {
-                vendedores.remove(vendedor);
-                return vendedor;
-            }
-            try {
-                if (vendedor.getId() == Integer.parseInt(clie)) {
-                    vendedores.remove(vendedor);
-                    return vendedor;
-                }
-            } catch (NumberFormatException e) {
-                // Ignorar la excepccion. esta se puede dar por el mismo motivo q en la busqueda
-            }
-        }
-        return null;
-    }
-
-    public static Vendedor buscarVendedor(ArrayList<Vendedor> vendedores, Scanner entrada) {
-        String vend;
-        System.out.println("Ingrese el nombre o id del vendedor que desea buscar");
-        vend = entrada.nextLine();
-        for (Vendedor vendedor : vendedores) {
-            if (vendedor.getNombre().equals(vend)) {
-                return vendedor;
-            }
-            try {
-                if (vendedor.getId() == Integer.parseInt(vend)) {
-                    return vendedor;
-                }
-            } catch (NumberFormatException e) {
-                // Ignorar la excepcion
-            }
-        }
-        return null; */
+        }*/
     }
     private static void makeItems(ArrayList<Vendedor> vendedores, ArrayList<ItemMenu> items) throws CategoriaIncompatibleException{
         //bebidas sin alcohol
@@ -349,15 +225,15 @@ public class Main {
         items.add(milanesaACaballo);
         items.add(milanesaAlaPizza);
     }
-    private static void createRandomPedido(Pedido p, int cantidad,  ArrayList<ItemMenu> menu){
+    private static void createRandomPedido(Pedido p, int cantidad,  ArrayList<ItemMenu> menu, ArrayList<ItemPedido> itemP){
         Random rGen = new Random(new Date().getTime());
         for(int i = 0; i<cantidad;i++){
             ItemMenu item = menu.get(rGen.nextInt(0, menu.size()));
-            try{
-                p.addItemPedido(new ItemPedido(item, rGen.nextInt(1,10)));
-            }catch(VendedorIncorrectoException e){
+            
+            if(p.getVendedor()== item.getVendedor()){
+                itemP.add(new ItemPedido(item, rGen.nextInt(1,10),p));
+            }else
                 i--;
-            }
         }
     }
     
