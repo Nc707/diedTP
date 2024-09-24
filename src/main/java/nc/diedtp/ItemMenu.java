@@ -5,6 +5,7 @@
 package nc.diedtp;
 
 import java.util.HashSet;
+import java.util.List;
 import nc.diedtp.excepciones.CategoriaIncompatibleException;
 
 public abstract class ItemMenu {
@@ -53,6 +54,14 @@ public abstract class ItemMenu {
     public boolean tieneCategoria(Categoria cat){
         return this.categorias.contains(cat);
     }
+    public boolean tieneCategorias(List<Categoria> categorias){
+        boolean cumple = true;
+        for(Categoria cat: categorias){
+            if(!this.tieneCategoria(cat)) cumple = false;
+        }
+        return cumple;
+    }
+    
     public boolean tieneCategoria(String cat){
         Categoria aux = Categoria.getCategoria(cat);
         if(aux!=null) return this.categorias.contains(aux);
