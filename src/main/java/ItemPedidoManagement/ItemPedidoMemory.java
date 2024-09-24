@@ -1,6 +1,9 @@
-package nc.diedtp;
+package ItemPedidoManagement;
 
+import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
+import nc.diedtp.Cliente;
+import nc.diedtp.Pedido;
 import nc.diedtp.excepciones.*;
 
 public class ItemPedidoMemory implements ItemPedidoDAO {

@@ -1,5 +1,6 @@
-package nc.diedtp;
+package ItemPedidoManagement;
 
+import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
 import nc.diedtp.excepciones.*;
 
