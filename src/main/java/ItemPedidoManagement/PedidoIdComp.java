@@ -11,18 +11,29 @@ import nc.diedtp.ItemPedido;
  */
 public class PedidoIdComp implements CompareStrategyInterface{
     private ItemPedido self;
+    private boolean ascendente;
+    
     //Constructor
-    public PedidoIdComp(ItemPedido self){
+    public PedidoIdComp(ItemPedido self, boolean ascendente){
+        this.ascendente = ascendente;
         this.self=self;
     }
     
     
     @Override
     public int compareTo(ItemPedido otherPedido) {
-        if(self.getPedido().getId() > otherPedido.getPedido().getId()){
-            return 1;
-        }else if(self.getPedido().getId() < otherPedido.getPedido().getId()){
-            return -1;
+        if(ascendente){
+            if(self.getPedido().getId() > otherPedido.getPedido().getId()){
+                return 1;
+            }else if(self.getPedido().getId() < otherPedido.getPedido().getId()){
+                return -1;
+            }
+        }else{
+            if(self.getPedido().getId() < otherPedido.getPedido().getId()){
+                return 1;
+            }else if(self.getPedido().getId() > otherPedido.getPedido().getId()){
+                return -1;
+            }
         }
         return 0;
     }

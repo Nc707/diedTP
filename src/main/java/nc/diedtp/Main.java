@@ -3,7 +3,9 @@
  */
 package nc.diedtp;
 
-import ItemPedidoManagement.ItemPedidoDAO;
+import ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado;
+import ItemPedidoManagement.ItemPedidoDAO.tipoFiltradoRango;
+import ItemPedidoManagement.ItemPedidoDAO.tipoOrdenamiento;
 import ItemPedidoManagement.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,25 +85,34 @@ public class Main {
         pedidos.addPedido(itemP2);
         pedidos.addPedido(itemP3);
         pedidos.addPedido(itemP4);
-         System.out.println("-----------------------");
-        System.out.println("FILTRADO POR PRECIO PISO: 0 MAXIMO: 1000000 ");
-       try{
         ArrayList<ItemPedido> lista;
-        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(ItemPedidoDAO.tipoFiltradoRango.PRECIO_PEDIDO , 0.0f, 600.0f);
+        try{
+        System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO DE PEDIDO PISO: 0 MAXIMO: 100.000, ORDENAMIENTO PRECIO PEDIDO ASCENDENTE ");
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(tipoFiltradoRango.PRECIO_PEDIDO , 0.0f, 100000.0f, tipoOrdenamiento.PRECIO_PEDIDO, true);
         for(ItemPedido item: lista) System.out.println(item);
-         System.out.println("-----------------------");
-        System.out.println("FILTRADO POR PRECIO PISO: 2000 MAXIMO: 5000 ");
-       /* lista = pedidos.busquedaPorPrecio(2000, 5000);
-        for(ItemPedido item: lista) System.out.println(item);
-         System.out.println("-----------------------");
-        System.out.println("FILTRADO POR PRECIO PISO: 200 MAXIMO: 2500 ");
-        lista = pedidos.busquedaPorPrecio(200, 2500);
-        for(ItemPedido item: lista) System.out.println(item);
-         System.out.println("-----------------------");*/
-       }catch(ItemNoEncontradoException e){
+        }catch(ItemNoEncontradoException e){
             System.out.println(e);
         }
+        try{
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO DE PEDIDO PISO: 50.000 MAXIMO: 100.000, ORDENAMIENTO PRECIO ITEMPEDIDO DESCENDENTE ");
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(tipoFiltradoRango.PRECIO_PEDIDO , 50000.0f, 100000.0f, tipoOrdenamiento.PRECIO_ITEMPEDIDO, false);
+        for(ItemPedido item: lista) System.out.println(item);
+        }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
+        try{
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO PISO: 0 MAXIMO: 50.000, ORDENAMIENTO ID PEDIDO ASCENDENTE ");
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarRango(tipoFiltradoRango.PRECIO_PEDIDO , 0.0f, 50000.0f, tipoOrdenamiento.PEDIDO_ID, true);
+        for(ItemPedido item: lista) System.out.println(item);
+        }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
+        
         /*try{
+            System.out.println("-----------------------");
             System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(0));
             lista = pedidos.busquedaPorVendedor(vendedores.get(0).getId());
             for(ItemPedido item: lista) System.out.println(item);

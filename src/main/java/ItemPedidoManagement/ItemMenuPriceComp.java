@@ -12,19 +12,30 @@ import nc.diedtp.ItemPedido;
  */
 public class ItemMenuPriceComp implements CompareStrategyInterface {
     private ItemPedido self;
-
-    public ItemMenuPriceComp(ItemPedido self) {
+    private boolean ascendente;
+    public ItemMenuPriceComp(ItemPedido self, boolean ascendente) {
         this.self = self;
+        this.ascendente = ascendente;
     }
     
     
     @Override
     public int compareTo(ItemPedido otherItem) {
-        if(self.getItemMenu().getPrecio() > otherItem.getItemMenu().getPrecio() )
-            return 1;
-        else if( self.getItemMenu().getPrecio() < otherItem.getItemMenu().getPrecio() )
-            return -1;
-        else
-            return 0;
+        if(ascendente){
+            if(self.getItemMenu().getPrecio() > otherItem.getItemMenu().getPrecio() )
+                return 1;
+            else if( self.getItemMenu().getPrecio() < otherItem.getItemMenu().getPrecio() )
+                return -1;
+            else
+                return 0;
+        }else{
+            if(self.getItemMenu().getPrecio() < otherItem.getItemMenu().getPrecio() )
+                return 1;
+            else if( self.getItemMenu().getPrecio() > otherItem.getItemMenu().getPrecio() )
+                return -1;
+            else
+                return 0;
+        
+        }
     }
 }

@@ -39,16 +39,18 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
             case CATEGORIAS -> filtrado = memory.stream().filter(item->item.getItemMenu().tieneCategorias((List<Categoria>) filtro)).collect(Collectors.toList());
             case PRECIO_TOPE_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() <=  (float)filtro).collect(Collectors.toList());
             case PRECIO_TOPE_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() <=  (float)filtro).collect(Collectors.toList());
+            case PRECIO_TOPE_PEDIDO -> filtrado = memory.stream().filter(item->item.getPedido().getPrecio() <=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() >=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >=  (float)filtro).collect(Collectors.toList());
+            case PRECIO_MINIMO_PEDIDO -> filtrado = memory.stream().filter(item->item.getPedido().getPrecio() <=  (float)filtro).collect(Collectors.toList());
         }
         if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
         return filtrado;
     }
     @Override
-    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden) throws ItemNoEncontradoException{
+    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden, boolean ascendente) throws ItemNoEncontradoException{
         List<ItemPedido> filtrado = this.filtrarPor(tipoFiltro, filtro);
-        return this.ordenar(tipoOrden, filtrado);
+        return this.ordenar(tipoOrden, filtrado, ascendente);
     }
 
     @Override
@@ -57,24 +59,25 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         switch(tipoFiltrado){
             case PRECIO_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() >= (float) piso && item.getPrecio() <= (float)tope).collect(Collectors.toList());
             case PRECIO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >= (float) piso && item.getItemMenu().getPrecio() <= (float)tope).collect(Collectors.toList());
+            case PRECIO_PEDIDO -> filtrado = memory.stream().filter(item->item.getPedido().getPrecio() >= (float) piso && item.getPedido().getPrecio() <= (float)tope).collect(Collectors.toList());
 
         }
         if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
         return filtrado;
     }
     @Override
-    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope, tipoOrdenamiento tipoOrden) throws ItemNoEncontradoException{
+    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope, tipoOrdenamiento tipoOrden, boolean ascendente) throws ItemNoEncontradoException{
         List<ItemPedido> filtrado = this.filtrarRango(tipoFiltrado, piso, tope);
-        return this.ordenar(tipoOrden, filtrado);
+        return (this.ordenar(tipoOrden, filtrado, ascendente));
     }
-    private List<ItemPedido> ordenar(tipoOrdenamiento orden,List<ItemPedido> items){
-         List<ItemPedido> ordered = new ArrayList();
+    private List<ItemPedido> ordenar(tipoOrdenamiento orden,List<ItemPedido> items, boolean ascendente){
+         List<ItemPedido> ordered = items;
          switch(orden){
-             case PEDIDO_ID -> items.stream().forEach(itp -> itp.setStrategy(new PedidoIdComp(itp)));
-             case CLIENTE_ID -> items.stream().forEach(itp -> itp.setStrategy(new ClienteIdComp(itp)));
-             case PRECIO_ITEMPEDIDO -> items.stream().forEach(itp -> itp.setStrategy(new ItemPedidoPriceCompSt(itp)));
-             case PRECIO_PEDIDO ->items.stream().forEach(itp -> itp.setStrategy(new PedidoPriceComp(itp)));
-             case PRECIO_ITEMMENU ->items.stream().forEach(itp -> itp.setStrategy(new ItemPedidoPriceCompSt(itp)));
+             case PEDIDO_ID -> ordered.stream().forEach(itp -> itp.setStrategy(new PedidoIdComp(itp, ascendente)));
+             case CLIENTE_ID -> ordered.stream().forEach(itp -> itp.setStrategy(new ClienteIdComp(itp, ascendente)));
+             case PRECIO_ITEMPEDIDO -> ordered.stream().forEach(itp -> itp.setStrategy(new ItemPedidoPriceCompSt(itp, ascendente)));
+             case PRECIO_PEDIDO ->ordered.stream().forEach(itp -> itp.setStrategy(new PedidoPriceComp(itp, ascendente)));
+             case PRECIO_ITEMMENU ->ordered.stream().forEach(itp -> itp.setStrategy(new ItemPedidoPriceCompSt(itp, ascendente)));
          }
          sort(ordered);
          return ordered;

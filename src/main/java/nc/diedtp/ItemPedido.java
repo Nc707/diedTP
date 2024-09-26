@@ -18,7 +18,6 @@ public class ItemPedido implements Comparable {
     private final int id;
     private int cantidad;
     private float precio;
-    
     private ItemMenu itemMenu;
     private Pedido pedido;
     
@@ -32,7 +31,7 @@ public class ItemPedido implements Comparable {
         this.itemMenu=item;
         this.precio = item.getPrecio() * cant;
         this.pedido= pedido;
-        this.compareStrategy = new ItemPedidoPriceCompSt(this);
+        this.compareStrategy = new ItemPedidoPriceCompSt(this, true);
     }
     //gets
     public ItemMenu getItemMenu(){
@@ -65,7 +64,7 @@ public class ItemPedido implements Comparable {
     }
     @Override
     public String toString(){
-        return  ("Item: " + itemMenu.toString() + " ,Cantidad: " + cantidad + " ,Coste:" + precio);
+        return  ("Item: " + itemMenu.toString() + " ,Cantidad: " + cantidad + " ,Coste:" + precio + ", PedidoID: " + pedido.getId());
     }
     @Override
     public int compareTo(Object o) {

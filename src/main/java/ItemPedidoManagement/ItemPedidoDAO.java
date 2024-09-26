@@ -16,8 +16,10 @@ public interface ItemPedidoDAO {
         CATEGORIAS,
         PRECIO_TOPE_ITEMPEDIDO,
         PRECIO_TOPE_ITEMMENU,
+        PRECIO_TOPE_PEDIDO,
         PRECIO_MINIMO_ITEMPEDIDO,
         PRECIO_MINIMO_ITEMMENU,
+        PRECIO_MINIMO_PEDIDO
         
     }
     enum tipoFiltradoRango{
@@ -34,7 +36,7 @@ public interface ItemPedidoDAO {
         PRECIO_ITEMMENU
     }
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException;
-    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden) throws ItemNoEncontradoException;
+    public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden, boolean ascendente) throws ItemNoEncontradoException;
     public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope)throws ItemNoEncontradoException;
-    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope, tipoOrdenamiento tipoOrden)throws ItemNoEncontradoException;
+    public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope, tipoOrdenamiento tipoOrden, boolean ascendente)throws ItemNoEncontradoException;
 }
