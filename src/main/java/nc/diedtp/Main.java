@@ -110,6 +110,24 @@ public class Main {
         }catch(ItemNoEncontradoException e){
             System.out.println(e);
         }
+        try{
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO TOPE DE ITEMPEDIDO, ORDENAMIENTO PRECIO DE ITEMPEDIDO ");
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarPor(tipoFiltrado.PRECIO_TOPE_ITEMMENU , 750.0f, tipoOrdenamiento.PRECIO_ITEMPEDIDO, true);
+        for(ItemPedido item: lista) System.out.println(item);
+        }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
+        
+        try{
+         System.out.println("-----------------------");
+        System.out.println("FILTRADO POR PRECIO MINIMO DE ITEMPEDIDO, ORDENAMIENTO PRECIO DE ITEMPEDIDO ");
+        lista = (ArrayList<ItemPedido>) pedidos.filtrarPor(tipoFiltrado.PRECIO_MINIMO_ITEMMENU , 750.0f, tipoOrdenamiento.PRECIO_ITEMPEDIDO, false);
+        for(ItemPedido item: lista) System.out.println(item);
+        }catch(ItemNoEncontradoException e){
+            System.out.println(e);
+        }
+        
         
         /*try{
             System.out.println("-----------------------");
