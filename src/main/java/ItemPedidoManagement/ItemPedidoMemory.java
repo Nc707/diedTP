@@ -82,5 +82,16 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
          sort(ordered);
          return ordered;
     }
+    
+  private int obtenerIdItemPedido(int id){
+    for (int i = 0; i<memory.size(); i++) {
+        if (memory.get(i).getId() == id) {
+            return memory.get(i).getId(); 
+        }
+    }
+    return -1;  
+}
+      
+ 
 
 }
