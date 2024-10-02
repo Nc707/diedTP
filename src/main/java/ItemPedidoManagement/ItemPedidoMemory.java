@@ -1,5 +1,6 @@
 package ItemPedidoManagement;
 
+
 import static ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
 import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
@@ -82,17 +83,5 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
          sort(ordered);
          return ordered;
     }
-    
-  private ItemMenu obtenerIdItemPedido(int id){
-    for (int i = 0; i<memory.size(); i++) {
-        if (memory.get(i).getId() == id) {
-            return memory.get(i).getItemMenu(); 
-        }
-    }
-        return null;
-    
 }
-      
- 
-
-}
+   

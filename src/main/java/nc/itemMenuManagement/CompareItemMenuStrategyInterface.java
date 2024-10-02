@@ -4,13 +4,15 @@
  */
 package nc.itemMenuManagement;
 
-import ItemPedidoManagement.*;
-import nc.diedtp.ItemPedido;
+import nc.diedtp.ItemMenu;
+
+
+
 
 /**
  *
  * @author nicol
  */
-public interface CompareStrategyInterface {
-    public int compareTo(ItemPedido otherPedido);
+public interface CompareItemMenuStrategyInterface {
+    public int compareTo(ItemMenu otherPedido);
 }

@@ -4,7 +4,7 @@
  */
 package nc.diedtp;
 
-import java.util.ArrayList;
+
 
 public class Vendedor {
     private static int next_id = 0;
@@ -12,30 +12,6 @@ public class Vendedor {
     private String nombre;
     private String direccion;
     private Coordenada coordenada;
-
-    public static ArrayList<ItemMenu> getItems(String cat, Vendedor vend, ArrayList<ItemMenu> items) {
-        ArrayList<ItemMenu> aux = new ArrayList();
-        for (ItemMenu item : items) {
-            if (item.tieneCategoria(cat) && item.getVendedor() == vend) {
-                aux.add(item);
-            }
-        }
-        
-        return aux;
-    }
-     public static ArrayList<ItemMenu> getItemsWithOnly(String tag, Vendedor vend, ArrayList<ItemMenu> items) {
-        ArrayList<ItemMenu> aux = new ArrayList();
-        int catMax = 2;
-        Categoria cat = Categoria.getCategoria(tag);
-        if(cat == Categoria.categoriaBebidas || cat == Categoria.categoriaPlatos) catMax=1;
-        for (ItemMenu item : items) {
-            if (item.tieneCategoria(tag)&& item.cantidadCategorias() == catMax && item.getVendedor() == vend) {
-                aux.add(item);
-            }
-        }
-        
-        return aux;
-    }
 
     public Vendedor(String nombre, String direccion, double cx, double cy) {
         this.id = next_id;

@@ -11,22 +11,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import nc.diedtp.excepciones.CategoriaIncompatibleException;
 import nc.diedtp.excepciones.ItemNoEncontradoException;
 import nc.diedtp.excepciones.PedidoIncorrectoException;
 import nc.diedtp.excepciones.PedidoNoEncontradoException;
 import nc.diedtp.excepciones.VendedorIncorrectoException;
+import nc.itemMenuManagement.ItemMenuDAO;
+import nc.itemMenuManagement.ItemMenuMemory;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ItemNoEncontradoException {
         ArrayList<Cliente> clientes = new ArrayList<>();
 
         ArrayList<Vendedor> vendedores;
         vendedores = new ArrayList<>();
         
-        
-        ArrayList<ItemMenu> items = new ArrayList<>();
+        ItemMenuMemory items = new ItemMenuMemory();
 
         clientes.add(new Cliente("roberta", 34558, "robertafernandez@gmail.com", "San Martin 6165", 0.0, 0.0));
         clientes.add(new Cliente("pablo", 58487, "pablo.perez@hotmail.com", "Calchines 1562", 0.0, 0.0));
@@ -42,28 +44,53 @@ public class Main {
         }
         //ETAPA 2
         for (Vendedor vendedor : vendedores){
-            ArrayList<ItemMenu> lista = new ArrayList<>();
+            ArrayList<ItemMenu> lista;
+            ArrayList<nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado> tiposFiltros = new ArrayList();
+            ArrayList filtros = new ArrayList();
             System.out.println("Menu del vendedor "+vendedor.getNombre());
             System.out.println("BEBICAS ACLOHOLICAS: ");
-            lista = Vendedor.getItems("Bebidas Alcoholicas",vendedor, items);
-            for(ItemMenu item: lista)   System.out.println(item);
+            tiposFiltros.add(ItemMenuDAO.tipoFiltrado.VENDEDOR);
+            tiposFiltros.add(ItemMenuDAO.tipoFiltrado.CATEGORIA);
+            filtros.add(vendedor);
+            filtros.add(Categoria.getCategoria("Bebidas Alcoholicas"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println(item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
             System.out.println(" ");
             System.out.println("BEBIDAS SIN ALCOHOL: ");
-            lista = Vendedor.getItems("Bebidas sin alcohol",vendedor, items);
-            for(ItemMenu item: lista)   System.out.println(item);
+            filtros.set(1,Categoria.getCategoria("Bebidas sin alcohol"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println(item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
             System.out.println(" ");
             System.out.println("COMIDAS VEGANAS:");
-            lista = Vendedor.getItems("Vegano", vendedor, items);
-            for(ItemMenu item: lista)   System.out.println(item);
+            filtros.set(1,Categoria.getCategoria("Vegano"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println(item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
             System.out.println(" ");
             System.out.println("COMIDAS APTAS PARA CELIACOS:");
-            lista = Vendedor.getItems("Celiaco", vendedor, items);
-            for(ItemMenu item: lista)   System.out.println(item);
+            filtros.set(1,Categoria.getCategoria("Celiaco"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println(item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
             System.out.println(" ");
             System.out.println("PLATOS COMUNES:");
-            lista = Vendedor.getItemsWithOnly("plato", vendedor, items);
-            for(ItemMenu item: lista)   System.out.println(item);
+            tiposFiltros.set(1,ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE); 
+            filtros.set(1,Categoria.getCategoria("plato"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println(item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
             System.out.println("-----------------------");
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtrarPor(nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE, Categoria.getCategoria("Celiaco"));
+                for(ItemMenu item: lista)   System.out.println(item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
         }
         //ETAPA 3
          ArrayList<ItemPedido> itemP1 = new ArrayList<>();
@@ -76,10 +103,10 @@ public class Main {
         Pedido p4 = new Pedido(vendedores.get(2), clientes.get(0));
         
         Random rand = new Random(new Date().getTime());
-        createRandomPedido(p1,rand.nextInt(2, 15), items, itemP1);
-        createRandomPedido(p2,rand.nextInt(2, 15), items, itemP2);
-        createRandomPedido(p3,rand.nextInt(2, 15), items, itemP3);
-        createRandomPedido(p4,rand.nextInt(2, 15), items, itemP4);
+        createRandomPedido(p1,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP1);
+        createRandomPedido(p2,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP2);
+        createRandomPedido(p3,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP3);
+        createRandomPedido(p4,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP4);
         ItemPedidoMemory pedidos = new ItemPedidoMemory();
         pedidos.addPedido(itemP1);
         pedidos.addPedido(itemP2);
@@ -128,62 +155,8 @@ public class Main {
             System.out.println(e);
         }
         
-        
-        /*try{
-            System.out.println("-----------------------");
-            System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(0));
-            lista = pedidos.busquedaPorVendedor(vendedores.get(0).getId());
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-            System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(1));
-            lista = pedidos.busquedaPorVendedor(vendedores.get(1).getId());
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-           System.out.println("FILTRADO POR VENDEDOR: " + vendedores.get(2));
-            lista = pedidos.busquedaPorVendedor(vendedores.get(2).getId());
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-        }catch(ItemNoEncontradoException e){
-            System.out.println(e);
-        }
-        
-        try{
-            System.out.println("FILTRADO POR CLIENTE: " + vendedores.get(0));
-            lista = pedidos.busquedaPorCliente(clientes.get(0).getId());
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-            System.out.println("FILTRADO POR CLIENTE: " + vendedores.get(1));
-            lista = pedidos.busquedaPorCliente(clientes.get(1).getId());
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-           System.out.println("FILTRADO POR CLIENTE: " + vendedores.get(2));
-            lista = pedidos.busquedaPorCliente(clientes.get(2).getId());
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-        }catch(ItemNoEncontradoException e){
-            System.out.println(e);
-        }
-        try{
-            System.out.println("FILTRADO POR PEDIDO: 0");
-            lista = pedidos.OrdenarPorCantidadASC(0);
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-            System.out.println("FILTRADO POR PEDIDO: 1");
-            lista = pedidos.OrdenarPorCantidadASC(1);
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-            System.out.println("FILTRADO POR PEDIDO: 2");
-            lista = pedidos.OrdenarPorCantidadASC(2);
-            for(ItemPedido item: lista) System.out.println(item);
-             System.out.println("-----------------------");
-            System.out.println("FILTRADO POR PEDIDO: 3");
-            lista = pedidos.OrdenarPorCantidadASC(3);
-            for(ItemPedido item: lista) System.out.println(item);
-        }catch(PedidoNoEncontradoException e){
-            System.out.println(e);
-        }*/
     }
-    private static void makeItems(ArrayList<Vendedor> vendedores, ArrayList<ItemMenu> items) throws CategoriaIncompatibleException{
+    private static void makeItems(ArrayList<Vendedor> vendedores, ItemMenuMemory items) throws CategoriaIncompatibleException{
         //bebidas sin alcohol
         
         Bebida lataCocaCola = new Bebida("Lata Cocacola",vendedores.get(0),100,0, 500, 250);
@@ -232,16 +205,16 @@ public class Main {
         items.add(milanesaDeLenteja);
 
         //Plato aptos celiacos
-        Plato browniesDeAlmendra = new Plato("Milanesa de Lentejas",vendedores.get(1), 3652, 500, 200);
+        Plato browniesDeAlmendra = new Plato("Brownies de Almendra",vendedores.get(1), 3652, 500, 200);
         browniesDeAlmendra.addCategoria("Celiaco");
         browniesDeAlmendra.addCategoria("Vegano");
-        Plato polloAlHorno = new Plato("Milanesa de Lentejas",vendedores.get(2), 3500, 750, 800);
+        Plato polloAlHorno = new Plato("Pollo al Horno",vendedores.get(2), 3500, 750, 800);
         polloAlHorno.addCategoria("Celiaco");
         
         items.add(browniesDeAlmendra);
         items.add(polloAlHorno);
         //Plato comida
-        Plato hamburguesaCompleta = new Plato("Hambusguesa Completa", vendedores.get(0),4000.0f, 500, 2000.8f);
+        Plato hamburguesaCompleta = new Plato("Hamburguesa Completa", vendedores.get(0),4000.0f, 500, 2000.8f);
         Plato hamburguesaSimple = new Plato("Hamburquesa simple",vendedores.get(1), 3500, 300, 1800.5f);
         Plato papasFritas = new Plato("Papas Fritas",vendedores.get(2), 2500, 363, 1200);
         Plato papasAlHorno = new Plato("Papas al horno", vendedores.get(0),3500, 500, 900);
