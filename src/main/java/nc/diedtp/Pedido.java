@@ -5,8 +5,7 @@
 package nc.diedtp;
 
 import java.util.ArrayList;
-import nc.diedtp.excepciones.PedidoIncorrectoException;
-import nc.diedtp.excepciones.VendedorIncorrectoException;
+import nc.diedtp.excepciones.*;
 
 /**
  *
@@ -38,12 +37,14 @@ public class Pedido {
         this.precio = 0.0f;
         this.estado = EstadoPedido.EN_CARRITO;
     }
-    public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException{
+    public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
+        if(this.estado == EstadoPedido.RECIBIDO) throw new PedidoCerradoException("El pedido esta cerrado y no se puede modificar");
         if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
         if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
         this.precio += item.getPrecio();
     }
-    public void deleteItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException{
+    public void deleteItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
+        if(this.estado == EstadoPedido.RECIBIDO) throw new PedidoCerradoException("El pedido esta cerrado y no se puede modificar");
         if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
         if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
         this.precio -= item.getPrecio();
