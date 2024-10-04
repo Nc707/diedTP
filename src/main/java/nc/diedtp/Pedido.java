@@ -36,6 +36,7 @@ public class Pedido {
         next_id++;
         this.cliente = cliente;
         this.precio = 0.0f;
+        this.estado = EstadoPedido.EN_CARRITO;
     }
     public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException{
         if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
@@ -66,6 +67,10 @@ public class Pedido {
     }
     public void setPagoTransferencia(String cbu, String cuit){
         this.metodoPago = new PagoTransferencia(cbu, cuit);
+    }
+    public void cerrarPedido(){
+        precio = this.metodoPago.cerrarPago(precio);
+        this.estado = EstadoPedido.RECIBIDO;
     }
          
 }
