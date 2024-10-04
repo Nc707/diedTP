@@ -5,6 +5,7 @@
 package nc.diedtp;
 import ItemPedidoManagement.Carrito;
 import ItemPedidoManagement.ItemPedidoMemory;
+import nc.diedtp.excepciones.CantidadItemMenor0Exceptions;
 
 public class Cliente {
     private static int next_id = 0;
@@ -48,10 +49,12 @@ public class Cliente {
         return nombre;
     }
     
-     public Carrito crearCarrito(Cliente c, ItemMenu item, int cantidad, ItemPedidoMemory memory){
-     carrito = new Carrito(memory, c, item, cantidad);
+     public Carrito crearCarrito(Cliente c, ItemMenu item, int cantidad, ItemPedidoMemory memory) throws CantidadItemMenor0Exceptions {
+         if(cantidad <0) throw new CantidadItemMenor0Exceptions("La cantidad solicita es incorrecta ");
+         carrito = new Carrito(memory, c, item, cantidad);
      return carrito;
-}
+    }
+     
     @Override
     public String toString(){
         return "Nombre: "+nombre+"\nId: "+Integer.toString(id)+"\nCuit: "
