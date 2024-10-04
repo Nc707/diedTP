@@ -2,7 +2,6 @@ package ItemPedidoManagement;
 
 
 import static ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
-import nc.diedtp.ItemPedido;
 import java.util.ArrayList;
 import static java.util.Collections.sort;
 import java.util.List;
@@ -10,17 +9,28 @@ import java.util.stream.Collectors;
 import nc.diedtp.Categoria;
 import nc.diedtp.Cliente;
 import nc.diedtp.ItemMenu;
+import nc.diedtp.ItemPedido;
 import nc.diedtp.Pedido;
 import nc.diedtp.Vendedor;
 import nc.diedtp.excepciones.*;
 
-public class ItemPedidoMemory implements ItemPedidoDAO {
-    
+public final class ItemPedidoMemory implements ItemPedidoDAO {
+    private static ItemPedidoMemory ipm_instancia;
     private ArrayList<ItemPedido> memory;
-    public ItemPedidoMemory() {
+    
+    private ItemPedidoMemory() {
         this.memory = new ArrayList<>();
     }
-    public void addPedido(List<ItemPedido> items) {
+    public static ItemPedidoMemory getItemPedidoMemory(){
+    if(ipm_instancia == null){
+        ipm_instancia = new ItemPedidoMemory();
+    }
+        return ipm_instancia;
+    }
+    public ArrayList<ItemPedido> getMemory(){
+        return this.memory;
+    }
+    public void addPedido(List<ItemPedido> items){
         memory.addAll(items);
     }
     public void removePedido(Pedido p) throws ItemNoEncontradoException{
@@ -84,4 +94,5 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
          return ordered;
     }
 }
+
    
