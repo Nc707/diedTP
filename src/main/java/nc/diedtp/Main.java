@@ -107,7 +107,7 @@ public class Main {
         createRandomPedido(p2,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP2);
         createRandomPedido(p3,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP3);
         createRandomPedido(p4,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP4);
-        ItemPedidoMemory pedidos = new ItemPedidoMemory();
+       ItemPedidoMemory pedidos = ItemPedidoMemory.getItemPedidoMemory();
         pedidos.addPedido(itemP1);
         pedidos.addPedido(itemP2);
         pedidos.addPedido(itemP3);
