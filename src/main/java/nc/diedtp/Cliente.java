@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package nc.diedtp;
+import ItemPedidoManagement.Carrito;
+import ItemPedidoManagement.ItemPedidoMemory;
 
 public class Cliente {
     private static int next_id = 0;
@@ -12,6 +14,7 @@ public class Cliente {
     private String direccion;
     private Coordenada coordenadas;
     private String nombre;
+    private Carrito carrito;
   
     public Cliente(){} //constructor generico para poder instanciar un cliente sin parametros
     public Cliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud ){
@@ -23,6 +26,7 @@ public class Cliente {
         this.coordenadas = new Coordenada(latitud, longitud);
         this.nombre = nombre;
     }
+    
     public Coordenada getCoordenada(){
         return this.coordenadas;
     }
@@ -44,6 +48,10 @@ public class Cliente {
         return nombre;
     }
     
+     public Carrito crearCarrito(Cliente c, ItemMenu item, int cantidad, ItemPedidoMemory memory){
+     carrito = new Carrito(memory, c, item, cantidad);
+     return carrito;
+}
     @Override
     public String toString(){
         return "Nombre: "+nombre+"\nId: "+Integer.toString(id)+"\nCuit: "
