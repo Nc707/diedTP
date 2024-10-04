@@ -55,7 +55,7 @@ public class ItemMenuMemory implements ItemMenuDAO {
             case ID_VENDEDOR -> filtrado = memory.stream().filter(item->item.getVendedor().getId() == ((Vendedor)filtro).getId()).collect(Collectors.toList());
             case ID -> filtrado = memory.stream().filter(item->item.getId()== (int)filtro).collect(Collectors.toList());
             case CATEGORIA -> filtrado = memory.stream().filter(item->item.tieneCategoria((Categoria) filtro)).collect(Collectors.toList());
-            case CATEGORIA_EXCLUYENTE -> memory.stream().filter(item->(item.tieneCategoria((Categoria) filtro)&& (item.cantidadCategorias() <= ((Categoria.categoriaBebidas ==(Categoria) filtro || Categoria.categoriaPlatos == (Categoria) filtro)?1:2)))).collect(Collectors.toList());
+            case CATEGORIA_EXCLUYENTE -> filtrado = memory.stream().filter(item->(item.tieneCategoria((Categoria) filtro)&& (item.cantidadCategorias() <= ((Categoria.categoriaBebidas ==(Categoria) filtro || Categoria.categoriaPlatos == (Categoria) filtro)?1:2)))).collect(Collectors.toList());
             case CATEGORIAS -> filtrado = memory.stream().filter(item->item.tieneCategorias((List<Categoria>) filtro)).collect(Collectors.toList());
             case PRECIO_TOPE -> filtrado = memory.stream().filter(item->item.getPrecio() <=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO -> filtrado = memory.stream().filter(item->item.getPrecio() >=  (float)filtro).collect(Collectors.toList());

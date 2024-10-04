@@ -12,12 +12,19 @@ import nc.diedtp.excepciones.VendedorIncorrectoException;
  *
  * @author jereb
  */
+
 public class Pedido {
     private static int next_id=0;
     private int id;
     private Vendedor vendedor;
     private Cliente cliente;
     private float precio;
+    private EstadoPedido estado;
+    private EstrategiaPago metodoPago;
+    public enum EstadoPedido{
+        EN_CARRITO,
+        RECIBIDO
+    }
     public int getId() {
         return id;
     }
@@ -48,37 +55,17 @@ public class Pedido {
         return this.precio;
     }
     
-    //gets
-    /*public ArrayList<ItemPedido> getItemsPedido(){
-        return listaItemsPedido;
-    }
-    private void addItems(ArrayList<ItemPedido> items) throws VendedorIncorrectoException{
-        for(ItemPedido item: items){
-            listaItemsPedido.add(item);
-        }
-    }
-    public void addItemPedido(ItemPedido item)  throws VendedorIncorrectoException{
-        if(item.getVendedor() != this.vendedor){
-            throw new VendedorIncorrectoException("El item con ID: " + item.getId()+ "no corresponde al vendedor: " + vendedor.toString());
-        }
-        this.listaItemsPedido.add(item);
-        
-    }
-       public void mostrarItems(){
-         String cant, nombreItemMenu, precio;
-        for(ItemPedido item:listaItemsPedido){
-            cant = String.valueOf(item.getCantidad());
-            nombreItemMenu = item.getItemMenu().getNombre();
-            precio = String.valueOf(item.getItemMenu().getPrecio());
-            System.out.println(cant + " "+nombreItemMenu+" "+precio);
-        }
-        
-    }*/
     public Cliente getCliente(){
         return cliente;
     }
     public Vendedor getVendedor(){
         return vendedor;
+    }
+    public void setPagoMercadoPago(String alias){
+        this.metodoPago = new PagoMercadoPago(alias);
+    }
+    public void setPagoTransferencia(String cbu, String cuit){
+        this.metodoPago = new PagoTransferencia(cbu, cuit);
     }
          
 }
