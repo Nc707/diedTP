@@ -6,14 +6,18 @@ package nc.diedtp;
 import ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado;
 import ItemPedidoManagement.ItemPedidoDAO.tipoFiltradoRango;
 import ItemPedidoManagement.ItemPedidoDAO.tipoOrdenamiento;
+import ItemPedidoManagement.Carrito;
 import ItemPedidoManagement.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.NoSuchElementException;
+import nc.diedtp.excepciones.CantidadItemMenor0Exceptions;
 import nc.diedtp.excepciones.CategoriaIncompatibleException;
 import nc.diedtp.excepciones.ItemNoEncontradoException;
+import nc.diedtp.excepciones.PedidoCerradoException;
 import nc.diedtp.excepciones.PedidoIncorrectoException;
 import nc.diedtp.excepciones.PedidoNoEncontradoException;
 import nc.diedtp.excepciones.VendedorIncorrectoException;
@@ -28,7 +32,7 @@ public class Main {
         ArrayList<Vendedor> vendedores;
         vendedores = new ArrayList<>();
         
-        ItemMenuMemory items = new ItemMenuMemory();
+        ItemMenuMemory items = ItemMenuMemory.getInstancia();
 
         clientes.add(new Cliente("roberta", 34558, "robertafernandez@gmail.com", "San Martin 6165", 0.0, 0.0));
         clientes.add(new Cliente("pablo", 58487, "pablo.perez@hotmail.com", "Calchines 1562", 0.0, 0.0));
@@ -43,55 +47,12 @@ public class Main {
            System.out.println("No fué posible agregar uno de los items debido a que su categoria era incompatible con su tipo");
         }
         //ETAPA 2
-        for (Vendedor vendedor : vendedores){
-            ArrayList<ItemMenu> lista;
-            ArrayList<nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado> tiposFiltros = new ArrayList();
-            ArrayList filtros = new ArrayList();
-            System.out.println("Menu del vendedor "+vendedor.getNombre());
-            System.out.println("BEBICAS ACLOHOLICAS: ");
-            tiposFiltros.add(ItemMenuDAO.tipoFiltrado.VENDEDOR);
-            tiposFiltros.add(ItemMenuDAO.tipoFiltrado.CATEGORIA);
-            filtros.add(vendedor);
-            filtros.add(Categoria.getCategoria("Bebidas Alcoholicas"));
-            try{
-                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
-                for(ItemMenu item: lista)   System.out.println(item);
-            }catch(ItemNoEncontradoException e){System.out.println(e);}
-            System.out.println(" ");
-            System.out.println("BEBIDAS SIN ALCOHOL: ");
-            filtros.set(1,Categoria.getCategoria("Bebidas sin alcohol"));
-            try{
-                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
-                for(ItemMenu item: lista)   System.out.println(item);
-            }catch(ItemNoEncontradoException e){System.out.println(e);}
-            System.out.println(" ");
-            System.out.println("COMIDAS VEGANAS:");
-            filtros.set(1,Categoria.getCategoria("Vegano"));
-            try{
-                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
-                for(ItemMenu item: lista)   System.out.println(item);
-            }catch(ItemNoEncontradoException e){System.out.println(e);}
-            System.out.println(" ");
-            System.out.println("COMIDAS APTAS PARA CELIACOS:");
-            filtros.set(1,Categoria.getCategoria("Celiaco"));
-            try{
-                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
-                for(ItemMenu item: lista)   System.out.println(item);
-            }catch(ItemNoEncontradoException e){System.out.println(e);}
-            System.out.println(" ");
-            System.out.println("PLATOS COMUNES:");
-            tiposFiltros.set(1,ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE); 
-            filtros.set(1,Categoria.getCategoria("plato"));
-            try{
-                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
-                for(ItemMenu item: lista)   System.out.println(item);
-            }catch(ItemNoEncontradoException e){System.out.println(e);}
-            System.out.println("-----------------------");
-            try{
-                lista = (ArrayList<ItemMenu>) items.filtrarPor(nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE, Categoria.getCategoria("Celiaco"));
-                for(ItemMenu item: lista)   System.out.println(item);
-            }catch(ItemNoEncontradoException e){System.out.println(e);}
-        }
+
+
+
+        
+        
+        
         //ETAPA 3
          ArrayList<ItemPedido> itemP1 = new ArrayList<>();
          ArrayList<ItemPedido> itemP2 = new ArrayList<>();
@@ -112,7 +73,54 @@ public class Main {
         pedidos.addPedido(itemP2);
         pedidos.addPedido(itemP3);
         pedidos.addPedido(itemP4);
-        ArrayList<ItemPedido> lista;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("----------------------VENDEDORES REGISTRADOS----------------------");
+        for (int i=0; i<vendedores.size(); i++){
+            System.out.println(i+ "- " + vendedores.get(i).getNombre());
+        }
+        System.out.print("SELECCIONE POR NUMERO EL VENDEDOR QUE DESEA VER EL MENU:  ");
+        int indexVend = sc.nextInt();
+        mostrarMenu(vendedores.get(indexVend), items);
+        
+        System.out.print("DESEA GENERAR UN CARRITO CON ESTE VENDEDOR? (s/n): ");
+        String opt = sc.next();
+
+        Cliente yoCliente = new Cliente("utn", 123456, "utn@frsf.utn", "Lavaise 610", -31.62, -60.7);
+        clientes.add(yoCliente);
+        Carrito carrito = null;
+        
+        if (opt.equalsIgnoreCase("s")) {
+            Scanner sc2 = new Scanner(System.in);
+            try {
+                while (true) {
+                    System.out.print("ESCRIBA EL ID ITEM QUE DESEA AGREGAR AL CARRITO, o CTRL+Z PARA VER EL TOTAL: ");
+                    int indexItem = sc2.nextInt();
+                    System.out.print("INGRESE LA CANTIDAD DE ITEMS QUE DESEA AGREGAR DEL PRODUCTO " + items.getItem(indexItem).getNombre() + ": ");
+                    int cantidad = sc2.nextInt();
+                    try {
+                        if(carrito == null){
+                            carrito = yoCliente.crearCarrito(yoCliente, items.getItem(indexItem), cantidad, pedidos);
+                        } else
+                        carrito.agregarItem(items.getItem(indexItem), cantidad);
+                        
+                    }catch (CantidadItemMenor0Exceptions |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
+                        System.out.println(e);
+                    }
+                }
+            } catch (NoSuchElementException e) {
+                        System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");               
+                    }
+ 
+        }
+            
+        carrito.printItems();
+        
+        System.out.println("(etapa3) desea ejecutar y mostrar filtros? (s/n)");
+        String etp3 = sc.next();
+
+        if(etp3.equals("s")){
+            ArrayList<ItemPedido> lista;
         try{
         System.out.println("-----------------------");
         System.out.println("FILTRADO POR PRECIO DE PEDIDO PISO: 0 MAXIMO: 100.000, ORDENAMIENTO PRECIO PEDIDO ASCENDENTE ");
@@ -154,6 +162,10 @@ public class Main {
         }catch(ItemNoEncontradoException e){
             System.out.println(e);
         }
+        }
+
+        
+        sc.close();
         
     }
     private static void makeItems(ArrayList<Vendedor> vendedores, ItemMenuMemory items) throws CategoriaIncompatibleException{
@@ -237,7 +249,7 @@ public class Main {
                 ItemPedido ped = new ItemPedido(item, rGen.nextInt(1,10),p);
                 try{
                 p.addItem(ped);
-                }catch(PedidoIncorrectoException | VendedorIncorrectoException e){
+                }catch(PedidoIncorrectoException | VendedorIncorrectoException | PedidoCerradoException e){
                     System.out.println(e);
                 }
                 itemP.add(ped);
@@ -245,5 +257,58 @@ public class Main {
                 i--;
         }
     }
+
+
+    private static void mostrarMenu(Vendedor vendedor, ItemMenuMemory items){
+            ArrayList<ItemMenu> lista;
+            ArrayList<nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado> tiposFiltros = new ArrayList();
+            ArrayList filtros = new ArrayList();
+            System.out.println("Menu del vendedor "+vendedor.getNombre());
+            System.out.println("BEBICAS ACLOHOLICAS: ");
+            tiposFiltros.add(ItemMenuDAO.tipoFiltrado.VENDEDOR);
+            tiposFiltros.add(ItemMenuDAO.tipoFiltrado.CATEGORIA);
+            filtros.add(vendedor);
+            filtros.add(Categoria.getCategoria("Bebidas Alcoholicas"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
+            System.out.println(" ");
+            System.out.println("BEBIDAS SIN ALCOHOL: ");
+            filtros.set(1,Categoria.getCategoria("Bebidas sin alcohol"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
+            System.out.println(" ");
+            System.out.println("COMIDAS VEGANAS:");
+            filtros.set(1,Categoria.getCategoria("Vegano"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
+            System.out.println(" ");
+            System.out.println("COMIDAS APTAS PARA CELIACOS:");
+            filtros.set(1,Categoria.getCategoria("Celiaco"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
+            System.out.println(" ");
+            System.out.println("PLATOS COMUNES:");
+            tiposFiltros.set(1,ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE); 
+            filtros.set(1,Categoria.getCategoria("plato"));
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtroMultiple(tiposFiltros, filtros);
+                for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
+            System.out.println("-----------------------");
+            try{
+                lista = (ArrayList<ItemMenu>) items.filtrarPor(nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE, Categoria.getCategoria("Celiaco"));
+                for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
+            }catch(ItemNoEncontradoException e){System.out.println(e);}
+        
+    }
+
     
 }
