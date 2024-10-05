@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.NoSuchElementException;
-import nc.diedtp.excepciones.CantidadItemMenor0Exceptions;
+import nc.diedtp.excepciones.CantidadItemInvalidaException;
 import nc.diedtp.excepciones.CategoriaIncompatibleException;
 import nc.diedtp.excepciones.ItemNoEncontradoException;
 import nc.diedtp.excepciones.PedidoCerradoException;
@@ -104,7 +104,7 @@ public class Main {
                         } else
                         carrito.agregarItem(items.getItem(indexItem), cantidad);
                         
-                    }catch (CantidadItemMenor0Exceptions |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
+                    }catch (CantidadItemInvalidaException |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
                         System.out.println(e);
                     }
                 }
