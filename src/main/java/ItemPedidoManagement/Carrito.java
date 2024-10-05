@@ -10,6 +10,8 @@ import nc.diedtp.excepciones.ItemNoEncontradoException;
 import nc.diedtp.excepciones.PedidoCerradoException;
 import nc.diedtp.excepciones.PedidoIncorrectoException;
 import java.lang.StringBuffer;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Carrito {
     private ArrayList<ItemPedido> items;
@@ -42,6 +44,12 @@ public class Carrito {
         ItemPedido itemAObtener = items.stream().filter(item->item.getId()==ID).collect(Collectors.toList()).getFirst();
         if(itemAObtener == null) throw new ItemNoEncontradoException("No se pudo encontrar el item con id" + ID +" en el carrito");
         return itemAObtener;
+    }
+    public void setMercadoPago(String alias){
+        pedido.setPagoMercadoPago(alias);
+    }
+    public void setTransferencia(String cbu, String cuit){
+        pedido.setPagoTransferencia(cbu, cuit);
     }
 
     public void quitarItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException {

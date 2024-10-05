@@ -82,13 +82,12 @@ public class Main {
         System.out.print("SELECCIONE POR NUMERO EL VENDEDOR QUE DESEA VER EL MENU:  ");
         int indexVend = sc.nextInt();
         mostrarMenu(vendedores.get(indexVend), items);
-        
-        System.out.print("DESEA GENERAR UN CARRITO CON ESTE VENDEDOR? (s/n): ");
-        String opt = sc.next();
-
         Cliente yoCliente = new Cliente("utn", 123456, "utn@frsf.utn", "Lavaise 610", -31.62, -60.7);
         clientes.add(yoCliente);
+        
         Carrito carrito = null;
+        System.out.print("DESEA GENERAR UN CARRITO CON ESTE VENDEDOR? (s/n): ");
+        String opt = sc.next();
         
         if (opt.equalsIgnoreCase("s")) {
             Scanner sc2 = new Scanner(System.in);
@@ -109,18 +108,31 @@ public class Main {
                     }
                         
                 }
-                System.out.println();
-                System.out.println("Desea confirmar su compra?(s/n)");
-                    opt = sc.next();
-                    if(opt.equalsIgnoreCase("s")){
-                        carrito.cerrarPedido();
-                        carrito.verPrecio();
-                    }
-                    
             } catch (NoSuchElementException e) {
-                        System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");  
-                       
-                    }
+                    System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");         
+                }
+            if(carrito!=null){
+                System.out.println(carrito);
+                System.out.println("Con  que método de pago desea abonar su compra?\nMercadoPago: Escriba mp\nTransferencia: Escriba t\nEn caso de seleccionar un caracter invalido se asumirá MercadoPago");
+                opt = sc.next();
+                if(opt.equalsIgnoreCase("t")){
+                    System.out.println("Por favor ingrese su CBU:");
+                    String cbu = sc.next();
+                    System.out.println("Por favor ingrese su CUIT:");
+                    String cuit = sc.next();
+                    carrito.setTransferencia(cbu, cuit);
+                }else{
+                    System.out.println("Por favor ingrese su alias:");
+                    String alias = sc.next();
+                    carrito.setMercadoPago(alias);
+                }
+                System.out.println("Desea confirmar su compra?(s/n)");
+                opt = sc.next();
+                if(opt.equalsIgnoreCase("s")){
+                    carrito.cerrarPedido();
+                    System.out.println("El total es: "+carrito.verPrecio());
+                }
+            }
             
             
         }
