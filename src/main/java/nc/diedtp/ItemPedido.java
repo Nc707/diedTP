@@ -6,8 +6,7 @@ package nc.diedtp;
 
 import ItemPedidoManagement.CompareStrategyInterface;
 import ItemPedidoManagement.ItemPedidoPriceCompSt;
-import nc.diedtp.ItemMenu;
-import nc.diedtp.Vendedor;
+
 
 /**
  *

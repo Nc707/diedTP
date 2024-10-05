@@ -9,9 +9,10 @@ import java.util.stream.Collectors;
 import nc.diedtp.excepciones.ItemNoEncontradoException;
 import nc.diedtp.excepciones.PedidoCerradoException;
 import nc.diedtp.excepciones.PedidoIncorrectoException;
+import java.lang.StringBuffer;
 
 public class Carrito {
-    private List<ItemPedido> items;
+    private ArrayList<ItemPedido> items;
     private ItemPedidoMemory itemPedidoMemory;
     private Pedido pedido;
 
@@ -52,11 +53,26 @@ public class Carrito {
         pedido.cerrarPedido();
         itemPedidoMemory.addPedido(items);
     }
+    public float verPrecio(){
+        return pedido.getPrecio();
+    }
 
     //solo para debugging
-    public void printItems() {
-        for (ItemPedido ip : items) {
-            System.out.println(ip.getItemMenu().getNombre() + " " + ip.getCantidad());
+    public List<ItemPedido> getItems() {
+        return (List<ItemPedido>) items.clone();
+    }
+    @Override
+    public String toString(){
+        StringBuilder representation = new StringBuilder("");
+        representation.append("Carrito de el comprador: ").append(pedido.getCliente()).append("\n");
+        representation.append("Contiene items del vendedor: ").append(pedido.getVendedor()).append("\n");
+        representation.append("Está en estado: ");
+        if(pedido.getEstado()==Pedido.EstadoPedido.EN_CARRITO) representation.append("En Carrito\n");
+        else if(pedido.getEstado()==Pedido.EstadoPedido.RECIBIDO) representation.append("Recibido\n");
+        for(ItemPedido item: items){
+            representation.append(item.toString()).append("\n");
         }
+        representation.append("Representando un subtotal de: ").append(pedido.getPrecio()).append(" .Mas el recargo de su método de pago");
+        return representation.toString();
     }
 }

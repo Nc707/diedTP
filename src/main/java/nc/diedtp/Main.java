@@ -107,14 +107,25 @@ public class Main {
                     }catch (CantidadItemInvalidaException |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
                         System.out.println(e);
                     }
+                        
                 }
-            } catch (NoSuchElementException e) {
-                        System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");               
+                System.out.println();
+                System.out.println("Desea confirmar su compra?(s/n)");
+                    opt = sc.next();
+                    if(opt.equalsIgnoreCase("s")){
+                        carrito.cerrarPedido();
+                        carrito.verPrecio();
                     }
- 
+                    
+            } catch (NoSuchElementException e) {
+                        System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");  
+                       
+                    }
+            
+            
         }
             
-        carrito.printItems();
+        
         
         System.out.println("(etapa3) desea ejecutar y mostrar filtros? (s/n)");
         String etp3 = sc.next();

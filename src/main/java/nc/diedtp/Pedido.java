@@ -63,6 +63,9 @@ public class Pedido {
     public Vendedor getVendedor(){
         return vendedor;
     }
+    public EstadoPedido getEstado(){
+        return estado;
+    }
     public void setPagoMercadoPago(String alias){
         this.metodoPago = new PagoMercadoPago(alias);
     }

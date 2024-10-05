@@ -15,17 +15,17 @@ import nc.diedtp.Vendedor;
 import nc.diedtp.excepciones.*;
 
 public final class ItemPedidoMemory implements ItemPedidoDAO {
-    private static ItemPedidoMemory ipm_instancia;
+    private static ItemPedidoMemory uniqueInstance;
     private ArrayList<ItemPedido> memory;
     
     private ItemPedidoMemory() {
         this.memory = new ArrayList<>();
     }
     public static ItemPedidoMemory getItemPedidoMemory(){
-    if(ipm_instancia == null){
-        ipm_instancia = new ItemPedidoMemory();
+    if(uniqueInstance == null){
+        uniqueInstance = new ItemPedidoMemory();
     }
-        return ipm_instancia;
+        return uniqueInstance;
     }
     public ArrayList<ItemPedido> getMemory(){
         return this.memory;
