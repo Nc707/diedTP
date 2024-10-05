@@ -34,9 +34,17 @@ public class ItemMenuMemory implements ItemMenuDAO {
         }
         
     }
+    private static ItemMenuMemory imm_instancia;
     private ArrayList<ItemMenu> memory;
-    public ItemMenuMemory() {
+    
+    private ItemMenuMemory() {
         this.memory = new ArrayList<>();
+    }
+    public static ItemMenuMemory getInstancia(){
+        if(imm_instancia == null){
+            imm_instancia = new ItemMenuMemory();
+        }
+        return imm_instancia;
     }
     @Override
     public void add(ItemMenu item) {
