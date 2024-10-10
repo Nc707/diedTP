@@ -28,6 +28,9 @@ public class Carrito {
         } catch (VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {}
         items.add(primerItemPedido);
     }
+    public Pedido getPedido(){
+        return this.pedido;
+    }
 
     public void agregarItem(ItemMenu item, int cantidadItems) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException {
         ItemPedido itemAgregar = new ItemPedido(item, cantidadItems, pedido);
