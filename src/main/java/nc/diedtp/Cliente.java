@@ -6,8 +6,10 @@ package nc.diedtp;
 import ItemPedidoManagement.Carrito;
 import ItemPedidoManagement.ItemPedidoMemory;
 import nc.diedtp.excepciones.CantidadItemInvalidaException;
+import interfacesPackage.Observer;
+import nc.diedtp.Pedido.EstadoPedido;
 
-public class Cliente {
+public class Cliente implements Observer{
     private static int next_id = 0;
     private int id;
     private int cuit;
@@ -48,7 +50,9 @@ public class Cliente {
     public String getNombre(){
         return nombre;
     }
-    
+    public Carrito getCarrito(){
+        return this.carrito;
+    }
      public Carrito crearCarrito(Cliente c, ItemMenu item, int cantidad, ItemPedidoMemory memory) throws CantidadItemInvalidaException {
          if(cantidad <0) throw new CantidadItemInvalidaException("La cantidad solicita es incorrecta ");
          carrito = new Carrito(memory, c, item, cantidad);
@@ -60,5 +64,13 @@ public class Cliente {
         return "Nombre: "+nombre+"\nId: "+Integer.toString(id)+"\nCuit: "
                 +Integer.toString(cuit)+"\nEmail: "+email+"\nDireccion: "+direccion;
     }
-     
+    @Override
+    public void informar() {
+        EstadoPedido estado = this.getCarrito().getPedido().getEstado();
+        System.out.println("Tu pedido ha pasado al estado " + estado);
+        if(estado == EstadoPedido.EN_ENVIO){
+            //pago
+        }
+    }
+    
 }
