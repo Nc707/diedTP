@@ -1,18 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nc.diedtp;
 
 import java.util.ArrayList;
 import nc.diedtp.excepciones.*;
+import interfaces.Observable;
+import interfaces.Observer;
 
-/**
- *
- * @author jereb
- */
 
-public class Pedido {
+public class Pedido implements Observable {
     private static int next_id=0;
     private int id;
     private Vendedor vendedor;
@@ -20,9 +14,11 @@ public class Pedido {
     private float precio;
     private EstadoPedido estado;
     private EstrategiaPago metodoPago;
+
     public enum EstadoPedido{
         EN_CARRITO,
-        RECIBIDO
+        RECIBIDO,
+        EN_ENVIO
     }
     public int getId() {
         return id;
@@ -33,7 +29,7 @@ public class Pedido {
         this.vendedor = vendedor;
         this.id = next_id;
         next_id++;
-        this.cliente = cliente;
+        this.addSubscriptor(cliente);
         this.precio = 0.0f;
         this.estado = EstadoPedido.EN_CARRITO;
     }
@@ -76,5 +72,18 @@ public class Pedido {
         precio = this.metodoPago.cerrarPago(precio);
         this.estado = EstadoPedido.RECIBIDO;
     }
-         
+     
+    @Override
+    public void addSubscriptor(Observer cliente) {
+        this.cliente = (Cliente) cliente;
+    }
+
+    @Override
+    public void notificarSubs() {
+       this.cliente.informar();
+    }
+    void cambioEstado(EstadoPedido nuevo){
+        this.notificarSubs();
+        this.estado = nuevo;
+    }
 }
