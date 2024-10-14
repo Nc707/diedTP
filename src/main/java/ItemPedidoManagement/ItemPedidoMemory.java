@@ -5,7 +5,7 @@ import static ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
 import java.util.ArrayList;
 import static java.util.Collections.sort;
 import java.util.List;
-import java.util.stream.Collectors;
+ import java.util.stream.Collectors;
 import nc.diedtp.Categoria;
 import nc.diedtp.Cliente;
 import nc.diedtp.ItemMenu;
@@ -27,16 +27,17 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
     }
         return uniqueInstance;
     }
-    public ArrayList<ItemPedido> getMemory(){
-        return this.memory;
-    }
     public void addPedido(List<ItemPedido> items){
         memory.addAll(items);
+        
     }
     public void removePedido(Pedido p) throws ItemNoEncontradoException{
         List<ItemPedido> elementsToRemove = this.filtrarPor(PEDIDO, p);
         memory.removeAll(elementsToRemove);
-        
+    }
+    public List<Pedido> getPedidos(Vendedor vend) throws ItemNoEncontradoException{
+        return memory.stream().map(item->item.getPedido()).distinct().filter(pedido->pedido.getVendedor() == vend)
+                .collect(Collectors.toList());
     }
     @Override
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException{
