@@ -119,7 +119,7 @@ public class Main {
                     System.out.println("Por favor ingrese su CBU:");
                     String cbu = sc.next();
                     System.out.println("Por favor ingrese su CUIT:");
-                    String cuit = sc.next();
+                    int cuit = sc.nextInt();
                     carrito.setTransferencia(cbu, cuit);
                 }else{
                     System.out.println("Por favor ingrese su alias:");
