@@ -11,8 +11,8 @@ package nc.diedtp;
 public class PagoTransferencia implements EstrategiaPago{
     final float RECARGO = 0.04f;
     String cbu;
-    String cuit;
-    public PagoTransferencia(String cbu, String cuit){
+    int cuit;
+    public PagoTransferencia(String cbu, int cuit){
         this.cbu = cbu;
         this.cuit = cuit;
     }
