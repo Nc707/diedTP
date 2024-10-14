@@ -63,12 +63,12 @@ public class Pedido implements Observable{
     public void setPagoMercadoPago(String alias){
         this.metodoPago = new PagoMercadoPago(alias);
     }
-    public void setPagoTransferencia(String cbu, String cuit){
+    public void setPagoTransferencia(String cbu, int cuit){
         this.metodoPago = new PagoTransferencia(cbu, cuit);
     }
     public void cerrarPedido(){
         precio = this.metodoPago.cerrarPago(precio);
-        this.estado = EstadoPedido.RECIBIDO;
+        System.out.println("Usted ha realizado con éxito el pago del pedido por un monto de $"+ String.valueOf(precio));
     }
     @Override
     public void addSubscriptor(Observer cliente) {
@@ -77,7 +77,7 @@ public class Pedido implements Observable{
 
     @Override
     public void notificarSubs() {
-       this.cliente.informar();
+       this.cliente.informar(this);
     }
     void cambioEstado(EstadoPedido nuevo){
         this.notificarSubs();
