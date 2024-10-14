@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nc.diedtp;
 import ItemPedidoManagement.Carrito;
 import ItemPedidoManagement.ItemPedidoMemory;
+import interfacesPackage.Observable;
 import nc.diedtp.excepciones.CantidadItemInvalidaException;
 import interfacesPackage.Observer;
 import nc.diedtp.Pedido.EstadoPedido;
+import java.util.Scanner;
 
 public class Cliente implements Observer{
     private static int next_id = 0;
@@ -18,6 +16,8 @@ public class Cliente implements Observer{
     private Coordenada coordenadas;
     private String nombre;
     private Carrito carrito;
+    private String alias;
+    private String cbu;
   
     public Cliente(){} //constructor generico para poder instanciar un cliente sin parametros
     public Cliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud ){
@@ -65,11 +65,21 @@ public class Cliente implements Observer{
                 +Integer.toString(cuit)+"\nEmail: "+email+"\nDireccion: "+direccion;
     }
     @Override
-    public void informar() {
-        EstadoPedido estado = this.getCarrito().getPedido().getEstado();
+    public void informar(Observable pedido) {
+       EstadoPedido estado = this.getCarrito().getPedido().getEstado();
         System.out.println("Tu pedido ha pasado al estado " + estado);
         if(estado == EstadoPedido.EN_ENVIO){
-            //pago
+            System.out.println("Seleccione el metodo de pago (MP / TR)");
+            Scanner sc = new Scanner(System.in);
+            String pago = sc.next();
+            //Excepcion por metodo de pago invalido
+            if(pago.equals("MP")){
+                ((Pedido)pedido).setPagoMercadoPago(this.alias);
+            }else if(pago.equals("TR")){
+                ((Pedido)pedido).setPagoTransferencia(this.cbu, this.cuit);
+            }
+            ((Pedido)pedido).cerrarPedido();
+            
         }
     }
     
