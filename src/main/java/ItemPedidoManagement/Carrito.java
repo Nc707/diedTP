@@ -51,7 +51,7 @@ public class Carrito {
     public void setMercadoPago(String alias){
         pedido.setPagoMercadoPago(alias);
     }
-    public void setTransferencia(String cbu, String cuit){
+    public void setTransferencia(String cbu, int cuit){
         pedido.setPagoTransferencia(cbu, cuit);
     }
 
