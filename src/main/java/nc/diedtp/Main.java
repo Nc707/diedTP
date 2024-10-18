@@ -198,6 +198,7 @@ public class Main {
                               cambiarEstado(pedido);
                           }
                       } 
+                    break;  
                     
                 default:
                     System.out.println("Opción no válida");
