@@ -2,5 +2,5 @@ package interfacesPackage;
 
 
 public interface Observer {
-    void informar();
+    void informar(Observable pedido);
 }
