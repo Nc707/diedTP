@@ -68,6 +68,7 @@ public class Main {
         createRandomPedido(p2,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP2);
         createRandomPedido(p3,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP3);
         createRandomPedido(p4,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP4);
+        System.out.println(p1);
        ItemPedidoMemory pedidos = ItemPedidoMemory.getItemPedidoMemory();
         pedidos.addPedido(itemP1);
         pedidos.addPedido(itemP2);
@@ -75,67 +76,122 @@ public class Main {
         pedidos.addPedido(itemP4);
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("----------------------VENDEDORES REGISTRADOS----------------------");
-        for (int i=0; i<vendedores.size(); i++){
-            System.out.println(i+ "- " + vendedores.get(i).getNombre());
-        }
-        System.out.print("SELECCIONE POR NUMERO EL VENDEDOR QUE DESEA VER EL MENU:  ");
-        int indexVend = sc.nextInt();
-        mostrarMenu(vendedores.get(indexVend), items);
-        Cliente yoCliente = new Cliente("utn", 123456, "utn@frsf.utn", "Lavaise 610", -31.62, -60.7);
-        clientes.add(yoCliente);
-        
-        Carrito carrito = null;
-        System.out.print("DESEA GENERAR UN CARRITO CON ESTE VENDEDOR? (s/n): ");
-        String opt = sc.next();
-        
-        if (opt.equalsIgnoreCase("s")) {
-            Scanner sc2 = new Scanner(System.in);
-            try {
-                while (true) {
-                    System.out.print("ESCRIBA EL ID ITEM QUE DESEA AGREGAR AL CARRITO, o un caracter invalido para ver el total: ");
-                    int indexItem = sc2.nextInt();
-                    System.out.print("INGRESE LA CANTIDAD DE ITEMS QUE DESEA AGREGAR DEL PRODUCTO " + items.getItem(indexItem).getNombre() + ": ");
-                    int cantidad = sc2.nextInt();
-                    try {
-                        if(carrito == null){
-                            carrito = yoCliente.crearCarrito(yoCliente, items.getItem(indexItem), cantidad, pedidos);
-                        } else
-                        carrito.agregarItem(items.getItem(indexItem), cantidad);
-                        
-                    }catch (CantidadItemInvalidaException |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
-                        System.out.println(e);
-                    }
-                        
-                }
-            } catch (NoSuchElementException e) {
-                    System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");         
-                }
-            if(carrito!=null){
-                System.out.println(carrito);
-                System.out.println("Con  que método de pago desea abonar su compra?\nMercadoPago: Escriba mp\nTransferencia: Escriba t\nEn caso de seleccionar un caracter invalido se asumirá MercadoPago");
-                opt = sc.next();
-                if(opt.equalsIgnoreCase("t")){
-                    System.out.println("Por favor ingrese su CBU:");
-                    String cbu = sc.next();
-                    System.out.println("Por favor ingrese su CUIT:");
-                    int cuit = sc.nextInt();
-                    carrito.setTransferencia(cbu, cuit);
-                }else{
-                    System.out.println("Por favor ingrese su alias:");
-                    String alias = sc.next();
-                    carrito.setMercadoPago(alias);
-                }
-                System.out.println("Desea confirmar su compra?(s/n)");
-                opt = sc.next();
-                if(opt.equalsIgnoreCase("s")){
-                    carrito.cerrarPedido();
-                    System.out.println("El total es: "+carrito.verPrecio());
-                }
+        System.out.println("Seleccione su rol:");
+        System.out.println("1. Cliente");
+        System.out.println("2. Vendedor");
+        System.out.print("Ingrese el número de su rol: ");
+        int rol = sc.nextInt();
+
+        if (rol == 1) {
+            // BEGIN CLIENTE SIDE
+            System.out.println("----------------------VENDEDORES REGISTRADOS----------------------");
+            for (int i=0; i<vendedores.size(); i++){
+                System.out.println(i+ "- " + vendedores.get(i).getNombre());
             }
+            System.out.print("SELECCIONE POR NUMERO EL VENDEDOR QUE DESEA VER EL MENU:  ");
+            int indexVend = sc.nextInt();
+            mostrarMenu(vendedores.get(indexVend), items);
+            Cliente yoCliente = new Cliente("utn", 123456, "utn@frsf.utn", "Lavaise 610", -31.62, -60.7);
+            clientes.add(yoCliente);
             
+            Carrito carrito = null;
+            System.out.print("DESEA GENERAR UN CARRITO CON ESTE VENDEDOR? (s/n): ");
+            String opt = sc.next();
             
+            if (opt.equalsIgnoreCase("s")) {
+                Scanner sc2 = new Scanner(System.in);
+                try {
+                    while (true) {
+                        System.out.print("ESCRIBA EL ID ITEM QUE DESEA AGREGAR AL CARRITO, o un caracter invalido para ver el total: ");
+                        int indexItem = sc2.nextInt();
+                        System.out.print("INGRESE LA CANTIDAD DE ITEMS QUE DESEA AGREGAR DEL PRODUCTO " + items.getItem(indexItem).getNombre() + ": ");
+                        int cantidad = sc2.nextInt();
+                        try {
+                            if(carrito == null){
+                                carrito = yoCliente.crearCarrito(yoCliente, items.getItem(indexItem), cantidad, pedidos);
+                            } else
+                            carrito.agregarItem(items.getItem(indexItem), cantidad);
+                            
+                        }catch (CantidadItemInvalidaException |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
+                            System.out.println(e);
+                        }
+                            
+                    }
+                } catch (NoSuchElementException e) {
+                        System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");         
+                    }
+                    //yoCliente.informar();
+                if(carrito!=null){
+                    System.out.println(carrito);
+                    System.out.println("Con  que método de pago desea abonar su compra?\nMercadoPago: Escriba mp\nTransferencia: Escriba t\nEn caso de seleccionar un caracter invalido se asumirá MercadoPago");
+                    opt = sc.next();
+                    if(opt.equalsIgnoreCase("t")){
+                        System.out.println("Por favor ingrese su CBU:");
+                        String cbu = sc.next();
+                        System.out.println("Por favor ingrese su CUIT:");
+                        int cuit = sc.nextInt();
+                        carrito.setTransferencia(cbu, cuit);
+                    }else{
+                        System.out.println("Por favor ingrese su alias:");
+                        String alias = sc.next();
+                        carrito.setMercadoPago(alias);
+                    }
+                    System.out.println("Desea confirmar su compra?(s/n)");
+                    opt = sc.next();
+                    if(opt.equalsIgnoreCase("s")){
+                        carrito.cerrarPedido();
+                        System.out.println("El total es: "+carrito.verPrecio());
+                    }
+                }
+                
+                
+            }
+         }
+        else if (rol == 2) {
+
+            System.out.println("----------------------VENDEDORES REGISTRADOS----------------------");
+            for (int i=0; i<vendedores.size(); i++){
+                System.out.println(i+ "- " + vendedores.get(i).getNombre());
+            }
+            System.out.print("Ingrese su id: ");
+            int idVendor = sc.nextInt();
+            Vendedor vendedor = vendedores.get(idVendor);
+            System.out.println(
+                "1. Ver menu\n" +
+                "2. Ver pedidos\n" +
+                "3. Ver pedidos por estado\n" //+
+                //"4. Ver pedidos por cliente\n" +
+                //"5. Ver pedidos por fecha\n"
+            );
+            System.out.print("Ingrese el número de la opción que desea: ");
+            switch (sc.nextInt()) {
+                case 1:
+                mostrarMenu(vendedor, items);
+                    break;
+                case 2:
+                    System.out.println("Pedidos:");
+                    for (Pedido pedido : vendedor.getPedidos()) {
+                        System.out.println(pedido);
+                    }
+                    break;
+                case 3:
+                    System.out.println("Pedidos por estado:");
+                    //falta implementar
+                    break;
+            
+                default:
+                    System.out.println("Opción no válida");
+                    break;
+            }
+
+
+
+
+         }
+        else {
+            System.out.println("Opción no válida");
         }
+
             
         
         

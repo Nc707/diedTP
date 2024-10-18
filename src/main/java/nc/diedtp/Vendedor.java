@@ -4,7 +4,8 @@
  */
 package nc.diedtp;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Vendedor {
     private static int next_id = 0;
@@ -12,6 +13,7 @@ public class Vendedor {
     private String nombre;
     private String direccion;
     private Coordenada coordenada;
+    private List<Pedido> pedidos;
 
     public Vendedor(String nombre, String direccion, double cx, double cy) {
         this.id = next_id;
@@ -19,6 +21,7 @@ public class Vendedor {
         this.nombre = nombre;
         this.direccion = direccion;
         this.coordenada = new Coordenada(cx, cy);
+        this.pedidos = new ArrayList<>();
     }
 
     public Coordenada getCoordenada() {
@@ -37,6 +40,12 @@ public class Vendedor {
         return nombre;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+    public void addPedido(Pedido pedido) {
+        this.pedidos.add(pedido);
+    }
     @Override
     public String toString() {
         return "Nombre: " + nombre + "\nId: " + Integer.toString(id) + "\nDireccion: " + direccion;

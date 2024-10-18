@@ -6,5 +6,6 @@ package interfacesPackage;
 
 public interface Observable {
     void addSubscriptor(Observer cliente);
+    //void removeSubscriptor(Observer cliente);
     void notificarSubs();
 }

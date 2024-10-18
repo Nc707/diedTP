@@ -1,6 +1,8 @@
 package nc.diedtp;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import nc.diedtp.excepciones.*;
 import interfacesPackage.Observable;
 import interfacesPackage.Observer;
@@ -13,6 +15,7 @@ public class Pedido implements Observable{
     private float precio;
     private EstadoPedido estado;
     private EstrategiaPago metodoPago;
+    private List<ItemPedido> items;
     public enum EstadoPedido{
         EN_CARRITO,
         RECIBIDO,
@@ -30,18 +33,23 @@ public class Pedido implements Observable{
         this.cliente = cliente;
         this.precio = 0.0f;
         this.estado = EstadoPedido.EN_CARRITO;
+        this.items = new ArrayList<>();
+        vendedor.addPedido(this);
+
     }
     public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
         if(this.estado == EstadoPedido.RECIBIDO) throw new PedidoCerradoException("El pedido esta cerrado y no se puede modificar");
         if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
         if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
         this.precio += item.getPrecio();
+        items.add(item);
     }
     public void deleteItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
         if(this.estado == EstadoPedido.RECIBIDO) throw new PedidoCerradoException("El pedido esta cerrado y no se puede modificar");
         if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
         if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
         this.precio -= item.getPrecio();
+        items.remove(item);
     }
     public void updatePrecio(float precioViejo, float precioNuevo){
         this.precio+=(precioNuevo - precioViejo);
@@ -77,10 +85,15 @@ public class Pedido implements Observable{
 
     @Override
     public void notificarSubs() {
-       this.cliente.informar(this);
+       this.cliente.informar();
     }
     void cambioEstado(EstadoPedido nuevo){
         this.notificarSubs();
         this.estado = nuevo;
     }    
+    @Override
+    public String toString() {
+        return "Pedido{id=" + this.id + ", cliente=" + this.cliente + "} \n Estado: " + this.estado + "\n Precio: " + this.precio + 
+                "\n Metodo de pago: " + this.metodoPago + "\n Detalle: " + this.items;
+    }
 }
