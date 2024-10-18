@@ -65,9 +65,8 @@ public class Cliente implements Observer{
                 +Integer.toString(cuit)+"\nEmail: "+email+"\nDireccion: "+direccion;
     }
     @Override
-    public void informar() {
-        Pedido pedido = this.getCarrito().getPedido();
-        EstadoPedido estado = this.getCarrito().getPedido().getEstado();
+    public void informar(Observable pedido) {
+        EstadoPedido estado = ((Pedido)pedido).getEstado();
         System.out.println("Tu pedido ha pasado al estado " + estado);
         if(estado == EstadoPedido.EN_ENVIO){
             System.out.println("Seleccione el metodo de pago (MP / TR)");
@@ -79,8 +78,7 @@ public class Cliente implements Observer{
             }else if(pago.equals("TR")){
                 ((Pedido)pedido).setPagoTransferencia(this.cbu, this.cuit);
             }
-            ((Pedido)pedido).cerrarPedido();
-            
+            ((Pedido)pedido).cerrarPedido();   
         }
     }
     public void generarPago(){
