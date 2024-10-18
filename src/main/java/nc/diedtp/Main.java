@@ -159,9 +159,10 @@ public class Main {
             System.out.println(
                 "1. Ver menu\n" +
                 "2. Ver pedidos\n" +
-                "3. Ver pedidos por estado\n" //+
-                //"4. Ver pedidos por cliente\n" +
-                //"5. Ver pedidos por fecha\n"
+                "3. Ver pedidos por estado\n " +//+
+                "4. Cambiar estado del Pedido"
+                //"5. Ver pedidos por cliente\n" +
+                //"6. Ver pedidos por fecha\n"
             );
             System.out.print("Ingrese el número de la opción que desea: ");
             switch (sc.nextInt()) {
@@ -175,19 +176,35 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.println("Pedidos por estado:");
-                    //falta implementar
+                   System.out.println("Filtrando pedidos por estado...");
+                for (Pedido pedido : vendedor.getPedidos()) {
+                    if (pedido.getEstado() == Pedido.EstadoPedido.EN_CARRITO) {
+                        System.out.println("Pedido en carrito: " + pedido);
+                    }
+                    if (pedido.getEstado() == Pedido.EstadoPedido.RECIBIDO) {
+                        System.out.println("Pedido recibido: " + pedido);
+                    }
+                    if (pedido.getEstado() == Pedido.EstadoPedido.EN_ENVIO) {
+                        System.out.println("Pedido en envío: " + pedido);
+                    }
+                }
                     break;
-            
+                case 4:
+                    Scanner c = new Scanner(System.in);
+                    System.out.println("Ingresar Id del pedido que desea cambiar: ");
+                     int idPedido = c.nextInt();
+                      for (Pedido pedido : vendedor.getPedidos()) {
+                          if(idPedido == pedido.getId()){
+                              cambiarEstado(pedido);
+                          }
+                      } 
+                    
                 default:
                     System.out.println("Opción no válida");
                     break;
             }
-
-
-
-
          }
+        
         else {
             System.out.println("Opción no válida");
         }
@@ -388,6 +405,14 @@ public class Main {
             }catch(ItemNoEncontradoException e){System.out.println(e);}
         
     }
-
+    private static void cambiarEstado(Pedido pedido){
+       if(pedido.getEstado()== Pedido.EstadoPedido.RECIBIDO ){
+        //EXECPTION: NO DEBERIA PODER CAMBIAR DE RECIBIDO A OTRA COSA, AL MENOS QUE CONSIDEREMOS QUE EL ENVIO FALLO.
+       }
+       else if(pedido.getEstado()== Pedido.EstadoPedido.EN_ENVIO){
+               pedido.cambioEstado(Pedido.EstadoPedido.RECIBIDO);
+       }
+       else{ pedido.cambioEstado(Pedido.EstadoPedido.EN_ENVIO);}
+    }
     
 }
