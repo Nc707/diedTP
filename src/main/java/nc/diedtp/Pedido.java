@@ -85,7 +85,7 @@ public class Pedido implements Observable{
 
     @Override
     public void notificarSubs() {
-       this.cliente.informar();
+       this.cliente.informar(this);
     }
     void cambioEstado(EstadoPedido nuevo){
         this.notificarSubs();
