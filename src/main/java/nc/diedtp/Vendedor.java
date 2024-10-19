@@ -21,7 +21,6 @@ public class Vendedor {
         this.nombre = nombre;
         this.direccion = direccion;
         this.coordenada = new Coordenada(cx, cy);
-        this.pedidos = new ArrayList<>();
     }
 
     public Coordenada getCoordenada() {
@@ -38,13 +37,6 @@ public class Vendedor {
 
     public String getNombre() {
         return nombre;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-    public void addPedido(Pedido pedido) {
-        this.pedidos.add(pedido);
     }
     @Override
     public String toString() {

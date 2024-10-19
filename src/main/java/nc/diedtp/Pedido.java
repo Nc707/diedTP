@@ -37,7 +37,6 @@ public class Pedido implements Observable{
         this.precio = 0.0f;
         this.estado = EstadoPedido.EN_CARRITO;
         this.items = new ArrayList<>();
-        vendedor.addPedido(this);
 
     }
     public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{

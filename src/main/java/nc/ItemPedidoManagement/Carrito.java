@@ -77,20 +77,11 @@ public class Carrito {
         StringBuilder representation = new StringBuilder("");
         representation.append("Carrito de el comprador: ").append(pedido.getCliente()).append("\n");
         representation.append("Contiene items del vendedor: ").append(pedido.getVendedor()).append("\n");
-        representation.append("Está en estado: ");
-        if(pedido.getEstado()==Pedido.EstadoPedido.EN_CARRITO) representation.append("En Carrito\n");
-        else if(pedido.getEstado()==Pedido.EstadoPedido.RECIBIDO) representation.append("Recibido\n");
+        representation.append("Está en carrito ");
         for(ItemPedido item: items){
             representation.append(item.toString()).append("\n");
         }
-        representation.append("Representando un subtotal de: ").append(pedido.getPrecio()).append(" .Mas el recargo de su método de pago");
+        representation.append("Representando un subtotal de: $").append(pedido.getPrecio()).append(" .Mas el recargo de su método de pago");
         return representation.toString();
-    }
-    public void mostrarItems(){
-        System.out.println("Resumen de su carrito actual: ");
-        for(ItemPedido item: items){
-            System.out.println(item);
-        }
-        System.out.println("\nRepresentando un subtotal de: $" + pedido.getPrecio() + " mas el recargo de su método de pago\n\n");
     }
 }

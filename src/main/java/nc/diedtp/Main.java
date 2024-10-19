@@ -68,6 +68,14 @@ public class Main {
         createRandomPedido(p2,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP2);
         createRandomPedido(p3,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP3);
         createRandomPedido(p4,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP4);
+        p1.setPagoMercadoPago("5641651");
+        p1.cambioEstado(Pedido.EstadoPedido.RECIBIDO);
+        p2.setPagoTransferencia("51651165", 645515161);
+        p2.cambioEstado(Pedido.EstadoPedido.RECIBIDO);
+        p3.setPagoMercadoPago("5161ga");
+        p3.cambioEstado(Pedido.EstadoPedido.RECIBIDO);
+        p4.setPagoMercadoPago("15189");
+        p4.cambioEstado(Pedido.EstadoPedido.RECIBIDO);
        ItemPedidoMemory pedidos = ItemPedidoMemory.getItemPedidoMemory();
         pedidos.addPedido(itemP1);
         pedidos.addPedido(itemP2);
@@ -128,8 +136,8 @@ public class Main {
                     }
                     //yoCliente.informar();
                 if(carrito!=null){
-                    carrito.mostrarItems();
-                    //System.out.println(carrito);
+                    System.out.println("El resumen de su carrito: ");
+                    System.out.println(carrito);
                     System.out.println("Con  que método de pago desea abonar su compra?\nMercadoPago: Escriba mp\nTransferencia: Escriba t\nEn caso de seleccionar un caracter invalido se asumirá MercadoPago");
                     opt = sc.next();
                     if(opt.equalsIgnoreCase("t")){
@@ -175,13 +183,13 @@ public class Main {
                         break;
                     case 2:
                         System.out.println("Pedidos:");
-                        for (Pedido pedido : vendedor.getPedidos()) {
+                        for (Pedido pedido : pedidos.getPedidos(vendedor)) {
                             System.out.println(pedido);
                         }
                         break;
                     case 3:
                        System.out.println("Filtrando pedidos por estado...");
-                    for (Pedido pedido : vendedor.getPedidos()) {
+                    for (Pedido pedido : pedidos.getPedidos(vendedor)) {
                         if (pedido.getEstado() == Pedido.EstadoPedido.EN_CARRITO) {
                             System.out.println("Pedido en carrito: " + pedido);
                         }
@@ -197,7 +205,7 @@ public class Main {
                         Scanner c = new Scanner(System.in);
                         System.out.println("Ingresar Id del pedido que desea cambiar: ");
                          int idPedido = c.nextInt();
-                          for (Pedido pedido : vendedor.getPedidos()) {
+                          for (Pedido pedido : pedidos.getPedidos(vendedor)) {
                               if(idPedido == pedido.getId()){
                                   cambiarEstado(pedido);
                               }
@@ -222,7 +230,7 @@ public class Main {
         }
 
             
-        
+        /*
         
         System.out.println("(etapa3) desea ejecutar y mostrar filtros? (s/n)");
         String etp3 = sc.next();
@@ -274,7 +282,7 @@ public class Main {
 
         
         sc.close();
-        
+        */
     }
 
     public static void limpiarPantalla() {
@@ -437,13 +445,6 @@ public class Main {
         
     }
     private static void cambiarEstado(Pedido pedido){
-       if(pedido.getEstado()== Pedido.EstadoPedido.RECIBIDO ){
-        //EXECPTION: NO DEBERIA PODER CAMBIAR DE RECIBIDO A OTRA COSA, AL MENOS QUE CONSIDEREMOS QUE EL ENVIO FALLO.
-       }
-       else if(pedido.getEstado()== Pedido.EstadoPedido.EN_ENVIO){
-               pedido.cambioEstado(Pedido.EstadoPedido.RECIBIDO);
-       }
-       else{ pedido.cambioEstado(Pedido.EstadoPedido.EN_ENVIO);}
+        pedido.cambioEstado(Pedido.EstadoPedido.EN_ENVIO);
     }
-    
 }
