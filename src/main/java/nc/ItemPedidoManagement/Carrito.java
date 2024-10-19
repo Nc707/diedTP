@@ -1,4 +1,4 @@
-package ItemPedidoManagement;
+package nc.ItemPedidoManagement;
 
 import nc.diedtp.*;
 import nc.diedtp.excepciones.VendedorIncorrectoException;

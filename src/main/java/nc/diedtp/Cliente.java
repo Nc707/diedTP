@@ -1,6 +1,6 @@
 package nc.diedtp;
-import ItemPedidoManagement.Carrito;
-import ItemPedidoManagement.ItemPedidoMemory;
+import nc.ItemPedidoManagement.Carrito;
+import nc.ItemPedidoManagement.ItemPedidoMemory;
 import interfacesPackage.Observable;
 import nc.diedtp.excepciones.CantidadItemInvalidaException;
 import interfacesPackage.Observer;
@@ -91,7 +91,7 @@ public class Cliente implements Observer{
     private Pago generarPago(Pedido pedido){
         System.out.println("Enviando Pago...");
         try {
-            Thread.sleep(new Random(new Date().getTime()).nextInt(500, 1000000));
+            Thread.sleep(new Random(new Date().getTime()).nextInt(500, 60000));
         } catch (InterruptedException ex) {
            
         }

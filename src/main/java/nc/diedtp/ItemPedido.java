@@ -4,8 +4,8 @@
  */
 package nc.diedtp;
 
-import ItemPedidoManagement.CompareStrategyInterface;
-import ItemPedidoManagement.ItemPedidoPriceCompSt;
+import nc.ItemPedidoManagement.CompareStrategyInterface;
+import nc.ItemPedidoManagement.compareStrategies.ItemPedidoPriceCompSt;
 
 
 /**

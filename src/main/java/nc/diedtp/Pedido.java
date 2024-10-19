@@ -1,5 +1,8 @@
 package nc.diedtp;
 
+import nc.diedtp.metodosDePago.EstrategiaPago;
+import nc.diedtp.metodosDePago.PagoMercadoPago;
+import nc.diedtp.metodosDePago.PagoTransferencia;
 import java.util.ArrayList;
 import java.util.List;
 

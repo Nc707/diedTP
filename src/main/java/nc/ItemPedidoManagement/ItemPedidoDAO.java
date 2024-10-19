@@ -1,4 +1,4 @@
-package ItemPedidoManagement;
+package nc.ItemPedidoManagement;
 
 import nc.diedtp.ItemPedido;
 import java.util.ArrayList;

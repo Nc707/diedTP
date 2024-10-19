@@ -1,5 +1,7 @@
 package nc.itemMenuManagement;
 
+import nc.itemMenuManagement.compareStrategies.NameComp;
+import nc.itemMenuManagement.compareStrategies.PriceComp;
 import java.util.ArrayList;
 import static java.util.Collections.sort;
 import java.util.List;

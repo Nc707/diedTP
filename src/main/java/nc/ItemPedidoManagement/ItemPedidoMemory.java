@@ -1,7 +1,11 @@
-package ItemPedidoManagement;
+package nc.ItemPedidoManagement;
 
 
-import static ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
+import nc.ItemPedidoManagement.compareStrategies.ClienteIdComp;
+import nc.ItemPedidoManagement.compareStrategies.ItemPedidoPriceCompSt;
+import nc.ItemPedidoManagement.compareStrategies.PedidoIdComp;
+import nc.ItemPedidoManagement.compareStrategies.PedidoPriceComp;
+import static nc.ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado.PEDIDO;
 import java.util.ArrayList;
 import static java.util.Collections.sort;
 import java.util.List;

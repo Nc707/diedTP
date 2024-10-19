@@ -3,11 +3,11 @@
  */
 package nc.diedtp;
 
-import ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado;
-import ItemPedidoManagement.ItemPedidoDAO.tipoFiltradoRango;
-import ItemPedidoManagement.ItemPedidoDAO.tipoOrdenamiento;
-import ItemPedidoManagement.Carrito;
-import ItemPedidoManagement.ItemPedidoMemory;
+import nc.ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado;
+import nc.ItemPedidoManagement.ItemPedidoDAO.tipoFiltradoRango;
+import nc.ItemPedidoManagement.ItemPedidoDAO.tipoOrdenamiento;
+import nc.ItemPedidoManagement.Carrito;
+import nc.ItemPedidoManagement.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
