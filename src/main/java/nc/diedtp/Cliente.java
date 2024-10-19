@@ -4,8 +4,12 @@ import ItemPedidoManagement.ItemPedidoMemory;
 import interfacesPackage.Observable;
 import nc.diedtp.excepciones.CantidadItemInvalidaException;
 import interfacesPackage.Observer;
+import java.util.Date;
+import java.util.Random;
 import nc.diedtp.Pedido.EstadoPedido;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Cliente implements Observer{
     private static int next_id = 0;
@@ -66,6 +70,9 @@ public class Cliente implements Observer{
     }
     @Override
     public void informar(Observable pedido) {
+        Pago nuevoPago = generarPago((Pedido)pedido);
+        System.out.println(nuevoPago);
+        /*
         EstadoPedido estado = ((Pedido)pedido).getEstado();
         System.out.println("Tu pedido ha pasado al estado " + estado);
         if(estado == EstadoPedido.EN_ENVIO){
@@ -79,10 +86,17 @@ public class Cliente implements Observer{
                 ((Pedido)pedido).setPagoTransferencia(this.cbu, this.cuit);
             }
             ((Pedido)pedido).cerrarPedido();   
-        }
+        }*/
     }
-    public void generarPago(){
-        
+    private Pago generarPago(Pedido pedido){
+        System.out.println("Enviando Pago...");
+        try {
+            Thread.sleep(new Random(new Date().getTime()).nextInt(500, 1000000));
+        } catch (InterruptedException ex) {
+           
+        }
+        System.out.println("Pago recibido");
+        return new Pago(pedido);
     }
     
 }
