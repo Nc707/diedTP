@@ -75,6 +75,7 @@ public class Pedido implements Observable{
         this.metodoPago = new PagoTransferencia(cbu, cuit);
     }
     public void cerrarPedido(){
+        this.estado = EstadoPedido.RECIBIDO;
         precio = this.metodoPago.cerrarPago(precio);
         System.out.println("Usted ha realizado con éxito el pago del pedido por un monto de $"+ String.valueOf(precio));
     }
@@ -87,8 +88,8 @@ public class Pedido implements Observable{
     public void notificarSubs() {
        this.cliente.informar(this);
     }
-    void cambioEstado(EstadoPedido nuevo){
-        this.notificarSubs();
+    public void cambioEstado(EstadoPedido nuevo){
+        if(nuevo == EstadoPedido.EN_ENVIO)  this.notificarSubs();
         this.estado = nuevo;
     }    
     @Override
