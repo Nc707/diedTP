@@ -68,7 +68,6 @@ public class Main {
         createRandomPedido(p2,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP2);
         createRandomPedido(p3,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP3);
         createRandomPedido(p4,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP4);
-        System.out.println(p1);
        ItemPedidoMemory pedidos = ItemPedidoMemory.getItemPedidoMemory();
         pedidos.addPedido(itemP1);
         pedidos.addPedido(itemP2);
@@ -156,55 +155,59 @@ public class Main {
             System.out.print("Ingrese su id: ");
             int idVendor = sc.nextInt();
             Vendedor vendedor = vendedores.get(idVendor);
-            System.out.println(
-                "1. Ver menu\n" +
-                "2. Ver pedidos\n" +
-                "3. Ver pedidos por estado\n " +//+
-                "4. Cambiar estado del Pedido"
-                //"5. Ver pedidos por cliente\n" +
-                //"6. Ver pedidos por fecha\n"
-            );
-            System.out.print("Ingrese el número de la opción que desea: ");
-            switch (sc.nextInt()) {
-                case 1:
-                mostrarMenu(vendedor, items);
-                    break;
-                case 2:
-                    System.out.println("Pedidos:");
+            limpiarPantalla();
+            System.out.println("Bienvenido, vendedor " + vendedor.getNombre() );
+            mostrarOpcionesVendedor();
+            try{
+            while(true){
+                
+                switch (sc.nextInt()) {
+                    case 1:
+                    mostrarMenu(vendedor, items);
+                        break;
+                    case 2:
+                        System.out.println("Pedidos:");
+                        for (Pedido pedido : vendedor.getPedidos()) {
+                            System.out.println(pedido);
+                        }
+                        break;
+                    case 3:
+                       System.out.println("Filtrando pedidos por estado...");
                     for (Pedido pedido : vendedor.getPedidos()) {
-                        System.out.println(pedido);
+                        if (pedido.getEstado() == Pedido.EstadoPedido.EN_CARRITO) {
+                            System.out.println("Pedido en carrito: " + pedido);
+                        }
+                        if (pedido.getEstado() == Pedido.EstadoPedido.RECIBIDO) {
+                            System.out.println("Pedido recibido: " + pedido);
+                        }
+                        if (pedido.getEstado() == Pedido.EstadoPedido.EN_ENVIO) {
+                            System.out.println("Pedido en envío: " + pedido);
+                        }
                     }
-                    break;
-                case 3:
-                   System.out.println("Filtrando pedidos por estado...");
-                for (Pedido pedido : vendedor.getPedidos()) {
-                    if (pedido.getEstado() == Pedido.EstadoPedido.EN_CARRITO) {
-                        System.out.println("Pedido en carrito: " + pedido);
-                    }
-                    if (pedido.getEstado() == Pedido.EstadoPedido.RECIBIDO) {
-                        System.out.println("Pedido recibido: " + pedido);
-                    }
-                    if (pedido.getEstado() == Pedido.EstadoPedido.EN_ENVIO) {
-                        System.out.println("Pedido en envío: " + pedido);
-                    }
+                        break;
+                    case 4:
+                        Scanner c = new Scanner(System.in);
+                        System.out.println("Ingresar Id del pedido que desea cambiar: ");
+                         int idPedido = c.nextInt();
+                          for (Pedido pedido : vendedor.getPedidos()) {
+                              if(idPedido == pedido.getId()){
+                                  cambiarEstado(pedido);
+                              }
+                          } 
+                        break;  
+                        
+                    default:
+                        System.out.println("Opción no válida");
+                        break;
                 }
-                    break;
-                case 4:
-                    Scanner c = new Scanner(System.in);
-                    System.out.println("Ingresar Id del pedido que desea cambiar: ");
-                     int idPedido = c.nextInt();
-                      for (Pedido pedido : vendedor.getPedidos()) {
-                          if(idPedido == pedido.getId()){
-                              cambiarEstado(pedido);
-                          }
-                      } 
-                    break;  
-                    
-                default:
-                    System.out.println("Opción no válida");
-                    break;
+                
+                mostrarOpcionesVendedor();
+
             }
+        } catch (NoSuchElementException e) {
+            System.out.println("Entrada finalizada (Ctrl+Z detectado).");
          }
+        }
         
         else {
             System.out.println("Opción no válida");
@@ -265,6 +268,15 @@ public class Main {
         sc.close();
         
     }
+
+    public static void limpiarPantalla() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private static void makeItems(ArrayList<Vendedor> vendedores, ItemMenuMemory items) throws CategoriaIncompatibleException{
         //bebidas sin alcohol
         
@@ -355,7 +367,17 @@ public class Main {
         }
     }
 
-
+    private static void mostrarOpcionesVendedor(){
+        System.out.println(
+            "1. Ver menu\n" +
+            "2. Ver pedidos\n" +
+            "3. Ver pedidos por estado\n" +
+            "4. Cambiar estado del Pedido\n"
+            //"5. Ver pedidos por cliente\n" +
+            //"6. Ver pedidos por fecha\n"
+        );
+        System.out.print("Ingrese el número de la opción que desea o un caracter invalido para salir : ");
+    }
     private static void mostrarMenu(Vendedor vendedor, ItemMenuMemory items){
             ArrayList<ItemMenu> lista;
             ArrayList<nc.itemMenuManagement.ItemMenuDAO.tipoFiltrado> tiposFiltros = new ArrayList();
