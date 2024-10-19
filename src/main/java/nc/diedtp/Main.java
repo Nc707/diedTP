@@ -83,17 +83,21 @@ public class Main {
 
         if (rol == 1) {
             // BEGIN CLIENTE SIDE
+            Cliente yoCliente = new Cliente("utn santa fe", 123456, "utn@frsf.utn", "Lavaise 610", -31.62, -60.7);
+            clientes.add(yoCliente);
+            limpiarPantalla();
+            System.out.println("Bienvenido, " + yoCliente.getNombre());
             System.out.println("----------------------VENDEDORES REGISTRADOS----------------------");
             for (int i=0; i<vendedores.size(); i++){
                 System.out.println(i+ "- " + vendedores.get(i).getNombre());
             }
             System.out.print("SELECCIONE POR NUMERO EL VENDEDOR QUE DESEA VER EL MENU:  ");
             int indexVend = sc.nextInt();
+            limpiarPantalla();
+            System.out.println("Usted ha seleccionado el vendedor: " + vendedores.get(indexVend).getNombre());
             mostrarMenu(vendedores.get(indexVend), items);
-            Cliente yoCliente = new Cliente("utn", 123456, "utn@frsf.utn", "Lavaise 610", -31.62, -60.7);
-            clientes.add(yoCliente);
-            
             Carrito carrito = null;
+            
             System.out.print("DESEA GENERAR UN CARRITO CON ESTE VENDEDOR? (s/n): ");
             String opt = sc.next();
             
@@ -110,6 +114,8 @@ public class Main {
                                 carrito = yoCliente.crearCarrito(yoCliente, items.getItem(indexItem), cantidad, pedidos);
                             } else
                             carrito.agregarItem(items.getItem(indexItem), cantidad);
+
+                            System.out.println("se ha agregado el item "+ items.getItem(indexItem)+" al carrito");
                             
                         }catch (CantidadItemInvalidaException |VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
                             System.out.println(e);
@@ -117,11 +123,13 @@ public class Main {
                             
                     }
                 } catch (NoSuchElementException e) {
-                        System.out.println("Entrada finalizada (Ctrl+Z detectado). Mostrando el total del carrito.");         
+                        limpiarPantalla();
+                        System.out.println("Entrada finalizada. Mostrando el total del carrito. . .");         
                     }
                     //yoCliente.informar();
                 if(carrito!=null){
-                    System.out.println(carrito);
+                    carrito.mostrarItems();
+                    //System.out.println(carrito);
                     System.out.println("Con  que método de pago desea abonar su compra?\nMercadoPago: Escriba mp\nTransferencia: Escriba t\nEn caso de seleccionar un caracter invalido se asumirá MercadoPago");
                     opt = sc.next();
                     if(opt.equalsIgnoreCase("t")){

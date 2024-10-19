@@ -86,4 +86,11 @@ public class Carrito {
         representation.append("Representando un subtotal de: ").append(pedido.getPrecio()).append(" .Mas el recargo de su método de pago");
         return representation.toString();
     }
+    public void mostrarItems(){
+        System.out.println("Resumen de su carrito actual: ");
+        for(ItemPedido item: items){
+            System.out.println(item);
+        }
+        System.out.println("\nRepresentando un subtotal de: $" + pedido.getPrecio() + " mas el recargo de su método de pago\n\n");
+    }
 }
