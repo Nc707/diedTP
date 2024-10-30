@@ -21,14 +21,13 @@ public class Pedido implements Observable{
     private EstadoPedido estado;
     private EstrategiaPago metodoPago;
     private List<ItemPedido> items;
+
     public enum EstadoPedido{
         EN_CARRITO,
         RECIBIDO,
         EN_ENVIO
     }
-    public int getId() {
-        return id;
-    }
+  
         
     //cons
     public Pedido(Vendedor vendedor, Cliente cliente){
@@ -41,7 +40,8 @@ public class Pedido implements Observable{
         this.items = new ArrayList<>();
 
     }
-    public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
+
+ void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
         if(this.estado == EstadoPedido.RECIBIDO) throw new PedidoCerradoException("El pedido esta cerrado y no se puede modificar");
         if(item.getVendedor() != this.vendedor) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
         if(item.getPedido() != this) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
@@ -61,6 +61,9 @@ public class Pedido implements Observable{
     }
     public float getPrecio(){
         return this.precio;
+    }
+  public int getId() {
+        return id;
     }
     
     public Cliente getCliente(){

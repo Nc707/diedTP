@@ -14,8 +14,48 @@ import nc.modelo.Vendedor;
 
 
 public class ItemMenuMemory implements ItemMenuDAO {
+ArrayList<ItemMenu> items = new ArrayList<>();
+    @Override
+    public ArrayList<ItemMenu> listar() {
+        return items;
+    }
 
-    
+    @Override
+    public void crear(ItemMenu item) {
+        items.add(item);
+    }
+
+    @Override
+    public void actualizar(ItemMenu item) {
+       for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == item.getId()) {
+                items.set(i, item);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void eliminar(int id) {
+        for (int i = 0; i <items.size(); i++) {
+            if (items.get(i).getId() == id){
+                items.remove(i);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public ItemMenu buscar(int id) {
+      for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == id){
+                return items.get(i);
+            }
+        }
+        return null;
+    }
+
+         
 
     private class ItemWrapper implements Comparable{
         ItemMenu item;
