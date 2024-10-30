@@ -4,8 +4,9 @@ package nc.modelo.ItemMenuDAOandMemory;
 import nc.modelo.excepciones.ItemNoEncontradoException;
 import java.util.List;
 import nc.modelo.ItemMenu;
+import nc.modelo.interfacesPackage.GenericDAO;
 
-public interface ItemMenuDAO {
+public interface ItemMenuDAO extends GenericDAO<ItemMenu>{
 
     enum tipoFiltrado{
         VENDEDOR,

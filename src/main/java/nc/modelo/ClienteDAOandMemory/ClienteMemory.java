@@ -12,31 +12,54 @@ import nc.modelo.Cliente;
  * @author lucia
  */
 public class ClienteMemory implements ClienteDAO {
-
+    
+    private ArrayList<Cliente> clientes = new ArrayList<>();
+   
     @Override
     public ArrayList<Cliente> listar() {
-       ArrayList<Cliente> clientes = new ArrayList<>();
+        
        return clientes;
     }
-
+    
     @Override
-    public void crear(Cliente dato) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void crear(Cliente cliente) {
+       clientes.add(cliente);
     }
 
     @Override
-    public void actualizar(Cliente dato) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void actualizar(Cliente cliente) {
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getId() == cliente.getId()) {
+                clientes.set(i, cliente);
+                return;
+            }
+        }
     }
 
     @Override
     public void eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getId() == id){
+                clientes.remove(i);
+                return;
+            }
+        }
+      
     }
 
     @Override
     public Cliente buscar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getId() == id){
+                return clientes.get(i);
+            }
+        }
+        return null;
     }
-    
+
+     public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
+        Cliente cliente = new Cliente(nombre, cuit, email, direccion, latitud, longitud);
+        crear(cliente);
+        return cliente;
+    }
 }

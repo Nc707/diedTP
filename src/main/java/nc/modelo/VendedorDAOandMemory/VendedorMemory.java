@@ -12,30 +12,51 @@ import nc.modelo.Vendedor;
  * @author lucia
  */
 public class VendedorMemory implements VendedorDAO{
-
+    ArrayList<Vendedor> vendedores = new ArrayList<>();
+        
     @Override
     public ArrayList<Vendedor> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return vendedores;
     }
 
     @Override
-    public void crear(Vendedor dato) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void crear(Vendedor vendedor) {
+        vendedores.add(vendedor);
     }
 
     @Override
-    public void actualizar(Vendedor dato) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void actualizar(Vendedor vendedor) {
+        for (int i = 0; i < vendedores.size(); i++) {
+            if (vendedores.get(i).getId() == vendedor.getId()) {
+                vendedores.set(i, vendedor);
+                return;
+            }
+        }
     }
 
     @Override
     public void eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         for (int i = 0; i <vendedores.size(); i++) {
+            if (vendedores.get(i).getId() == id){
+                vendedores.remove(i);
+                return;
+            }
+        }
     }
 
     @Override
     public Vendedor buscar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+           for (int i = 0; i < vendedores.size(); i++) {
+            if (vendedores.get(i).getId() == id){
+                return vendedores.get(i);
+            }
+        }
+        return null;
     
+    }
+    public Vendedor crear(String nombre, String direccion, double cx, double cy){
+    Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
+    crear(vendedor);
+    return vendedor;
+    }
 }
