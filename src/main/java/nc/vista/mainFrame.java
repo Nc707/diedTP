@@ -4,6 +4,12 @@
  */
 package nc.vista;
 
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import nc.controlador.ItemMenuController;
+import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
+import nc.modelo.initGen;
+
 /**
  *
  * @author nicol
@@ -13,8 +19,21 @@ public class mainFrame extends javax.swing.JFrame {
     /**
      * Creates new form mainFrame
      */
+    private ItemMenuTableModelo modeloItemMenu;
+    private ItemMenuController itemsMenu;
     public mainFrame() {
+        initGen.run();
+        itemsMenu = new ItemMenuController(ItemMenuMemory.getInstancia());
+        modeloItemMenu = new ItemMenuTableModelo(itemsMenu.loadData());
         initComponents();
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable3.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
     /**
@@ -57,6 +76,8 @@ public class mainFrame extends javax.swing.JFrame {
         jTextPane6 = new javax.swing.JTextPane();
         jScrollPane13 = new javax.swing.JScrollPane();
         jTextPane3 = new javax.swing.JTextPane();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -200,25 +221,9 @@ public class mainFrame extends javax.swing.JFrame {
 
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        jTable3.setModel(this.modeloItemMenu);
+        jTable3.setCellSelectionEnabled(true);
+        jTable3.setRowSorter(new ItemMenuRowSorter(jTable3));
         jScrollPane10.setViewportView(jTable3);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -268,6 +273,18 @@ public class mainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel7.add(jScrollPane13, gridBagConstraints);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane18.setViewportView(jList1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        jPanel7.add(jScrollPane18, gridBagConstraints);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -512,6 +529,8 @@ public class mainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainFrame().setVisible(true);
+                
+                
             }
         });
     }
@@ -521,6 +540,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -538,6 +558,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
+    private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
