@@ -59,9 +59,13 @@ public class Pedido implements Observable{
         this.precio+=(precioNuevo - precioViejo);
         
     }
+    public int getItemAmount(){
+        return this.items.stream().map(item->item.getCantidad()).reduce(Integer::sum).orElse(0);
+    }
     public float getPrecio(){
         return this.precio;
     }
+    
   public int getId() {
         return id;
     }

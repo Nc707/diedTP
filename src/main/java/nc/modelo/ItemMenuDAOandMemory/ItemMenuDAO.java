@@ -28,6 +28,7 @@ public interface ItemMenuDAO extends GenericDAO<ItemMenu>{
         NOMBRE
     }
     public List<ItemMenu> getAll();
+    @Override
     public void add(ItemMenu item);
     public void addAll(List<ItemMenu> items);
     public ItemMenu getItem(int ID) throws ItemNoEncontradoException;

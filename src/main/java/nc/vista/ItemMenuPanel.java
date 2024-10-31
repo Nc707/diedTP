@@ -4,16 +4,11 @@
  */
 package nc.vista;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import javax.swing.RowFilter;
-import javax.swing.RowSorter;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.DefaultCaret;
 import nc.controlador.ItemMenuController;
-import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
 
 /**
  *
@@ -27,19 +22,19 @@ public class ItemMenuPanel extends javax.swing.JPanel {
         VENDEDOR,
         NONE
     }
-    private ItemMenuTableModelo modeloItemMenu;
+    private PersonalizatedTableModel modeloItemMenu;
     private ItemMenuController itemsMenu;
-    private TableRowSorter<ItemMenuTableModelo> sorter;
+    private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     /**
      * Creates new form ItemMenuPanel
      */
     public ItemMenuPanel() {
-        itemsMenu = new ItemMenuController(ItemMenuMemory.getInstancia());
-        modeloItemMenu = new ItemMenuTableModelo(itemsMenu.loadData());
+        itemsMenu = new ItemMenuController();
+        List<String> modeloTableName = Arrays.asList("ID", "Nombre", "Vendedor", "Precio");
+        modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
-        //sorter.setRowFilter(filter);
         initComponents();
     }
 
@@ -72,7 +67,6 @@ public class ItemMenuPanel extends javax.swing.JPanel {
 
         contentTable.setAutoCreateRowSorter(true);
         contentTable.setModel(this.modeloItemMenu);
-        contentTable.setColumnSelectionAllowed(false);
         contentTable.setRowSorter(sorter);
         jScrollPane10.setViewportView(contentTable);
 
@@ -100,7 +94,7 @@ public class ItemMenuPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de Búsqueda", "ID", "Nombre", "Vendedor", "Precio" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloItemMenu.getColumnName()));
         jComboBox1.setMinimumSize(new java.awt.Dimension(135, 22));
         jComboBox1.setPreferredSize(new java.awt.Dimension(135, 22));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -139,7 +133,6 @@ public class ItemMenuPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTextPane1);
-        jTextPane1.getAccessibleContext().setAccessibleParent(null);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;

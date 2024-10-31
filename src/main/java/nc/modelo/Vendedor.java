@@ -4,16 +4,12 @@
  */
 package nc.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Vendedor {
     private static int next_id = 0;
     private int id;
     private String nombre;
     private String direccion;
     private Coordenada coordenada;
-    private List<Pedido> pedidos;
 
     public Vendedor(String nombre, String direccion, double cx, double cy) {
         this.id = next_id;

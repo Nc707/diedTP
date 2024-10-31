@@ -4,16 +4,36 @@
  */
 package nc.vista;
 
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
+import nc.controlador.VendedorController;
+
 /**
  *
  * @author nicol
  */
 public class VendedoresMenuPanel extends javax.swing.JPanel {
-
+    private enum filterMode{
+        ID,
+        NAME,
+        DIRECC,
+        NONE
+    }
+    private PersonalizatedTableModel vendedorTableModel;
+    private VendedorController vendedores;
+    private TableRowSorter<PersonalizatedTableModel> sorter;
+    private filterMode actualFilter;
     /**
-     * Creates new form VendedoresMenuPanel
+     * Creates new form ClientesMenuPanel
      */
     public VendedoresMenuPanel() {
+        vendedores = new VendedorController();
+        List<String> clientTableNames = Arrays.asList("ID", "Nombre", "Direccion");
+        vendedorTableModel = new PersonalizatedTableModel(clientTableNames, vendedores.loadData());
+        sorter = new TableRowSorter<>(vendedorTableModel);
+        actualFilter = filterMode.ID;
         initComponents();
     }
 
@@ -27,119 +47,174 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel2 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        contentTable = new javax.swing.JTable();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jTextPane3 = new javax.swing.JTextPane();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jButton1 = new javax.swing.JButton();
-        jSplitPane3 = new javax.swing.JSplitPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTextPane4 = new javax.swing.JTextPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
 
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanel7.setLayout(new java.awt.GridBagLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        contentTable.setAutoCreateRowSorter(true);
+        contentTable.setModel(this.vendedorTableModel
+        );
+        contentTable.setRowSorter(sorter);
+        jScrollPane10.setViewportView(contentTable);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        jPanel2.add(jScrollPane1, gridBagConstraints);
+        jPanel7.add(jScrollPane10, gridBagConstraints);
 
-        jButton1.setText("Crear Nuevo Vendedor");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jTextPane3.setEditable(false);
+        jTextPane3.setText("Lista de Vendedores");
+        jTextPane3.setToolTipText("");
+        jTextPane3.setAutoscrolls(false);
+        jTextPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTextPane3.setFocusable(false);
+        jScrollPane13.setViewportView(jTextPane3);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel7.add(jScrollPane13, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        jPanel7.add(jSeparator1, gridBagConstraints);
+
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.vendedorTableModel.getColumnName()));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(135, 22));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(135, 22));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
             }
         });
-        jSplitPane1.setLeftComponent(jButton1);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel1.add(jComboBox1, gridBagConstraints);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(1);
-        jTextArea2.setPreferredSize(new java.awt.Dimension(232, 10));
-        jScrollPane5.setViewportView(jTextArea2);
+        jButton2.setText("Darse de alta");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(jButton2, gridBagConstraints);
 
-        jSplitPane3.setRightComponent(jScrollPane5);
+        jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextPane1.setToolTipText("");
+        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextPane1.setPreferredSize(new java.awt.Dimension(180, 20));
+        jTextPane1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextPane1KeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextPane1);
 
-        jTextPane4.setEditable(false);
-        jTextPane4.setText("Buscador:");
-        jTextPane4.setAutoscrolls(false);
-        jTextPane4.setFocusable(false);
-        jScrollPane7.setViewportView(jTextPane4);
-
-        jSplitPane3.setLeftComponent(jScrollPane7);
-
-        jSplitPane1.setRightComponent(jSplitPane3);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(jScrollPane1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(jSplitPane1, gridBagConstraints);
-
-        jTextPane1.setEditable(false);
-        jTextPane1.setText("Lista de Vendedores");
-        jTextPane1.setToolTipText("");
-        jTextPane1.setAutoscrolls(false);
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTextPane1.setFocusable(false);
-        jScrollPane2.setViewportView(jTextPane1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(jScrollPane2, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel7.add(jPanel1, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        String currentSelection = (String) jComboBox1.getSelectedItem();
+        switch (currentSelection) {
+            case "Tipo de Búsqueda":
+            this.actualFilter = filterMode.NONE;
+            break;
+            case "ID":
+            this.actualFilter = filterMode.ID;
+            break;
+            case "Nombre":
+            this.actualFilter = filterMode.NAME;
+            break;
+            case "Dirección":
+            this.actualFilter = filterMode.DIRECC;
+            break;
+            default:
+            break;
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            String text;
+            text = jTextPane1.getText();
+            sorter.setRowFilter(null);
+            jTextPane1.setText("");
+            if(!text.isBlank()){
+                try{
+                    switch(actualFilter){
+                        case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
+                        case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
+                        case DIRECC -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
+                    }
+                }catch(NumberFormatException e){}
+            }
+
+        }
+    }//GEN-LAST:event_jTextPane1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTable contentTable;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JSplitPane jSplitPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane4;
+    private javax.swing.JTextPane jTextPane3;
     // End of variables declaration//GEN-END:variables
 }

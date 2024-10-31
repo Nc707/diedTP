@@ -4,23 +4,22 @@
  */
 package nc.vista;
 
-import java.util.ArrayList;
+import java.lang.reflect.Array;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import nc.modelo.ItemMenu;
 
 /**
  *
  * @author nicol
  */
-public class ItemMenuTableModelo extends AbstractTableModel{
+public class PersonalizatedTableModel extends AbstractTableModel{
     
     private List<List> items;
-    ItemMenuTableModelo(){
-        this.items = new ArrayList();
-    }
-    ItemMenuTableModelo(List<List> items){
+    private List<String> colName;
+    
+    PersonalizatedTableModel(List<String> colName, List<List> items){
         this.items = items;
+        this.colName = colName;
     }
     @Override
     public int getRowCount() {
@@ -29,7 +28,7 @@ public class ItemMenuTableModelo extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return colName.size();
     }
 
     @Override
@@ -42,15 +41,21 @@ public class ItemMenuTableModelo extends AbstractTableModel{
     }
     @Override
     public String getColumnName(int columnIndex) {
-        if(columnIndex == 0) return "ID";
-        if(columnIndex == 1) return "Nombre";
-        if(columnIndex == 2) return "Vendedor";
-        if(columnIndex == 3) return "Precio($Dollars)";
-        return null;
+        return colName.get(columnIndex);
     }
     public void setItems(List<List> items) {
         this.items = items;
     }
-    
+    public void setColumnName(List<String> names){
+        this.colName = names;
+    }
+    public String[] getColumnName(){
+        String[] names = new String[getColumnCount()+1];
+        for(int i = 0; i<this.colName.size(); i++){
+            names[i+1] = this.colName.get(i);
+        }
+        names[0] = "Tipo de Búsqueda";
+        return names;
+    }
     
 }

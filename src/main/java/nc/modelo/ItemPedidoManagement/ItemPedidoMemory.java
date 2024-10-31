@@ -43,6 +43,9 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
         return memory.stream().map(item->item.getPedido()).distinct().filter(pedido->pedido.getVendedor() == vend)
                 .collect(Collectors.toList());
     }
+    public List<Pedido> getPedidos(){
+        return memory.stream().map(item->item.getPedido()).distinct().collect(Collectors.toList());
+    }
     @Override
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException{
         List<ItemPedido> filtrado = new ArrayList();

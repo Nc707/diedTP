@@ -14,15 +14,22 @@ import nc.modelo.Cliente;
 public class ClienteMemory implements ClienteDAO {
     
     private ArrayList<Cliente> clientes = new ArrayList<>();
+   private static ClienteMemory uniqueInstance;
    
     @Override
     public ArrayList<Cliente> listar() {
-        
        return clientes;
     }
     
+    public static ClienteMemory getInstancia(){
+        if(uniqueInstance == null){
+            uniqueInstance = new ClienteMemory();
+        }
+        return uniqueInstance;
+    }
+    
     @Override
-    public void crear(Cliente cliente) {
+    public void add(Cliente cliente) {
        clientes.add(cliente);
     }
 
@@ -59,7 +66,7 @@ public class ClienteMemory implements ClienteDAO {
 
      public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         Cliente cliente = new Cliente(nombre, cuit, email, direccion, latitud, longitud);
-        crear(cliente);
+        add(cliente);
         return cliente;
     }
 }

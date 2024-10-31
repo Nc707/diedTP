@@ -24,7 +24,7 @@ public class PedidoMemory implements GenericDAO<Pedido>{
     }
 
     @Override
-    public void crear(Pedido pedido) {
+    public void add(Pedido pedido) {
         pedidos.add(pedido);
     }
 

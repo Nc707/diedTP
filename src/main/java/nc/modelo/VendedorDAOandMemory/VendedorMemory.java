@@ -13,14 +13,20 @@ import nc.modelo.Vendedor;
  */
 public class VendedorMemory implements VendedorDAO{
     ArrayList<Vendedor> vendedores = new ArrayList<>();
-        
+    private static VendedorMemory uniqueInstance;
+    public static VendedorMemory getInstancia(){
+        if(uniqueInstance == null){
+            uniqueInstance = new VendedorMemory();
+        }
+        return uniqueInstance;
+    }
     @Override
     public ArrayList<Vendedor> listar() {
        return vendedores;
     }
 
     @Override
-    public void crear(Vendedor vendedor) {
+    public void add(Vendedor vendedor) {
         vendedores.add(vendedor);
     }
 
@@ -56,7 +62,7 @@ public class VendedorMemory implements VendedorDAO{
     }
     public Vendedor crear(String nombre, String direccion, double cx, double cy){
     Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
-    crear(vendedor);
+    add(vendedor);
     return vendedor;
     }
 }

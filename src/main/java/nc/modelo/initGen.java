@@ -8,6 +8,8 @@ import nc.modelo.ItemPedidoManagement.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import nc.modelo.ClienteDAOandMemory.ClienteDAO;
+import nc.modelo.ClienteDAOandMemory.ClienteMemory;
 
 import nc.modelo.excepciones.CategoriaIncompatibleException;
 
@@ -15,14 +17,14 @@ import nc.modelo.excepciones.PedidoCerradoException;
 import nc.modelo.excepciones.PedidoIncorrectoException;
 import nc.modelo.excepciones.VendedorIncorrectoException;
 import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
+import nc.modelo.VendedorDAOandMemory.VendedorDAO;
+import nc.modelo.VendedorDAOandMemory.VendedorMemory;
 
 public class initGen {
 
     public static void run() {
-        ArrayList<Cliente> clientes = new ArrayList<>();
-
-        ArrayList<Vendedor> vendedores;
-        vendedores = new ArrayList<>();
+        ClienteDAO clientes = ClienteMemory.getInstancia();
+        VendedorDAO vendedores = VendedorMemory.getInstancia();
         
         ItemMenuMemory items = ItemMenuMemory.getInstancia();
 
@@ -44,10 +46,10 @@ public class initGen {
          ArrayList<ItemPedido> itemP2 = new ArrayList<>();
          ArrayList<ItemPedido> itemP3 = new ArrayList<>();
          ArrayList<ItemPedido> itemP4 = new ArrayList<>();
-        Pedido p1 = new Pedido(vendedores.get(0), clientes.get(0));
-        Pedido p2 = new Pedido(vendedores.get(0), clientes.get(1));
-        Pedido p3 = new Pedido(vendedores.get(1), clientes.get(2));
-        Pedido p4 = new Pedido(vendedores.get(2), clientes.get(0));
+        Pedido p1 = new Pedido(vendedores.listar().get(0), clientes.listar().get(0));
+        Pedido p2 = new Pedido(vendedores.listar().get(0), clientes.listar().get(1));
+        Pedido p3 = new Pedido(vendedores.listar().get(1), clientes.listar().get(2));
+        Pedido p4 = new Pedido(vendedores.listar().get(2), clientes.listar().get(0));
         
         Random rand = new Random(new Date().getTime());
         createRandomPedido(p1,rand.nextInt(2, 15), (ArrayList<ItemMenu>) items.getAll(), itemP1);
@@ -70,15 +72,15 @@ public class initGen {
 
     }
     
-    private static void makeItems(ArrayList<Vendedor> vendedores, ItemMenuMemory items) throws CategoriaIncompatibleException{
+    private static void makeItems(VendedorDAO vendedores, ItemMenuMemory items) throws CategoriaIncompatibleException{
         //bebidas sin alcohol
         
-        Bebida lataCocaCola = new Bebida("Lata Cocacola",vendedores.get(0),100,0, 500, 250);
-        Bebida lataSprite = new Bebida("Lata Sprite",vendedores.get(1),100,0, 500, 250);
-        Bebida coca = new Bebida("Botella Cocacola",vendedores.get(2),100,0, 500, 500);
-        Bebida sprite = new Bebida("Botella Sprite",vendedores.get(1),100,0, 500, 500);
-        Bebida sprite1 = new Bebida("Botella Sprite",vendedores.get(2),100,0, 500, 500);
-        Bebida agua = new Bebida("Botella Agua",vendedores.get(0),100,0, 500, 500);
+        Bebida lataCocaCola = new Bebida("Lata Cocacola",vendedores.listar().get(0),100,0, 500, 250);
+        Bebida lataSprite = new Bebida("Lata Sprite",vendedores.listar().get(1),100,0, 500, 250);
+        Bebida coca = new Bebida("Botella Cocacola",vendedores.listar().get(2),100,0, 500, 500);
+        Bebida sprite = new Bebida("Botella Sprite",vendedores.listar().get(1),100,0, 500, 500);
+        Bebida sprite1 = new Bebida("Botella Sprite",vendedores.listar().get(2),100,0, 500, 500);
+        Bebida agua = new Bebida("Botella Agua",vendedores.listar().get(0),100,0, 500, 500);
         
         lataCocaCola.addCategoria("Bebidas sin alcohol");
         lataSprite.addCategoria("Bebidas sin alcohol");
@@ -94,9 +96,9 @@ public class initGen {
         items.add(sprite);
         items.add(sprite1);
         //bebidas con alcohol
-        Bebida lataHeineken = new Bebida("Lata Heineken",vendedores.get(1),499.99f ,350, 4, 750);
-        Bebida lataMiller = new Bebida("Lata Miller",vendedores.get(2),499.99f ,250, 3, 250);
-        Bebida quilmes = new Bebida("Botella de Quilmes",vendedores.get(0),499.99f ,500, 3, 1000);
+        Bebida lataHeineken = new Bebida("Lata Heineken",vendedores.listar().get(1),499.99f ,350, 4, 750);
+        Bebida lataMiller = new Bebida("Lata Miller",vendedores.listar().get(2),499.99f ,250, 3, 250);
+        Bebida quilmes = new Bebida("Botella de Quilmes",vendedores.listar().get(0),499.99f ,500, 3, 1000);
         lataHeineken.addCategoria("Bebidas Alcoholicas");
         lataMiller.addCategoria("Bebidas Alcoholicas");
         quilmes.addCategoria("Bebidas Alcoholicas");
@@ -106,12 +108,12 @@ public class initGen {
         items.add(quilmes);
 
         //Plato aptos veganos
-        Plato ensaladaSinHuevo = new Plato("Ensalada de Lechuga, Tomate y Repollo",vendedores.get(1), 1500 , 500 ,211);
+        Plato ensaladaSinHuevo = new Plato("Ensalada de Lechuga, Tomate y Repollo",vendedores.listar().get(1), 1500 , 500 ,211);
         ensaladaSinHuevo.addCategoria("Vegano");
         ensaladaSinHuevo.addCategoria("Celiaco");
-        Plato hamburguesaDeLentejas = new Plato("Hamburguesa de Lentejas",vendedores.get(2), 799, 450, 300);
+        Plato hamburguesaDeLentejas = new Plato("Hamburguesa de Lentejas",vendedores.listar().get(2), 799, 450, 300);
         hamburguesaDeLentejas.addCategoria("Vegano");
-        Plato milanesaDeLenteja = new Plato("Milanesa de Lentejas",vendedores.get(0), 1499, 363, 400);
+        Plato milanesaDeLenteja = new Plato("Milanesa de Lentejas",vendedores.listar().get(0), 1499, 363, 400);
         milanesaDeLenteja.addCategoria("Vegano");
         
         items.add(ensaladaSinHuevo);
@@ -119,21 +121,21 @@ public class initGen {
         items.add(milanesaDeLenteja);
 
         //Plato aptos celiacos
-        Plato browniesDeAlmendra = new Plato("Brownies de Almendra",vendedores.get(1), 3652, 500, 200);
+        Plato browniesDeAlmendra = new Plato("Brownies de Almendra",vendedores.listar().get(1), 3652, 500, 200);
         browniesDeAlmendra.addCategoria("Celiaco");
         browniesDeAlmendra.addCategoria("Vegano");
-        Plato polloAlHorno = new Plato("Pollo al Horno",vendedores.get(2), 3500, 750, 800);
+        Plato polloAlHorno = new Plato("Pollo al Horno",vendedores.listar().get(2), 3500, 750, 800);
         polloAlHorno.addCategoria("Celiaco");
         
         items.add(browniesDeAlmendra);
         items.add(polloAlHorno);
         //Plato comida
-        Plato hamburguesaCompleta = new Plato("Hamburguesa Completa", vendedores.get(0),4000.0f, 500, 2000.8f);
-        Plato hamburguesaSimple = new Plato("Hamburquesa simple",vendedores.get(1), 3500, 300, 1800.5f);
-        Plato papasFritas = new Plato("Papas Fritas",vendedores.get(2), 2500, 363, 1200);
-        Plato papasAlHorno = new Plato("Papas al horno", vendedores.get(0),3500, 500, 900);
-        Plato milanesaACaballo = new Plato("Milanesa a caballo",vendedores.get(1), 3500, 300, 3000);
-        Plato milanesaAlaPizza = new Plato("Milanesa a la pizza",vendedores.get(2), 3500, 363, 2250.35f);
+        Plato hamburguesaCompleta = new Plato("Hamburguesa Completa", vendedores.listar().get(0),4000.0f, 500, 2000.8f);
+        Plato hamburguesaSimple = new Plato("Hamburquesa simple",vendedores.listar().get(1), 3500, 300, 1800.5f);
+        Plato papasFritas = new Plato("Papas Fritas",vendedores.listar().get(2), 2500, 363, 1200);
+        Plato papasAlHorno = new Plato("Papas al horno", vendedores.listar().get(0),3500, 500, 900);
+        Plato milanesaACaballo = new Plato("Milanesa a caballo",vendedores.listar().get(1), 3500, 300, 3000);
+        Plato milanesaAlaPizza = new Plato("Milanesa a la pizza",vendedores.listar().get(2), 3500, 363, 2250.35f);
         
         items.add(hamburguesaCompleta);
         items.add(hamburguesaSimple);
