@@ -2,7 +2,6 @@ package nc.modelo.ItemPedidoManagement;
 
 import nc.modelo.excepciones.ItemNoEncontradoException;
 import nc.modelo.ItemPedido;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ItemPedidoDAO {
@@ -19,8 +18,8 @@ public interface ItemPedidoDAO {
         PRECIO_TOPE_PEDIDO,
         PRECIO_MINIMO_ITEMPEDIDO,
         PRECIO_MINIMO_ITEMMENU,
-        PRECIO_MINIMO_PEDIDO
-        
+        PRECIO_MINIMO_PEDIDO,
+        ID_PEDIDO
     }
     enum tipoFiltradoRango{
     

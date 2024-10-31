@@ -31,6 +31,9 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
     }
         return uniqueInstance;
     }
+    public List<ItemPedido> getAll(){
+        return this.memory;
+    }
     public void addPedido(List<ItemPedido> items){
         memory.addAll(items);
         
@@ -42,6 +45,15 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
     public List<Pedido> getPedidos(Vendedor vend) throws ItemNoEncontradoException{
         return memory.stream().map(item->item.getPedido()).distinct().filter(pedido->pedido.getVendedor() == vend)
                 .collect(Collectors.toList());
+    }
+    public List<Pedido> getPedidos(int ID, Boolean isVendor) throws ItemNoEncontradoException{
+        if(isVendor){
+            return memory.stream().map(item->item.getPedido()).distinct().filter(pedido->pedido.getVendedor().getId() == ID)
+                    .collect(Collectors.toList());
+        }else{
+            return memory.stream().map(item->item.getPedido()).distinct().filter(pedido->pedido.getCliente().getId() == ID)
+                    .collect(Collectors.toList());
+        }
     }
     public List<Pedido> getPedidos(){
         return memory.stream().map(item->item.getPedido()).distinct().collect(Collectors.toList());
@@ -62,6 +74,7 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
             case PRECIO_MINIMO_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() >=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO_PEDIDO -> filtrado = memory.stream().filter(item->item.getPedido().getPrecio() <=  (float)filtro).collect(Collectors.toList());
+            case ID_PEDIDO -> memory.stream().filter(item->item.getPedido().getId() == (Integer)filtro).collect(Collectors.toList());
         }
         if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
         return filtrado;

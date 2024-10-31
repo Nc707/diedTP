@@ -4,7 +4,6 @@
  */
 package nc.vista;
 
-import java.awt.Frame;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JDialog;
@@ -18,7 +17,7 @@ import nc.controlador.ItemMenuController;
  *
  * @author nicol
  */
-public class ItemMenuPanel extends javax.swing.JPanel {
+public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private enum filterMode{
         ID,
         NAME,
@@ -32,10 +31,15 @@ public class ItemMenuPanel extends javax.swing.JPanel {
     private filterMode actualFilter;
     /**
      * Creates new form ItemMenuPanel
+     * @param filterID
      */
-    public ItemMenuPanel() {
-        itemsMenu = new ItemMenuController();
-        List<String> modeloTableName = Arrays.asList("ID", "Nombre", "Vendedor", "Precio");
+    public ItemMenuPanelVendedor(int filterID) {
+        itemsMenu = new ItemMenuController(filterID);
+        List<String> modeloTableName;
+        if(filterID<0)
+            modeloTableName = Arrays.asList("ID", "Nombre", "Vendedor", "Precio");
+        else
+            modeloTableName = Arrays.asList("ID", "Nombre", "Precio");
         modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
@@ -66,6 +70,7 @@ public class ItemMenuPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jButton3 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -90,7 +95,9 @@ public class ItemMenuPanel extends javax.swing.JPanel {
         jScrollPane13.setViewportView(jTextPane3);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         jPanel7.add(jScrollPane13, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -150,7 +157,18 @@ public class ItemMenuPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel7.add(jPanel1, gridBagConstraints);
+
+        jButton3.setText("jButton3");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 2;
+        gridBagConstraints.ipady = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel7.add(jButton3, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -227,6 +245,7 @@ public class ItemMenuPanel extends javax.swing.JPanel {
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;

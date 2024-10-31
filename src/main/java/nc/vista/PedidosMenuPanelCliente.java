@@ -14,7 +14,7 @@ import nc.controlador.PedidoController;
  *
  * @author nicol
  */
-public class PedidosMenuPanel extends javax.swing.JPanel {
+public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     private enum filterMode{
         ID,
         VENDEDOR,
@@ -28,12 +28,19 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
     private PedidoController pedidos;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private int clienteID = -1;
     /**
      * Creates new form ItemMenuPanel
      */
-    public PedidosMenuPanel() {
-        pedidos = new PedidoController();
-        List<String> modeloTableName = Arrays.asList("ID", "Vendedor", "Cliente", "Cantidad de Items", "Precio", "Estado");
+
+    /**
+     * Creates new form ItemMenuPanel
+     * @param clienteID
+     */
+    public PedidosMenuPanelCliente(int clienteID) {
+        this.clienteID = clienteID;
+        pedidos = new PedidoController(clienteID, false);
+        List<String> modeloTableName = Arrays.asList("ID", "Vendedor", "Cantidad de Items", "Precio", "Estado");
         modeloPedido = new PersonalizatedTableModel( modeloTableName, pedidos.loadData());
         sorter = new TableRowSorter<>(modeloPedido);
         actualFilter = filterMode.ID;
@@ -59,9 +66,9 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jButton3 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -86,15 +93,15 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
         jScrollPane13.setViewportView(jTextPane3);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         jPanel7.add(jScrollPane13, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         jPanel7.add(jSeparator1, gridBagConstraints);
-
-        jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloPedido.getColumnName()));
         jComboBox1.setMinimumSize(new java.awt.Dimension(135, 22));
@@ -109,21 +116,7 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(jComboBox1, gridBagConstraints);
-
-        jButton2.setText("Crear Nuevo Pedido");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(jButton2, gridBagConstraints);
+        jPanel1.add(jComboBox1);
 
         jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextPane1.setToolTipText("");
@@ -136,17 +129,22 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTextPane1);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel1.add(jScrollPane1, gridBagConstraints);
+        jPanel1.add(jScrollPane1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel7.add(jPanel1, gridBagConstraints);
+
+        jButton3.setText("Ver detalle");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel7.add(jButton3, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -163,10 +161,6 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
         if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
@@ -222,7 +216,7 @@ public class PedidosMenuPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;

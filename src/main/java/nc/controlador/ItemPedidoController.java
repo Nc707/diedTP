@@ -6,38 +6,38 @@ package nc.controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.modelo.ItemMenu;
 import nc.modelo.ItemMenuDAOandMemory.ItemMenuDAO;
-import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
+import nc.modelo.ItemPedido;
+import nc.modelo.ItemPedidoManagement.ItemPedidoDAO;
+import nc.modelo.ItemPedidoManagement.ItemPedidoMemory;
 import nc.modelo.excepciones.ItemNoEncontradoException;
 
 /**
  *
  * @author nicol/*
  */
-public class ItemMenuController {
-    private int vendedorID = -1;
-    public ItemMenuController(){}
-    public ItemMenuController(int vendedorID){
-        this.vendedorID = vendedorID;
+public class ItemPedidoController {
+    private int pedidoID = -1;
+    public ItemPedidoController(){}
+    public ItemPedidoController(int pedidoID){
+        this.pedidoID = pedidoID;
     }
     public List<List> loadData(){
-        ItemMenuDAO database = ItemMenuMemory.getInstancia();
-        List<ItemMenu> data = new ArrayList<>();
-        if(vendedorID<0){
+        ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
+        List<ItemPedido> data = new ArrayList<>();
+        if(pedidoID<0){
             data = database.getAll();
         }else{
             try{
-            data = database.filtrarPor(ItemMenuDAO.tipoFiltrado.ID_VENDEDOR, this.vendedorID);
+            data = database.filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_PEDIDO, pedidoID);
             } catch (ItemNoEncontradoException ex) {return new ArrayList();}}
-        return data.stream().map((ItemMenu item) -> {
+        return data.stream().map((ItemPedido item) -> {
             ArrayList list = new ArrayList();
             list.add(item.getId());
-            list.add(item.getNombre());
-            if(vendedorID<0){
+            list.add(item.getItemMenu().getNombre());
+            if(pedidoID<0){
             list.add(item.getVendedor().getNombre());
             }
             list.add(item.getPrecio());
@@ -46,3 +46,4 @@ public class ItemMenuController {
     }
     
 }
+afsdfas

@@ -29,16 +29,15 @@ public class mainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        itemMenuPanel1 = new nc.vista.ItemMenuPanel();
+        itemMenuPanel1 = new nc.vista.ItemMenuPanelVendedor(1);
         vendedoresMenuPanel1 = new nc.vista.VendedoresMenuPanel();
         clientesMenuPanel1 = new nc.vista.ClientesMenuPanel();
-        pedidosMenuPanel1 = new nc.vista.PedidosMenuPanel();
+        pedidosMenuPanel1 = new nc.vista.PedidosMenuPanelCliente();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,12 +109,12 @@ public class mainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private nc.vista.ClientesMenuPanel clientesMenuPanel1;
-    private nc.vista.ItemMenuPanel itemMenuPanel1;
+    private nc.vista.ItemMenuPanelVendedor itemMenuPanel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private nc.vista.PedidosMenuPanel pedidosMenuPanel1;
+    private nc.vista.PedidosMenuPanelCliente pedidosMenuPanel1;
     private nc.vista.VendedoresMenuPanel vendedoresMenuPanel1;
     // End of variables declaration//GEN-END:variables
 }
