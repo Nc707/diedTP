@@ -4,12 +4,12 @@
  */
 package nc.vista.initView;
 
-import nc.vista.initView.FirstFrame;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.VendedorController;
+import nc.modelo.Coordenada;
 import nc.vista.PersonalizatedTableModel;
 
 /**
@@ -17,7 +17,8 @@ import nc.vista.PersonalizatedTableModel;
  * @author nicol
  */
 public class VendedoresMenuPanel extends javax.swing.JPanel {
-    private enum filterMode{
+
+    private enum filterMode {
         ID,
         NAME,
         DIRECC,
@@ -28,6 +29,7 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     public FirstFrame upperPanel;
+
     /**
      * Creates new form ClientesMenuPanel
      */
@@ -39,7 +41,8 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         actualFilter = filterMode.ID;
         initComponents();
     }
-    public void setUpperPanel(FirstFrame frame){
+
+    public void setUpperPanel(FirstFrame frame) {
         this.upperPanel = frame;
     }
 
@@ -122,7 +125,7 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
 
         jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextPane1.setToolTipText("");
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextPane1.setPreferredSize(new java.awt.Dimension(180, 20));
         jTextPane1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -176,19 +179,19 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         String currentSelection = (String) jComboBox1.getSelectedItem();
         switch (currentSelection) {
             case "Tipo de Búsqueda":
-            this.actualFilter = filterMode.NONE;
-            break;
+                this.actualFilter = filterMode.NONE;
+                break;
             case "ID":
-            this.actualFilter = filterMode.ID;
-            break;
+                this.actualFilter = filterMode.ID;
+                break;
             case "Nombre":
-            this.actualFilter = filterMode.NAME;
-            break;
+                this.actualFilter = filterMode.NAME;
+                break;
             case "Dirección":
-            this.actualFilter = filterMode.DIRECC;
-            break;
+                this.actualFilter = filterMode.DIRECC;
+                break;
             default:
-            break;
+                break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
@@ -201,19 +204,23 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             String text;
             text = jTextPane1.getText();
             sorter.setRowFilter(null);
             jTextPane1.setText("");
-            if(!text.isBlank()){
-                try{
-                    switch(actualFilter){
-                        case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
-                        case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
-                        case DIRECC -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
+            if (!text.isBlank()) {
+                try {
+                    switch (actualFilter) {
+                        case ID ->
+                            sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
+                        case NAME ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 1));
+                        case DIRECC ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 2));
                     }
-                }catch(NumberFormatException e){}
+                } catch (NumberFormatException e) {
+                }
             }
 
         }
@@ -221,8 +228,23 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //this.upperPanel.upperPanel.setVendedores();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int selectedRow = contentTable.getSelectedRow();
+        if (selectedRow != -1) {
+            // Convierte la fila seleccionada al índice de modelo en caso de que esté ordenada
+            int modelRow = contentTable.convertRowIndexToModel(selectedRow);
 
+            // Obtiene los datos del vendedor desde el modelo
+            int id = (int) vendedorTableModel.getValueAt(modelRow, 0);
+            String nombre = vendedorTableModel.getValueAt(modelRow, 1).toString();
+            String direccion = vendedorTableModel.getValueAt(modelRow, 2).toString();
+            // String coordenadas = vendedores.getCoordenadas(id);
+
+            // Crea y muestra el dialogo
+            DialogVendedor dialog = new DialogVendedor(null, true, id, nombre, direccion, new Coordenada(3, 4));
+            dialog.setVisible(true);
+            dialog.setLocationRelativeTo(null);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable contentTable;
