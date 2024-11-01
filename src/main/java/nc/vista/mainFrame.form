@@ -58,7 +58,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
   <SubComponents>
-    <Component class="nc.vista.VendoresFrame" name="vendoresFrame2">
+    <Component class="nc.vista.VistaPrincipal" name="vistaPrincipal1">
     </Component>
   </SubComponents>
 </Form>

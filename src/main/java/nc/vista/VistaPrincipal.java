@@ -4,19 +4,26 @@
  */
 package nc.vista;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author nicol
  */
-public class FirstFrame extends javax.swing.JPanel {
+public class VistaPrincipal extends javax.swing.JPanel {
 
     /**
-     * Creates new form FirstFrame
+     * Creates new form VistaPrincipal
      */
-    VistaPrincipal upperPanel;
-    public FirstFrame(VistaPrincipal upperPanel) {
-        this.upperPanel = upperPanel;
+    CardLayout layout;
+    public VistaPrincipal() {
         initComponents();
+        this.layout = (CardLayout) this.getLayout();
+        layout.show(this, "card3");
+    }
+    public void setVendedores(){
+        layout.show(this, "card2");
+    
     }
 
     /**
@@ -28,22 +35,20 @@ public class FirstFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        vendedoresMenuPanel2 = new nc.vista.VendedoresMenuPanel(this);
-        clientesMenuPanel2 = new nc.vista.ClientesMenuPanel();
+        vendoresFrame1 = new nc.vista.VendoresFrame();
+        firstFrame1 = new nc.vista.FirstFrame(this);
+        clientesFrame1 = new nc.vista.ClientesFrame();
 
-        setLayout(new java.awt.BorderLayout());
-
-        jTabbedPane3.addTab("Vendedores", vendedoresMenuPanel2);
-        jTabbedPane3.addTab("Clientes", clientesMenuPanel2);
-
-        add(jTabbedPane3, java.awt.BorderLayout.CENTER);
+        setLayout(new java.awt.CardLayout());
+        add(vendoresFrame1, "card2");
+        add(firstFrame1, "card3");
+        add(clientesFrame1, "card4");
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.ClientesMenuPanel clientesMenuPanel2;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private nc.vista.VendedoresMenuPanel vendedoresMenuPanel2;
+    private nc.vista.ClientesFrame clientesFrame1;
+    private nc.vista.FirstFrame firstFrame1;
+    private nc.vista.VendoresFrame vendoresFrame1;
     // End of variables declaration//GEN-END:variables
 }

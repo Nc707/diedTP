@@ -25,10 +25,13 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     private VendedorController vendedores;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private FirstFrame upperPanel;
     /**
      * Creates new form ClientesMenuPanel
+     * @param upperPanel
      */
-    public VendedoresMenuPanel() {
+    public VendedoresMenuPanel(FirstFrame upperPanel) {
+        this.upperPanel = upperPanel;
         vendedores = new VendedorController();
         List<String> clientTableNames = Arrays.asList("ID", "Nombre", "Direccion");
         vendedorTableModel = new PersonalizatedTableModel(clientTableNames, vendedores.loadData());
@@ -136,6 +139,11 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jButton1.setText("Ver Detalle");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -207,6 +215,10 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_jTextPane1KeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.upperPanel.upperPanel.setVendedores();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

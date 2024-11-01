@@ -33,7 +33,7 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        vendoresFrame2 = new nc.vista.VendoresFrame();
+        vistaPrincipal1 = new nc.vista.VistaPrincipal();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -53,7 +53,7 @@ public class mainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(vendoresFrame2);
+        getContentPane().add(vistaPrincipal1);
 
         pack();
         setLocationRelativeTo(null);
@@ -100,6 +100,6 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextArea jTextArea1;
-    private nc.vista.VendoresFrame vendoresFrame2;
+    private nc.vista.VistaPrincipal vistaPrincipal1;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,7 +19,7 @@ public class VendoresFrame extends javax.swing.JPanel {
     }
     public void setPedido(){
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanel1), true);
-        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanel1));
+        //jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanel1));
     }
 
     /**
