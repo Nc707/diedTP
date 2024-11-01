@@ -33,11 +33,6 @@ public class mainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        itemMenuPanel1 = new nc.vista.ItemMenuPanelVendedor(1);
-        vendedoresMenuPanel1 = new nc.vista.VendedoresMenuPanel();
-        clientesMenuPanel1 = new nc.vista.ClientesMenuPanel();
-        pedidosMenuPanel1 = new nc.vista.PedidosMenuPanelCliente();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,14 +52,6 @@ public class mainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
-
-        jTabbedPane1.setToolTipText("");
-        jTabbedPane1.addTab("ItemMenu", itemMenuPanel1);
-        jTabbedPane1.addTab("Vendedores", vendedoresMenuPanel1);
-        jTabbedPane1.addTab("Clientes", clientesMenuPanel1);
-        jTabbedPane1.addTab("Pedidos", pedidosMenuPanel1);
-
-        getContentPane().add(jTabbedPane1);
 
         pack();
         setLocationRelativeTo(null);
@@ -108,13 +95,8 @@ public class mainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.ClientesMenuPanel clientesMenuPanel1;
-    private nc.vista.ItemMenuPanelVendedor itemMenuPanel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private nc.vista.PedidosMenuPanelCliente pedidosMenuPanel1;
-    private nc.vista.VendedoresMenuPanel vendedoresMenuPanel1;
     // End of variables declaration//GEN-END:variables
 }

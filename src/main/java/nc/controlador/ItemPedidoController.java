@@ -37,13 +37,14 @@ public class ItemPedidoController {
             ArrayList list = new ArrayList();
             list.add(item.getId());
             list.add(item.getItemMenu().getNombre());
+            list.add(item.getItemMenu().getPrecio());
             if(pedidoID<0){
-            list.add(item.getVendedor().getNombre());
+            list.add(item.getPedido().getId());
             }
+            list.add(item.getCantidad());
             list.add(item.getPrecio());
             return list;
         }).collect(Collectors.toList());
     }
     
 }
-afsdfas
