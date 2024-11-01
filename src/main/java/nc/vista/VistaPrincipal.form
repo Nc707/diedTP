@@ -15,16 +15,16 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
   <SubComponents>
-    <Component class="nc.vista.VendoresFrame" name="vendoresFrame1">
+    <Component class="nc.vista.vendedor.VendoresFrame" name="vendoresFrame1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
           <CardConstraints cardName="card2"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="nc.vista.FirstFrame" name="firstFrame1">
+    <Component class="nc.vista.initView.FirstFrame" name="firstFrame1">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.FirstFrame(this)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.initView.FirstFrame(this)"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -32,7 +32,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="nc.vista.ClientesFrame" name="clientesFrame1">
+    <Component class="nc.vista.cliente.ClientesFrame" name="clientesFrame1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
           <CardConstraints cardName="card4"/>

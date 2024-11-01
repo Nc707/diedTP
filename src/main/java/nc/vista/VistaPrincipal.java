@@ -35,9 +35,9 @@ public class VistaPrincipal extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        vendoresFrame1 = new nc.vista.VendoresFrame();
-        firstFrame1 = new nc.vista.FirstFrame(this);
-        clientesFrame1 = new nc.vista.ClientesFrame();
+        vendoresFrame1 = new nc.vista.vendedor.VendoresFrame();
+        firstFrame1 = new nc.vista.initView.FirstFrame(this);
+        clientesFrame1 = new nc.vista.cliente.ClientesFrame();
 
         setLayout(new java.awt.CardLayout());
         add(vendoresFrame1, "card2");
@@ -47,8 +47,8 @@ public class VistaPrincipal extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.ClientesFrame clientesFrame1;
-    private nc.vista.FirstFrame firstFrame1;
-    private nc.vista.VendoresFrame vendoresFrame1;
+    private nc.vista.cliente.ClientesFrame clientesFrame1;
+    private nc.vista.initView.FirstFrame firstFrame1;
+    private nc.vista.vendedor.VendoresFrame vendoresFrame1;
     // End of variables declaration//GEN-END:variables
 }

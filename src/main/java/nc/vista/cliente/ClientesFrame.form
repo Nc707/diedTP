@@ -25,9 +25,9 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="nc.vista.VendedoresSelectPanelCliente" name="vendedoresSelectPanelCliente1">
+        <Component class="nc.vista.cliente.VendedoresSelectPanelCliente" name="vendedoresSelectPanelCliente1">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.VendedoresSelectPanelCliente(this)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.cliente.VendedoresSelectPanelCliente(this)"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -37,7 +37,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.ItemMenuPanelCliente" name="itemMenuPanelCliente1">
+        <Component class="nc.vista.cliente.ItemMenuPanelCliente" name="itemMenuPanelCliente1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="ItemMenu">
@@ -46,7 +46,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.ItemPedidoPanelCliente" name="itemPedidoPanelCliente1">
+        <Component class="nc.vista.cliente.ItemPedidoPanelCliente" name="itemPedidoPanelCliente1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Carrito">
@@ -55,7 +55,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.PedidosMenuPanelCliente" name="pedidosMenuPanelCliente1">
+        <Component class="nc.vista.cliente.PedidosMenuPanelCliente" name="pedidosMenuPanelCliente1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Pedidos">

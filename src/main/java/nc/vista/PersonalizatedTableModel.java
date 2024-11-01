@@ -17,7 +17,7 @@ public class PersonalizatedTableModel extends AbstractTableModel{
     private List<List> items;
     private List<String> colName;
     
-    PersonalizatedTableModel(List<String> colName, List<List> items){
+    public PersonalizatedTableModel(List<String> colName, List<List> items){
         this.items = items;
         this.colName = colName;
     }

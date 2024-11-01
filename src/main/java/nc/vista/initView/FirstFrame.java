@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package nc.vista;
+package nc.vista.initView;
+
+import nc.vista.VistaPrincipal;
 
 /**
  *
@@ -13,7 +15,7 @@ public class FirstFrame extends javax.swing.JPanel {
     /**
      * Creates new form FirstFrame
      */
-    VistaPrincipal upperPanel;
+    public final VistaPrincipal upperPanel;
     public FirstFrame(VistaPrincipal upperPanel) {
         this.upperPanel = upperPanel;
         initComponents();
@@ -29,8 +31,8 @@ public class FirstFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        vendedoresMenuPanel2 = new nc.vista.VendedoresMenuPanel(this);
-        clientesMenuPanel2 = new nc.vista.ClientesMenuPanel();
+        vendedoresMenuPanel2 = new nc.vista.initView.VendedoresMenuPanel(this);
+        clientesMenuPanel2 = new nc.vista.initView.ClientesMenuPanel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -42,8 +44,8 @@ public class FirstFrame extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.ClientesMenuPanel clientesMenuPanel2;
+    private nc.vista.initView.ClientesMenuPanel clientesMenuPanel2;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private nc.vista.VendedoresMenuPanel vendedoresMenuPanel2;
+    private nc.vista.initView.VendedoresMenuPanel vendedoresMenuPanel2;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package nc.vista;
+package nc.vista.cliente;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,12 +12,14 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ItemMenuController;
+import nc.vista.vendedor.CreacionItemMenu;
+import nc.vista.PersonalizatedTableModel;
 
 /**
  *
  * @author nicol
  */
-public class ItemMenuPanelVendedor extends javax.swing.JPanel {
+public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private enum filterMode{
         ID,
         NAME,
@@ -31,9 +33,8 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private filterMode actualFilter;
     /**
      * Creates new form ItemMenuPanel
-     * @param filterID
      */
-    public ItemMenuPanelVendedor() {
+    public ItemMenuPanelCliente() {
         int filterID = 0;
         itemsMenu = new ItemMenuController(filterID);
         List<String> modeloTableName;
@@ -175,11 +176,11 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package nc.vista;
+package nc.vista.cliente;
 
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ItemMenuController;
+import nc.vista.PersonalizatedTableModel;
 
 /**
  *

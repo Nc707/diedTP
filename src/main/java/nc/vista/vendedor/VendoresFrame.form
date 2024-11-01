@@ -25,7 +25,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="nc.vista.ItemMenuPanelVendedor" name="itemMenuPanelVendedor1">
+        <Component class="nc.vista.vendedor.ItemMenuPanelVendedor" name="itemMenuPanelVendedor1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Mi men&#xfa;">
@@ -34,9 +34,9 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.PedidosMenuPanelVendedor" name="pedidosMenuPanelVendedor1">
+        <Component class="nc.vista.vendedor.PedidosMenuPanelVendedor" name="pedidosMenuPanelVendedor1">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.PedidosMenuPanelVendedor(this)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.vendedor.PedidosMenuPanelVendedor(this)"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -46,7 +46,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.ItemPedidoPanel" name="itemPedidoPanel1">
+        <Component class="nc.vista.vendedor.ItemPedidoPanel" name="itemPedidoPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Detalle Pedido">

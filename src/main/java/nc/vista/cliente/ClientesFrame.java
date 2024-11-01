@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package nc.vista;
+package nc.vista.cliente;
 
 /**
  *
@@ -35,10 +35,10 @@ public class ClientesFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        vendedoresSelectPanelCliente1 = new nc.vista.VendedoresSelectPanelCliente(this);
-        itemMenuPanelCliente1 = new nc.vista.ItemMenuPanelCliente();
-        itemPedidoPanelCliente1 = new nc.vista.ItemPedidoPanelCliente();
-        pedidosMenuPanelCliente1 = new nc.vista.PedidosMenuPanelCliente();
+        vendedoresSelectPanelCliente1 = new nc.vista.cliente.VendedoresSelectPanelCliente(this);
+        itemMenuPanelCliente1 = new nc.vista.cliente.ItemMenuPanelCliente();
+        itemPedidoPanelCliente1 = new nc.vista.cliente.ItemPedidoPanelCliente();
+        pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -52,10 +52,10 @@ public class ClientesFrame extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.ItemMenuPanelCliente itemMenuPanelCliente1;
-    private nc.vista.ItemPedidoPanelCliente itemPedidoPanelCliente1;
+    private nc.vista.cliente.ItemMenuPanelCliente itemMenuPanelCliente1;
+    private nc.vista.cliente.ItemPedidoPanelCliente itemPedidoPanelCliente1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private nc.vista.PedidosMenuPanelCliente pedidosMenuPanelCliente1;
-    private nc.vista.VendedoresSelectPanelCliente vendedoresSelectPanelCliente1;
+    private nc.vista.cliente.PedidosMenuPanelCliente pedidosMenuPanelCliente1;
+    private nc.vista.cliente.VendedoresSelectPanelCliente vendedoresSelectPanelCliente1;
     // End of variables declaration//GEN-END:variables
 }
