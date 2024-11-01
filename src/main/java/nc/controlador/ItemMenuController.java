@@ -24,6 +24,9 @@ public class ItemMenuController {
     public ItemMenuController(int vendedorID){
         this.vendedorID = vendedorID;
     }
+    public void setID(int vendedorID){
+        this.vendedorID = vendedorID;
+    }
     public List<List> loadData(){
         ItemMenuDAO database = ItemMenuMemory.getInstancia();
         List<ItemMenu> data = new ArrayList<>();

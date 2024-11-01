@@ -4,6 +4,8 @@
  */
 package nc.vista.vendedor;
 
+import nc.vista.VistaPrincipal;
+
 /**
  *
  * @author nicol
@@ -13,13 +15,29 @@ public class VendoresFrame extends javax.swing.JPanel {
     /**
      * Creates new form VendoresFrame
      */
+    VistaPrincipal upperFrame;
+    @SuppressWarnings("")
     public VendoresFrame() {
         initComponents();
+        pedidosMenuPanelVendedor1.setFrameSuperior(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanel1), false);
     }
-    public void setPedido(){
+    public void setFrameSuperior(VistaPrincipal vista){
+        upperFrame = vista;
+    }
+    public void setPedido(int IDPedido){
+        itemPedidoPanel1.setPedido(IDPedido);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanel1), true);
-        //jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanel1));
+
+    }
+    public void setVendedor(int ID){
+        this.itemMenuPanelVendedor1.setID(ID);
+        this.pedidosMenuPanelVendedor1.setVendedor(ID);
+    }
+    public void goBack(){
+        this.itemMenuPanelVendedor1.setID(-1);
+        this.pedidosMenuPanelVendedor1.setVendedor(-1);
+        upperFrame.volverInicio();
     }
 
     /**
@@ -33,12 +51,12 @@ public class VendoresFrame extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         itemMenuPanelVendedor1 = new nc.vista.vendedor.ItemMenuPanelVendedor();
-        pedidosMenuPanelVendedor1 = new nc.vista.vendedor.PedidosMenuPanelVendedor(this);
+        pedidosMenuPanelVendedor1 = new nc.vista.vendedor.PedidosMenuPanelVendedor();
         itemPedidoPanel1 = new nc.vista.vendedor.ItemPedidoPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.addTab("Mi menú", itemMenuPanelVendedor1);
+        jTabbedPane1.addTab("Mi Menu", itemMenuPanelVendedor1);
         jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelVendedor1);
         jTabbedPane1.addTab("Detalle Pedido", itemPedidoPanel1);
 

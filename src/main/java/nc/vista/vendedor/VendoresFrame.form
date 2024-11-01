@@ -28,16 +28,13 @@
         <Component class="nc.vista.vendedor.ItemMenuPanelVendedor" name="itemMenuPanelVendedor1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Mi men&#xfa;">
-                <Property name="tabTitle" type="java.lang.String" value="Mi men&#xfa;"/>
+              <JTabbedPaneConstraints tabName="Mi Menu">
+                <Property name="tabTitle" type="java.lang.String" value="Mi Menu"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="nc.vista.vendedor.PedidosMenuPanelVendedor" name="pedidosMenuPanelVendedor1">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new nc.vista.vendedor.PedidosMenuPanelVendedor(this)"/>
-          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Mis Pedidos">

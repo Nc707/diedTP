@@ -25,6 +25,10 @@ public class PedidoController {
         this.ID = ID;
         this.isVendedor = isVendedor;
     }
+    public void setID(int ID, Boolean isVendedor){
+        this.ID = ID;
+        this.isVendedor = isVendedor;
+    }
     public List<List> loadData(){
         ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
         List<Pedido> data;

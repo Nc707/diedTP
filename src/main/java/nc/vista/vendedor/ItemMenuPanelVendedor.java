@@ -30,22 +30,22 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private ItemMenuController itemsMenu;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private int vendedorID = -1;
     /**
      * Creates new form ItemMenuPanel
-     * @param filterID
      */
     public ItemMenuPanelVendedor() {
-        int filterID = 0;
-        itemsMenu = new ItemMenuController(filterID);
+        itemsMenu = new ItemMenuController();
         List<String> modeloTableName;
-        if(filterID<0)
-            modeloTableName = Arrays.asList("ID", "Nombre", "Vendedor", "Precio");
-        else
-            modeloTableName = Arrays.asList("ID", "Nombre", "Precio");
+        modeloTableName = Arrays.asList("ID", "Item", "Precio");
         modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
+    }
+    public void setID(int ID){
+        this.vendedorID = ID;
+        this.itemsMenu.setID(ID);
     }
 
     /**
@@ -226,7 +226,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
             case "ID":
                 this.actualFilter = filterMode.ID;
                 break;
-            case "Nombre":
+            case "Item":
                 this.actualFilter = filterMode.NAME;
                 break;
             case "Vendedor":

@@ -28,4 +28,26 @@ public class ClientController {
             return list;
         }).collect(Collectors.toList());
     }
+    /*
+    *Returns a list with order:
+    *   Int ID
+    *   String Nombre
+    *   String Direccion
+    *   String Email
+    *   String Cuit
+    *   Int Latitude
+    *   Int Longitude
+    */
+    public List getCliente(int ID){
+        List clientData = new ArrayList();
+        Cliente client = ClienteMemory.getInstancia().buscar(ID);
+        clientData.add(ID);
+        clientData.add(client.getNombre());
+        clientData.add(client.getDireccion());
+        clientData.add(client.getEmail());
+        clientData.add(client.getCuit());
+        clientData.add(client.getCoordenada().getLatitude());
+        clientData.add(client.getCoordenada().getLongitude());
+        return clientData;
+    }
 }

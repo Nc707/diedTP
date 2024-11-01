@@ -32,26 +32,23 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
     private ItemMenuController itemsMenu;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    private int filterID;
+    private int pedidoID = -1;
     /**
      * Creates new form ItemMenuPanel
-     * @param filterID
      */
     public ItemPedidoPanel() {
-        int filterID = 0;
-        this.filterID = filterID;
-        itemsMenu = new ItemMenuController(filterID);
+        itemsMenu = new ItemMenuController();
         List<String> modeloTableName;
-        if(filterID<0)
-            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "ID Pedido", "Cantidad", "Precio Final");
-        else
-            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
+        modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
         modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
     }
-
+    public void setPedido(int pedidoID){
+        this.pedidoID = pedidoID;
+        this.itemsMenu.setID(pedidoID);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,8 +190,8 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
                         case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
                         case INDIVIDUAL_PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 2));
                         case ID_PEDIDO -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
-                        case CANTIDAD -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 4 : 3 ));
-                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 5 : 4 ));
+                        case CANTIDAD -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3 ));
+                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 4 ));
                     }
                 }catch(NumberFormatException e){}
             }
@@ -216,9 +213,6 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
                 break;
             case "Precio Individual":
                 this.actualFilter = filterMode.INDIVIDUAL_PRICE;
-                break;
-            case "ID Pedido":
-                this.actualFilter = filterMode.ID_PEDIDO;
                 break;
             case "Cantidad":
                 this.actualFilter = filterMode.CANTIDAD;

@@ -6,10 +6,6 @@ import nc.modelo.excepciones.CantidadItemInvalidaException;
 import nc.modelo.interfacesPackage.Observer;
 import java.util.Date;
 import java.util.Random;
-import nc.modelo.Pedido.EstadoPedido;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Cliente implements Observer{
     private static int next_id = 0;
@@ -20,8 +16,6 @@ public class Cliente implements Observer{
     private Coordenada coordenadas;
     private String nombre;
     private Carrito carrito;
-    private String alias;
-    private String cbu;
   
     public Cliente(){} //constructor generico para poder instanciar un cliente sin parametros
     public Cliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud ){

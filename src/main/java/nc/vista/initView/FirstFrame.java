@@ -15,10 +15,14 @@ public class FirstFrame extends javax.swing.JPanel {
     /**
      * Creates new form FirstFrame
      */
-    public final VistaPrincipal upperPanel;
-    public FirstFrame(VistaPrincipal upperPanel) {
-        this.upperPanel = upperPanel;
+    public VistaPrincipal upperPanel;
+    @SuppressWarnings("")
+    public FirstFrame( ) {
         initComponents();
+        this.vendedoresMenuPanel1.setUpperPanel(this);
+    }
+    public void setUpperPanel(VistaPrincipal upperPanel){
+        this.upperPanel = upperPanel;
     }
 
     /**
@@ -30,22 +34,22 @@ public class FirstFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        vendedoresMenuPanel2 = new nc.vista.initView.VendedoresMenuPanel(this);
-        clientesMenuPanel2 = new nc.vista.initView.ClientesMenuPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        vendedoresMenuPanel1 = new nc.vista.initView.VendedoresMenuPanel();
+        clientesMenuPanel1 = new nc.vista.initView.ClientesMenuPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane3.addTab("Vendedores", vendedoresMenuPanel2);
-        jTabbedPane3.addTab("Clientes", clientesMenuPanel2);
+        jTabbedPane1.addTab("Vendedores", vendedoresMenuPanel1);
+        jTabbedPane1.addTab("Clientes", clientesMenuPanel1);
 
-        add(jTabbedPane3, java.awt.BorderLayout.CENTER);
+        add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.initView.ClientesMenuPanel clientesMenuPanel2;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private nc.vista.initView.VendedoresMenuPanel vendedoresMenuPanel2;
+    private nc.vista.initView.ClientesMenuPanel clientesMenuPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private nc.vista.initView.VendedoresMenuPanel vendedoresMenuPanel1;
     // End of variables declaration//GEN-END:variables
 }

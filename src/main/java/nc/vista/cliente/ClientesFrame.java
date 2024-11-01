@@ -15,12 +15,12 @@ public class ClientesFrame extends javax.swing.JPanel {
      */
     public ClientesFrame() {
         initComponents();
-        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
+        //jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
     }
     public void setVendedor(){
-        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), false);
-        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), true);
-        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1));
+        //jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), false);
+        //jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), true);
+        //jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1));
     }
     
     
@@ -34,28 +34,10 @@ public class ClientesFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        vendedoresSelectPanelCliente1 = new nc.vista.cliente.VendedoresSelectPanelCliente(this);
-        itemMenuPanelCliente1 = new nc.vista.cliente.ItemMenuPanelCliente();
-        itemPedidoPanelCliente1 = new nc.vista.cliente.ItemPedidoPanelCliente();
-        pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
-
         setLayout(new java.awt.BorderLayout());
-
-        jTabbedPane1.addTab("Vendedores", vendedoresSelectPanelCliente1);
-        jTabbedPane1.addTab("ItemMenu", itemMenuPanelCliente1);
-        jTabbedPane1.addTab("Carrito", itemPedidoPanelCliente1);
-        jTabbedPane1.addTab("Pedidos", pedidosMenuPanelCliente1);
-
-        add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private nc.vista.cliente.ItemMenuPanelCliente itemMenuPanelCliente1;
-    private nc.vista.cliente.ItemPedidoPanelCliente itemPedidoPanelCliente1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private nc.vista.cliente.PedidosMenuPanelCliente pedidosMenuPanelCliente1;
-    private nc.vista.cliente.VendedoresSelectPanelCliente vendedoresSelectPanelCliente1;
     // End of variables declaration//GEN-END:variables
 }

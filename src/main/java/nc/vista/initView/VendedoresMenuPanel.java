@@ -27,19 +27,20 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     private VendedorController vendedores;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    public final FirstFrame upperPanel;
+    public FirstFrame upperPanel;
     /**
      * Creates new form ClientesMenuPanel
-     * @param upperPanel
      */
-    public VendedoresMenuPanel(FirstFrame upperPanel) {
-        this.upperPanel = upperPanel;
+    public VendedoresMenuPanel() {
         vendedores = new VendedorController();
         List<String> clientTableNames = Arrays.asList("ID", "Nombre", "Direccion");
         vendedorTableModel = new PersonalizatedTableModel(clientTableNames, vendedores.loadData());
         sorter = new TableRowSorter<>(vendedorTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+    }
+    public void setUpperPanel(FirstFrame frame){
+        this.upperPanel = frame;
     }
 
     /**
@@ -219,7 +220,7 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.upperPanel.upperPanel.setVendedores();
+        //this.upperPanel.upperPanel.setVendedores();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

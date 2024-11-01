@@ -33,20 +33,23 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
     private VendoresFrame frameSuperior;
     /**
      * Creates new form ItemMenuPanel
-     * @param vendedorID
      */
-    public PedidosMenuPanelVendedor(VendoresFrame frameSuperior) {
-        this.frameSuperior = frameSuperior;
-        int vendedorID = 0;
-        this.vendedorID = vendedorID;
+    public PedidosMenuPanelVendedor(){
         pedidos = new PedidoController();
         List<String> modeloTableName = Arrays.asList("ID", "Cliente", "Cantidad de Items", "Precio", "Estado");
-        modeloPedido = new PersonalizatedTableModel( modeloTableName, pedidos.loadData());
+        modeloPedido = new PersonalizatedTableModel(modeloTableName, pedidos.loadData());
         sorter = new TableRowSorter<>(modeloPedido);
         actualFilter = filterMode.ID;
         initComponents();
+    
     }
-
+    public void setFrameSuperior(VendoresFrame frame){
+        this.frameSuperior = frame;
+    }
+    public void setVendedor(int ID){
+        this.vendedorID = ID;
+        this.pedidos.setID(ID, true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,7 +222,6 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        this.frameSuperior.setPedido();
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

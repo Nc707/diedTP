@@ -31,8 +31,8 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     /**
      * Creates new form ClientesMenuPanel
      */
-    public VendedoresSelectPanelCliente(ClientesFrame frameSuperior) {
-        this.frameSuperior = frameSuperior;
+    public VendedoresSelectPanelCliente() {
+        //this.frameSuperior = frameSuperior;
         vendedores = new VendedorController();
         List<String> clientTableNames = Arrays.asList("ID", "Nombre", "Direccion");
         vendedorTableModel = new PersonalizatedTableModel(clientTableNames, vendedores.loadData());
@@ -78,7 +78,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         jPanel7.add(jScrollPane10, gridBagConstraints);
 
         jTextPane3.setEditable(false);
-        jTextPane3.setText("Lista de Vendedores");
+        jTextPane3.setText("Seleccione un vendedor");
         jTextPane3.setToolTipText("");
         jTextPane3.setAutoscrolls(false);
         jTextPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
