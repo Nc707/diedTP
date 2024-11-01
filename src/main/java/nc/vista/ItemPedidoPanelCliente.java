@@ -8,40 +8,42 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.PedidoController;
+import nc.controlador.ItemMenuController;
 
 /**
  *
  * @author nicol
  */
-public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
+public class ItemPedidoPanelCliente extends javax.swing.JPanel {
     private enum filterMode{
         ID,
-        VENDEDOR,
-        CLIENTE,
-        AMOUNTITEM,
+        NAME,
         PRICE,
-        ESTADO,
+        INDIVIDUAL_PRICE,
+        ID_PEDIDO,
+        CANTIDAD,
         NONE
     }
-    private PersonalizatedTableModel modeloPedido;
-    private PedidoController pedidos;
+    private PersonalizatedTableModel modeloItemMenu;
+    private ItemMenuController itemsMenu;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    private int vendedorID = -1;
-    private VendoresFrame frameSuperior;
+    private int filterID;
     /**
      * Creates new form ItemMenuPanel
-     * @param vendedorID
+     * @param filterID
      */
-    public PedidosMenuPanelVendedor(VendoresFrame frameSuperior) {
-        this.frameSuperior = frameSuperior;
-        int vendedorID = 0;
-        this.vendedorID = vendedorID;
-        pedidos = new PedidoController();
-        List<String> modeloTableName = Arrays.asList("ID", "Cliente", "Cantidad de Items", "Precio", "Estado");
-        modeloPedido = new PersonalizatedTableModel( modeloTableName, pedidos.loadData());
-        sorter = new TableRowSorter<>(modeloPedido);
+    public ItemPedidoPanelCliente() {
+        int filterID = 0;
+        this.filterID = filterID;
+        itemsMenu = new ItemMenuController(filterID);
+        List<String> modeloTableName;
+        if(filterID<0)
+            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "ID Pedido", "Cantidad", "Precio Final");
+        else
+            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
+        modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
+        sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
     }
@@ -57,6 +59,8 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jButton1 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         contentTable = new javax.swing.JTable();
@@ -74,7 +78,7 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         contentTable.setAutoCreateRowSorter(true);
-        contentTable.setModel(this.modeloPedido);
+        contentTable.setModel(this.modeloItemMenu);
         contentTable.setRowSorter(sorter);
         jScrollPane10.setViewportView(contentTable);
 
@@ -84,7 +88,7 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         jPanel7.add(jScrollPane10, gridBagConstraints);
 
         jTextPane3.setEditable(false);
-        jTextPane3.setText("Lista de Pedidos");
+        jTextPane3.setText("Pedido");
         jTextPane3.setToolTipText("");
         jTextPane3.setAutoscrolls(false);
         jTextPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -92,8 +96,8 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         jScrollPane13.setViewportView(jTextPane3);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         jPanel7.add(jScrollPane13, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -102,7 +106,9 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         jPanel7.add(jSeparator1, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloPedido.getColumnName()));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloItemMenu.getColumnName()));
         jComboBox1.setMinimumSize(new java.awt.Dimension(135, 22));
         jComboBox1.setPreferredSize(new java.awt.Dimension(135, 22));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -115,11 +121,14 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel1.add(jComboBox1, gridBagConstraints);
 
         jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextPane1.setToolTipText("");
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextPane1.setPreferredSize(new java.awt.Dimension(180, 20));
         jTextPane1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -128,7 +137,11 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTextPane1);
 
-        jPanel1.add(jScrollPane1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(jScrollPane1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -138,14 +151,11 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         jPanel7.add(jPanel1, gridBagConstraints);
 
         jButton3.setText("Ver detalle");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 2;
+        gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(jButton3, gridBagConstraints);
@@ -154,11 +164,11 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -176,11 +186,11 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
                 try{
                     switch(actualFilter){
                         case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
-                        case VENDEDOR -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
-                        case CLIENTE -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
-                        case AMOUNTITEM -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 3));
-                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 4));
-                        case ESTADO -> sorter.setRowFilter(RowFilter.regexFilter(text, 5));
+                        case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
+                        case INDIVIDUAL_PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 2));
+                        case ID_PEDIDO -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
+                        case CANTIDAD -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 4 : 3 ));
+                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 5 : 4 ));
                     }
                 }catch(NumberFormatException e){}
             }
@@ -197,32 +207,30 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
             case "ID":
                 this.actualFilter = filterMode.ID;
                 break;
-            case "Vendedor":
-                this.actualFilter = filterMode.VENDEDOR;
+            case "Nombre":
+                this.actualFilter = filterMode.NAME;
                 break;
-            case "Cliente":
-                this.actualFilter = filterMode.CLIENTE;
+            case "Precio Individual":
+                this.actualFilter = filterMode.INDIVIDUAL_PRICE;
                 break;
-            case "Cantidad de Items":
-                this.actualFilter = filterMode.AMOUNTITEM;
+            case "ID Pedido":
+                this.actualFilter = filterMode.ID_PEDIDO;
                 break;
-            case "Precio":
+            case "Cantidad":
+                this.actualFilter = filterMode.CANTIDAD;
+                break;
+            case "Precio Final":
             this.actualFilter = filterMode.PRICE;
-            case "Estado":
-            this.actualFilter = filterMode.ESTADO;
-            break;
+                break;
             default:
                 break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        this.frameSuperior.setPedido();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;

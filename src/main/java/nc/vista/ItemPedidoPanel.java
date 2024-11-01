@@ -22,24 +22,29 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         ID,
         NAME,
         PRICE,
-        VENDEDOR,
+        INDIVIDUAL_PRICE,
+        ID_PEDIDO,
+        CANTIDAD,
         NONE
     }
     private PersonalizatedTableModel modeloItemMenu;
     private ItemMenuController itemsMenu;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private int filterID;
     /**
      * Creates new form ItemMenuPanel
      * @param filterID
      */
-    public ItemPedidoPanel(int filterID) {
+    public ItemPedidoPanel() {
+        int filterID = 0;
+        this.filterID = filterID;
         itemsMenu = new ItemMenuController(filterID);
         List<String> modeloTableName;
         if(filterID<0)
-            modeloTableName = Arrays.asList("ID", "Nombre", "Vendedor", "Precio");
+            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "ID Pedido", "Cantidad", "Precio Final");
         else
-            modeloTableName = Arrays.asList("ID", "Nombre", "Precio");
+            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
         modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
@@ -67,7 +72,6 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
@@ -87,7 +91,7 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         jPanel7.add(jScrollPane10, gridBagConstraints);
 
         jTextPane3.setEditable(false);
-        jTextPane3.setText("Lista de ItemMenu");
+        jTextPane3.setText("Pedido");
         jTextPane3.setToolTipText("");
         jTextPane3.setAutoscrolls(false);
         jTextPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -125,17 +129,6 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         jPanel1.add(jComboBox1, gridBagConstraints);
 
-        jButton2.setText("Crear Nuevo ItemMenu");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(jButton2, gridBagConstraints);
-
         jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextPane1.setToolTipText("");
         jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -160,7 +153,7 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel7.add(jPanel1, gridBagConstraints);
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Ver detalle");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -174,26 +167,17 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     CreacionItemMenu panel = new CreacionItemMenu();
-    JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
-    dialog.getContentPane().add(panel);
-    dialog.pack();
-    dialog.setLocationRelativeTo(null);
-    dialog.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
         if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
@@ -206,8 +190,10 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
                     switch(actualFilter){
                         case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
                         case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
-                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
-                        case VENDEDOR -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
+                        case INDIVIDUAL_PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 2));
+                        case ID_PEDIDO -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
+                        case CANTIDAD -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 4 : 3 ));
+                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 5 : 4 ));
                     }
                 }catch(NumberFormatException e){}
             }
@@ -227,11 +213,17 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
             case "Nombre":
                 this.actualFilter = filterMode.NAME;
                 break;
-            case "Vendedor":
-                this.actualFilter = filterMode.VENDEDOR;
+            case "Precio Individual":
+                this.actualFilter = filterMode.INDIVIDUAL_PRICE;
                 break;
-            case "Precio":
-                this.actualFilter = filterMode.PRICE;
+            case "ID Pedido":
+                this.actualFilter = filterMode.ID_PEDIDO;
+                break;
+            case "Cantidad":
+                this.actualFilter = filterMode.CANTIDAD;
+                break;
+            case "Precio Final":
+            this.actualFilter = filterMode.PRICE;
                 break;
             default:
                 break;
@@ -244,7 +236,6 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;

@@ -33,7 +33,8 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
      * Creates new form ItemMenuPanel
      * @param filterID
      */
-    public ItemMenuPanelVendedor(int filterID) {
+    public ItemMenuPanelVendedor() {
+        int filterID = 0;
         itemsMenu = new ItemMenuController(filterID);
         List<String> modeloTableName;
         if(filterID<0)

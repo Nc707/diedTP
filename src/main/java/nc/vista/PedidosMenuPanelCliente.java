@@ -37,7 +37,8 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
      * Creates new form ItemMenuPanel
      * @param clienteID
      */
-    public PedidosMenuPanelCliente(int clienteID) {
+    public PedidosMenuPanelCliente() {
+        int clienteID = 0;
         this.clienteID = clienteID;
         pedidos = new PedidoController(clienteID, false);
         List<String> modeloTableName = Arrays.asList("ID", "Vendedor", "Cantidad de Items", "Precio", "Estado");

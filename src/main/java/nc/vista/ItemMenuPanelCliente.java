@@ -31,9 +31,9 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private filterMode actualFilter;
     /**
      * Creates new form ItemMenuPanel
-     * @param filterID
      */
-    public ItemMenuPanelCliente(int filterID) {
+    public ItemMenuPanelCliente() {
+        int filterID = 0;
         itemsMenu = new ItemMenuController(filterID);
         List<String> modeloTableName;
         if(filterID<0)
@@ -174,11 +174,11 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
