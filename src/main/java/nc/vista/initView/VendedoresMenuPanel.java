@@ -4,12 +4,12 @@
  */
 package nc.vista.initView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.VendedorController;
-import nc.modelo.Coordenada;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.vendedor.CreacionVendedor;
 
@@ -42,7 +42,8 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         actualFilter = filterMode.ID;
         initComponents();
     }
-    public void updateModel(){
+
+    public void updateModel() {
         this.vendedorTableModel.setItems(vendedores.loadData());
     }
 
@@ -241,14 +242,15 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
             // Convierte la fila seleccionada al índice de modelo en caso de que esté ordenada
             int modelRow = contentTable.convertRowIndexToModel(selectedRow);
 
+            List datosVendedor = vendedores.getVendedor((int) vendedorTableModel.getValueAt(modelRow, 0));
             // Obtiene los datos del vendedor desde el modelo
-            int id = (int) vendedorTableModel.getValueAt(modelRow, 0);
-            String nombre = vendedorTableModel.getValueAt(modelRow, 1).toString();
-            String direccion = vendedorTableModel.getValueAt(modelRow, 2).toString();
+            //int id = (int) vendedorTableModel.getValueAt(modelRow, 0);
+            //String nombre = vendedorTableModel.getValueAt(modelRow, 1).toString();
+            //String direccion = vendedorTableModel.getValueAt(modelRow, 2).toString();
             // String coordenadas = vendedores.getCoordenadas(id);
 
             // Crea y muestra el dialogo
-            DialogVendedor dialog = new DialogVendedor(null, true, id, nombre, direccion, new Coordenada(3, 4));
+            DialogVendedor dialog = new DialogVendedor(null, true, (ArrayList) datosVendedor);
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(null);
         }
