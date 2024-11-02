@@ -11,6 +11,7 @@ import javax.swing.table.TableRowSorter;
 import nc.controlador.VendedorController;
 import nc.modelo.Coordenada;
 import nc.vista.PersonalizatedTableModel;
+import nc.vista.vendedor.CreacionVendedor;
 
 /**
  *
@@ -200,7 +201,11 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        CreacionVendedor creacionVendedor = new CreacionVendedor();
+        creacionVendedor.setVisible(true);
+        creacionVendedor.setLocationRelativeTo(null);
+        creacionVendedor.setSize(600, 400);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed

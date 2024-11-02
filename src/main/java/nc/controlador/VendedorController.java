@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nc.controlador;
 
 import java.util.ArrayList;
@@ -28,4 +24,12 @@ public class VendedorController {
             return list;
         }).collect(Collectors.toList());
     }
+    
+    public Vendedor crear(String nombre, String direccion, double cx, double cy){
+        Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
+        VendedorMemory.getInstancia().add(vendedor);
+        return vendedor;
+    }
+    
 }
+
