@@ -42,6 +42,9 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         actualFilter = filterMode.ID;
         initComponents();
     }
+    public void updateModel(){
+        this.vendedorTableModel.setItems(vendedores.loadData());
+    }
 
     public void setUpperPanel(FirstFrame frame) {
         this.upperPanel = frame;

@@ -39,7 +39,9 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         actualFilter = filterMode.ID;
         initComponents();
     }
-
+    public void updateModel(){
+        this.clientTableModel.setItems(clients.loadData());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

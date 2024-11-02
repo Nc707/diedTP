@@ -47,6 +47,9 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         this.vendedorID = ID;
         this.itemsMenu.setID(ID);
     }
+    public void updateModel(){
+        this.modeloItemMenu.setItems(itemsMenu.loadData());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
