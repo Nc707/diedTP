@@ -42,7 +42,6 @@ public class CreacionVendedor extends javax.swing.JFrame {
         tfDireccion = new javax.swing.JTextField();
         tfCoorX = new javax.swing.JTextField();
         tfCoorY = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -96,36 +95,52 @@ public class CreacionVendedor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 75;
         getContentPane().add(tfDireccion, gridBagConstraints);
+
+        tfCoorX.setText("x:");
+        tfCoorX.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfCoorXFocusGained(evt);
+            }
+        });
+        tfCoorX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCoorXActionPerformed(evt);
+            }
+        });
+        tfCoorX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCoorXKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.ipadx = 75;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         getContentPane().add(tfCoorX, gridBagConstraints);
+
+        tfCoorY.setText("y:");
+        tfCoorY.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfCoorYFocusGained(evt);
+            }
+        });
+        tfCoorY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCoorYActionPerformed(evt);
+            }
+        });
+        tfCoorY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCoorYKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.ipadx = 75;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         getContentPane().add(tfCoorY, gridBagConstraints);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 4;
-        getContentPane().add(jPanel1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,6 +158,36 @@ public class CreacionVendedor extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
+    private void tfCoorXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCoorXActionPerformed
+      
+    }//GEN-LAST:event_tfCoorXActionPerformed
+
+    private void tfCoorYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCoorYActionPerformed
+       
+    }//GEN-LAST:event_tfCoorYActionPerformed
+
+    private void tfCoorXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCoorXKeyTyped
+        char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_tfCoorXKeyTyped
+
+    private void tfCoorYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCoorYKeyTyped
+        char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_tfCoorYKeyTyped
+
+    private void tfCoorXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCoorXFocusGained
+         if (tfCoorX.getText().equals("x:")) {
+            tfCoorX.setText("");
+        }
+    }//GEN-LAST:event_tfCoorXFocusGained
+
+    private void tfCoorYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCoorYFocusGained
+          if (tfCoorY.getText().equals("y:")) {
+            tfCoorY.setText("");
+          }
+    }//GEN-LAST:event_tfCoorYFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -151,7 +196,6 @@ public class CreacionVendedor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tfCoorX;
     private javax.swing.JTextField tfCoorY;
     private javax.swing.JTextField tfDireccion;

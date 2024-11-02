@@ -111,6 +111,17 @@ public class CreacionCliente extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.ipadx = 60;
         getContentPane().add(txtNombre, gridBagConstraints);
+
+        txtCuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitActionPerformed(evt);
+            }
+        });
+        txtCuit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuitKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 10;
@@ -128,9 +139,22 @@ public class CreacionCliente extends javax.swing.JFrame {
         getContentPane().add(txtDireccion, gridBagConstraints);
 
         txtCoordX.setText("x:");
+        txtCoordX.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCoordXFocusGained(evt);
+            }
+        });
         txtCoordX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoordXActionPerformed(evt);
+            }
+        });
+        txtCoordX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCoordXKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCoordXKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -140,9 +164,19 @@ public class CreacionCliente extends javax.swing.JFrame {
         getContentPane().add(txtCoordX, gridBagConstraints);
 
         txtCoordY.setText("y:");
+        txtCoordY.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCoordYFocusGained(evt);
+            }
+        });
         txtCoordY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoordYActionPerformed(evt);
+            }
+        });
+        txtCoordY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCoordYKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -160,7 +194,7 @@ public class CreacionCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtCoordYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoordYActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_txtCoordYActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -177,6 +211,41 @@ public class CreacionCliente extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtCuitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuitKeyTyped
+       char car = evt.getKeyChar();
+        if((car<'0' || car>'9')) evt.consume();
+    }//GEN-LAST:event_txtCuitKeyTyped
+
+    private void txtCoordXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordXKeyTyped
+        char car = evt.getKeyChar();
+        if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_txtCoordXKeyTyped
+
+    private void txtCoordYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordYKeyTyped
+    char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();       
+    }//GEN-LAST:event_txtCoordYKeyTyped
+
+    private void txtCoordXKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordXKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCoordXKeyPressed
+
+    private void txtCoordXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCoordXFocusGained
+        if (txtCoordX.getText().equals("x:")) {
+                    txtCoordX.setText("");
+                }
+    }//GEN-LAST:event_txtCoordXFocusGained
+
+    private void txtCoordYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCoordYFocusGained
+        if (txtCoordY.getText().equals("y:")) {
+                    txtCoordY.setText("");
+                }
+    }//GEN-LAST:event_txtCoordYFocusGained
+
+    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuitActionPerformed
 
     /**
      * @param args the command line arguments
