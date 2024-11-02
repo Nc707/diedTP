@@ -24,7 +24,16 @@ public class VendedorController {
             return list;
         }).collect(Collectors.toList());
     }
-    
+        public List getVendedor(int ID){
+        List vendedorData = new ArrayList();
+        Vendedor client = VendedorMemory.getInstancia().buscar(ID);
+        vendedorData.add(ID);
+        vendedorData.add(client.getNombre());
+        vendedorData.add(client.getDireccion());
+        vendedorData.add(client.getCoordenada().getLatitude());
+        vendedorData.add(client.getCoordenada().getLongitude());
+        return vendedorData;
+    }
     public Vendedor crear(String nombre, String direccion, double cx, double cy){
         Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
         VendedorMemory.getInstancia().add(vendedor);

@@ -23,6 +23,15 @@ public class ItemPedidoController {
     public ItemPedidoController(int pedidoID){
         this.pedidoID = pedidoID;
     }
+    public List getItemPedido(int ID) throws ItemNoEncontradoException{
+        List itemMenuData = new ArrayList();
+        ItemPedido item = ItemPedidoMemory.getItemPedidoMemory().filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_ITEMPEDIDO, ID).getFirst();
+        itemMenuData.add(ID);
+        itemMenuData.add(item.getItemMenu().getNombre());
+        itemMenuData.add(item.getCantidad());
+        itemMenuData.add((Float)item.getPrecio());
+        return itemMenuData;
+    }
     public List<List> loadData(){
         ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
         List<ItemPedido> data = new ArrayList<>();
