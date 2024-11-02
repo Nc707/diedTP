@@ -24,6 +24,16 @@ public class ItemMenuController {
     public ItemMenuController(int vendedorID){
         this.vendedorID = vendedorID;
     }
+     public List getItemMenu(int ID){
+        List itemMenuData = new ArrayList();
+        ItemMenu item = ItemMenuMemory.getInstancia().buscar(ID);
+        itemMenuData.add(ID);
+        itemMenuData.add(item.getNombre());
+        itemMenuData.add(item.getDescripcion());
+        itemMenuData.add(item.getVendedor().getNombre());
+        itemMenuData.add(item.getPrecio() );
+        return itemMenuData;
+    }
     public void setID(int vendedorID){
         this.vendedorID = vendedorID;
     }
@@ -47,5 +57,6 @@ public class ItemMenuController {
             return list;
         }).collect(Collectors.toList());
     }
+    
     
 }

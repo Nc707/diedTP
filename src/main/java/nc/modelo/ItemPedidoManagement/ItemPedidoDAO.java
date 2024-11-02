@@ -19,7 +19,8 @@ public interface ItemPedidoDAO {
         PRECIO_MINIMO_ITEMPEDIDO,
         PRECIO_MINIMO_ITEMMENU,
         PRECIO_MINIMO_PEDIDO,
-        ID_PEDIDO
+        ID_PEDIDO,
+        ID_ITEMPEDIDO
     }
     enum tipoFiltradoRango{
     
