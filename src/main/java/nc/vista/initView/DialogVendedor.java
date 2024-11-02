@@ -4,7 +4,7 @@
  */
 package nc.vista.initView;
 
-import nc.modelo.Coordenada;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,13 +15,13 @@ public class DialogVendedor extends javax.swing.JDialog {
     /**
      * Creates new form DialogVendedor
      */
-    public DialogVendedor(java.awt.Frame parent, boolean modal, int id, String nombre, String direccion, Coordenada coordenadas) {
+    public DialogVendedor(java.awt.Frame parent, boolean modal, ArrayList vendedorData) {
         super(parent, modal);
         initComponents();
-        txtID.setText("" + id);
-        txtNombre.setText(nombre);
-        txtDireccion.setText(direccion);
-        txtCoordenadas.setText(coordenadas.toString());
+        txtID.setText(String.valueOf(vendedorData.get(0)));
+        txtNombre.setText((String) vendedorData.get(1));
+        txtDireccion.setText((String) vendedorData.get(2));
+        txtCoordenadas.setText("Longitud: " + String.valueOf(vendedorData.get(3)) + "\n    Latitud: " + String.valueOf(vendedorData.get(4)));
 
     }
 
@@ -49,6 +49,9 @@ public class DialogVendedor extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 300));
+        setResizable(false);
+        setSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -57,19 +60,24 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipady = 20;
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("ID:");
         jLabel2.setPreferredSize(new java.awt.Dimension(80, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabel2, gridBagConstraints);
 
+        txtID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtID.setText("jLabel3");
+        txtID.setPreferredSize(new java.awt.Dimension(200, 16));
         jPanel1.add(txtID, new java.awt.GridBagConstraints());
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Coordenadas:");
         jLabel4.setPreferredSize(new java.awt.Dimension(80, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -78,12 +86,15 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabel4, gridBagConstraints);
 
+        txtCoordenadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtCoordenadas.setText("jLabel5");
+        txtCoordenadas.setPreferredSize(new java.awt.Dimension(200, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         jPanel1.add(txtCoordenadas, gridBagConstraints);
 
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Direccion:");
         jLabel6.setPreferredSize(new java.awt.Dimension(80, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -92,12 +103,15 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabel6, gridBagConstraints);
 
+        txtDireccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDireccion.setText("jLabel3");
+        txtDireccion.setPreferredSize(new java.awt.Dimension(200, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         jPanel1.add(txtDireccion, gridBagConstraints);
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Nombre:");
         jLabel8.setPreferredSize(new java.awt.Dimension(80, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -106,7 +120,9 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabel8, gridBagConstraints);
 
+        txtNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtNombre.setText("jLabel5");
+        txtNombre.setPreferredSize(new java.awt.Dimension(200, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -116,6 +132,8 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.ipady = 50;
         getContentPane().add(jPanel1, gridBagConstraints);
 
         jButton1.setText("Modificar");
@@ -128,6 +146,7 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(jButton2, gridBagConstraints);
 
         pack();
