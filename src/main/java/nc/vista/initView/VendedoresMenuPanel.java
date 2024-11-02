@@ -21,6 +21,10 @@ import javax.swing.event.ListSelectionEvent;
  */
 public class VendedoresMenuPanel extends javax.swing.JPanel {
 
+    public void crearVendedor(String nombre, String direccion, double cx, double cy) {
+        vendedores.crear(nombre,  direccion,  cx,  cy);
+    }
+
     private enum filterMode {
         ID,
         NAME,
@@ -55,9 +59,10 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
                 }   
             }});
     }
-
+   
     public void updateModel() {
         this.vendedorTableModel.setItems(vendedores.loadData());
+        this.contentTable.updateUI();
     }
 
     public void setUpperPanel(FirstFrame frame) {
@@ -218,10 +223,13 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CreacionVendedor creacionVendedor = new CreacionVendedor();
+    CreacionVendedor creacion = new CreacionVendedor(this);
+        setVisible(true);      
+        
+        /*CreacionVendedor creacionVendedor = new CreacionVendedor();
         creacionVendedor.setVisible(true);
         creacionVendedor.setLocationRelativeTo(null);
-        creacionVendedor.setSize(600, 400);
+        creacionVendedor.setSize(600, 400);*/
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
