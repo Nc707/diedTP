@@ -24,9 +24,11 @@ public class VistaPrincipal extends javax.swing.JPanel {
     @SuppressWarnings("")
     public VistaPrincipal() {
         initComponents();
+        this.firstFrame1.setUpperPanel(this);
+        this.vendoresFrame1.setFrameSuperior(this);
         this.layout = (CardLayout) this.getLayout();
         layout.show(this, "card2");
-        this.vendoresFrame1.setFrameSuperior(this);
+        
     }
     
     public void setVendedor(int idVendedor){

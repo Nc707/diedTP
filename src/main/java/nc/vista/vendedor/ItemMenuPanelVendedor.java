@@ -44,24 +44,25 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
-         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent evt){
-                if(!evt.getValueIsAdjusting()){
-                    int filaSeleccionada = contentTable.getSelectedRow();
-                    if(filaSeleccionada != -1){
-                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
-                    }
-                }   
-            }});
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           public void valueChanged(ListSelectionEvent evt){
+               if(!evt.getValueIsAdjusting()){
+                   int filaSeleccionada = contentTable.getSelectedRow();
+                   if(filaSeleccionada != -1){
+                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                   }
+               }   
+           }});
         
         
     }
     public void setID(int ID){
         this.vendedorID = ID;
         this.itemsMenu.setID(ID);
-    }
+        }
     public void updateModel(){
-        this.modeloItemMenu.setItems(itemsMenu.loadData());
+        //this.modeloItemMenu.setItems(itemsMenu.loadData());
+        contentTable.updateUI();
     }
 
     /**

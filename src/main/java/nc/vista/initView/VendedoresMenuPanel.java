@@ -271,9 +271,10 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
             // String coordenadas = vendedores.getCoordenadas(id);
 
             // Crea y muestra el dialogo
-            DialogVendedor dialog = new DialogVendedor(null, true, (ArrayList) datosVendedor);
+            DialogVendedor dialog = new DialogVendedor(null, true, (ArrayList) datosVendedor, this);
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(null);
+        }else{
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

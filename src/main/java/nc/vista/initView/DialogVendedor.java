@@ -4,7 +4,7 @@
  */
 package nc.vista.initView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,14 +15,17 @@ public class DialogVendedor extends javax.swing.JDialog {
     /**
      * Creates new form DialogVendedor
      */
-    public DialogVendedor(java.awt.Frame parent, boolean modal, ArrayList vendedorData) {
+    private VendedoresMenuPanel panelSuperior;
+    private int idVendedor = -1;
+    public DialogVendedor(java.awt.Frame parent, boolean modal, List vendedorData, VendedoresMenuPanel panelSuperior) {
         super(parent, modal);
+        this.panelSuperior = panelSuperior;
         initComponents();
         txtID.setText(String.valueOf(vendedorData.get(0)));
         txtNombre.setText((String) vendedorData.get(1));
         txtDireccion.setText((String) vendedorData.get(2));
         txtCoordenadas.setText("Longitud: " + String.valueOf(vendedorData.get(3)) + "\n    Latitud: " + String.valueOf(vendedorData.get(4)));
-
+        this.idVendedor = (int) vendedorData.get(0);
     }
 
     /**
@@ -46,10 +49,9 @@ public class DialogVendedor extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        InicioSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 300));
         setResizable(false);
         setSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -142,22 +144,32 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.gridy = 2;
         getContentPane().add(jButton1, gridBagConstraints);
 
-        jButton2.setText("Iniciar Sesion");
+        InicioSesion.setText("Iniciar Sesion");
+        InicioSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InicioSesionActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        getContentPane().add(jButton2, gridBagConstraints);
+        getContentPane().add(InicioSesion, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void InicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioSesionActionPerformed
+        this.panelSuperior.upperPanel.upperPanel.setVendedor(idVendedor);
+        this.dispose();
+    }//GEN-LAST:event_InicioSesionActionPerformed
 
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton InicioSesion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
