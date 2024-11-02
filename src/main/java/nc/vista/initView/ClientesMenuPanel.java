@@ -4,23 +4,24 @@
  */
 package nc.vista.initView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ClientController;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.cliente.CreacionCliente;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
+
 /**
  *
  * @author nicol
  */
 public class ClientesMenuPanel extends javax.swing.JPanel {
 
-   
-    private enum filterMode{
+    private enum filterMode {
         ID,
         NAME,
         DIRECC,
@@ -32,6 +33,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private int ID_Seleccionado = -1;
+
     /**
      * Creates new form ClientesMenuPanel
      */
@@ -42,25 +44,28 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(clientTableModel);
         actualFilter = filterMode.ID;
         initComponents();
-        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent evt){
-                if(!evt.getValueIsAdjusting()){
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent evt) {
+                if (!evt.getValueIsAdjusting()) {
                     int filaSeleccionada = contentTable.getSelectedRow();
-                    if(filaSeleccionada != -1){
-                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                    if (filaSeleccionada != -1) {
+                        ID_Seleccionado = (Integer) contentTable.getValueAt(filaSeleccionada, 0);
                     }
-                }   
-            }});
-        
+                }
+            }
+        });
+
     }
 
     public void crearCliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
-         clients.crear(nombre , cuit, email, direccion, latitud, longitud);
+        clients.crear(nombre, cuit, email, direccion, latitud, longitud);
     }
-    public void updateModel(){
+
+    public void updateModel() {
         this.clientTableModel.setItems(clients.loadData());
         this.contentTable.updateUI();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,22 +203,22 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         String currentSelection = (String) jComboBox1.getSelectedItem();
         switch (currentSelection) {
             case "Tipo de Búsqueda":
-            this.actualFilter = filterMode.NONE;
-            break;
+                this.actualFilter = filterMode.NONE;
+                break;
             case "ID":
-            this.actualFilter = filterMode.ID;
-            break;
+                this.actualFilter = filterMode.ID;
+                break;
             case "Nombre":
-            this.actualFilter = filterMode.NAME;
-            break;
+                this.actualFilter = filterMode.NAME;
+                break;
             case "Dirección":
-            this.actualFilter = filterMode.DIRECC;
-            break;
+                this.actualFilter = filterMode.DIRECC;
+                break;
             case "E-Mail":
-            this.actualFilter = filterMode.EMAIL;
-            break;
+                this.actualFilter = filterMode.EMAIL;
+                break;
             default:
-            break;
+                break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
@@ -222,34 +227,48 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       CreacionCliente creacion = new CreacionCliente(this);
+        CreacionCliente creacion = new CreacionCliente(this);
         setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             String text;
             text = jTextPane1.getText();
             sorter.setRowFilter(null);
             jTextPane1.setText("");
-            if(!text.isBlank()){
-                try{
-                    switch(actualFilter){
-                        case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
-                        case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
-                        case DIRECC -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
-                        case EMAIL -> sorter.setRowFilter(RowFilter.regexFilter(text, 3));
+            if (!text.isBlank()) {
+                try {
+                    switch (actualFilter) {
+                        case ID ->
+                            sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
+                        case NAME ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 1));
+                        case DIRECC ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 2));
+                        case EMAIL ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 3));
                     }
-                }catch(NumberFormatException e){}
+                } catch (NumberFormatException e) {
+                }
             }
 
         }
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int selectedRow = contentTable.getSelectedRow();
+        if (selectedRow != -1) {
+            // Convierte la fila seleccionada al índice de modelo en caso de que esté ordenada
+            int modelRow = contentTable.convertRowIndexToModel(selectedRow);
 
+            List datosCliente = clients.getCliente((int) clientTableModel.getValueAt(modelRow, 0));
+
+            DialogCliente dialog = new DialogCliente(null, true, (ArrayList) datosCliente);
+            dialog.setVisible(true);
+            dialog.setLocationRelativeTo(null);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable contentTable;
