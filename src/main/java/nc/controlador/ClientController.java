@@ -55,5 +55,4 @@ public class ClientController {
         ClienteMemory.getInstancia().add(cliente);
         return cliente;
     }
-    public modificar
 }

@@ -18,6 +18,8 @@ import javax.swing.event.ListSelectionEvent;
  * @author nicol
  */
 public class ClientesMenuPanel extends javax.swing.JPanel {
+
+   
     private enum filterMode{
         ID,
         NAME,
@@ -51,8 +53,13 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
             }});
         
     }
+
+    public void crearCliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
+         clients.crear(nombre , cuit, email, direccion, latitud, longitud);
+    }
     public void updateModel(){
         this.clientTableModel.setItems(clients.loadData());
+        this.contentTable.updateUI();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -215,7 +222,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       CreacionCliente creacion = new CreacionCliente();
+       CreacionCliente creacion = new CreacionCliente(this);
         setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
