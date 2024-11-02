@@ -10,6 +10,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ClientController;
 import nc.vista.PersonalizatedTableModel;
+import nc.vista.cliente.CreacionCliente;
 
 /**
  *
@@ -200,7 +201,8 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       CreacionCliente creacion = new CreacionCliente();
+        setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
@@ -224,7 +226,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

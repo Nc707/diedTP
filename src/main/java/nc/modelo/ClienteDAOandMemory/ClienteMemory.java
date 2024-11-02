@@ -31,6 +31,7 @@ public class ClienteMemory implements ClienteDAO {
     @Override
     public void add(Cliente cliente) {
        clientes.add(cliente);
+       System.out.println("LLego");
     }
 
     @Override
@@ -64,9 +65,9 @@ public class ClienteMemory implements ClienteDAO {
         return null;
     }
 
-     public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
+     /*public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         Cliente cliente = new Cliente(nombre, cuit, email, direccion, latitud, longitud);
         add(cliente);
         return cliente;
-    }
+    }*/
 }
