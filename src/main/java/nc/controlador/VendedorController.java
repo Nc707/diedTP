@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import nc.modelo.Coordenada;
 import nc.modelo.Vendedor;
 import nc.modelo.VendedorDAOandMemory.VendedorDAO;
 import nc.modelo.VendedorDAOandMemory.VendedorMemory;
@@ -26,14 +27,23 @@ public class VendedorController {
     }
         public List getVendedor(int ID){
         List vendedorData = new ArrayList();
-        Vendedor client = VendedorMemory.getInstancia().buscar(ID);
+        Vendedor vendor = VendedorMemory.getInstancia().buscar(ID);
         vendedorData.add(ID);
-        vendedorData.add(client.getNombre());
-        vendedorData.add(client.getDireccion());
-        vendedorData.add(client.getCoordenada().getLatitude());
-        vendedorData.add(client.getCoordenada().getLongitude());
+        vendedorData.add(vendor.getNombre());
+        vendedorData.add(vendor.getDireccion());
+        vendedorData.add(vendor.getCoordenada().getLatitude());
+        vendedorData.add(vendor.getCoordenada().getLongitude());
         return vendedorData;
     }
+    
+    public void modificarVendedor(int ID, String nombre, String direccion, double cx, double cy){
+        Vendedor vendor = VendedorMemory.getInstancia().buscar(ID);
+        vendor.setNombre(nombre);
+        vendor.setDireccion(direccion);
+        vendor.setCoordenada(new Coordenada(cx, cy));
+    }
+
+
     public Vendedor crear(String nombre, String direccion, double cx, double cy){
         Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
         VendedorMemory.getInstancia().add(vendedor);

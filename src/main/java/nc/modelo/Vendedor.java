@@ -22,9 +22,16 @@ public class Vendedor {
     public Coordenada getCoordenada() {
         return coordenada;
     }
+    
+    public void setCoordenada(Coordenada coordenada) {
+        this.coordenada = coordenada;
+    }
 
     public String getDireccion() {
         return direccion;
+    }
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public int getId() {
@@ -33,6 +40,9 @@ public class Vendedor {
 
     public String getNombre() {
         return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     @Override
     public String toString() {

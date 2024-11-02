@@ -31,22 +31,37 @@ public class Cliente implements Observer{
     public Coordenada getCoordenada(){
         return this.coordenadas;
     }
+    public void setCoordenada(Coordenada coordenada){
+        this.coordenadas = coordenada;
+    }
     public String getDireccion(){
         return direccion;
+    }
+    public void setDireccion(String direccion){
+        this.direccion = direccion;
     }
     public int getId()
    {
        return id;
    }
-   public int getCuit()
+    public int getCuit()
    {
        return cuit;
    }
-     public String getEmail(){
+    public void setCuit(int cuit){
+       this.cuit = cuit;
+   }
+    public String getEmail(){
         return email;
+    }
+    public void setEmail(String email){
+        this.email = email;
     }
     public String getNombre(){
         return nombre;
+    }
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
     public Carrito getCarrito(){
         return this.carrito;
