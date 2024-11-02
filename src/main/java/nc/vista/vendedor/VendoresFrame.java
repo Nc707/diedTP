@@ -20,6 +20,7 @@ public class VendoresFrame extends javax.swing.JPanel {
     public VendoresFrame() {
         initComponents();
         pedidosMenuPanelVendedor1.setFrameSuperior(this);
+        itemMenuPanelVendedor1.setUpperFrame(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanel1), false);
     }
     public void setFrameSuperior(VistaPrincipal vista){
@@ -37,8 +38,6 @@ public class VendoresFrame extends javax.swing.JPanel {
         this.pedidosMenuPanelVendedor1.updateModel();
     }
     public void goBack(){
-        this.itemMenuPanelVendedor1.setID(-1);
-        this.pedidosMenuPanelVendedor1.setVendedor(-1);
         upperFrame.volverInicio();
     }
 
@@ -59,7 +58,7 @@ public class VendoresFrame extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jTabbedPane1.addTab("Mi Menu", itemMenuPanelVendedor1);
-        jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelVendedor1);
+        jTabbedPane1.addTab("Pedidos", pedidosMenuPanelVendedor1);
         jTabbedPane1.addTab("Detalle Pedido", itemPedidoPanel1);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);

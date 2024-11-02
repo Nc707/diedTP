@@ -76,6 +76,7 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -158,6 +159,18 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(jButton3, gridBagConstraints);
 
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,8 +241,13 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.frameSuperior.goBack();
+    }//GEN-LAST:event_backButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
