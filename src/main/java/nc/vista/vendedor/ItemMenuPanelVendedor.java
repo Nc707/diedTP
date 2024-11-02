@@ -13,7 +13,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ItemMenuController;
 import nc.vista.PersonalizatedTableModel;
-
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 /**
  *
  * @author nicol
@@ -31,6 +32,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private int vendedorID = -1;
+    private int ID_Seleccionado = -1;
     /**
      * Creates new form ItemMenuPanel
      */
@@ -42,10 +44,24 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
+         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent evt){
+                if(!evt.getValueIsAdjusting()){
+                    int filaSeleccionada = contentTable.getSelectedRow();
+                    if(filaSeleccionada != -1){
+                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                    }
+                }   
+            }});
+        
+        
     }
     public void setID(int ID){
         this.vendedorID = ID;
         this.itemsMenu.setID(ID);
+    }
+    public void updateModel(){
+        this.modeloItemMenu.setItems(itemsMenu.loadData());
     }
 
     /**

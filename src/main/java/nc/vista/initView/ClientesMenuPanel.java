@@ -11,7 +11,8 @@ import javax.swing.table.TableRowSorter;
 import nc.controlador.ClientController;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.cliente.CreacionCliente;
-
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 /**
  *
  * @author nicol
@@ -28,6 +29,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     private ClientController clients;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private int ID_Seleccionado = -1;
     /**
      * Creates new form ClientesMenuPanel
      */
@@ -38,8 +40,20 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(clientTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent evt){
+                if(!evt.getValueIsAdjusting()){
+                    int filaSeleccionada = contentTable.getSelectedRow();
+                    if(filaSeleccionada != -1){
+                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                    }
+                }   
+            }});
+        
     }
-
+    public void updateModel(){
+        this.clientTableModel.setItems(clients.loadData());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
