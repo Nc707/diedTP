@@ -61,7 +61,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         this.itemsMenu.setID(ID);
         }
     public void updateModel(){
-        //this.modeloItemMenu.setItems(itemsMenu.loadData());
+        this.modeloItemMenu.setItems(itemsMenu.loadData());
         contentTable.updateUI();
     }
 

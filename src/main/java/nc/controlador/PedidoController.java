@@ -6,8 +6,6 @@ package nc.controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.modelo.ItemPedidoManagement.ItemPedidoMemory;
 import nc.modelo.Pedido;
@@ -43,9 +41,9 @@ public class PedidoController {
             ArrayList list = new ArrayList();
             list.add(p.getId());
             if(isVendedor)
-                list.add(p.getVendedor().getNombre());
+            {list.add(p.getCliente().getNombre());}
             else
-                list.add(p.getCliente().getNombre());
+            {  list.add(p.getVendedor().getNombre());}
             list.add(p.getItemAmount());
             list.add(p.getPrecio());
             switch(p.getEstado()){

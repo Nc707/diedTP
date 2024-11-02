@@ -34,6 +34,7 @@ public class VendoresFrame extends javax.swing.JPanel {
         this.itemMenuPanelVendedor1.setID(ID);
         this.pedidosMenuPanelVendedor1.setVendedor(ID);
         this.itemMenuPanelVendedor1.updateModel();
+        this.pedidosMenuPanelVendedor1.updateModel();
     }
     public void goBack(){
         this.itemMenuPanelVendedor1.setID(-1);
