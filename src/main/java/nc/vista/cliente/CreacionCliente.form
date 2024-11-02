@@ -129,6 +129,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCoordX">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="x:"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCoordXActionPerformed"/>
       </Events>
@@ -139,6 +142,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCoordY">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="y:"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCoordYActionPerformed"/>
       </Events>

@@ -129,6 +129,7 @@ public class CreacionCliente extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 60;
         getContentPane().add(txtDireccion, gridBagConstraints);
 
+        txtCoordX.setText("x:");
         txtCoordX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoordXActionPerformed(evt);
@@ -140,6 +141,7 @@ public class CreacionCliente extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 60;
         getContentPane().add(txtCoordX, gridBagConstraints);
 
+        txtCoordY.setText("y:");
         txtCoordY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoordYActionPerformed(evt);
@@ -166,7 +168,7 @@ public class CreacionCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       ClientController cliente = new ClientController();
       cliente.crear(txtNombre.getText(), (int) Long.parseLong(txtCuit.getText()), txtEmail.getText(), txtDireccion.getText(), Double.parseDouble(txtCoordX.getText()), Double.parseDouble(txtCoordY.getText()));
-      
+      this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -175,7 +177,7 @@ public class CreacionCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCoordXActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+      this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

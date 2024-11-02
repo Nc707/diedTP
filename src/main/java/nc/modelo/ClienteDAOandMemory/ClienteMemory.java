@@ -31,7 +31,6 @@ public class ClienteMemory implements ClienteDAO {
     @Override
     public void add(Cliente cliente) {
        clientes.add(cliente);
-       System.out.println("LLego");
     }
 
     @Override
