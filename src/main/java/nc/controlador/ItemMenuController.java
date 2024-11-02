@@ -6,12 +6,13 @@ package nc.controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.modelo.ItemMenu;
 import nc.modelo.ItemMenuDAOandMemory.ItemMenuDAO;
 import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
+import nc.modelo.Vendedor;
+import nc.modelo.VendedorDAOandMemory.VendedorDAO;
+import nc.modelo.VendedorDAOandMemory.VendedorMemory;
 import nc.modelo.excepciones.ItemNoEncontradoException;
 
 /**
@@ -56,6 +57,18 @@ public class ItemMenuController {
             list.add(item.getPrecio());
             return list;
         }).collect(Collectors.toList());
+    }
+    public void crearPlato(String nombre, int idVendedor, float precio, float peso, float calorias){
+        VendedorDAO baseDatosVendedor = VendedorMemory.getInstancia();
+        ItemMenuMemory database = ItemMenuMemory.getInstancia();
+        Vendedor vendedor = baseDatosVendedor.buscar(idVendedor);
+        database.crearPlato(nombre, vendedor, precio, peso, calorias);
+    }
+    public void crearBebida(String nombre, int idVendedor, float precio, float pes, int grado, float tam){
+        VendedorDAO baseDatosVendedor = VendedorMemory.getInstancia();
+        ItemMenuMemory database = ItemMenuMemory.getInstancia();
+        Vendedor vendedor = baseDatosVendedor.buscar(idVendedor);
+        database.crearBebida(nombre, vendedor, precio, pes, grado, tam);
     }
     
     

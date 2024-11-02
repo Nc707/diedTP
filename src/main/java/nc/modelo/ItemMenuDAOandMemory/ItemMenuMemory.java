@@ -6,10 +6,11 @@ import nc.modelo.itemMenuManagement.compareStrategies.PriceComp;
 import java.util.ArrayList;
 import static java.util.Collections.sort;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+import nc.modelo.Bebida;
 import nc.modelo.Categoria;
 import nc.modelo.ItemMenu;
+import nc.modelo.Plato;
 import nc.modelo.Vendedor;
 
 
@@ -89,6 +90,14 @@ public class ItemMenuMemory implements ItemMenuDAO {
             uniqueInstance = new ItemMenuMemory();
         }
         return uniqueInstance;
+    }
+    public void crearPlato(String nombre, Vendedor vendedor, float precio, float peso, float calorias){
+        ItemMenu item = new Plato(nombre, vendedor, precio, peso, calorias);
+        add(item);
+    }
+    public void crearBebida(String nombre, Vendedor vendedor, float precio, float pes, int grado, float tam){
+        ItemMenu item = new Bebida(nombre, vendedor, precio, pes, grado, tam);
+        add(item);
     }
     @Override
     public void add(ItemMenu item) {
