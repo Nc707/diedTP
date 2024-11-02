@@ -4,6 +4,8 @@
  */
 package nc.vista.vendedor;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author nicol
@@ -46,8 +48,9 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        jLabelPeso = new javax.swing.JLabel();
-        txtPeso = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        creacionBebida2 = new nc.vista.vendedor.CreacionBebida();
+        creacionComida1 = new nc.vista.vendedor.CreacionComida();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -150,29 +153,26 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(txtDescripcion, gridBagConstraints);
 
-        jLabelPeso.setText("Peso");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        add(jLabelPeso, gridBagConstraints);
+        jPanel1.setLayout(new java.awt.CardLayout());
+        jPanel1.add(creacionBebida2, "card2");
+        jPanel1.add(creacionComida1, "card3");
 
-        txtPeso.setPreferredSize(new java.awt.Dimension(128, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(txtPeso, gridBagConstraints);
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(21, 0, 0, 0);
+        add(jPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bebidaActionPerformed
-        jLabelPeso.setText("Litros");
+        ((CardLayout)jPanel1.getLayout()).show(jPanel1, "card2" );
         limpiar();
     }//GEN-LAST:event_bebidaActionPerformed
 
     private void comidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comidaActionPerformed
-        jLabelPeso.setText("Peso");
+        ((CardLayout)jPanel1.getLayout()).show(jPanel1, "card3" );
         limpiar();
     }//GEN-LAST:event_comidaActionPerformed
 
@@ -194,18 +194,19 @@ public class CreacionItemMenu extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JRadioButton comida;
+    private nc.vista.vendedor.CreacionBebida creacionBebida2;
+    private nc.vista.vendedor.CreacionComida creacionComida1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelPeso;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 
