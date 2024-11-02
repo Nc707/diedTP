@@ -11,7 +11,8 @@ import java.awt.CardLayout;
  * @author nicol
  */
 public class CreacionItemMenu extends javax.swing.JPanel {
-
+CreacionComida comidaNueva;
+CreacionBebida bebidaNueva;
     /**
      * Creates new form CreacionItemMenu
      */
@@ -49,8 +50,8 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         txtPrecio = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        creacionBebida2 = new nc.vista.vendedor.CreacionBebida();
         creacionComida1 = new nc.vista.vendedor.CreacionComida();
+        creacionBebida2 = new nc.vista.vendedor.CreacionBebida();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -58,7 +59,10 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        setLayout(layout);
 
         buttonGroup1.add(comida);
         comida.setSelected(true);
@@ -81,22 +85,27 @@ public class CreacionItemMenu extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         add(bebida, gridBagConstraints);
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 13;
+        gridBagConstraints.gridy = 26;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(jButton1, gridBagConstraints);
 
         jButton2.setText("Cancelar");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 13;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 26;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(jButton2, gridBagConstraints);
@@ -104,21 +113,21 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         jLabel1.setText("Nombre");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Precio");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         add(jLabel2, gridBagConstraints);
 
         jLabel4.setText("Descripcion");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 16;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         add(jLabel4, gridBagConstraints);
 
@@ -129,38 +138,56 @@ public class CreacionItemMenu extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(txtNombre, gridBagConstraints);
 
         txtPrecio.setPreferredSize(new java.awt.Dimension(128, 22));
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioActionPerformed(evt);
+            }
+        });
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(txtPrecio, gridBagConstraints);
 
         txtDescripcion.setPreferredSize(new java.awt.Dimension(128, 88));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(txtDescripcion, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.CardLayout());
-        jPanel1.add(creacionBebida2, "card2");
         jPanel1.add(creacionComida1, "card3");
 
+        creacionBebida2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                creacionBebida2KeyTyped(evt);
+            }
+        });
+        jPanel1.add(creacionBebida2, "card2");
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 12;
+        gridBagConstraints.gridheight = 23;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.insets = new java.awt.Insets(21, 0, 0, 0);
         add(jPanel1, gridBagConstraints);
@@ -179,6 +206,24 @@ public class CreacionItemMenu extends javax.swing.JPanel {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioActionPerformed
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+         char car = evt.getKeyChar();
+        if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void creacionBebida2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creacionBebida2KeyTyped
+        char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_creacionBebida2KeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
     void limpiar(){
         txtNombre.setText("");
         txtPrecio.setText("");
@@ -210,7 +255,5 @@ public class CreacionItemMenu extends javax.swing.JPanel {
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 
-    private void setLocationRelativeTo(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
 }

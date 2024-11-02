@@ -52,9 +52,15 @@ public class CreacionBebida extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 0);
         add(jLabel1, gridBagConstraints);
 
+        textoPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textoPesoKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(textoPeso);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jScrollPane1, gridBagConstraints);
 
@@ -65,11 +71,17 @@ public class CreacionBebida extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 0);
         add(jLabel2, gridBagConstraints);
 
+        textoGrado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textoGradoKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(textoGrado);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jScrollPane2, gridBagConstraints);
 
@@ -80,14 +92,35 @@ public class CreacionBebida extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 0);
         add(jLabel3, gridBagConstraints);
 
+        textoTam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textoTamKeyTyped(evt);
+            }
+        });
         jScrollPane3.setViewportView(textoTam);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(jScrollPane3, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textoPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoPesoKeyTyped
+        char car = evt.getKeyChar();
+        if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_textoPesoKeyTyped
+
+    private void textoGradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoGradoKeyTyped
+         char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_textoGradoKeyTyped
+
+    private void textoTamKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoTamKeyTyped
+       char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_textoTamKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
