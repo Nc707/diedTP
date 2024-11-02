@@ -12,6 +12,8 @@ import nc.controlador.VendedorController;
 import nc.modelo.Coordenada;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.vendedor.CreacionVendedor;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 /**
  *
@@ -29,7 +31,9 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     private VendedorController vendedores;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private int ID_Seleccionado = -1;
     public FirstFrame upperPanel;
+    
 
     /**
      * Creates new form ClientesMenuPanel
@@ -41,6 +45,15 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(vendedorTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent evt){
+                if(!evt.getValueIsAdjusting()){
+                    int filaSeleccionada = contentTable.getSelectedRow();
+                    if(filaSeleccionada != -1){
+                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                    }
+                }   
+            }});
     }
     public void updateModel(){
         this.vendedorTableModel.setItems(vendedores.loadData());
