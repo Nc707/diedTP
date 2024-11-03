@@ -11,13 +11,20 @@ import java.awt.CardLayout;
  * @author nicol
  */
 public class CreacionItemMenu extends javax.swing.JPanel {
-CreacionComida comidaNueva;
-CreacionBebida bebidaNueva;
+    ItemMenuPanelVendedor panelSuperior= new ItemMenuPanelVendedor();
+    int idVendedor;
+    boolean boolComida=true;
     /**
      * Creates new form CreacionItemMenu
      */
+    
     public CreacionItemMenu() {
         initComponents();
+      
+    }
+    public CreacionItemMenu(int idVendedor) {
+        initComponents();
+        this.idVendedor = idVendedor; 
       
     }
 
@@ -194,11 +201,13 @@ CreacionBebida bebidaNueva;
     }// </editor-fold>//GEN-END:initComponents
 
     private void bebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bebidaActionPerformed
+        boolComida=false;
         ((CardLayout)jPanel1.getLayout()).show(jPanel1, "card2" );
         limpiar();
     }//GEN-LAST:event_bebidaActionPerformed
 
     private void comidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comidaActionPerformed
+        boolComida=true;
         ((CardLayout)jPanel1.getLayout()).show(jPanel1, "card3" );
         limpiar();
     }//GEN-LAST:event_comidaActionPerformed
@@ -222,7 +231,15 @@ CreacionBebida bebidaNueva;
     }//GEN-LAST:event_creacionBebida2KeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(boolComida){
+            panelSuperior.crearPlato(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionComida1.getPeso(), creacionComida1.getCalorias());
 
+        }else{
+             System.out.println("HOLAAAAAAAAAAA");
+            panelSuperior.crearBebida(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionBebida2.getPeso(), creacionBebida2.getGrado(), creacionBebida2.getTam());
+        }
+       panelSuperior.updateModel();
+       return;
     }//GEN-LAST:event_jButton1ActionPerformed
     void limpiar(){
         txtNombre.setText("");

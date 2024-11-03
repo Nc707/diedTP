@@ -146,7 +146,7 @@ public class CreacionVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        panelSuperior.crearVendedor(tfNombre.getText(), tfDireccion.getText(), Double.parseDouble(tfCoorX.getText()), Double.parseDouble(tfCoorY.getText()));
+       panelSuperior.crearVendedor(tfNombre.getText(), tfDireccion.getText(), Double.parseDouble(tfCoorX.getText()), Double.parseDouble(tfCoorY.getText()));
        panelSuperior.updateModel();
         dispose();
         /*VendedorController vendedor = new VendedorController();

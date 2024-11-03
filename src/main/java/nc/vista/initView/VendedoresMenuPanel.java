@@ -24,7 +24,6 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     public void crearVendedor(String nombre, String direccion, double cx, double cy) {
         vendedores.crear(nombre,  direccion,  cx,  cy);
     }
-
     private enum filterMode {
         ID,
         NAME,

@@ -15,6 +15,7 @@ import nc.controlador.ItemMenuController;
 import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.lang.String;
 /**
  *
  * @author nicol
@@ -37,6 +38,14 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     /**
      * Creates new form ItemMenuPanel
      */
+    public void crearPlato(String nombre, int idVendedor, float precio, float peso, float calorias){
+        itemsMenu.crearPlato(nombre, idVendedor, precio, peso, calorias);
+    }
+    
+    public void crearBebida(String nombre, int idVendedor, float precio, float pes, int grado, float tam){
+        itemsMenu.crearBebida(nombre, idVendedor, precio, pes, grado, tam);
+    }
+
     public ItemMenuPanelVendedor() {
         itemsMenu = new ItemMenuController();
         List<String> modeloTableName;
@@ -223,7 +232,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     CreacionItemMenu panel = new CreacionItemMenu();
+     CreacionItemMenu panel = new CreacionItemMenu(vendedorID);
     JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
     dialog.getContentPane().add(panel);
     dialog.pack();
