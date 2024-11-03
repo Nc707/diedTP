@@ -5,29 +5,24 @@
 package nc.vista.vendedor;
 
 import java.awt.CardLayout;
-import java.awt.Window;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author nicol
  */
-public class CreacionItemMenu extends javax.swing.JPanel {
+public class CreacionItemMenu extends javax.swing.JDialog {
     ItemMenuPanelVendedor panelSuperior;
     int idVendedor;
     boolean boolComida=true;
     /**
      * Creates new form CreacionItemMenu
+     * @param idVendedor
+     * @param panelSuperior
      */
-    
-    public CreacionItemMenu() {
-        initComponents();
-      
-    }
-    public CreacionItemMenu(int idVendedor) {
+    public CreacionItemMenu(int idVendedor, ItemMenuPanelVendedor panelSuperior ) {
         initComponents();
         this.idVendedor = idVendedor; 
-        panelSuperior= new ItemMenuPanelVendedor();
+        this.panelSuperior = panelSuperior;
     }
 
     /**
@@ -68,6 +63,7 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
         layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
         layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
@@ -244,14 +240,11 @@ public class CreacionItemMenu extends javax.swing.JPanel {
             panelSuperior.crearBebida(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionBebida2.getPeso(), creacionBebida2.getGrado(), creacionBebida2.getTam());
         }
        panelSuperior.updateModel();
-       Window w = SwingUtilities.getWindowAncestor(this);
-       w.setVisible(false);
-       
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       Window w = SwingUtilities.getWindowAncestor(this);
-       w.setVisible(false);
+       this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     void limpiar(){
         txtNombre.setText("");

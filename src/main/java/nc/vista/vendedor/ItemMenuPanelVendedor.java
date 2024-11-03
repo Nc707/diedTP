@@ -232,12 +232,14 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     CreacionItemMenu panel = new CreacionItemMenu(vendedorID);
+     CreacionItemMenu creacion= new CreacionItemMenu(vendedorID,this);
+     creacion.setVisible(true);
+        /*CreacionItemMenu panel = new CreacionItemMenu(vendedorID, this);
     JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
     dialog.getContentPane().add(panel);
     dialog.pack();
     dialog.setLocationRelativeTo(null);
-    dialog.setVisible(true);
+    dialog.setVisible(true);*/
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
