@@ -5,6 +5,8 @@
 package nc.vista.vendedor;
 
 import java.awt.CardLayout;
+import java.awt.Window;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -110,6 +112,11 @@ public class CreacionItemMenu extends javax.swing.JPanel {
         add(jButton1, gridBagConstraints);
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 26;
@@ -237,8 +244,15 @@ public class CreacionItemMenu extends javax.swing.JPanel {
             panelSuperior.crearBebida(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionBebida2.getPeso(), creacionBebida2.getGrado(), creacionBebida2.getTam());
         }
        panelSuperior.updateModel();
+       Window w = SwingUtilities.getWindowAncestor(this);
+       w.setVisible(false);
        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       Window w = SwingUtilities.getWindowAncestor(this);
+       w.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
     void limpiar(){
         txtNombre.setText("");
         txtPrecio.setText("");
