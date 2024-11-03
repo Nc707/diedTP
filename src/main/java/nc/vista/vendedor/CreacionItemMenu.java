@@ -11,7 +11,7 @@ import java.awt.CardLayout;
  * @author nicol
  */
 public class CreacionItemMenu extends javax.swing.JPanel {
-    ItemMenuPanelVendedor panelSuperior= new ItemMenuPanelVendedor();
+    ItemMenuPanelVendedor panelSuperior;
     int idVendedor;
     boolean boolComida=true;
     /**
@@ -25,7 +25,7 @@ public class CreacionItemMenu extends javax.swing.JPanel {
     public CreacionItemMenu(int idVendedor) {
         initComponents();
         this.idVendedor = idVendedor; 
-      
+        panelSuperior= new ItemMenuPanelVendedor();
     }
 
     /**
@@ -232,14 +232,12 @@ public class CreacionItemMenu extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(boolComida){
-            panelSuperior.crearPlato(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionComida1.getPeso(), creacionComida1.getCalorias());
-
+            panelSuperior.crearPlato(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionComida1.getPeso(), creacionComida1.getCalorias());            
         }else{
-             System.out.println("HOLAAAAAAAAAAA");
             panelSuperior.crearBebida(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionBebida2.getPeso(), creacionBebida2.getGrado(), creacionBebida2.getTam());
         }
        panelSuperior.updateModel();
-       return;
+       
     }//GEN-LAST:event_jButton1ActionPerformed
     void limpiar(){
         txtNombre.setText("");
