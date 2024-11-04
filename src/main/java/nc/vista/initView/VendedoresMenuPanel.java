@@ -4,6 +4,7 @@
  */
 package nc.vista.initView;
 
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import nc.vista.PersonalizatedTableModel;
 import nc.vista.vendedor.CreacionVendedor;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import nc.vista.vendedor.ModificarVendedor;
 
 /**
  *
@@ -23,6 +25,18 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
 
     public void crearVendedor(String nombre, String direccion, double cx, double cy) {
         vendedores.crear(nombre,  direccion,  cx,  cy);
+    }
+
+    void crearModificarVendedor(Frame padre, boolean mdal, List lista, VendedoresMenuPanel panelSuperior) {
+        ModificarVendedor modificarVendedor = new ModificarVendedor(padre, mdal, lista, panelSuperior);
+        modificarVendedor.setVisible(true);
+        modificarVendedor.setLocationRelativeTo(null);
+        modificarVendedor.setSize(500, 300);  
+    }
+
+    public void modificar(int id, String name, String dir, double x , double y) {
+        vendedores.modificarVendedor(id, name, dir, x, y);
+        updateModel();
     }
     private enum filterMode {
         ID,
