@@ -4,7 +4,9 @@
  */
 package nc.vista.initView;
 
+import java.util.ArrayList;
 import java.util.List;
+import nc.vista.vendedor.ModificarVendedor;
 
 /**
  *
@@ -17,6 +19,9 @@ public class DialogVendedor extends javax.swing.JDialog {
      */
     private VendedoresMenuPanel panelSuperior;
     private int idVendedor = -1;
+    boolean mdal;
+    List lista;
+    java.awt.Frame padre;
     public DialogVendedor(java.awt.Frame parent, boolean modal, List vendedorData, VendedoresMenuPanel panelSuperior) {
         super(parent, modal);
         this.panelSuperior = panelSuperior;
@@ -26,6 +31,9 @@ public class DialogVendedor extends javax.swing.JDialog {
         txtDireccion.setText((String) vendedorData.get(2));
         txtCoordenadas.setText("Longitud: " + String.valueOf(vendedorData.get(3)) + "\n    Latitud: " + String.valueOf(vendedorData.get(4)));
         this.idVendedor = (int) vendedorData.get(0);
+        mdal = modal;
+        padre = parent;
+        lista = vendedorData;
     }
 
     /**
@@ -139,6 +147,11 @@ public class DialogVendedor extends javax.swing.JDialog {
         getContentPane().add(jPanel1, gridBagConstraints);
 
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -163,6 +176,11 @@ public class DialogVendedor extends javax.swing.JDialog {
         this.panelSuperior.upperPanel.upperPanel.setVendedor(idVendedor);
         this.dispose();
     }//GEN-LAST:event_InicioSesionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        panelSuperior.crearModificarVendedor(padre, mdal, lista, panelSuperior);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
