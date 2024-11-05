@@ -14,6 +14,7 @@ import javax.swing.table.TableRowSorter;
 import nc.controlador.ClientController;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.cliente.CreacionCliente;
+import nc.vista.cliente.ModificarCliente;
 
 /**
  *
@@ -56,6 +57,15 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         });
 
     }
+    public void modificar(int id, String name, String dir, String mail, String cuil, double coorX, double coorY){
+        clients.modificarCliente(id, name, dir, mail, id, coorX, coorY);
+        updateModel();
+    }
+     public void crearModificarCliente(int id, String name, String dir, String mail, String cuit, double coorX, double coorY){
+         ModificarCliente modificarCliente = new ModificarCliente(id, name, dir, mail, cuit, coorX, coorY, this);
+         modificarCliente.setVisible(true);
+         modificarCliente.setLocationRelativeTo(null);
+     }
 
     public void crearCliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         clients.crear(nombre, cuit, email, direccion, latitud, longitud);
@@ -264,7 +274,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
 
             List datosCliente = clients.getCliente((int) clientTableModel.getValueAt(modelRow, 0));
 
-            DialogCliente dialog = new DialogCliente(null, true, (ArrayList) datosCliente);
+            DialogCliente dialog = new DialogCliente(null, true, (ArrayList) datosCliente, this);
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(null);
         }
