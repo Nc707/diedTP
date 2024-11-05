@@ -5,6 +5,7 @@
 package nc.vista.initView;
 
 import java.util.ArrayList;
+import nc.vista.cliente.ModificarCliente;
 
 /**
  *
@@ -12,19 +13,20 @@ import java.util.ArrayList;
  */
 public class DialogCliente extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DialogVendedor
-     */
-    public DialogCliente(java.awt.Frame parent, boolean modal, ArrayList clientData) {
+   double coorX, coorY;
+   ClientesMenuPanel panelSuperior;
+    public DialogCliente(java.awt.Frame parent, boolean modal, ArrayList clientData, ClientesMenuPanel panelSuperior) {
         super(parent, modal);
         initComponents();
         txtID.setText(String.valueOf(clientData.get(0)));
         txtNombre.setText((String) clientData.get(1));
         txtDireccion.setText((String) clientData.get(2));
         txtMail.setText((String) clientData.get(3));
-        txtCUIT.setText(String.valueOf(clientData.get(4)));
+        txtCuit.setText(String.valueOf(clientData.get(4)));
         txtCoordenadas.setText("Longitud: " + String.valueOf(clientData.get(5)) + "\n    Latitud: " + String.valueOf(clientData.get(6)));
-
+        coorX= (double) clientData.get(5);
+        coorY= (double) clientData.get(6);
+        this.panelSuperior = panelSuperior;
     }
 
     /**
@@ -50,7 +52,7 @@ public class DialogCliente extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtMail = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtCUIT = new javax.swing.JLabel();
+        txtCuit = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -157,13 +159,13 @@ public class DialogCliente extends javax.swing.JDialog {
         gridBagConstraints.gridy = 4;
         jPanel1.add(jLabel7, gridBagConstraints);
 
-        txtCUIT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtCUIT.setText("jLabel9");
-        txtCUIT.setPreferredSize(new java.awt.Dimension(200, 16));
+        txtCuit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtCuit.setText("jLabel9");
+        txtCuit.setPreferredSize(new java.awt.Dimension(200, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        jPanel1.add(txtCUIT, gridBagConstraints);
+        jPanel1.add(txtCuit, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -195,7 +197,8 @@ public class DialogCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        dispose();
+        panelSuperior.crearModificarCliente(Integer.parseInt(txtID.getText()),txtNombre.getText(),txtDireccion.getText(),txtMail.getText(), txtCuit.getText(), coorX, coorY);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -212,8 +215,8 @@ public class DialogCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel txtCUIT;
     private javax.swing.JLabel txtCoordenadas;
+    private javax.swing.JLabel txtCuit;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtID;
     private javax.swing.JLabel txtMail;
