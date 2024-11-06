@@ -51,9 +51,9 @@ public class ItemMenuMemory implements ItemMenuDAO {
 
     @Override
     public ItemMenu buscar(int id) {
-      for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId() == id){
-                return items.get(i);
+      for (int i = 0; i < memory.size(); i++) {
+            if (memory.get(i).getId() == id){
+                return memory.get(i);
             }
         }
         return null;
