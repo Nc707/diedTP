@@ -30,13 +30,9 @@ public class PedidoController {
     public List<List> loadData(){
         ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
         List<Pedido> data;
-        if(ID<0){
-            data = database.getPedidos();
-        }else{
-            try {
-                data = database.getPedidos(ID, isVendedor);
-            } catch (ItemNoEncontradoException ex) {return new ArrayList();}
-        }
+        try {
+            data = database.getPedidos(ID, isVendedor);
+        } catch (ItemNoEncontradoException ex) {return new ArrayList();}
         return data.stream().map((Pedido p) -> {
             ArrayList list = new ArrayList();
             list.add(p.getId());
