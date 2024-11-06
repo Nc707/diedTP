@@ -14,7 +14,7 @@ import nc.modelo.Vendedor;
 import nc.modelo.VendedorDAOandMemory.VendedorDAO;
 import nc.modelo.VendedorDAOandMemory.VendedorMemory;
 import nc.modelo.excepciones.ItemNoEncontradoException;
-
+/*eSTE ES UN COMENTARIO*/
 /**
  *
  * @author nicol/*
@@ -25,6 +25,15 @@ public class ItemMenuController {
     public ItemMenuController(int vendedorID){
         this.vendedorID = vendedorID;
     }
+    /*
+    0: ID Int
+    1: Nombre String
+    2: Descripcion String
+    3: NombreVendedor String
+    4: Precio Float
+    
+    */
+    
      public List getItemMenu(int ID){
         List itemMenuData = new ArrayList();
         ItemMenu item = ItemMenuMemory.getInstancia().buscar(ID);
