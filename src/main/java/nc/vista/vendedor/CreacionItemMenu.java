@@ -23,6 +23,10 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         initComponents();
         this.idVendedor = idVendedor; 
         this.panelSuperior = panelSuperior;
+        this.setSize(600, 400);
+        
+        this.validate();
+        this.repaint();
     }
 
     /**
