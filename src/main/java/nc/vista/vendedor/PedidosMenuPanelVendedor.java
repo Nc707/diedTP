@@ -51,7 +51,7 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
         this.pedidos.setID(ID, true);
     }
      public void updateModel(){
-        //this.modeloPedido.setItems(pedidos.loadData());
+        this.modeloPedido.setItems(pedidos.loadData());
         contentTable.updateUI();
     }
     /**

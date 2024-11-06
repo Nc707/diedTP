@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ClientController;
 import nc.vista.PersonalizatedTableModel;
+import nc.vista.VistaPrincipal;
 import nc.vista.cliente.CreacionCliente;
 import nc.vista.cliente.ModificarCliente;
 
@@ -34,6 +35,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private int ID_Seleccionado = -1;
+    private FirstFrame upperFrame;
 
     /**
      * Creates new form ClientesMenuPanel
@@ -56,6 +58,12 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
             }
         });
 
+    }
+    public void setUpperFrame(FirstFrame vista){
+        this.upperFrame = vista;
+    }
+    public void setCliente(){
+        this.upperFrame.upperPanel.setCliente(ID_Seleccionado);
     }
     public void modificar(int id, String name, String dir, String mail, String cuil, double coorX, double coorY){
         clients.modificarCliente(id, name, dir, mail, id, coorX, coorY);

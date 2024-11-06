@@ -4,6 +4,7 @@
  */
 package nc.vista.cliente;
 
+import nc.vista.vendedor.*;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JDialog;
@@ -12,9 +13,10 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.ItemMenuController;
-import nc.vista.vendedor.CreacionItemMenu;
 import nc.vista.PersonalizatedTableModel;
-
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import java.lang.String;
 /**
  *
  * @author nicol
@@ -31,21 +33,43 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private ItemMenuController itemsMenu;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
+    private int vendedorID = -1;
+    private int ID_Seleccionado = -1;
+    private ClientesFrame frameSuperior;
     /**
      * Creates new form ItemMenuPanel
      */
     public ItemMenuPanelCliente() {
-        int filterID = 0;
-        itemsMenu = new ItemMenuController(filterID);
+        itemsMenu = new ItemMenuController();
         List<String> modeloTableName;
-        if(filterID<0)
-            modeloTableName = Arrays.asList("ID", "Nombre", "Vendedor", "Precio");
-        else
-            modeloTableName = Arrays.asList("ID", "Nombre", "Precio");
+        modeloTableName = Arrays.asList("ID", "Item", "Precio");
         modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           @Override
+           public void valueChanged(ListSelectionEvent evt){
+               if(!evt.getValueIsAdjusting()){
+                   int filaSeleccionada = contentTable.getSelectedRow();
+                   if(filaSeleccionada != -1){
+                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                   }
+               }   
+           }});
+        
+        
+    }
+    public void setUpperFrame(ClientesFrame frame){
+        this.frameSuperior = frame;
+    }
+    public void setID(int ID){
+        this.vendedorID = ID;
+        this.itemsMenu.setID(ID);
+        }
+    public void updateModel(){
+        this.modeloItemMenu.setItems(itemsMenu.loadData());
+        contentTable.updateUI();
     }
 
     /**
@@ -72,7 +96,8 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-        jButton3 = new javax.swing.JButton();
+        VerDetalleButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -162,7 +187,12 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel7.add(jPanel1, gridBagConstraints);
 
-        jButton3.setText("jButton3");
+        VerDetalleButton.setText("Ver Detalle");
+        VerDetalleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerDetalleButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -170,17 +200,29 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel7.add(jButton3, gridBagConstraints);
+        jPanel7.add(VerDetalleButton, gridBagConstraints);
+
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,8 +231,9 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    /*
-        CreacionItemMenu panel = new CreacionItemMenu();
+    // CreacionItemMenu creacion= new CreacionItemMenu(vendedorID,this);
+    // creacion.setVisible(true);
+        /*CreacionItemMenu panel = new CreacionItemMenu(vendedorID, this);
     JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
     dialog.getContentPane().add(panel);
     dialog.pack();
@@ -227,7 +270,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
             case "ID":
                 this.actualFilter = filterMode.ID;
                 break;
-            case "Nombre":
+            case "Item":
                 this.actualFilter = filterMode.NAME;
                 break;
             case "Vendedor":
@@ -241,14 +284,24 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.frameSuperior.goBack();
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
+        ItemMenuVer dialog = new ItemMenuVer(null, true, this.ID_Seleccionado, this.itemsMenu);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_VerDetalleButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton VerDetalleButton;
+    private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;

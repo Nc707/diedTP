@@ -187,6 +187,11 @@ public class DialogCliente extends javax.swing.JDialog {
         getContentPane().add(jButton1, gridBagConstraints);
 
         jButton2.setText("Iniciar Sesion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -200,6 +205,11 @@ public class DialogCliente extends javax.swing.JDialog {
         dispose();
         panelSuperior.crearModificarCliente(Integer.parseInt(txtID.getText()),txtNombre.getText(),txtDireccion.getText(),txtMail.getText(), txtCuit.getText(), coorX, coorY);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.panelSuperior.setCliente();
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
