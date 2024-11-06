@@ -26,6 +26,7 @@ public class VistaPrincipal extends javax.swing.JPanel {
         initComponents();
         this.firstFrame1.setUpperPanel(this);
         this.vendoresFrame1.setFrameSuperior(this);
+        this.clientesFrame1.setFrameSuperior(this);
         this.layout = (CardLayout) this.getLayout();
         layout.show(this, "card2");
         
@@ -36,10 +37,10 @@ public class VistaPrincipal extends javax.swing.JPanel {
         vendoresFrame1.setVendedor(idVendedor);
         layout.show(this, "card3");
     }
-    public void setCliente(int idVendedor){
-        this.usuario = tipoUsuario.VENDEDOR;
-        //clientesFrame1.
-        //layout.show(this, "card4");
+    public void setCliente(int idCliente){
+        this.usuario = tipoUsuario.CLIENTE;
+        this.clientesFrame1.setCliente(idCliente);
+        layout.show(this, "card4");
     }
     public void volverInicio(){
         this.usuario = null;
@@ -57,14 +58,17 @@ public class VistaPrincipal extends javax.swing.JPanel {
 
         firstFrame1 = new nc.vista.initView.FirstFrame();
         vendoresFrame1 = new nc.vista.vendedor.VendoresFrame();
+        clientesFrame1 = new nc.vista.cliente.ClientesFrame();
 
         setLayout(new java.awt.CardLayout());
         add(firstFrame1, "card2");
         add(vendoresFrame1, "card3");
+        add(clientesFrame1, "card4");
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private nc.vista.cliente.ClientesFrame clientesFrame1;
     private nc.vista.initView.FirstFrame firstFrame1;
     private nc.vista.vendedor.VendoresFrame vendoresFrame1;
     // End of variables declaration//GEN-END:variables

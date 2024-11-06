@@ -8,6 +8,8 @@ import nc.vista.cliente.ClientesFrame;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.VendedorController;
 import nc.vista.PersonalizatedTableModel;
@@ -28,6 +30,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private ClientesFrame frameSuperior;
+    private int ID_Seleccionado;
     /**
      * Creates new form ClientesMenuPanel
      */
@@ -39,6 +42,15 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(vendedorTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent evt){
+                if(!evt.getValueIsAdjusting()){
+                    int filaSeleccionada = contentTable.getSelectedRow();
+                    if(filaSeleccionada != -1){
+                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                    }
+                }   
+            }});
     }
 
     /**
@@ -205,7 +217,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.frameSuperior.setVendedor();
+        this.frameSuperior.setVendedor(this.ID_Seleccionado);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
