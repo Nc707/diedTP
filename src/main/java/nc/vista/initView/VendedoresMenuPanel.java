@@ -4,6 +4,8 @@
  */
 package nc.vista.initView;
 
+import nc.vista.initView.dialog.DialogVendedor;
+import nc.vista.initView.dialog.CreacionVendedor;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,10 +14,9 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.VendedorController;
 import nc.vista.PersonalizatedTableModel;
-import nc.vista.vendedor.CreacionVendedor;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
-import nc.vista.vendedor.ModificarVendedor;
+import nc.vista.vendedor.dialog.ModificarVendedor;
 
 /**
  *
@@ -27,7 +28,7 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         vendedores.crear(nombre,  direccion,  cx,  cy);
     }
 
-    void crearModificarVendedor(Frame padre, boolean mdal, List lista, VendedoresMenuPanel panelSuperior) {
+    public void crearModificarVendedor(Frame padre, boolean mdal, List lista, VendedoresMenuPanel panelSuperior) {
         ModificarVendedor modificarVendedor = new ModificarVendedor(padre, mdal, lista, panelSuperior);
         modificarVendedor.setVisible(true);
         modificarVendedor.setLocationRelativeTo(null);
