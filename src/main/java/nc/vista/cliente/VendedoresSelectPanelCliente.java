@@ -30,7 +30,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private ClientesFrame frameSuperior;
-    private int ID_Seleccionado;
+    private int ID_Seleccionado = -1;
     /**
      * Creates new form ClientesMenuPanel
      */
@@ -43,6 +43,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         actualFilter = filterMode.ID;
         initComponents();
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
             public void valueChanged(ListSelectionEvent evt){
                 if(!evt.getValueIsAdjusting()){
                     int filaSeleccionada = contentTable.getSelectedRow();
@@ -52,7 +53,9 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
                 }   
             }});
     }
-
+    public void setUpperFrame(ClientesFrame frame){
+        this.frameSuperior = frame;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,6 +78,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         jTextPane1 = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
@@ -161,6 +165,18 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel7.add(jPanel2, gridBagConstraints);
 
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,11 +233,16 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.frameSuperior.setVendedor(this.ID_Seleccionado);
+        if(ID_Seleccionado != -1) this.frameSuperior.setVendedor(this.ID_Seleccionado);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.frameSuperior.goBack();
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;

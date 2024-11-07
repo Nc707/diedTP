@@ -7,8 +7,10 @@ package nc.vista.cliente;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.ItemMenuController;
+import nc.controlador.ItemPedidoController;
 import nc.vista.PersonalizatedTableModel;
 
 /**
@@ -25,11 +27,12 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
         CANTIDAD,
         NONE
     }
-    private PersonalizatedTableModel modeloItemMenu;
-    private ItemMenuController itemsMenu;
+    private PersonalizatedTableModel modeloItemsPedido;
+    private ItemPedidoController itemsPedido;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private int filterID;
+    int ID_Seleccionado = -1;
     /**
      * Creates new form ItemMenuPanel
      * @param filterID
@@ -37,16 +40,26 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
     public ItemPedidoPanelCliente() {
         int filterID = 0;
         this.filterID = filterID;
-        itemsMenu = new ItemMenuController(filterID);
+        itemsPedido = new ItemPedidoController(filterID);
         List<String> modeloTableName;
         if(filterID<0)
             modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "ID Pedido", "Cantidad", "Precio Final");
         else
             modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
-        modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
-        sorter = new TableRowSorter<>(modeloItemMenu);
+        modeloItemsPedido = new PersonalizatedTableModel( modeloTableName, itemsPedido.loadData());
+        sorter = new TableRowSorter<>(modeloItemsPedido);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           @Override
+           public void valueChanged(ListSelectionEvent evt){
+               if(!evt.getValueIsAdjusting()){
+                   int filaSeleccionada = contentTable.getSelectedRow();
+                   if(filaSeleccionada != -1){
+                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                   }
+               }   
+           }});
     }
 
     /**
@@ -79,7 +92,7 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         contentTable.setAutoCreateRowSorter(true);
-        contentTable.setModel(this.modeloItemMenu);
+        contentTable.setModel(this.modeloItemsPedido);
         contentTable.setRowSorter(sorter);
         jScrollPane10.setViewportView(contentTable);
 
@@ -109,7 +122,7 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloItemMenu.getColumnName()));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloItemsPedido.getColumnName()));
         jComboBox1.setMinimumSize(new java.awt.Dimension(135, 22));
         jComboBox1.setPreferredSize(new java.awt.Dimension(135, 22));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -152,6 +165,11 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
         jPanel7.add(jPanel1, gridBagConstraints);
 
         jButton3.setText("Ver detalle");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -227,6 +245,10 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,6 +7,8 @@ package nc.vista.cliente;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import nc.controlador.PedidoController;
 import nc.vista.PersonalizatedTableModel;
@@ -30,6 +32,8 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private int clienteID = -1;
+    private int ID_Seleccionado = -1;
+    private ClientesFrame upperFrame;
     /**
      * Creates new form ItemMenuPanel
      */
@@ -47,8 +51,20 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(modeloPedido);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           @Override
+           public void valueChanged(ListSelectionEvent evt){
+               if(!evt.getValueIsAdjusting()){
+                   int filaSeleccionada = contentTable.getSelectedRow();
+                   if(filaSeleccionada != -1){
+                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                   }
+               }   
+           }});
     }
-
+    public void setUpperFrame(ClientesFrame frame){
+        this.upperFrame = frame;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,6 +157,11 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
         jPanel7.add(jPanel1, gridBagConstraints);
 
         jButton3.setText("Ver detalle");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -213,6 +234,11 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(ID_Seleccionado!=-1)this.upperFrame.setPedido(this.ID_Seleccionado);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

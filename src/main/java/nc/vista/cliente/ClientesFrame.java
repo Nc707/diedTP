@@ -24,6 +24,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     public ClientesFrame() {
         initComponents();
         itemMenuPanelCliente1.setUpperFrame(this);
+        vendedoresSelectPanelCliente1.setUpperFrame(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
     }
@@ -35,14 +36,21 @@ public class ClientesFrame extends javax.swing.JPanel {
         itemMenuPanelCliente1.setID(ID);
         itemMenuPanelCliente1.updateModel();
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), true);
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1));
+    }
+    public void unsetVendedor(){
+        this.IDCurrentVendedor = -1;
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
     }
     public void setPedido(int IDPedido){
        
     }
     public void setCliente(int IDCliente){
         this.cliente = IDCliente;
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
     }
     public void goBack(){
+        unsetVendedor();
         upperFrame.volverInicio();
     }
     
