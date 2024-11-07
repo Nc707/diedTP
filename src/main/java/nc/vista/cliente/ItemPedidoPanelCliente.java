@@ -61,6 +61,14 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
                }   
            }});
     }
+    public void setID(int ID){
+        this.ID_Seleccionado = ID;
+        this.itemsPedido.setID(ID);
+        }
+    public void updateModel(){
+        this.modeloItemsPedido.setItems(itemsPedido.loadData());
+        contentTable.updateUI();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
