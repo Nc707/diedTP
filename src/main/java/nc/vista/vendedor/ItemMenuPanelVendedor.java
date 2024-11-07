@@ -4,6 +4,8 @@
  */
 package nc.vista.vendedor;
 
+import nc.vista.vendedor.dialog.CreacionItemMenu;
+import nc.vista.vendedor.dialog.ItemMenuVer;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JDialog;

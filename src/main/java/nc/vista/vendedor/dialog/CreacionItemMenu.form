@@ -195,14 +195,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
-        <Component class="nc.vista.vendedor.CreacionComida" name="creacionComida1">
+        <Component class="nc.vista.vendedor.dialog.CreacionComida" name="creacionComida1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card3"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.vendedor.CreacionBebida" name="creacionBebida2">
+        <Component class="nc.vista.vendedor.dialog.CreacionBebida" name="creacionBebida2">
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="creacionBebida2KeyTyped"/>
           </Events>
