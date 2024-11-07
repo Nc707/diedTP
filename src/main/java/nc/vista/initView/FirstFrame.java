@@ -20,6 +20,7 @@ public class FirstFrame extends javax.swing.JPanel {
     public FirstFrame( ) {
         initComponents();
         this.vendedoresMenuPanel1.setUpperPanel(this);
+        this.clientesMenuPanel1.setUpperFrame(this);
     }
     public void setUpperPanel(VistaPrincipal upperPanel){
         this.upperPanel = upperPanel;

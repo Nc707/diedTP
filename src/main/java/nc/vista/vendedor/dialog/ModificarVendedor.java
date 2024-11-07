@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package nc.vista.vendedor;
+package nc.vista.vendedor.dialog;
 
 import java.awt.Window;
 import java.util.ArrayList;

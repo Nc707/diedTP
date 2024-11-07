@@ -2,31 +2,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package nc.vista.initView;
+package nc.vista.initView.dialog;
 
 import java.util.ArrayList;
-import nc.vista.cliente.ModificarCliente;
+import java.util.List;
+import nc.vista.initView.VendedoresMenuPanel;
+import nc.vista.vendedor.dialog.ModificarVendedor;
 
 /**
  *
  * @author kraft
  */
-public class DialogCliente extends javax.swing.JDialog {
+public class DialogVendedor extends javax.swing.JDialog {
 
-   double coorX, coorY;
-   ClientesMenuPanel panelSuperior;
-    public DialogCliente(java.awt.Frame parent, boolean modal, ArrayList clientData, ClientesMenuPanel panelSuperior) {
+    /**
+     * Creates new form DialogVendedor
+     */
+    private VendedoresMenuPanel panelSuperior;
+    private int idVendedor = -1;
+    boolean mdal;
+    List lista;
+    java.awt.Frame padre;
+    public DialogVendedor(java.awt.Frame parent, boolean modal, List vendedorData, VendedoresMenuPanel panelSuperior) {
         super(parent, modal);
-        initComponents();
-        txtID.setText(String.valueOf(clientData.get(0)));
-        txtNombre.setText((String) clientData.get(1));
-        txtDireccion.setText((String) clientData.get(2));
-        txtMail.setText((String) clientData.get(3));
-        txtCuit.setText(String.valueOf(clientData.get(4)));
-        txtCoordenadas.setText("Longitud: " + String.valueOf(clientData.get(5)) + "\n    Latitud: " + String.valueOf(clientData.get(6)));
-        coorX= (double) clientData.get(5);
-        coorY= (double) clientData.get(6);
         this.panelSuperior = panelSuperior;
+        initComponents();
+        txtID.setText(String.valueOf(vendedorData.get(0)));
+        txtNombre.setText((String) vendedorData.get(1));
+        txtDireccion.setText((String) vendedorData.get(2));
+        txtCoordenadas.setText("Longitud: " + String.valueOf(vendedorData.get(3)) + "\n    Latitud: " + String.valueOf(vendedorData.get(4)));
+        this.idVendedor = (int) vendedorData.get(0);
+        mdal = modal;
+        padre = parent;
+        lista = vendedorData;
     }
 
     /**
@@ -49,12 +57,8 @@ public class DialogCliente extends javax.swing.JDialog {
         txtDireccion = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtMail = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txtCuit = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        InicioSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -89,7 +93,7 @@ public class DialogCliente extends javax.swing.JDialog {
         jLabel4.setPreferredSize(new java.awt.Dimension(80, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabel4, gridBagConstraints);
 
@@ -98,7 +102,7 @@ public class DialogCliente extends javax.swing.JDialog {
         txtCoordenadas.setPreferredSize(new java.awt.Dimension(200, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 3;
         jPanel1.add(txtCoordenadas, gridBagConstraints);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -135,38 +139,6 @@ public class DialogCliente extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         jPanel1.add(txtNombre, gridBagConstraints);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Mail:");
-        jLabel3.setPreferredSize(new java.awt.Dimension(80, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        jPanel1.add(jLabel3, gridBagConstraints);
-
-        txtMail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtMail.setText("jLabel5");
-        txtMail.setPreferredSize(new java.awt.Dimension(200, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        jPanel1.add(txtMail, gridBagConstraints);
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("CUIT:");
-        jLabel7.setPreferredSize(new java.awt.Dimension(80, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        jPanel1.add(jLabel7, gridBagConstraints);
-
-        txtCuit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtCuit.setText("jLabel9");
-        txtCuit.setPreferredSize(new java.awt.Dimension(200, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        jPanel1.add(txtCuit, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -186,40 +158,46 @@ public class DialogCliente extends javax.swing.JDialog {
         gridBagConstraints.gridy = 2;
         getContentPane().add(jButton1, gridBagConstraints);
 
-        jButton2.setText("Iniciar Sesion");
+        InicioSesion.setText("Iniciar Sesion");
+        InicioSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InicioSesionActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        getContentPane().add(jButton2, gridBagConstraints);
+        getContentPane().add(InicioSesion, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void InicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioSesionActionPerformed
+        this.panelSuperior.upperPanel.upperPanel.setVendedor(idVendedor);
+        this.dispose();
+    }//GEN-LAST:event_InicioSesionActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-        panelSuperior.crearModificarCliente(Integer.parseInt(txtID.getText()),txtNombre.getText(),txtDireccion.getText(),txtMail.getText(), txtCuit.getText(), coorX, coorY);
+        this.dispose();
+        panelSuperior.crearModificarVendedor(padre, mdal, lista, panelSuperior);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton InicioSesion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txtCoordenadas;
-    private javax.swing.JLabel txtCuit;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtID;
-    private javax.swing.JLabel txtMail;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }

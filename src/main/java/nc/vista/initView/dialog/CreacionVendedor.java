@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package nc.vista.vendedor;
+package nc.vista.initView.dialog;
 
 import nc.controlador.VendedorController;
+import nc.vista.initView.VendedoresMenuPanel;
 import nc.vista.initView.VendedoresMenuPanel;
 
 /**
