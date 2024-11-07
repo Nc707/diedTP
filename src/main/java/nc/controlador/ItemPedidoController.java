@@ -54,5 +54,7 @@ public class ItemPedidoController {
             return list;
         }).collect(Collectors.toList());
     }
-    
+        public void setID(int pedidoId){
+        this.pedidoID = pedidoId;
+    }
 }

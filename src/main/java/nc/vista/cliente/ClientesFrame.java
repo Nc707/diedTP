@@ -27,6 +27,7 @@ public class ClientesFrame extends javax.swing.JPanel {
         vendedoresSelectPanelCliente1.setUpperFrame(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
+        pedidosMenuPanelCliente1.setUpperFrame(this);
     }
     public void setFrameSuperior(VistaPrincipal upperFrame){
         this.upperFrame = upperFrame;
@@ -43,7 +44,11 @@ public class ClientesFrame extends javax.swing.JPanel {
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
     }
     public void setPedido(int IDPedido){
-       
+        IDCurrentPedido = IDPedido;
+        itemPedidoPanelCliente1.setID(IDPedido);
+        itemPedidoPanelCliente1.updateModel();
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), true);
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1));
     }
     public void setCliente(int IDCliente){
         this.cliente = IDCliente;
@@ -67,15 +72,15 @@ public class ClientesFrame extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         vendedoresSelectPanelCliente1 = new nc.vista.cliente.VendedoresSelectPanelCliente();
         itemMenuPanelCliente1 = new nc.vista.cliente.ItemMenuPanelCliente();
-        pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
         itemPedidoPanelCliente1 = new nc.vista.cliente.ItemPedidoPanelCliente();
+        pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
 
         setLayout(new java.awt.BorderLayout());
 
         jTabbedPane1.addTab("Seleccionar vendedor", vendedoresSelectPanelCliente1);
         jTabbedPane1.addTab("ItemsMenu", itemMenuPanelCliente1);
-        jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente1);
         jTabbedPane1.addTab("Pedido", itemPedidoPanelCliente1);
+        jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente1);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents

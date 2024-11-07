@@ -60,7 +60,7 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
                    }
                }   
-           }});
+           }});        
     }
     public void setUpperFrame(ClientesFrame frame){
         this.upperFrame = frame;
@@ -236,8 +236,8 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         if(ID_Seleccionado!=-1)this.upperFrame.setPedido(this.ID_Seleccionado);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
