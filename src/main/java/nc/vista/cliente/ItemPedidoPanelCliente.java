@@ -56,9 +56,13 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
                }   
            }});
     }
+    public void setID(int ID){
+        this.ID_Seleccionado = ID;
+        this.itemsPedido.setID(ID);
+        }
     public void setPedido(int ID){
         this.PedidoID = ID;
-        this.itemsPedido.setPedido(ID);
+        this.itemsPedido.setID(ID);
     }
     public void updateModel(){
        this.modeloItemsPedido.setItems(this.itemsPedido.loadData());

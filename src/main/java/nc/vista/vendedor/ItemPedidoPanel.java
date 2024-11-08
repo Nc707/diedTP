@@ -58,7 +58,7 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
     }
     public void setPedido(int ID){
         this.PedidoID = ID;
-        this.itemsPedido.setPedido(ID);
+        this.itemsPedido.setID(ID);
     }
     public void updateModel(){
        this.modeloItemsPedido.setItems(this.itemsPedido.loadData());
