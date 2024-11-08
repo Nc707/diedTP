@@ -57,7 +57,7 @@
               <Properties>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="this.modeloItemMenu" type="code"/>
+                  <Connection code="this.modeloItemsPedido" type="code"/>
                 </Property>
                 <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="sorter" type="code"/>
@@ -114,7 +114,7 @@
             <Component class="javax.swing.JComboBox" name="jComboBox1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(this.modeloItemMenu.getColumnName())" type="code"/>
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(this.modeloItemsPedido.getColumnName())" type="code"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[135, 22]"/>

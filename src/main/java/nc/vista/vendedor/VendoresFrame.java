@@ -28,8 +28,13 @@ public class VendoresFrame extends javax.swing.JPanel {
     }
     public void setPedido(int IDPedido){
         itemPedidoPanel1.setPedido(IDPedido);
+        itemPedidoPanel1.updateModel();
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanel1), true);
-
+        jTabbedPane1.setSelectedComponent(itemPedidoPanel1); 
+    }
+    public void unsetPedido(){
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanel1), false);
+        jTabbedPane1.setSelectedComponent(itemMenuPanelVendedor1);
     }
     public void setVendedor(int ID){
         this.itemMenuPanelVendedor1.setID(ID);
@@ -38,6 +43,7 @@ public class VendoresFrame extends javax.swing.JPanel {
         this.pedidosMenuPanelVendedor1.updateModel();
     }
     public void goBack(){
+        unsetPedido();
         upperFrame.volverInicio();
     }
 

@@ -38,8 +38,8 @@ public class ItemPedidoController {
         if(pedidoID<0){
             data = database.getAll();
         }else{
-            try{
-            data = database.filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_PEDIDO, pedidoID);
+        try{
+        data = database.filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_PEDIDO, pedidoID);
             } catch (ItemNoEncontradoException ex) {return new ArrayList();}}
         return data.stream().map((ItemPedido item) -> {
             ArrayList list = new ArrayList();
@@ -54,7 +54,7 @@ public class ItemPedidoController {
             return list;
         }).collect(Collectors.toList());
     }
-        public void setID(int pedidoId){
+    public void setID(int pedidoId){
         this.pedidoID = pedidoId;
     }
 }

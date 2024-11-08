@@ -31,21 +31,16 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
     private ItemPedidoController itemsPedido;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    private int filterID;
+    private int filterID = 0;
     int ID_Seleccionado = -1;
+    int PedidoID = 0;
     /**
      * Creates new form ItemMenuPanel
-     * @param filterID
      */
     public ItemPedidoPanelCliente() {
-        int filterID = 0;
-        this.filterID = filterID;
         itemsPedido = new ItemPedidoController(filterID);
         List<String> modeloTableName;
-        if(filterID<0)
-            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "ID Pedido", "Cantidad", "Precio Final");
-        else
-            modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
+        modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
         modeloItemsPedido = new PersonalizatedTableModel( modeloTableName, itemsPedido.loadData());
         sorter = new TableRowSorter<>(modeloItemsPedido);
         actualFilter = filterMode.ID;
@@ -65,11 +60,15 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
         this.ID_Seleccionado = ID;
         this.itemsPedido.setID(ID);
         }
-    public void updateModel(){
-        this.modeloItemsPedido.setItems(itemsPedido.loadData());
-        contentTable.updateUI();
+    public void setPedido(int ID){
+        this.PedidoID = ID;
+        this.itemsPedido.setID(ID);
     }
-
+    public void updateModel(){
+       this.modeloItemsPedido.setItems(this.itemsPedido.loadData());
+       this.contentTable.revalidate();
+       this.contentTable.repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

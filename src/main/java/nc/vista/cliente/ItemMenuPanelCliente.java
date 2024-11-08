@@ -42,8 +42,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
      */
     public ItemMenuPanelCliente() {
         itemsMenu = new ItemMenuController();
-        List<String> modeloTableName;
-        modeloTableName = Arrays.asList("ID", "Item", "Precio");
+        List<String> modeloTableName = Arrays.asList("ID", "Item", "Precio");
         modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
