@@ -4,6 +4,8 @@
  */
 package nc.vista.vendedor;
 
+import nc.vista.vendedor.dialog.CreacionItemMenu;
+import nc.vista.vendedor.dialog.ItemMenuVer;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JDialog;
@@ -55,6 +57,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         actualFilter = filterMode.ID;
         initComponents();
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           @Override
            public void valueChanged(ListSelectionEvent evt){
                if(!evt.getValueIsAdjusting()){
                    int filaSeleccionada = contentTable.getSelectedRow();
@@ -102,7 +105,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-        jButton3 = new javax.swing.JButton();
+        VerDetalleButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
@@ -193,7 +196,12 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel7.add(jPanel1, gridBagConstraints);
 
-        jButton3.setText("jButton3");
+        VerDetalleButton.setText("Ver Detalle");
+        VerDetalleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerDetalleButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -201,7 +209,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel7.add(jButton3, gridBagConstraints);
+        jPanel7.add(VerDetalleButton, gridBagConstraints);
 
         backButton.setText("Volver");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -289,15 +297,20 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         this.frameSuperior.goBack();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
+        ItemMenuVer dialog = new ItemMenuVer(null, true, this.ID_Seleccionado, this.itemsMenu);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_VerDetalleButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton VerDetalleButton;
     private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;

@@ -16,27 +16,24 @@ import nc.modelo.excepciones.ItemNoEncontradoException;
  * @author nicol/*
  */
 public class PedidoController {
-    private Boolean isVendedor = true;
-    private int ID = -1;
-    public PedidoController(){}
+    private Boolean isVendedor;
+    private int ID = 0;
+    public PedidoController(Boolean isVendedor){
+        this.isVendedor = isVendedor;
+    }
     public PedidoController(int ID, Boolean isVendedor){
         this.ID = ID;
         this.isVendedor = isVendedor;
     }
-    public void setID(int ID, Boolean isVendedor){
+    public void setID(int ID){
         this.ID = ID;
-        this.isVendedor = isVendedor;
     }
     public List<List> loadData(){
         ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
         List<Pedido> data;
-        if(ID<0){
-            data = database.getPedidos();
-        }else{
-            try {
-                data = database.getPedidos(ID, isVendedor);
-            } catch (ItemNoEncontradoException ex) {return new ArrayList();}
-        }
+        try {
+            data = database.getPedidos(ID, isVendedor);
+        } catch (ItemNoEncontradoException ex) {return new ArrayList();}
         return data.stream().map((Pedido p) -> {
             ArrayList list = new ArrayList();
             list.add(p.getId());

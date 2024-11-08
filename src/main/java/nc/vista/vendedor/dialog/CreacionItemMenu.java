@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package nc.vista.vendedor;
+package nc.vista.vendedor.dialog;
 
 import java.awt.CardLayout;
+import nc.vista.vendedor.ItemMenuPanelVendedor;
 
 /**
  *
@@ -23,6 +24,10 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         initComponents();
         this.idVendedor = idVendedor; 
         this.panelSuperior = panelSuperior;
+        this.setSize(600, 400);
+        
+        this.validate();
+        this.repaint();
     }
 
     /**
@@ -33,7 +38,6 @@ public class CreacionItemMenu extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
@@ -54,8 +58,8 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         txtPrecio = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        creacionComida1 = new nc.vista.vendedor.CreacionComida();
-        creacionBebida2 = new nc.vista.vendedor.CreacionBebida();
+        creacionComida1 = new nc.vista.vendedor.dialog.CreacionComida();
+        creacionBebida2 = new nc.vista.vendedor.dialog.CreacionBebida();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -64,10 +68,6 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         jMenuBar1.add(jMenu2);
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
-        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
-        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        setLayout(layout);
 
         buttonGroup1.add(comida);
         comida.setSelected(true);
@@ -77,10 +77,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 comidaActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        add(comida, gridBagConstraints);
+        getContentPane().add(comida, java.awt.BorderLayout.CENTER);
 
         buttonGroup1.add(bebida);
         bebida.setText("Bebida");
@@ -89,11 +86,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 bebidaActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        add(bebida, gridBagConstraints);
+        getContentPane().add(bebida, java.awt.BorderLayout.PAGE_START);
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -101,11 +94,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 26;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(jButton1, gridBagConstraints);
+        getContentPane().add(jButton1, java.awt.BorderLayout.PAGE_END);
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -113,33 +102,16 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 26;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(jButton2, gridBagConstraints);
+        getContentPane().add(jButton2, java.awt.BorderLayout.LINE_END);
 
         jLabel1.setText("Nombre");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        add(jLabel1, gridBagConstraints);
+        getContentPane().add(jLabel1, java.awt.BorderLayout.LINE_START);
 
         jLabel2.setText("Precio");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        add(jLabel2, gridBagConstraints);
+        getContentPane().add(jLabel2, java.awt.BorderLayout.CENTER);
 
         jLabel4.setText("Descripcion");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
-        add(jLabel4, gridBagConstraints);
+        getContentPane().add(jLabel4, java.awt.BorderLayout.CENTER);
 
         txtNombre.setPreferredSize(new java.awt.Dimension(128, 22));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -147,13 +119,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 txtNombreActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 60;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(txtNombre, gridBagConstraints);
+        getContentPane().add(txtNombre, java.awt.BorderLayout.CENTER);
 
         txtPrecio.setPreferredSize(new java.awt.Dimension(128, 22));
         txtPrecio.addActionListener(new java.awt.event.ActionListener() {
@@ -166,23 +132,10 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 txtPrecioKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 60;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(txtPrecio, gridBagConstraints);
+        getContentPane().add(txtPrecio, java.awt.BorderLayout.CENTER);
 
         txtDescripcion.setPreferredSize(new java.awt.Dimension(128, 88));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 16;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        add(txtDescripcion, gridBagConstraints);
+        getContentPane().add(txtDescripcion, java.awt.BorderLayout.CENTER);
 
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(creacionComida1, "card3");
@@ -194,13 +147,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         });
         jPanel1.add(creacionBebida2, "card2");
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 23;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.insets = new java.awt.Insets(21, 0, 0, 0);
-        add(jPanel1, gridBagConstraints);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bebidaActionPerformed
@@ -261,8 +208,8 @@ public class CreacionItemMenu extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JRadioButton comida;
-    private nc.vista.vendedor.CreacionBebida creacionBebida2;
-    private nc.vista.vendedor.CreacionComida creacionComida1;
+    private nc.vista.vendedor.dialog.CreacionBebida creacionBebida2;
+    private nc.vista.vendedor.dialog.CreacionComida creacionComida1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

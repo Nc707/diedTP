@@ -74,8 +74,8 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
             case PRECIO_MINIMO_ITEMPEDIDO -> filtrado = memory.stream().filter(item->item.getPrecio() >=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO_ITEMMENU -> filtrado = memory.stream().filter(item->item.getItemMenu().getPrecio() >=  (float)filtro).collect(Collectors.toList());
             case PRECIO_MINIMO_PEDIDO -> filtrado = memory.stream().filter(item->item.getPedido().getPrecio() <=  (float)filtro).collect(Collectors.toList());
-            case ID_PEDIDO -> memory.stream().filter(item->item.getPedido().getId() == (Integer)filtro).collect(Collectors.toList());
-            case ID_ITEMPEDIDO -> memory.stream().filter(item->item.getId() == (Integer)filtro).collect(Collectors.toList());
+            case ID_PEDIDO ->  filtrado = memory.stream().filter(item->item.getPedido().getId() == (int)filtro).collect(Collectors.toList());
+            case ID_ITEMPEDIDO ->   filtrado = memory.stream().filter(item->item.getId() == (int)filtro).collect(Collectors.toList());
         }
         if(filtrado.isEmpty()) throw new ItemNoEncontradoException("No se encontraron items acordes al filtro");
         return filtrado;
