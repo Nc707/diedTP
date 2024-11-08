@@ -31,7 +31,7 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     private PedidoController pedidos;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    private int clienteID = -1;
+    private int clienteID = 0;
     private int ID_Seleccionado = -1;
     private ClientesFrame upperFrame;
     /**
@@ -40,12 +40,9 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
 
     /**
      * Creates new form ItemMenuPanel
-     * @param clienteID
      */
     public PedidosMenuPanelCliente() {
-        int clienteID = 0;
-        this.clienteID = clienteID;
-        pedidos = new PedidoController(clienteID, false);
+        pedidos = new PedidoController(false);
         List<String> modeloTableName = Arrays.asList("ID", "Vendedor", "Cantidad de Items", "Precio", "Estado");
         modeloPedido = new PersonalizatedTableModel( modeloTableName, pedidos.loadData());
         sorter = new TableRowSorter<>(modeloPedido);
@@ -64,6 +61,14 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     }
     public void setUpperFrame(ClientesFrame frame){
         this.upperFrame = frame;
+    }
+    public void setClientID(int ID){
+        this.clienteID = ID;
+        this.pedidos.setID(ID);
+    }
+    public void updateTable(){
+        this.modeloPedido.setItems(pedidos.loadData());
+        this.contentTable.updateUI();
     }
     /**
      * This method is called from within the constructor to initialize the form.

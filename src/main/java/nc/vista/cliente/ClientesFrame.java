@@ -25,6 +25,7 @@ public class ClientesFrame extends javax.swing.JPanel {
         initComponents();
         itemMenuPanelCliente1.setUpperFrame(this);
         vendedoresSelectPanelCliente1.setUpperFrame(this);
+        pedidosMenuPanelCliente1.setUpperFrame(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
     }
@@ -42,15 +43,26 @@ public class ClientesFrame extends javax.swing.JPanel {
         this.IDCurrentVendedor = -1;
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
     }
+    public void unsetPedido(){
+        this.IDCurrentPedido = -1;
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
+    }
     public void setPedido(int IDPedido){
-       
+       this.itemPedidoPanelCliente1.setPedido(IDPedido);
+       this.itemPedidoPanelCliente1.updateModel();
+       jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), true);
+       jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1));
     }
     public void setCliente(int IDCliente){
         this.cliente = IDCliente;
+        pedidosMenuPanelCliente1.setClientID(IDCliente);
+        pedidosMenuPanelCliente1.updateTable();
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+        
     }
     public void goBack(){
         unsetVendedor();
+        unsetPedido();
         upperFrame.volverInicio();
     }
     
