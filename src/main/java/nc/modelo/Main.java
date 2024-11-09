@@ -3,26 +3,25 @@
  */
 package nc.modelo;
 
-import nc.modelo.ItemPedidoManagement.ItemPedidoDAO.tipoFiltrado;
-import nc.modelo.ItemPedidoManagement.ItemPedidoDAO.tipoFiltradoRango;
-import nc.modelo.ItemPedidoManagement.ItemPedidoDAO.tipoOrdenamiento;
-import nc.modelo.ItemPedidoManagement.Carrito;
-import nc.modelo.ItemPedidoManagement.ItemPedidoMemory;
+import nc.dao.ItemPedidoDAO.tipoFiltrado;
+import nc.dao.ItemPedidoDAO.tipoFiltradoRango;
+import nc.dao.ItemPedidoDAO.tipoOrdenamiento;
+import nc.dao.memory.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.NoSuchElementException;
-import nc.modelo.excepciones.CantidadItemInvalidaException;
-import nc.modelo.excepciones.CategoriaIncompatibleException;
-import nc.modelo.excepciones.ItemNoEncontradoException;
-import nc.modelo.excepciones.PedidoCerradoException;
-import nc.modelo.excepciones.PedidoIncorrectoException;
-import nc.modelo.excepciones.PedidoNoEncontradoException;
-import nc.modelo.excepciones.VendedorIncorrectoException;
-import nc.modelo.ItemMenuDAOandMemory.ItemMenuDAO;
-import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
+import nc.excepciones.CantidadItemInvalidaException;
+import nc.excepciones.CategoriaIncompatibleException;
+import nc.excepciones.ItemNoEncontradoException;
+import nc.excepciones.PedidoCerradoException;
+import nc.excepciones.PedidoIncorrectoException;
+import nc.excepciones.PedidoNoEncontradoException;
+import nc.excepciones.VendedorIncorrectoException;
+import nc.dao.ItemMenuDAO;
+import nc.dao.memory.ItemMenuMemory;
 
 public class Main {
 
@@ -396,7 +395,7 @@ public class Main {
     }
     private static void mostrarMenu(Vendedor vendedor, ItemMenuMemory items){
             ArrayList<ItemMenu> lista;
-            ArrayList<nc.modelo.ItemMenuDAOandMemory.ItemMenuDAO.tipoFiltrado> tiposFiltros = new ArrayList();
+            ArrayList<nc.dao.ItemMenuDAO.tipoFiltrado> tiposFiltros = new ArrayList();
             ArrayList filtros = new ArrayList();
             System.out.println("Menu del vendedor "+vendedor.getNombre());
             System.out.println("BEBICAS ACLOHOLICAS: ");
@@ -439,7 +438,7 @@ public class Main {
             }catch(ItemNoEncontradoException e){System.out.println(e);}
             System.out.println("-----------------------");
             try{
-                lista = (ArrayList<ItemMenu>) items.filtrarPor(nc.modelo.ItemMenuDAOandMemory.ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE, Categoria.getCategoria("Celiaco"));
+                lista = (ArrayList<ItemMenu>) items.filtrarPor(nc.dao.ItemMenuDAO.tipoFiltrado.CATEGORIA_EXCLUYENTE, Categoria.getCategoria("Celiaco"));
                 for(ItemMenu item: lista)   System.out.println("ID:"+item.getId() +" - "+ item);
             }catch(ItemNoEncontradoException e){System.out.println(e);}
         

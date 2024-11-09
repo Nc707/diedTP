@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.ItemMenuController;
+import nc.controller.ItemMenuController;
 import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;

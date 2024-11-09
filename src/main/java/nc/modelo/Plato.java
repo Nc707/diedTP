@@ -4,7 +4,7 @@
  */
 package nc.modelo;
 
-import nc.modelo.excepciones.CategoriaIncompatibleException;
+import nc.excepciones.CategoriaIncompatibleException;
 
 public class Plato extends ItemMenu {
 

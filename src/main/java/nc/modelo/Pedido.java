@@ -1,16 +1,16 @@
 package nc.modelo;
 
-import nc.modelo.excepciones.VendedorIncorrectoException;
-import nc.modelo.excepciones.PedidoCerradoException;
-import nc.modelo.excepciones.PedidoIncorrectoException;
-import nc.modelo.metodosDePago.EstrategiaPago;
-import nc.modelo.metodosDePago.PagoMercadoPago;
-import nc.modelo.metodosDePago.PagoTransferencia;
+import nc.excepciones.VendedorIncorrectoException;
+import nc.excepciones.PedidoCerradoException;
+import nc.excepciones.PedidoIncorrectoException;
+import nc.util.metodosDePago.EstrategiaPago;
+import nc.util.metodosDePago.PagoMercadoPago;
+import nc.util.metodosDePago.PagoTransferencia;
 import java.util.ArrayList;
 import java.util.List;
 
-import nc.modelo.interfacesPackage.Observable;
-import nc.modelo.interfacesPackage.Observer;
+import nc.util.interfacesPackage.Observable;
+import nc.util.interfacesPackage.Observer;
 
 public class Pedido implements Observable{
     private static int next_id=0;

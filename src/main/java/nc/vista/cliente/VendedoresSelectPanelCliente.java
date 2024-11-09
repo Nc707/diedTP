@@ -11,7 +11,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.VendedorController;
+import nc.controller.VendedorController;
 import nc.vista.PersonalizatedTableModel;
 
 /**
