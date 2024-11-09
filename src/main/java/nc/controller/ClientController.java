@@ -6,11 +6,17 @@ package nc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.dao.ClienteDAO;
 import nc.dao.memory.ClienteMemory;
 import nc.dao.memory.ItemMenuMemory;
 import nc.dao.memory.ItemPedidoMemory;
+import nc.excepciones.CantidadItemInvalidaException;
+import nc.excepciones.ItemNoEncontradoException;
+import nc.excepciones.PedidoIncorrectoException;
+import nc.modelo.Carrito;
 import nc.modelo.Cliente;
 import nc.modelo.Coordenada;
 import nc.modelo.ItemMenu;
@@ -21,6 +27,10 @@ import nc.modelo.ItemPedido;
  * @author nicol
  */
 public class ClientController {
+    public enum metodoPago{
+        MERCADO_PAGO,
+        TRANSFERENCIA
+        }
 
     private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     private ClienteMemory clients = ClienteMemory.getInstancia();
@@ -77,15 +87,52 @@ public class ClientController {
         client.setCoordenada(new Coordenada(cx, cy));
     }
 
-    public void agregarProductoAlCarrito(int ID, int ID_menu, int cantidad) {
+    public void agregarProductoAlCarrito(int ID, int ID_menu, int cantidad){
         ItemMenu item = items.buscar(ID_menu);
         Cliente client = clients.buscar(ID);
-        client.agregarProductoAlCarrito(item, cantidad);
+        if(client.getCarrito()!=null)
+            client.agregarProductoAlCarrito(item, cantidad);
+        else try {
+            client.crearCarrito(client, item, cantidad, itemsPedido);
+        } catch (CantidadItemInvalidaException ex) {}
     }
 
     public void eliminarProducto(int ID, int ID_item) {
         ItemPedido item = itemsPedido.getItemPedido(ID_item);
         Cliente client = clients.buscar(ID);
         client.eliminarProductoDelCarrito(item);
+    }
+    public List<List> getContenidoCarrito(int ID){
+        Cliente client = clients.buscar(ID);
+        List<ItemPedido> data = client.getItemsCarrito();
+        return data.stream().map((ItemPedido item) -> {
+            ArrayList list = new ArrayList();
+            list.add(item.getId());
+            list.add(item.getItemMenu().getNombre());
+            list.add(item.getItemMenu().getPrecio());
+            list.add(item.getCantidad());
+            list.add(item.getPrecio());
+            return list;
+        }).collect(Collectors.toList());
+    }
+    public void modificarItemCarrito(int ID, int ID_item, int nuevaCantidad){
+        Cliente client = clients.buscar(ID);
+        Carrito carrito = client.getCarrito();
+        try {
+            carrito.modificarCantidad(carrito.obtenerItem(ID), nuevaCantidad);
+         } catch (ItemNoEncontradoException | PedidoIncorrectoException ex) {}
+    }
+    public void setMetodoPago(int ID,metodoPago metodo, List args){
+        Cliente client = clients.buscar(ID);
+        switch (metodo){
+            case MERCADO_PAGO -> client.getCarrito().setMercadoPago(args.getFirst().toString());
+            case TRANSFERENCIA -> client.getCarrito().setTransferencia(args.getFirst().toString(), (int)args.getLast());
+        }
+    }
+    public int getVendedorCarrito(int clienteID){
+        Cliente client = clients.buscar(clienteID);
+        Carrito carrito = client.getCarrito();
+        if(carrito!=null)return carrito.getPedido().getVendedor().getId();
+        return -1;
     }
 }

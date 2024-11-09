@@ -1,6 +1,7 @@
 package nc.modelo;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import nc.dao.memory.ItemPedidoMemory;
 import nc.excepciones.CantidadItemInvalidaException;
@@ -79,12 +80,16 @@ public class Cliente implements Observer {
     public Carrito getCarrito() {
         return this.carrito;
     }
+    public List<ItemPedido> getItemsCarrito(){
+        if(carrito!=null)return this.carrito.getItems();
+        else return null;
+    }
 
     public Carrito crearCarrito(Cliente c, ItemMenu item, int cantidad, ItemPedidoMemory memory) throws CantidadItemInvalidaException {
         if (cantidad < 0) {
-            throw new CantidadItemInvalidaException("La cantidad solicita es incorrecta ");
+            throw new CantidadItemInvalidaException("La cantidad solicitada es incorrecta ");
         }
-        carrito = new Carrito(memory, c, item, cantidad);
+        if(carrito == null) carrito = new Carrito(memory, c, item, cantidad);
         return carrito;
     }
 

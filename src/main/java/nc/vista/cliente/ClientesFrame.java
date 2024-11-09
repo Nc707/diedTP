@@ -38,6 +38,7 @@ public class ClientesFrame extends javax.swing.JPanel {
         itemMenuPanelCliente1.updateModel();
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), true);
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1));
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), false);
     }
     public void unsetVendedor(){
         this.IDCurrentVendedor = -1;
@@ -79,25 +80,31 @@ public class ClientesFrame extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         vendedoresSelectPanelCliente1 = new nc.vista.cliente.VendedoresSelectPanelCliente();
         itemMenuPanelCliente1 = new nc.vista.cliente.ItemMenuPanelCliente();
+        carritoCliente1 = new nc.vista.cliente.CarritoCliente();
         pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
         itemPedidoPanelCliente1 = new nc.vista.cliente.ItemPedidoPanelCliente();
+        pedidosMenuPanelCliente2 = new nc.vista.cliente.PedidosMenuPanelCliente();
 
         setLayout(new java.awt.BorderLayout());
 
         jTabbedPane1.addTab("Seleccionar vendedor", vendedoresSelectPanelCliente1);
         jTabbedPane1.addTab("ItemsMenu", itemMenuPanelCliente1);
+        jTabbedPane1.addTab("Carrito", carritoCliente1);
         jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente1);
         jTabbedPane1.addTab("Pedido", itemPedidoPanelCliente1);
+        jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente2);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private nc.vista.cliente.CarritoCliente carritoCliente1;
     private nc.vista.cliente.ItemMenuPanelCliente itemMenuPanelCliente1;
     private nc.vista.cliente.ItemPedidoPanelCliente itemPedidoPanelCliente1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private nc.vista.cliente.PedidosMenuPanelCliente pedidosMenuPanelCliente1;
+    private nc.vista.cliente.PedidosMenuPanelCliente pedidosMenuPanelCliente2;
     private nc.vista.cliente.VendedoresSelectPanelCliente vendedoresSelectPanelCliente1;
     // End of variables declaration//GEN-END:variables
 }
