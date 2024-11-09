@@ -93,4 +93,8 @@ public class Carrito {
         representation.append("Representando un subtotal de: $").append(pedido.getPrecio()).append(" .Mas el recargo de su método de pago");
         return representation.toString();
     }
+
+    double calcularTotal() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

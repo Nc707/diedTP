@@ -7,19 +7,26 @@ package nc.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import nc.modelo.Cliente;
-import nc.modelo.Coordenada;
-import nc.modelo.Vendedor;
 import nc.dao.ClienteDAO;
 import nc.dao.memory.ClienteMemory;
-import nc.dao.memory.VendedorMemory;
+import nc.dao.memory.ItemMenuMemory;
+import nc.dao.memory.ItemPedidoMemory;
+import nc.modelo.Cliente;
+import nc.modelo.Coordenada;
+import nc.modelo.ItemMenu;
+import nc.modelo.ItemPedido;
 
 /**
  *
  * @author nicol
  */
 public class ClientController {
-    public List<List> loadData(){
+
+    private ItemMenuMemory items = ItemMenuMemory.getInstancia();
+    private ClienteMemory clients = ClienteMemory.getInstancia();
+    private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
+
+    public List<List> loadData() {
         ClienteDAO database = ClienteMemory.getInstancia();
         List<Cliente> data = database.listar();
         return data.stream().map((Cliente c) -> {
@@ -31,6 +38,7 @@ public class ClientController {
             return list;
         }).collect(Collectors.toList());
     }
+
     /*
     *Returns a list with order:
     *   Int ID
@@ -40,8 +48,8 @@ public class ClientController {
     *   String Cuit
     *   Int Latitude
     *   Int Longitude
-    */
-    public List getCliente(int ID){
+     */
+    public List getCliente(int ID) {
         List clientData = new ArrayList();
         Cliente client = ClienteMemory.getInstancia().buscar(ID);
         clientData.add(ID);
@@ -53,18 +61,31 @@ public class ClientController {
         clientData.add(client.getCoordenada().getLongitude());
         return clientData;
     }
+
     public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         Cliente cliente = new Cliente(nombre, cuit, email, direccion, latitud, longitud);
         ClienteMemory.getInstancia().add(cliente);
         return cliente;
     }
-    
-    public void modificarCliente(int ID, String nombre, String direccion, String mail, int cuit, double cx, double cy){
+
+    public void modificarCliente(int ID, String nombre, String direccion, String mail, int cuit, double cx, double cy) {
         Cliente client = ClienteMemory.getInstancia().buscar(ID);
         client.setNombre(nombre);
         client.setDireccion(direccion);
         client.setEmail(mail);
         client.setCuit(cuit);
         client.setCoordenada(new Coordenada(cx, cy));
+    }
+
+    public void agregarProductoAlCarrito(int ID, int ID_menu, int cantidad) {
+        ItemMenu item = items.buscar(ID_menu);
+        Cliente client = clients.buscar(ID);
+        client.agregarProductoAlCarrito(item, cantidad);
+    }
+
+    public void eliminarProducto(int ID, int ID_item) {
+        ItemPedido item = itemsPedido.getItemPedido(ID_item);
+        Cliente client = clients.buscar(ID);
+        client.eliminarProductoDelCarrito(item);
     }
 }
