@@ -6,7 +6,7 @@ package nc.modelo;
 
 import java.util.HashSet;
 import java.util.List;
-import nc.modelo.excepciones.CategoriaIncompatibleException;
+import nc.excepciones.CategoriaIncompatibleException;
 
 public abstract class ItemMenu {
 

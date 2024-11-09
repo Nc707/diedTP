@@ -4,7 +4,7 @@
  */
 package nc.vista.initView.dialog;
 
-import nc.controlador.ClientController;
+import nc.controller.ClientController;
 import nc.vista.initView.ClientesMenuPanel;
 import nc.vista.initView.ClientesMenuPanel;
 

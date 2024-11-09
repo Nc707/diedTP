@@ -6,7 +6,7 @@ package nc.vista.vendedor.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import nc.controlador.ItemMenuController;
+import nc.controller.ItemMenuController;
 
 /**
  *
