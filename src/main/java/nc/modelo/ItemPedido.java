@@ -4,8 +4,8 @@
  */
 package nc.modelo;
 
-import nc.modelo.ItemPedidoManagement.CompareStrategyInterface;
-import nc.modelo.ItemPedidoManagement.compareStrategies.ItemPedidoPriceCompSt;
+import nc.util.compareStategies.itemPedido.implementations.ItemPedidoPriceCompSt;
+import nc.util.compareStrategies.itemPedido.CompareItemPedidoStrategyInterface;
 
 
 /**
@@ -20,7 +20,7 @@ public class ItemPedido implements Comparable {
     private ItemMenu itemMenu;
     private Pedido pedido;
     
-    private CompareStrategyInterface compareStrategy;
+    private CompareItemPedidoStrategyInterface compareStrategy;
     
     //cons
     public ItemPedido(ItemMenu item,int cant, Pedido pedido){
@@ -51,7 +51,7 @@ public class ItemPedido implements Comparable {
     public float getPrecio(){
         return precio;
     }
-    public void setStrategy(CompareStrategyInterface cmp){
+    public void setStrategy(CompareItemPedidoStrategyInterface cmp){
         this.compareStrategy = cmp;
     }
     public void modificarCantidad(int nuevaCantidad){

@@ -10,7 +10,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.PedidoController;
+import nc.controller.PedidoController;
 import nc.vista.PersonalizatedTableModel;
 
 /**

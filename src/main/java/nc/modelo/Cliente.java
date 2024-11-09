@@ -1,9 +1,8 @@
 package nc.modelo;
-import nc.modelo.ItemPedidoManagement.Carrito;
-import nc.modelo.ItemPedidoManagement.ItemPedidoMemory;
-import nc.modelo.interfacesPackage.Observable;
-import nc.modelo.excepciones.CantidadItemInvalidaException;
-import nc.modelo.interfacesPackage.Observer;
+import nc.dao.memory.ItemPedidoMemory;
+import nc.util.interfacesPackage.Observable;
+import nc.excepciones.CantidadItemInvalidaException;
+import nc.util.interfacesPackage.Observer;
 import java.util.Date;
 import java.util.Random;
 
