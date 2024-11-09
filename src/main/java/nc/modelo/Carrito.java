@@ -76,7 +76,6 @@ public class Carrito {
         return pedido.getPrecio();
     }
 
-    //solo para debugging
     public List<ItemPedido> getItems() {
         return (List<ItemPedido>) items.clone();
     }
