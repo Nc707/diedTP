@@ -7,6 +7,7 @@ package nc.vista.cliente;
 import nc.vista.cliente.ClientesFrame;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -42,6 +43,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(vendedorTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent evt){
