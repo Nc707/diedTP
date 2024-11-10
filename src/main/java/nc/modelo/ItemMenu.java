@@ -6,6 +6,8 @@ package nc.modelo;
 
 import java.util.HashSet;
 import java.util.List;
+
+import nc.dao.jdbc.VendedorJDBC;
 import nc.excepciones.CategoriaIncompatibleException;
 
 public abstract class ItemMenu {
@@ -17,14 +19,28 @@ public abstract class ItemMenu {
     private float precio;
     private Vendedor vendedor;
     protected HashSet<Categoria> categorias;
+    private boolean es_bebida;
     
-    public ItemMenu(String nombre, float precio, Vendedor vendedor){
+    public ItemMenu(String nombre, float precio, Vendedor vendedor, boolean es_bebida){
         this.setNombre(nombre);
         this.setPrecio(precio);
         this.setId();
         this.descripcion = new String();
         this.categorias = new HashSet();
         this.vendedor = vendedor;
+        this.es_bebida = es_bebida;
+    }
+
+    VendedorJDBC vendedorJDBC = new VendedorJDBC();
+
+    public ItemMenu(int id, String nombre, String descripcion, float precio, int vendedor, boolean es_bebida){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.id = id;
+        this.descripcion = descripcion;
+        this.categorias = new HashSet();
+        this.vendedor = vendedorJDBC.buscar(vendedor);
+        this.es_bebida = es_bebida;
     }
     public String getNombre(){
         return nombre;

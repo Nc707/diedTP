@@ -23,6 +23,17 @@ public class Cliente implements Observer {
     public Cliente() {
     } //constructor generico para poder instanciar un cliente sin parametros
 
+    //constructor para jdbc
+    public Cliente(int id, String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
+        this.id = id;
+        this.cuit = cuit;
+        this.email = email;
+        this.direccion = direccion;
+        this.coordenadas = new Coordenada(latitud, longitud);
+        this.nombre = nombre;
+    }
+
+    //constructor para memory
     public Cliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         this.id = next_id;
         ++next_id;

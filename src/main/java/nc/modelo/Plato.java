@@ -12,13 +12,22 @@ public class Plato extends ItemMenu {
     private boolean aptoCeliaco;
     private boolean aptoVegano;
     private float peso;
+    private boolean es_bebida;
 
     public Plato(String nombre, Vendedor vendedor, float precio,float peso, float calorias) {
-        super(nombre, precio, vendedor);
+        super(nombre, precio, vendedor, false);
         this.setCalorias(calorias);
         this.setPeso(peso);
         this.categorias.add(Categoria.categoriaPlatos);
     }
+
+    public Plato(int id, String nombre, String descripcion,  float precio, int vendedor,float peso, float calorias) {
+        super(id, nombre,  descripcion,  precio,  vendedor, false);
+        this.setCalorias(calorias);
+        this.setPeso(peso);
+        this.categorias.add(Categoria.categoriaPlatos);
+    }
+
     private void setCalorias(float calorias) {
         this.calorias = calorias;
     }
