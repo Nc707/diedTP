@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
@@ -40,6 +41,7 @@ public class CarritoCliente extends javax.swing.JPanel {
     private int filterID = 0;
     int ID_Seleccionado = -1;
     private int ClientID;
+    ClientesFrame frameSuperior;
     /**
      * Creates new form ItemMenuPanel
      */
@@ -51,6 +53,7 @@ public class CarritoCliente extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(modeloItemsPedido);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
            @Override
            public void valueChanged(ListSelectionEvent evt){
@@ -61,6 +64,9 @@ public class CarritoCliente extends javax.swing.JPanel {
                    }
                }   
            }});
+    }
+    public void setUpperFrame(ClientesFrame frame){
+        this.frameSuperior = frame;
     }
     public void setCliente(int ID){
         this.ClientID = ID;
@@ -96,6 +102,7 @@ public class CarritoCliente extends javax.swing.JPanel {
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
         cerrarPedidoButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -200,6 +207,18 @@ public class CarritoCliente extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(cerrarPedidoButton, gridBagConstraints);
 
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,13 +292,18 @@ public class CarritoCliente extends javax.swing.JPanel {
 
     private void cerrarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPedidoButtonActionPerformed
         if(carrito.getContenidoCarrito(this.ClientID)==null) 
-            JOptionPane.showMessageDialog(null, "No es posible cerrar su carrito, está vacío");
+            JOptionPane.showMessageDialog(null, "No es posible cerrar su carrito, está vacío", "Carrito Vacío", JOptionPane.ERROR_MESSAGE);
         else
             new CerrarPedido((JFrame) SwingUtilities.getWindowAncestor(this),true).setVisible(true);
     }//GEN-LAST:event_cerrarPedidoButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.frameSuperior.goBack();
+    }//GEN-LAST:event_backButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cerrarPedidoButton;

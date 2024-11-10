@@ -47,6 +47,13 @@ public class ClientesFrame extends javax.swing.JPanel {
     public void unsetVendedor(){
         this.IDCurrentVendedor = -1;
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), true);
+    }
+    public void deleteCarrito(){
+        this.IDCurrentVendedor = -1;
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), true);
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
     }
     public void unsetPedido(){
         this.IDCurrentPedido = -1;

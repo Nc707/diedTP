@@ -18,6 +18,7 @@ import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.lang.String;
+import javax.swing.ListSelectionModel;
 /**
  *
  * @author nicol
@@ -56,6 +57,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
            @Override
            public void valueChanged(ListSelectionEvent evt){

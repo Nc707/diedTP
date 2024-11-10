@@ -105,6 +105,7 @@ public class ClientController {
     public List<List> getContenidoCarrito(int ID){
         Cliente client = clients.buscar(ID);
         List<ItemPedido> data = client.getItemsCarrito();
+        if(data!=null && !data.isEmpty())
         return data.stream().map((ItemPedido item) -> {
             ArrayList list = new ArrayList();
             list.add(item.getId());
@@ -114,6 +115,7 @@ public class ClientController {
             list.add(item.getPrecio());
             return list;
         }).collect(Collectors.toList());
+        else return null;
     }
     public void modificarItemCarrito(int ID, int ID_item, int nuevaCantidad){
         Cliente client = clients.buscar(ID);
