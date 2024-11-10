@@ -4,6 +4,8 @@
  */
 package nc.vista.cliente;
 
+import java.util.List;
+import nc.controller.ClientController;
 import nc.vista.VistaPrincipal;
 
 /**
@@ -19,10 +21,12 @@ public class ClientesFrame extends javax.swing.JPanel {
     private int cliente = -1;
     private int IDCurrentVendedor;
     private int IDCurrentPedido;
+    private ClientController controlador;
     
     @SuppressWarnings("")
     public ClientesFrame() {
         initComponents();
+        this.controlador = new ClientController();
         itemMenuPanelCliente1.setUpperFrame(this);
         vendedoresSelectPanelCliente1.setUpperFrame(this);
         pedidosMenuPanelCliente1.setUpperFrame(this);
@@ -56,9 +60,13 @@ public class ClientesFrame extends javax.swing.JPanel {
     }
     public void setCliente(int IDCliente){
         this.cliente = IDCliente;
+        int idVendedor = controlador.getVendedorCarrito(IDCliente);
         pedidosMenuPanelCliente1.setClientID(IDCliente);
         pedidosMenuPanelCliente1.updateTable();
-        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+        if(idVendedor<0)
+            jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+        else
+            setVendedor(idVendedor);
         
     }
     public void goBack(){

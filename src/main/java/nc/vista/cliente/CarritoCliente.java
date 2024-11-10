@@ -4,16 +4,20 @@
  */
 package nc.vista.cliente;
 
+import java.awt.Dialog;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 import nc.controller.ClientController;
-import nc.controller.ItemPedidoController;
 import nc.vista.PersonalizatedTableModel;
+import nc.vista.cliente.dialog.CerrarPedido;
 
 /**
  *
@@ -91,6 +95,7 @@ public class CarritoCliente extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
+        cerrarPedidoButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -178,11 +183,22 @@ public class CarritoCliente extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.ipady = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(jButton3, gridBagConstraints);
+
+        cerrarPedidoButton.setText("Cerrar Pedido");
+        cerrarPedidoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPedidoButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel7.add(cerrarPedidoButton, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -255,10 +271,18 @@ public class CarritoCliente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void cerrarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPedidoButtonActionPerformed
+        if(carrito.getContenidoCarrito(this.ClientID)==null) 
+            JOptionPane.showMessageDialog(null, "No es posible cerrar su carrito, está vacío");
+        else
+            new CerrarPedido((JFrame) SwingUtilities.getWindowAncestor(this),true).setVisible(true);
+    }//GEN-LAST:event_cerrarPedidoButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton cerrarPedidoButton;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
