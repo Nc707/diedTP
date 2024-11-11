@@ -6,6 +6,9 @@ package nc.vista.initView.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import nc.vista.initView.VendedoresMenuPanel;
 import nc.vista.vendedor.dialog.ModificarVendedor;
 
@@ -59,8 +62,10 @@ public class DialogVendedor extends javax.swing.JDialog {
         txtNombre = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         InicioSesion = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 300));
         setResizable(false);
         setSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -170,6 +175,17 @@ public class DialogVendedor extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(InicioSesion, gridBagConstraints);
 
+        jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(jButton2, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -183,12 +199,23 @@ public class DialogVendedor extends javax.swing.JDialog {
         panelSuperior.crearModificarVendedor(padre, mdal, lista, panelSuperior);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int eliminar = JOptionPane.showConfirmDialog(this,
+                "Está seguro? Se eliminará el usuario y todos sus itemMenu, sus pedidos no enviados quedarán como cancelados. Esta acción no puede revertirse",
+                "Eliminar Vendedor",JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if(eliminar == JOptionPane.OK_OPTION)
+        {}
+        else{}
+            
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InicioSesion;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

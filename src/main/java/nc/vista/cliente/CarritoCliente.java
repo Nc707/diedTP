@@ -287,7 +287,9 @@ public class CarritoCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if(this.ID_Seleccionado!=-1){}
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Item no seleccionado. Por favor seleccione un Item"
+                , "Item no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cerrarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPedidoButtonActionPerformed

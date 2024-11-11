@@ -6,8 +6,11 @@ package nc.vista.vendedor;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
@@ -252,7 +255,9 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if(this.ID_Seleccionado!=-1){}
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, ItemPedido no seleccionado. Por favor seleccione un ItemPedido"
+                , "ItemPedido no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

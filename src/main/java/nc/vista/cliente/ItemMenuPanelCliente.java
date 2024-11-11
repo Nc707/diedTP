@@ -96,11 +96,11 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         VerDetalleButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        backButton1 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -155,17 +155,6 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         jPanel1.add(jComboBox1, gridBagConstraints);
 
-        jButton2.setText("Crear Nuevo ItemMenu");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(jButton2, gridBagConstraints);
-
         jTextPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextPane1.setToolTipText("");
         jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -214,8 +203,20 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel7.add(backButton, gridBagConstraints);
+
+        backButton1.setText("Volver");
+        backButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton1, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -232,17 +233,6 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    // CreacionItemMenu creacion= new CreacionItemMenu(vendedorID,this);
-    // creacion.setVisible(true);
-        /*CreacionItemMenu panel = new CreacionItemMenu(vendedorID, this);
-    JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
-    dialog.getContentPane().add(panel);
-    dialog.pack();
-    dialog.setLocationRelativeTo(null);
-    dialog.setVisible(true);*/
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
         if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
@@ -294,19 +284,28 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
-        ItemMenuVer dialog = new ItemMenuVer(null, true, this.ID_Seleccionado, this.itemsMenu);
-        dialog.setVisible(true);
+        if(this.ID_Seleccionado!=-1){
+            ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
+            dialog.setModal(true);
+            dialog.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Item no seleccionado. Por favor seleccione un Item"
+                , "Item no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_VerDetalleButtonActionPerformed
+
+    private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
+        this.frameSuperior.goBack();
+    }//GEN-LAST:event_backButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton VerDetalleButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton backButton1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;

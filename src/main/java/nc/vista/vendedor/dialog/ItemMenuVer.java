@@ -66,6 +66,7 @@ public class ItemMenuVer extends javax.swing.JDialog {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 400));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         IDLabel.setText("ID: ");
