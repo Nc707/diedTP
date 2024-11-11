@@ -18,6 +18,7 @@ import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.lang.String;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 /**
  *
@@ -243,6 +244,8 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
      CreacionItemMenu creacion= new CreacionItemMenu(vendedorID,this);
+     creacion.setModal(true);
+     creacion.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
      creacion.setVisible(true);
         /*CreacionItemMenu panel = new CreacionItemMenu(vendedorID, this);
     JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
@@ -300,8 +303,13 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
-        ItemMenuVer dialog = new ItemMenuVer(null, true, this.ID_Seleccionado, this.itemsMenu);
-        dialog.setVisible(true);
+        if(this.ID_Seleccionado!=-1){
+            ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
+            dialog.setModal(true);
+            dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
+            dialog.setVisible(true);
+        } else  JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, ItemMenu no seleccionado. Por favor seleccione un ItemMenu"
+                + ".\nSi no se encuentra ninguno registrado cree uno y seleccionelo.", "ItemMenu no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_VerDetalleButtonActionPerformed
 
 
