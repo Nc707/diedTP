@@ -18,6 +18,8 @@ import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.lang.String;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 /**
  *
  * @author nicol
@@ -47,6 +49,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
            @Override
            public void valueChanged(ListSelectionEvent evt){
@@ -202,7 +205,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(VerDetalleButton, gridBagConstraints);
 
-        backButton.setText("Volver");
+        backButton.setText("Seleccionar otro vendedor");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -285,7 +288,9 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.frameSuperior.goBack();
+        int opcion = JOptionPane.showConfirmDialog((JFrame) SwingUtilities.getWindowAncestor(this),"Si elije otro vendedor su carrito será borrado, desea continuar?",
+                "Borrar Carrito" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if(opcion==JOptionPane.OK_OPTION)this.frameSuperior.deleteCarrito();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
