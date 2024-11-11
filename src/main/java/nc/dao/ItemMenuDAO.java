@@ -32,6 +32,10 @@ public interface ItemMenuDAO {
 
     public void add(ItemMenu item);
 
+    public void update(int ID, ItemMenu item) throws ItemNoEncontradoException;
+
+    public void delete(int ID) throws ItemNoEncontradoException;
+
     public void addAll(List<ItemMenu> items);
 
     public ItemMenu getItem(int ID) throws ItemNoEncontradoException;

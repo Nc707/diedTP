@@ -35,6 +35,12 @@ public interface ItemPedidoDAO {
         PRECIO_PEDIDO,
         PRECIO_ITEMMENU
     }
+    public List<ItemPedido> getAll();
+    public void add(ItemPedido item);
+    public void update(int ID, ItemPedido item) throws ItemNoEncontradoException;
+    public void delete(int ID) throws ItemNoEncontradoException;
+    public void addAll(List<ItemPedido> items);
+    public ItemPedido getItem(int ID) throws ItemNoEncontradoException;
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException;
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden, boolean ascendente) throws ItemNoEncontradoException;
     public List<ItemPedido> filtrarRango(tipoFiltradoRango tipoFiltrado, Object piso, Object tope)throws ItemNoEncontradoException;
