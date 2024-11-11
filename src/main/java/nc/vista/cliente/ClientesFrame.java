@@ -30,6 +30,8 @@ public class ClientesFrame extends javax.swing.JPanel {
         itemMenuPanelCliente1.setUpperFrame(this);
         vendedoresSelectPanelCliente1.setUpperFrame(this);
         pedidosMenuPanelCliente1.setUpperFrame(this);
+        this.itemPedidoPanelCliente1.setFrameSuperior(this);
+        this.carritoCliente1.setUpperFrame(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
     }
@@ -98,7 +100,6 @@ public class ClientesFrame extends javax.swing.JPanel {
         carritoCliente1 = new nc.vista.cliente.CarritoCliente();
         pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
         itemPedidoPanelCliente1 = new nc.vista.cliente.ItemPedidoPanelCliente();
-        pedidosMenuPanelCliente2 = new nc.vista.cliente.PedidosMenuPanelCliente();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -107,7 +108,6 @@ public class ClientesFrame extends javax.swing.JPanel {
         jTabbedPane1.addTab("Carrito", carritoCliente1);
         jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente1);
         jTabbedPane1.addTab("Pedido", itemPedidoPanelCliente1);
-        jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente2);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -119,7 +119,6 @@ public class ClientesFrame extends javax.swing.JPanel {
     private nc.vista.cliente.ItemPedidoPanelCliente itemPedidoPanelCliente1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private nc.vista.cliente.PedidosMenuPanelCliente pedidosMenuPanelCliente1;
-    private nc.vista.cliente.PedidosMenuPanelCliente pedidosMenuPanelCliente2;
     private nc.vista.cliente.VendedoresSelectPanelCliente vendedoresSelectPanelCliente1;
     // End of variables declaration//GEN-END:variables
 }

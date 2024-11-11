@@ -6,8 +6,11 @@ package nc.vista.cliente;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
@@ -35,6 +38,7 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
     private int filterID = 0;
     int ID_Seleccionado = -1;
     int PedidoID = 0;
+    ClientesFrame frameSuperior;
     /**
      * Creates new form ItemMenuPanel
      */
@@ -57,6 +61,9 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
                    }
                }   
            }});
+    }
+    public void setFrameSuperior(ClientesFrame frameSuperior){
+        this.frameSuperior = frameSuperior;
     }
     public void setID(int ID){
         this.ID_Seleccionado = ID;
@@ -95,6 +102,7 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -188,6 +196,18 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(jButton3, gridBagConstraints);
 
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -256,11 +276,18 @@ public class ItemPedidoPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if(this.ID_Seleccionado!=-1){}
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Item no seleccionado. Por favor seleccione un Item"
+                , "Item no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.frameSuperior.goBack();
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTable contentTable;
