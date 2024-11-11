@@ -166,4 +166,34 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
         sort(ordered);
         return ordered;
     }
+
+    @Override
+    public void add(ItemPedido item) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'add'");
+    }
+
+    @Override
+    public void update(int ID, ItemPedido item) throws ItemNoEncontradoException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public void delete(int ID) throws ItemNoEncontradoException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    @Override
+    public void addAll(List<ItemPedido> items) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+    }
+
+    @Override
+    public ItemPedido getItem(int ID) throws ItemNoEncontradoException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getItem'");
+    }
 }

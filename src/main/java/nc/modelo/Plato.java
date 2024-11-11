@@ -12,7 +12,6 @@ public class Plato extends ItemMenu {
     private boolean aptoCeliaco;
     private boolean aptoVegano;
     private float peso;
-    private boolean es_bebida;
 
     public Plato(String nombre, Vendedor vendedor, float precio,float peso, float calorias) {
         super(nombre, precio, vendedor, false);

@@ -215,4 +215,16 @@ public class ItemMenuMemory implements ItemMenuDAO {
         return (List<ItemMenu>) memory.clone();
     }
 
+    @Override
+    public void update(int ID, ItemMenu item) throws ItemNoEncontradoException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public void delete(int ID) throws ItemNoEncontradoException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
 }

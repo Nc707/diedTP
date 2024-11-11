@@ -12,14 +12,14 @@ public class Bebida extends ItemMenu {
     private float tamaño; // tamaño en mL.
     private float peso;
 
-    public Bebida(String nombre,Vendedor vendedor , float precio, float pes, int grado, float tam) {
+    public Bebida(String nombre,Vendedor vendedor , float precio, float pes, float grado, float tam) {
         super(nombre, precio, vendedor, true);
         this.graduacionAlcoholica = grado;
         this.peso = peso(pes);
         this.tamaño = tam;
         this.categorias.add(Categoria.categoriaBebidas);
     }
-    public Bebida(int id, String nombre, String descripcion , float precio, int vendedor, float pes, int grado, float tam) {
+    public Bebida(int id, String nombre, String descripcion , float precio, int vendedor, float pes, float grado, float tam) {
         super(id, nombre,  descripcion,  precio,  vendedor, true);
         this.graduacionAlcoholica = grado;
         this.peso = peso(pes);

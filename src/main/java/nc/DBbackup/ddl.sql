@@ -7,7 +7,7 @@ CREATE TABLE vendedor (
 
 CREATE TABLE cliente (
     id INTEGER auto_increment PRIMARY KEY,
-    cuit INTEGER NOT NULL,
+    cuit BIGINT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     email VARCHAR(80) NOT NULL,
     direccion VARCHAR(80) NOT NULL,
@@ -27,6 +27,22 @@ CREATE TABLE item_menu (
     es_bebida BOOLEAN NOT NULL,
     FOREIGN KEY (id_vendedor) REFERENCES vendedor(id) ON DELETE CASCADE
 );
+CREATE TABLE plato (
+    id INT PRIMARY KEY,
+    calorias FLOAT NOT NULL,
+    apto_celiaco BOOLEAN NOT NULL,
+    apto_vegano BOOLEAN NOT NULL,
+    peso FLOAT NOT NULL,
+    FOREIGN KEY (id) REFERENCES item_menu(id) ON DELETE CASCADE
+);
+CREATE TABLE bebida (
+    id INT PRIMARY KEY,
+    graduacion_alcoholica FLOAT,
+    tamaño FLOAT NOT NULL,
+    peso FLOAT NOT NULL,
+    FOREIGN KEY (id) REFERENCES item_menu(id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE tiene_categoria (
     id_item_menu INTEGER,
