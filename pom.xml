@@ -20,6 +20,13 @@
         </plugins>
     </build>
     <dependencies>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>5.2.0</version> <!-- Usando la versión más reciente, puedes verificar si hay alguna nueva -->
+        <scope>test</scope>
+    </dependency>
+
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>

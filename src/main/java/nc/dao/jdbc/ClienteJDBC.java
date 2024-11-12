@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 import nc.config.DBConnector;
 import nc.dao.ClienteDAO;
-import nc.modelo.Cliente;
+import nc.modelo.Cliente;       
 
 
 public class ClienteJDBC implements ClienteDAO{

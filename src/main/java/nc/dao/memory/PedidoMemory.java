@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import nc.dao.PedidoDAO;
 import nc.modelo.Cliente;
 import nc.modelo.Pedido;
+import nc.modelo.Pedido.EstadoPedido;
 import nc.modelo.Vendedor;
 
 /**
@@ -62,6 +63,30 @@ public class PedidoMemory implements PedidoDAO {
     public Pedido crear(Vendedor vendedor, Cliente cliente) {
         Pedido pedido = new Pedido(vendedor, cliente);
         return pedido;
+    }
+
+    @Override
+    public ArrayList<Pedido> listarPorVendedor(int idVendedor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarPorVendedor'");
+    }
+
+    @Override
+    public ArrayList<Pedido> listarPorCliente(int idCliente) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarPorCliente'");
+    }
+
+    @Override
+    public ArrayList<Pedido> listarPorEstadoYVendedor(int id_vendedor, EstadoPedido estado) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarPorEstadoYVendedor'");
+    }
+
+    @Override
+    public ArrayList<Pedido> listarPorEstadoYCliente(int id_cliente, EstadoPedido estado) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarPorEstadoYCliente'");
     }
 
 }

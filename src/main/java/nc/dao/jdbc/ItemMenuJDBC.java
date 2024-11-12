@@ -127,12 +127,6 @@ public class ItemMenuJDBC implements ItemMenuDAO {
         }
         }
 
-
-
-    
-
-    
-
     @Override
     public void addAll(List<ItemMenu> items){
         for (ItemMenu item : items) {
