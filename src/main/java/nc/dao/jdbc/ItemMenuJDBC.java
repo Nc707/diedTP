@@ -29,7 +29,6 @@ public class ItemMenuJDBC implements ItemMenuDAO {
                         "LEFT JOIN bebida b ON b.id = im.id AND im.es_bebida = TRUE;";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 if(rs.getBoolean("es_bebida")){
                     ItemMenu item = new Bebida(
@@ -258,6 +257,7 @@ public class ItemMenuJDBC implements ItemMenuDAO {
         throw new UnsupportedOperationException("Not supported yet.");
         // List<ItemMenu> items = new ArrayList<>();
         // String query = "SELECT * FROM item_menu WHERE ";
+
     
 
         // //VER ESTO PORQUE ESTAN MAL LOS CASES
@@ -342,6 +342,7 @@ public class ItemMenuJDBC implements ItemMenuDAO {
         //         throw new ItemNoEncontradoException("No se encontraron items con el filtro especificado.");
         //     }
     
+
         // } catch (SQLException ex) {
         //     Logger.getLogger(ItemMenuJDBC.class.getName()).log(Level.SEVERE, "Error al filtrar items", ex);
         // }

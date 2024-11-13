@@ -8,6 +8,7 @@ CREATE TABLE vendedor (
 CREATE TABLE cliente (
     id INTEGER auto_increment PRIMARY KEY,
     cuit BIGINT NOT NULL UNIQUE,
+
     nombre VARCHAR(50) NOT NULL,
     email VARCHAR(80) NOT NULL,
     direccion VARCHAR(80) NOT NULL,

@@ -90,6 +90,7 @@ INSERT INTO item_pedido (cantidad, precio, id_item_menu, id_pedido) VALUES
 (1, 20.00, 9, 9), 
 (3, 9.00, 10, 10);
 
+
 -- mas datos para poblar
 
 -- Poblar la tabla vendedor
@@ -174,5 +175,6 @@ INSERT INTO item_pedido (cantidad, precio, id_item_menu, id_pedido) VALUES
 -- Pedido 4 (Cliente: Carlos Gonzalez - Vendedor: Parrilla El Fogon)
 (1, 6.00, 8, 14), -- 1 Ensalada Mixta a $6.00
 (1, 4.00, 4, 14); -- 1 Helado de Chocolate a $4.00
+
 
 
