@@ -1,6 +1,8 @@
 package nc.modelo;
 
 import nc.excepciones.VendedorIncorrectoException;
+import nc.dao.jdbc.ClienteJDBC;
+import nc.dao.jdbc.VendedorJDBC;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
 import nc.util.metodosDePago.EstrategiaPago;
@@ -22,6 +24,9 @@ public class Pedido implements Observable{
     private EstrategiaPago metodoPago;
     private List<ItemPedido> items;
 
+    private VendedorJDBC vendedorJDBC = new VendedorJDBC();
+    private ClienteJDBC clienteJDBC = new ClienteJDBC();
+
     public enum EstadoPedido{
         EN_CARRITO,
         RECIBIDO,
@@ -39,6 +44,16 @@ public class Pedido implements Observable{
         this.estado = EstadoPedido.EN_CARRITO;
         this.items = new ArrayList<>();
 
+    }
+
+    public Pedido(int id, int id_vendedor, int id_cliente, float precio, EstadoPedido estado) {
+
+        this.id = id;
+        this.vendedor = vendedorJDBC.buscar(id_vendedor);
+        this.cliente = clienteJDBC.buscar(id_cliente);
+        this.precio = precio;
+        this.estado = estado;
+        this.items = new ArrayList<>();
     }
 
     public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
