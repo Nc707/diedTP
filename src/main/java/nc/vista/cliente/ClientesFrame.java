@@ -4,6 +4,8 @@
  */
 package nc.vista.cliente;
 
+import java.util.List;
+import nc.controller.ClientController;
 import nc.vista.VistaPrincipal;
 
 /**
@@ -19,12 +21,17 @@ public class ClientesFrame extends javax.swing.JPanel {
     private int cliente = -1;
     private int IDCurrentVendedor;
     private int IDCurrentPedido;
+    private ClientController controlador;
     
     @SuppressWarnings("")
     public ClientesFrame() {
         initComponents();
+        this.controlador = new ClientController();
         itemMenuPanelCliente1.setUpperFrame(this);
         vendedoresSelectPanelCliente1.setUpperFrame(this);
+        pedidosMenuPanelCliente1.setUpperFrame(this);
+        this.itemPedidoPanelCliente1.setFrameSuperior(this);
+        this.carritoCliente1.setUpperFrame(this);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
         pedidosMenuPanelCliente1.setUpperFrame(this);
@@ -38,24 +45,43 @@ public class ClientesFrame extends javax.swing.JPanel {
         itemMenuPanelCliente1.updateModel();
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), true);
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1));
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), false);
     }
     public void unsetVendedor(){
         this.IDCurrentVendedor = -1;
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), true);
+    }
+    public void deleteCarrito(){
+        this.IDCurrentVendedor = -1;
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), false);
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1), true);
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+    }
+    public void unsetPedido(){
+        this.IDCurrentPedido = -1;
+        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), false);
     }
     public void setPedido(int IDPedido){
-        IDCurrentPedido = IDPedido;
-        itemPedidoPanelCliente1.setID(IDPedido);
-        itemPedidoPanelCliente1.updateModel();
-        jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), true);
-        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1));
+       this.itemPedidoPanelCliente1.setPedido(IDPedido);
+       this.itemPedidoPanelCliente1.updateModel();
+       jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1), true);
+       jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemPedidoPanelCliente1));
     }
     public void setCliente(int IDCliente){
         this.cliente = IDCliente;
-        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+        int idVendedor = controlador.getVendedorCarrito(IDCliente);
+        pedidosMenuPanelCliente1.setClientID(IDCliente);
+        pedidosMenuPanelCliente1.updateTable();
+        if(idVendedor<0)
+            jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+        else
+            setVendedor(idVendedor);
+        
     }
     public void goBack(){
         unsetVendedor();
+        unsetPedido();
         upperFrame.volverInicio();
     }
     
@@ -72,6 +98,8 @@ public class ClientesFrame extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         vendedoresSelectPanelCliente1 = new nc.vista.cliente.VendedoresSelectPanelCliente();
         itemMenuPanelCliente1 = new nc.vista.cliente.ItemMenuPanelCliente();
+        carritoCliente1 = new nc.vista.cliente.CarritoCliente();
+        pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
         itemPedidoPanelCliente1 = new nc.vista.cliente.ItemPedidoPanelCliente();
         pedidosMenuPanelCliente1 = new nc.vista.cliente.PedidosMenuPanelCliente();
 
@@ -79,6 +107,8 @@ public class ClientesFrame extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Seleccionar vendedor", vendedoresSelectPanelCliente1);
         jTabbedPane1.addTab("ItemsMenu", itemMenuPanelCliente1);
+        jTabbedPane1.addTab("Carrito", carritoCliente1);
+        jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente1);
         jTabbedPane1.addTab("Pedido", itemPedidoPanelCliente1);
         jTabbedPane1.addTab("Mis Pedidos", pedidosMenuPanelCliente1);
 
@@ -87,6 +117,7 @@ public class ClientesFrame extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private nc.vista.cliente.CarritoCliente carritoCliente1;
     private nc.vista.cliente.ItemMenuPanelCliente itemMenuPanelCliente1;
     private nc.vista.cliente.ItemPedidoPanelCliente itemPedidoPanelCliente1;
     private javax.swing.JTabbedPane jTabbedPane1;

@@ -4,21 +4,20 @@
 package nc.modelo;
 
 
-import nc.modelo.ItemPedidoManagement.ItemPedidoMemory;
+import nc.dao.memory.ItemPedidoMemory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-import nc.modelo.ClienteDAOandMemory.ClienteDAO;
-import nc.modelo.ClienteDAOandMemory.ClienteMemory;
+import nc.dao.ClienteDAO;
+import nc.dao.memory.ClienteMemory;
 
-import nc.modelo.excepciones.CategoriaIncompatibleException;
-
-import nc.modelo.excepciones.PedidoCerradoException;
-import nc.modelo.excepciones.PedidoIncorrectoException;
-import nc.modelo.excepciones.VendedorIncorrectoException;
-import nc.modelo.ItemMenuDAOandMemory.ItemMenuMemory;
-import nc.modelo.VendedorDAOandMemory.VendedorDAO;
-import nc.modelo.VendedorDAOandMemory.VendedorMemory;
+import nc.excepciones.CategoriaIncompatibleException;
+import nc.excepciones.PedidoCerradoException;
+import nc.excepciones.PedidoIncorrectoException;
+import nc.excepciones.VendedorIncorrectoException;
+import nc.dao.memory.ItemMenuMemory;
+import nc.dao.VendedorDAO;
+import nc.dao.memory.VendedorMemory;
 
 public class initGen {
 

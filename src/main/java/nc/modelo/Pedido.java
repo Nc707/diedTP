@@ -1,16 +1,18 @@
 package nc.modelo;
 
-import nc.modelo.excepciones.VendedorIncorrectoException;
-import nc.modelo.excepciones.PedidoCerradoException;
-import nc.modelo.excepciones.PedidoIncorrectoException;
-import nc.modelo.metodosDePago.EstrategiaPago;
-import nc.modelo.metodosDePago.PagoMercadoPago;
-import nc.modelo.metodosDePago.PagoTransferencia;
+import nc.excepciones.VendedorIncorrectoException;
+import nc.dao.jdbc.ClienteJDBC;
+import nc.dao.jdbc.VendedorJDBC;
+import nc.excepciones.PedidoCerradoException;
+import nc.excepciones.PedidoIncorrectoException;
+import nc.util.metodosDePago.EstrategiaPago;
+import nc.util.metodosDePago.PagoMercadoPago;
+import nc.util.metodosDePago.PagoTransferencia;
 import java.util.ArrayList;
 import java.util.List;
 
-import nc.modelo.interfacesPackage.Observable;
-import nc.modelo.interfacesPackage.Observer;
+import nc.util.interfacesPackage.Observable;
+import nc.util.interfacesPackage.Observer;
 
 public class Pedido implements Observable{
     private static int next_id=0;
@@ -21,6 +23,9 @@ public class Pedido implements Observable{
     private EstadoPedido estado;
     private EstrategiaPago metodoPago;
     private List<ItemPedido> items;
+
+    private VendedorJDBC vendedorJDBC = new VendedorJDBC();
+    private ClienteJDBC clienteJDBC = new ClienteJDBC();
 
     public enum EstadoPedido{
         EN_CARRITO,
@@ -39,6 +44,16 @@ public class Pedido implements Observable{
         this.estado = EstadoPedido.EN_CARRITO;
         this.items = new ArrayList<>();
 
+    }
+
+    public Pedido(int id, int id_vendedor, int id_cliente, float precio, EstadoPedido estado) {
+
+        this.id = id;
+        this.vendedor = vendedorJDBC.buscar(id_vendedor);
+        this.cliente = clienteJDBC.buscar(id_cliente);
+        this.precio = precio;
+        this.estado = estado;
+        this.items = new ArrayList<>();
     }
 
     public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{

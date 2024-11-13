@@ -4,7 +4,7 @@
  */
 package nc.vista.initView.dialog;
 
-import nc.controlador.VendedorController;
+import nc.controller.VendedorController;
 import nc.vista.initView.VendedoresMenuPanel;
 import nc.vista.initView.VendedoresMenuPanel;
 
@@ -12,14 +12,13 @@ import nc.vista.initView.VendedoresMenuPanel;
  *
  * @author jereb
  */
-public class CreacionVendedor extends javax.swing.JFrame {
+public class CreacionVendedor extends javax.swing.JDialog {
 
     VendedoresMenuPanel panelSuperior;
     
     public CreacionVendedor(VendedoresMenuPanel panelSuperior) {
         this.panelSuperior=panelSuperior;
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
 
     }
@@ -44,7 +43,7 @@ public class CreacionVendedor extends javax.swing.JFrame {
         tfCoorX = new javax.swing.JTextField();
         tfCoorY = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         txtNombre.setText("Nombre: ");

@@ -9,11 +9,16 @@ import nc.vista.initView.dialog.CreacionCliente;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.ClientController;
+import nc.controller.ClientController;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.VistaPrincipal;
 import nc.vista.initView.dialog.ModificarCliente;
@@ -48,6 +53,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(clientTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
                 if (!evt.getValueIsAdjusting()) {
@@ -247,6 +253,8 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         CreacionCliente creacion = new CreacionCliente(this);
+        creacion.setModal(true);
+        creacion.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
         setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -283,10 +291,11 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
 
             List datosCliente = clients.getCliente((int) clientTableModel.getValueAt(modelRow, 0));
 
-            DialogCliente dialog = new DialogCliente(null, true, (ArrayList) datosCliente, this);
+            DialogCliente dialog = new DialogCliente((JFrame) SwingUtilities.getWindowAncestor(this), true, (ArrayList) datosCliente, this);
+            dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
             dialog.setVisible(true);
-            dialog.setLocationRelativeTo(null);
-        }
+        }else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, cliente no seleccionado. Por favor seleccione un cliente"
+                + ".\nSi no se encuentra ninguno registrado cree uno y seleccionelo.", "Cliente no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,7 +4,7 @@
  */
 package nc.modelo;
 
-import nc.modelo.excepciones.CategoriaIncompatibleException;
+import nc.excepciones.CategoriaIncompatibleException;
 
 public class Bebida extends ItemMenu {
 
@@ -12,14 +12,20 @@ public class Bebida extends ItemMenu {
     private float tamaño; // tamaño en mL.
     private float peso;
 
-    public Bebida(String nombre,Vendedor vendedor , float precio, float pes, int grado, float tam) {
-        super(nombre, precio, vendedor);
+    public Bebida(String nombre,Vendedor vendedor , float precio, float pes, float grado, float tam) {
+        super(nombre, precio, vendedor, true);
         this.graduacionAlcoholica = grado;
         this.peso = peso(pes);
         this.tamaño = tam;
         this.categorias.add(Categoria.categoriaBebidas);
     }
-    
+    public Bebida(int id, String nombre, String descripcion , float precio, int vendedor, float pes, float grado, float tam) {
+        super(id, nombre,  descripcion,  precio,  vendedor, true);
+        this.graduacionAlcoholica = grado;
+        this.peso = peso(pes);
+        this.tamaño = tam;
+        this.categorias.add(Categoria.categoriaBebidas);
+    }
     private float peso(float weight) {
         if (graduacionAlcoholica == 0) {
             weight = (float) ((tamaño * 1.04) + (weight * 0.20));

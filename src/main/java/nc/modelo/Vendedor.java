@@ -11,9 +11,19 @@ public class Vendedor {
     private String direccion;
     private Coordenada coordenada;
 
-    public Vendedor(String nombre, String direccion, double cx, double cy) {
+    public Vendedor(int id, String nombre, String direccion, double cx, double cy) {
+        // this.id = next_id;
+        // next_id++;
+        //constructor para jdbc, ahora los id se generan en la base de datos
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.coordenada = new Coordenada(cx, cy);
+    }
+    public Vendedor( String nombre, String direccion, double cx, double cy) {
         this.id = next_id;
         next_id++;
+        //constructor para memory
         this.nombre = nombre;
         this.direccion = direccion;
         this.coordenada = new Coordenada(cx, cy);

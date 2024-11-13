@@ -6,9 +6,15 @@ package nc.vista.vendedor;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.PedidoController;
+import nc.controller.PedidoController;
 import nc.vista.PersonalizatedTableModel;
 
 /**
@@ -31,16 +37,28 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
     private filterMode actualFilter;
     private int vendedorID = -1;
     private VendoresFrame frameSuperior;
+    private int ID_Seleccionado = -1;
     /**
      * Creates new form ItemMenuPanel
      */
     public PedidosMenuPanelVendedor(){
-        pedidos = new PedidoController();
+        pedidos = new PedidoController(true);
         List<String> modeloTableName = Arrays.asList("ID", "Cliente", "Cantidad de Items", "Precio", "Estado");
         modeloPedido = new PersonalizatedTableModel(modeloTableName, pedidos.loadData());
         sorter = new TableRowSorter<>(modeloPedido);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           @Override
+           public void valueChanged(ListSelectionEvent evt){
+               if(!evt.getValueIsAdjusting()){
+                   int filaSeleccionada = contentTable.getSelectedRow();
+                   if(filaSeleccionada != -1){
+                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                   }
+               }   
+           }});
     
     }
     public void setFrameSuperior(VendoresFrame frame){
@@ -48,7 +66,7 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
     }
     public void setVendedor(int ID){
         this.vendedorID = ID;
-        this.pedidos.setID(ID, true);
+        this.pedidos.setID(ID);
     }
      public void updateModel(){
         this.modeloPedido.setItems(pedidos.loadData());
@@ -238,6 +256,10 @@ public class PedidosMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(ID_Seleccionado!=-1) this.frameSuperior.setPedido(this.ID_Seleccionado);
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Pedido no seleccionado. Por favor seleccione un Pedido"
+                , "Pedido no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

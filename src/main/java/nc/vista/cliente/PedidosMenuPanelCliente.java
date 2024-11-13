@@ -6,11 +6,15 @@ package nc.vista.cliente;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.PedidoController;
+import nc.controller.PedidoController;
 import nc.vista.PersonalizatedTableModel;
 
 /**
@@ -31,7 +35,7 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     private PedidoController pedidos;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    private int clienteID = -1;
+    private int clienteID = 0;
     private int ID_Seleccionado = -1;
     private ClientesFrame upperFrame;
     /**
@@ -40,17 +44,15 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
 
     /**
      * Creates new form ItemMenuPanel
-     * @param clienteID
      */
     public PedidosMenuPanelCliente() {
-        int clienteID = 0;
-        this.clienteID = clienteID;
-        pedidos = new PedidoController(clienteID, false);
+        pedidos = new PedidoController(false);
         List<String> modeloTableName = Arrays.asList("ID", "Vendedor", "Cantidad de Items", "Precio", "Estado");
         modeloPedido = new PersonalizatedTableModel( modeloTableName, pedidos.loadData());
         sorter = new TableRowSorter<>(modeloPedido);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
            @Override
            public void valueChanged(ListSelectionEvent evt){
@@ -64,6 +66,14 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     }
     public void setUpperFrame(ClientesFrame frame){
         this.upperFrame = frame;
+    }
+    public void setClientID(int ID){
+        this.clienteID = ID;
+        this.pedidos.setID(ID);
+    }
+    public void updateTable(){
+        this.modeloPedido.setItems(pedidos.loadData());
+        this.contentTable.updateUI();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +97,7 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -169,6 +180,18 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel7.add(jButton3, gridBagConstraints);
 
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel7.add(backButton, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,12 +259,18 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(ID_Seleccionado!=-1)this.upperFrame.setPedido(this.ID_Seleccionado);
-
+        if(this.ID_Seleccionado!=-1)this.upperFrame.setPedido(this.ID_Seleccionado);
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Pedido no seleccionado. Por favor seleccione un Pedido"
+                , "Pedido no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.upperFrame.goBack();
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTable contentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;

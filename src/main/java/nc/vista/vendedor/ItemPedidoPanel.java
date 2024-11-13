@@ -6,12 +6,15 @@ package nc.vista.vendedor;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.ItemMenuController;
+import nc.controller.ItemPedidoController;
 import nc.vista.PersonalizatedTableModel;
 
 /**
@@ -28,30 +31,44 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         CANTIDAD,
         NONE
     }
-    private PersonalizatedTableModel modeloItemMenu;
-    private ItemMenuController itemsMenu;
+    private PersonalizatedTableModel modeloItemsPedido;
+    private ItemPedidoController itemsPedido;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
-    private int pedidoID = -1;
+    private int filterID = 0;
+    int ID_Seleccionado = -1;
+    int PedidoID = 0;
     /**
      * Creates new form ItemMenuPanel
      */
     public ItemPedidoPanel() {
-        itemsMenu = new ItemMenuController();
+        itemsPedido = new ItemPedidoController(filterID);
         List<String> modeloTableName;
         modeloTableName = Arrays.asList("ID", "Item", "Precio Individual", "Cantidad", "Precio Final");
-        modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
-        sorter = new TableRowSorter<>(modeloItemMenu);
+        modeloItemsPedido = new PersonalizatedTableModel( modeloTableName, itemsPedido.loadData());
+        sorter = new TableRowSorter<>(modeloItemsPedido);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+           @Override
+           public void valueChanged(ListSelectionEvent evt){
+               if(!evt.getValueIsAdjusting()){
+                   int filaSeleccionada = contentTable.getSelectedRow();
+                   if(filaSeleccionada != -1){
+                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
+                   }
+               }   
+           }});
     }
-    public void setPedido(int pedidoID){
-        this.pedidoID = pedidoID;
-        this.itemsMenu.setID(pedidoID);
+    public void setPedido(int ID){
+        this.PedidoID = ID;
+        this.itemsPedido.setID(ID);
     }
     public void updateModel(){
-        this.modeloItemMenu.setItems(itemsMenu.loadData());
-        contentTable.updateUI();
+       this.modeloItemsPedido.setItems(this.itemsPedido.loadData());
+       this.contentTable.revalidate();
+       this.contentTable.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,7 +100,7 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         contentTable.setAutoCreateRowSorter(true);
-        contentTable.setModel(this.modeloItemMenu);
+        contentTable.setModel(this.modeloItemsPedido);
         contentTable.setRowSorter(sorter);
         jScrollPane10.setViewportView(contentTable);
 
@@ -113,7 +130,7 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloItemMenu.getColumnName()));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.modeloItemsPedido.getColumnName()));
         jComboBox1.setMinimumSize(new java.awt.Dimension(135, 22));
         jComboBox1.setPreferredSize(new java.awt.Dimension(135, 22));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -199,8 +216,8 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
                         case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
                         case INDIVIDUAL_PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 2));
                         case ID_PEDIDO -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
-                        case CANTIDAD -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3 ));
-                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 4 ));
+                        case CANTIDAD -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 4 : 3 ));
+                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), (this.filterID<0)? 5 : 4 ));
                     }
                 }catch(NumberFormatException e){}
             }
@@ -223,6 +240,9 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
             case "Precio Individual":
                 this.actualFilter = filterMode.INDIVIDUAL_PRICE;
                 break;
+            case "ID Pedido":
+                this.actualFilter = filterMode.ID_PEDIDO;
+                break;
             case "Cantidad":
                 this.actualFilter = filterMode.CANTIDAD;
                 break;
@@ -235,7 +255,9 @@ public class ItemPedidoPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if(this.ID_Seleccionado!=-1){}
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, ItemPedido no seleccionado. Por favor seleccione un ItemPedido"
+                , "ItemPedido no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

@@ -7,11 +7,15 @@ package nc.vista.cliente;
 import nc.vista.cliente.ClientesFrame;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.VendedorController;
+import nc.controller.VendedorController;
 import nc.vista.PersonalizatedTableModel;
 
 /**
@@ -42,6 +46,7 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(vendedorTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent evt){
@@ -233,7 +238,9 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(ID_Seleccionado != -1) this.frameSuperior.setVendedor(this.ID_Seleccionado);
+        if(this.ID_Seleccionado!=-1)this.frameSuperior.setVendedor(this.ID_Seleccionado);
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Pedido no seleccionado. Por favor seleccione un Pedido"
+                , "Pedido no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

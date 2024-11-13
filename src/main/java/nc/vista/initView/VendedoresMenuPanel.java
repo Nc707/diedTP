@@ -10,9 +10,14 @@ import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.TableRowSorter;
-import nc.controlador.VendedorController;
+import nc.controller.VendedorController;
 import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -63,6 +68,7 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
         sorter = new TableRowSorter<>(vendedorTableModel);
         actualFilter = filterMode.ID;
         initComponents();
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent evt){
                 if(!evt.getValueIsAdjusting()){
@@ -238,7 +244,9 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     CreacionVendedor creacion = new CreacionVendedor(this);
-     setVisible(true);      
+    creacion.setModal(true);
+    creacion.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
+    setVisible(true);      
         
         /*CreacionVendedor creacionVendedor = new CreacionVendedor();
         creacionVendedor.setVisible(true);
@@ -285,11 +293,11 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
             // String coordenadas = vendedores.getCoordenadas(id);
 
             // Crea y muestra el dialogo
-            DialogVendedor dialog = new DialogVendedor(null, true, (ArrayList) datosVendedor, this);
+            DialogVendedor dialog = new DialogVendedor((JFrame) SwingUtilities.getWindowAncestor(this), true, (ArrayList) datosVendedor, this);
+            dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
             dialog.setVisible(true);
-            dialog.setLocationRelativeTo(null);
-        }else{
-        }
+        }else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, vendedor no seleccionado. Por favor seleccione un cliente"
+                + ".\nSi no se encuentra ninguno registrado cree uno y seleccionelo.", "Vendedor no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
