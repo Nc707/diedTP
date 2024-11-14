@@ -16,6 +16,14 @@ import nc.modelo.Vendedor;
 public interface PedidoDAO {
 
     public ArrayList<Pedido> listar();
+    
+    public ArrayList<Pedido> listarPorVendedor(int idVendedor);
+
+    public ArrayList<Pedido> listarPorCliente(int idCliente);
+
+    public ArrayList<Pedido> listarPorEstadoYVendedor(int id_vendedor, Pedido.EstadoPedido estado);
+
+    public ArrayList<Pedido> listarPorEstadoYCliente(int id_cliente, Pedido.EstadoPedido estado);
 
     public void add(Pedido pedido);
 

@@ -7,7 +7,8 @@ CREATE TABLE vendedor (
 
 CREATE TABLE cliente (
     id INTEGER auto_increment PRIMARY KEY,
-    cuit BIGINT NOT NULL,
+    cuit BIGINT NOT NULL UNIQUE,
+
     nombre VARCHAR(50) NOT NULL,
     email VARCHAR(80) NOT NULL,
     direccion VARCHAR(80) NOT NULL,
@@ -54,9 +55,9 @@ CREATE TABLE tiene_categoria (
 
 CREATE TABLE pedido (
     id INTEGER auto_increment PRIMARY KEY,
-    precio DECIMAL(10,2) NOT NULL,
     id_cliente INTEGER,
     id_vendedor INTEGER,
+    precio DECIMAL(10,2) NOT NULL,
     estado ENUM('EN_CARRITO', 'RECIBIDO', 'EN_ENVIO', 'ENTREGADO') NOT NULL DEFAULT 'EN_CARRITO',
     FOREIGN KEY (id_cliente) REFERENCES cliente(id) ON DELETE SET NULL,
     FOREIGN KEY (id_vendedor) REFERENCES vendedor(id) ON DELETE SET NULL
