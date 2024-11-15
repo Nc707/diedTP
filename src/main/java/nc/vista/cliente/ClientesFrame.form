@@ -70,7 +70,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="nc.vista.cliente.PedidosMenuPanelCliente" name="pedidosMenuPanelCliente1">
+        <Component class="nc.vista.cliente.PedidosMenuPanelCliente" name="pedidosMenuPanelCliente2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Mis Pedidos">

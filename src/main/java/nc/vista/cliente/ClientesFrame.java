@@ -42,6 +42,8 @@ public class ClientesFrame extends javax.swing.JPanel {
     public void setVendedor(int ID){
         this.IDCurrentVendedor = ID;
         itemMenuPanelCliente1.setID(ID);
+        itemMenuPanelCliente1.setCliente(cliente);
+        itemMenuPanelCliente1.setClientController(controlador);
         itemMenuPanelCliente1.updateModel();
         jTabbedPane1.setEnabledAt(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1), true);
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(itemMenuPanelCliente1));
