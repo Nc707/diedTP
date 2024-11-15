@@ -4,9 +4,11 @@
  */
 package nc.vista.vendedor.dialog;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nc.controller.ItemMenuController;
+import nc.excepciones.ItemNoEncontradoException;
 
 /**
  *
@@ -19,24 +21,23 @@ public class ItemMenuVer extends javax.swing.JDialog {
      */
     private ItemMenuController controller;
     private int ID;
-    public ItemMenuVer(java.awt.Frame parent, boolean modal, int id,ItemMenuController controller) {
+
+    public ItemMenuVer(java.awt.Frame parent, boolean modal, int id, ItemMenuController controller) throws ItemNoEncontradoException {
         super(parent, modal);
         initComponents();
         this.controller = controller;
         this.ID = id;
         List propiedades = controller.getItemMenu(id);
-        this.IDLabel.setText("ID: "+propiedades.get(0).toString());
+        this.IDLabel.setText("ID: " + propiedades.get(0).toString());
         this.TextNombre.setText(propiedades.get(1).toString());
         this.TextDescripcion.setText(propiedades.get(2).toString());
-        this.LabelVendedor.setText("Vendedor: " + propiedades.get(3).toString()); 
+        this.LabelVendedor.setText("Vendedor: " + propiedades.get(3).toString());
         this.TextPrecio.setText(propiedades.get(4).toString());
         this.BotonAceptar.setVisible(false);
         this.BotonAceptar.updateUI();
-        
-        
+
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,19 +167,23 @@ public class ItemMenuVer extends javax.swing.JDialog {
     }//GEN-LAST:event_BotonCerrarActionPerformed
 
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
-        if(this.BotonModificar.isSelected()){
+        if (this.BotonModificar.isSelected()) {
             rutinaModificacion();
-        }else{
-            rutinaLimpieza();
+        } else {
+            try {
+                rutinaLimpieza();
+            } catch (ItemNoEncontradoException ex) {
+                Logger.getLogger(ItemMenuVer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
-    
-    private void rutinaLimpieza(){
+
+    private void rutinaLimpieza() throws ItemNoEncontradoException {
         List propiedades = controller.getItemMenu(this.ID);
-        this.IDLabel.setText("ID: "+propiedades.get(0).toString());
+        this.IDLabel.setText("ID: " + propiedades.get(0).toString());
         this.TextNombre.setText(propiedades.get(1).toString());
         this.TextDescripcion.setText(propiedades.get(2).toString());
-        this.LabelVendedor.setText(propiedades.get(3).toString()); 
+        this.LabelVendedor.setText(propiedades.get(3).toString());
         this.TextPrecio.setText(propiedades.get(4).toString());
         this.BotonAceptar.setVisible(false);
         this.BotonAceptar.updateUI();
@@ -189,9 +194,10 @@ public class ItemMenuVer extends javax.swing.JDialog {
         this.TextNombre.setEnabled(false);
         this.TextDescripcion.setEnabled(false);
         this.TextPrecio.setEnabled(false);
-    
+
     }
-    private void rutinaModificacion(){
+
+    private void rutinaModificacion() {
         this.TextNombre.setEnabled(true);
         this.TextDescripcion.setEnabled(true);
         this.TextPrecio.setEnabled(true);
@@ -201,7 +207,7 @@ public class ItemMenuVer extends javax.swing.JDialog {
         this.BotonAceptar.updateUI();
         this.BotonModificar.setText("Cancelar");
         this.BotonModificar.updateUI();
-        
+
     }
     /**
      * @param args the command line arguments

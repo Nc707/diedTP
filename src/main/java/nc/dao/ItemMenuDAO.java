@@ -1,8 +1,8 @@
 package nc.dao;
 
 import java.util.List;
-import nc.modelo.ItemMenu;
 import nc.excepciones.ItemNoEncontradoException;
+import nc.modelo.ItemMenu;
 
 public interface ItemMenuDAO {
 
@@ -37,6 +37,8 @@ public interface ItemMenuDAO {
     public void delete(int ID) throws ItemNoEncontradoException;
 
     public void addAll(List<ItemMenu> items);
+
+    public List<ItemMenu> listarPorVendedor(int idVendedor) throws ItemNoEncontradoException;
 
     public ItemMenu getItem(int ID) throws ItemNoEncontradoException;
 

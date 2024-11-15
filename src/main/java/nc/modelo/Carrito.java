@@ -3,7 +3,8 @@ package nc.modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import nc.dao.memory.ItemPedidoMemory;
+import nc.dao.ItemPedidoDAO;
+import nc.dao.jdbc.ItemPedidoJDBC;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
@@ -12,11 +13,22 @@ import nc.excepciones.VendedorIncorrectoException;
 public class Carrito {
 
     private ArrayList<ItemPedido> items;
-    private ItemPedidoMemory itemPedidoMemory;
+    //private ItemPedidoMemory itemPedidoMemory;
+    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
     private Pedido pedido;
 
-    public Carrito(ItemPedidoMemory ipm, Cliente c, ItemMenu primerItemMenu, int cantidad) {
-        this.itemPedidoMemory = ipm;
+//    public Carrito(ItemPedidoMemory ipm, Cliente c, ItemMenu primerItemMenu, int cantidad) {
+//        this.itemPedidoMemory = ipm;
+//        this.items = new ArrayList<>();
+//        this.pedido = new Pedido(primerItemMenu.getVendedor(), c);
+//        ItemPedido primerItemPedido = new ItemPedido(primerItemMenu, cantidad, pedido);
+//        try {
+//            pedido.addItem(primerItemPedido);
+//        } catch (VendedorIncorrectoException | PedidoIncorrectoException | PedidoCerradoException e) {
+//        }
+//        items.add(primerItemPedido);
+//    }
+    public Carrito(Cliente c, ItemMenu primerItemMenu, int cantidad) {
         this.items = new ArrayList<>();
         this.pedido = new Pedido(primerItemMenu.getVendedor(), c);
         ItemPedido primerItemPedido = new ItemPedido(primerItemMenu, cantidad, pedido);
@@ -69,7 +81,8 @@ public class Carrito {
 
     public void cerrarPedido() {
         pedido.cerrarPedido();
-        itemPedidoMemory.addPedido(items);
+        itemsPedido.addAll(items);
+        //itemPedidoMemory.addPedido(items);
     }
 
     public float verPrecio() {

@@ -4,36 +4,37 @@
  */
 package nc.vista.cliente;
 
-import nc.vista.vendedor.dialog.ItemMenuVer;
-import nc.vista.vendedor.*;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JDialog;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.RowFilter;
-import javax.swing.SwingUtilities;
-import javax.swing.table.TableRowSorter;
-import nc.controller.ItemMenuController;
-import nc.vista.PersonalizatedTableModel;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import java.lang.String;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableRowSorter;
 import nc.controller.ClientController;
-import nc.controller.VendedorController;
-import nc.dao.memory.ItemPedidoMemory;
+import nc.controller.ItemMenuController;
+import nc.dao.ItemPedidoDAO;
+import nc.dao.jdbc.ItemPedidoJDBC;
+import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
 import nc.excepciones.VendedorIncorrectoException;
-import nc.vista.cliente.AgregarCarrito;
 import nc.modelo.Carrito;
+import nc.vista.PersonalizatedTableModel;
+import nc.vista.vendedor.dialog.ItemMenuVer;
+
 /**
  *
  * @author nicol
  */
 public class ItemMenuPanelCliente extends javax.swing.JPanel {
-    private enum filterMode{
+
+    private enum filterMode {
         ID,
         NAME,
         PRICE,
@@ -50,55 +51,65 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private ClientesFrame frameSuperior;
     boolean hayCarrito = false;
     int cliente;
+    ItemPedidoDAO ipm = new ItemPedidoJDBC();
     Carrito carrito;
+
     /**
      * Creates new form ItemMenuPanel
      */
     public ItemMenuPanelCliente() {
         itemsMenu = new ItemMenuController();
         List<String> modeloTableName = Arrays.asList("ID", "Item", "Precio");
-        modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
+        modeloItemMenu = new PersonalizatedTableModel(modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
         contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-           @Override
-           public void valueChanged(ListSelectionEvent evt){
-               if(!evt.getValueIsAdjusting()){
-                   int filaSeleccionada = contentTable.getSelectedRow();
-                   if(filaSeleccionada != -1){
-                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
-                   }
-               }   
-           }});
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evt) {
+                if (!evt.getValueIsAdjusting()) {
+                    int filaSeleccionada = contentTable.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                        ID_Seleccionado = (Integer) contentTable.getValueAt(filaSeleccionada, 0);
+                    }
+                }
+            }
+        });
     }
-    public void setClientController(ClientController clientes){
-        this.clientes=clientes;
+
+    public void setClientController(ClientController clientes) {
+        this.clientes = clientes;
     }
-    public void setCliente(int id){
-        cliente =id;
+
+    public void setCliente(int id) {
+        cliente = id;
     }
-    public void setUpperFrame(ClientesFrame frame){
+
+    public void setUpperFrame(ClientesFrame frame) {
         this.frameSuperior = frame;
     }
-    public void setID(int ID){
+
+    public void setID(int ID) {
         this.vendedorID = ID;
         this.itemsMenu.setID(ID);
-        }
-    public void updateModel(){
+    }
+
+    public void updateModel() {
         this.modeloItemMenu.setItems(itemsMenu.loadData());
         contentTable.updateUI();
     }
-    public void agregar(int cantidad, int idItemMenu) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
-        if(!hayCarrito){
-        ItemPedidoMemory ipm = ItemPedidoMemory.getItemPedidoMemory();
-        carrito = new Carrito(ipm, clientes.getObjetCliente(cliente), itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
-        hayCarrito = true;
-        }else{
-        carrito.agregarItem(itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
+
+    public void agregar(int cantidad, int idItemMenu) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException, ItemNoEncontradoException {
+        if (!hayCarrito) {
+            //ItemPedidoMemory ipm = ItemPedidoMemory.getItemPedidoMemory();
+            carrito = new Carrito(clientes.getObjetCliente(cliente), itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
+            hayCarrito = true;
+        } else {
+            carrito.agregarItem(itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -271,22 +282,27 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             String text;
             text = jTextPane1.getText();
             sorter.setRowFilter(null);
             jTextPane1.setText("");
-            if(!text.isBlank()){
-                try{
-                    switch(actualFilter){
-                        case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
-                        case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
-                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
-                        case VENDEDOR -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
+            if (!text.isBlank()) {
+                try {
+                    switch (actualFilter) {
+                        case ID ->
+                            sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
+                        case NAME ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 1));
+                        case PRICE ->
+                            sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
+                        case VENDEDOR ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 2));
                     }
-                }catch(NumberFormatException e){}
+                } catch (NumberFormatException e) {
+                }
             }
-            
+
         }
     }//GEN-LAST:event_jTextPane1KeyPressed
 
@@ -314,19 +330,28 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        int opcion = JOptionPane.showConfirmDialog((JFrame) SwingUtilities.getWindowAncestor(this),"Si elije otro vendedor su carrito será borrado, desea continuar?",
-                "Borrar Carrito" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(opcion==JOptionPane.OK_OPTION)this.frameSuperior.deleteCarrito();
+        int opcion = JOptionPane.showConfirmDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Si elije otro vendedor su carrito será borrado, desea continuar?",
+                "Borrar Carrito", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.OK_OPTION) {
+            this.frameSuperior.deleteCarrito();
+        }
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
-        if(this.ID_Seleccionado!=-1){
-            ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
-            dialog.setModal(true);
-            dialog.setVisible(true);
+        if (this.ID_Seleccionado != -1) {
+            ItemMenuVer dialog;
+            try {
+                dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
+                dialog.setModal(true);
+                dialog.setVisible(true);
+            } catch (ItemNoEncontradoException ex) {
+                Logger.getLogger(ItemMenuPanelCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error, Item no seleccionado. Por favor seleccione un Item",
+                    "Item no seleccionado", JOptionPane.WARNING_MESSAGE);
         }
-        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Item no seleccionado. Por favor seleccione un Item"
-                , "Item no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_VerDetalleButtonActionPerformed
 
     private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
@@ -334,17 +359,21 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_backButton1ActionPerformed
 
     private void agregarACarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarACarritoActionPerformed
-         if(this.ID_Seleccionado!=-1){
-            AgregarCarrito carritoDialog = new AgregarCarrito((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu, this);
-            carritoDialog.setModal(true);
-            carritoDialog.setVisible(true);
-            carritoDialog.setLocationRelativeTo(null);
-            carritoDialog.setSize(500, 500);
+        if (this.ID_Seleccionado != -1) {
+            try {
+                AgregarCarrito carritoDialog = new AgregarCarrito((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu, this);
+                carritoDialog.setModal(true);
+                carritoDialog.setVisible(true);
+                carritoDialog.setLocationRelativeTo(null);
+                carritoDialog.setSize(500, 500);
+            } catch (ItemNoEncontradoException ex) {
+                Logger.getLogger(ItemMenuPanelCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error, Item no seleccionado. Por favor seleccione un Item",
+                    "Item no seleccionado", JOptionPane.WARNING_MESSAGE);
         }
-        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Item no seleccionado. Por favor seleccione un Item"
-                , "Item no seleccionado",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_agregarACarritoActionPerformed
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton VerDetalleButton;

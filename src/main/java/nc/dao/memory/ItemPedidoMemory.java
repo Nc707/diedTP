@@ -18,7 +18,7 @@ import nc.util.compareStategies.itemPedido.implementations.ItemPedidoPriceCompSt
 import nc.util.compareStategies.itemPedido.implementations.PedidoIdComp;
 import nc.util.compareStategies.itemPedido.implementations.PedidoPriceComp;
 
-public final class ItemPedidoMemory implements ItemPedidoDAO {
+public class ItemPedidoMemory implements ItemPedidoDAO {
 
     private static ItemPedidoMemory uniqueInstance;
     private ArrayList<ItemPedido> memory;

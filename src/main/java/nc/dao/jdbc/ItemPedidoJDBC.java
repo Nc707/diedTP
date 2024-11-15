@@ -1,6 +1,5 @@
 package nc.dao.jdbc;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +17,7 @@ import nc.modelo.ItemPedido;
 import nc.modelo.Pedido;
 
 public class ItemPedidoJDBC implements ItemPedidoDAO {
+
     private Connection conn = DBConnector.getInstance();
 
     @Override
@@ -55,7 +55,6 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
     }
 
@@ -104,7 +103,6 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
         return null;
     }
 
-
     @Override
     public List<ItemPedido> listarPorPedido(int id_pedido) {
         String query = "SELECT * FROM item_pedido WHERE id_pedido = ?";
@@ -121,23 +119,53 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
                 ItemMenu itemMenu = new ItemMenuJDBC().getItem(id_item_menu);
                 Pedido pedido = new PedidoJDBC().buscar(id_pedido);
 
-                
                 items.add(new ItemPedido(ID, itemMenu, cantidad, precio, pedido));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ItemNoEncontradoException e) {
-            System.out.println(e.getMessage()); 
+            System.out.println(e.getMessage());
         }
         return items;
     }
 
-
-
     @Override
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filtrarPor'");
+        List<ItemPedido> items = new ArrayList<>();
+        String query = "";
+
+        switch (tipoFiltro) {
+            case ID_ITEMPEDIDO:
+                query = "SELECT * FROM item_pedido WHERE id = ?";
+                break;
+            case ID_PEDIDO:
+                query = "SELECT * FROM item_pedido WHERE id_pedido = ?";
+                break;
+            default:
+                throw new UnsupportedOperationException("Tipo de filtrado no soportado: " + tipoFiltro);
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setObject(1, filtro);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int ID = rs.getInt("id");
+                int cantidad = rs.getInt("cantidad");
+                float precio = rs.getFloat("precio");
+                int id_item_menu = rs.getInt("id_item_menu");
+                int id_pedido = rs.getInt("id_pedido");
+                ItemMenu itemMenu = new ItemMenuJDBC().getItem(id_item_menu);
+                Pedido pedido = new PedidoJDBC().buscar(id_pedido);
+                items.add(new ItemPedido(ID, itemMenu, cantidad, precio, pedido));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, "Error al filtrar items", ex);
+        }
+
+        if (items.isEmpty()) {
+            throw new ItemNoEncontradoException("No se encontraron items con el filtro especificado.");
+        }
+        return items;
     }
 
     @Override
@@ -160,6 +188,5 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'filtrarRango'");
     }
-
 
 }

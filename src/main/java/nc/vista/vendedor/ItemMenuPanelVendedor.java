@@ -8,7 +8,6 @@ import nc.vista.vendedor.dialog.CreacionItemMenu;
 import nc.vista.vendedor.dialog.ItemMenuVer;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
@@ -18,14 +17,19 @@ import nc.vista.PersonalizatedTableModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.lang.String;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import nc.excepciones.ItemNoEncontradoException;
+
 /**
  *
  * @author nicol
  */
 public class ItemMenuPanelVendedor extends javax.swing.JPanel {
-    private enum filterMode{
+
+    private enum filterMode {
         ID,
         NAME,
         PRICE,
@@ -39,14 +43,15 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private int vendedorID = -1;
     private int ID_Seleccionado = -1;
     private VendoresFrame frameSuperior;
+
     /**
      * Creates new form ItemMenuPanel
      */
-    public void crearPlato(String nombre, int idVendedor, float precio, float peso, float calorias){
+    public void crearPlato(String nombre, int idVendedor, float precio, float peso, float calorias) {
         itemsMenu.crearPlato(nombre, idVendedor, precio, peso, calorias);
     }
-    
-    public void crearBebida(String nombre, int idVendedor, float precio, float pes, int grado, float tam){
+
+    public void crearBebida(String nombre, int idVendedor, float precio, float pes, int grado, float tam) {
         itemsMenu.crearBebida(nombre, idVendedor, precio, pes, grado, tam);
     }
 
@@ -54,32 +59,35 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
         itemsMenu = new ItemMenuController();
         List<String> modeloTableName;
         modeloTableName = Arrays.asList("ID", "Item", "Precio");
-        modeloItemMenu = new PersonalizatedTableModel( modeloTableName, itemsMenu.loadData());
+        modeloItemMenu = new PersonalizatedTableModel(modeloTableName, itemsMenu.loadData());
         sorter = new TableRowSorter<>(modeloItemMenu);
         actualFilter = filterMode.ID;
         initComponents();
         contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-           @Override
-           public void valueChanged(ListSelectionEvent evt){
-               if(!evt.getValueIsAdjusting()){
-                   int filaSeleccionada = contentTable.getSelectedRow();
-                   if(filaSeleccionada != -1){
-                       ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
-                   }
-               }   
-           }});
-        
-        
+        contentTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evt) {
+                if (!evt.getValueIsAdjusting()) {
+                    int filaSeleccionada = contentTable.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                        ID_Seleccionado = (Integer) contentTable.getValueAt(filaSeleccionada, 0);
+                    }
+                }
+            }
+        });
+
     }
-    public void setUpperFrame(VendoresFrame frame){
+
+    public void setUpperFrame(VendoresFrame frame) {
         this.frameSuperior = frame;
     }
-    public void setID(int ID){
+
+    public void setID(int ID) {
         this.vendedorID = ID;
         this.itemsMenu.setID(ID);
-        }
-    public void updateModel(){
+    }
+
+    public void updateModel() {
         this.modeloItemMenu.setItems(itemsMenu.loadData());
         contentTable.updateUI();
     }
@@ -243,10 +251,10 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     CreacionItemMenu creacion= new CreacionItemMenu(vendedorID,this);
-     creacion.setModal(true);
-     creacion.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
-     creacion.setVisible(true);
+        CreacionItemMenu creacion = new CreacionItemMenu(vendedorID, this);
+        creacion.setModal(true);
+        creacion.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
+        creacion.setVisible(true);
         /*CreacionItemMenu panel = new CreacionItemMenu(vendedorID, this);
     JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Crear Nuevo ItemMenu", true);
     dialog.getContentPane().add(panel);
@@ -256,22 +264,27 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             String text;
             text = jTextPane1.getText();
             sorter.setRowFilter(null);
             jTextPane1.setText("");
-            if(!text.isBlank()){
-                try{
-                    switch(actualFilter){
-                        case ID-> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
-                        case NAME -> sorter.setRowFilter(RowFilter.regexFilter(text, 1));
-                        case PRICE -> sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
-                        case VENDEDOR -> sorter.setRowFilter(RowFilter.regexFilter(text, 2));
+            if (!text.isBlank()) {
+                try {
+                    switch (actualFilter) {
+                        case ID ->
+                            sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Integer.valueOf(text), 0));
+                        case NAME ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 1));
+                        case PRICE ->
+                            sorter.setRowFilter(RowFilter.numberFilter(RowFilter.ComparisonType.EQUAL, Double.valueOf(text), 3));
+                        case VENDEDOR ->
+                            sorter.setRowFilter(RowFilter.regexFilter(text, 2));
                     }
-                }catch(NumberFormatException e){}
+                } catch (NumberFormatException e) {
+                }
             }
-            
+
         }
     }//GEN-LAST:event_jTextPane1KeyPressed
 
@@ -303,15 +316,20 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
-        if(this.ID_Seleccionado!=-1){
-            ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
-            dialog.setModal(true);
-            dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
-            dialog.setVisible(true);
-        } else  JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, ItemMenu no seleccionado. Por favor seleccione un ItemMenu"
-                + ".\nSi no se encuentra ninguno registrado cree uno y seleccionelo.", "ItemMenu no seleccionado",JOptionPane.WARNING_MESSAGE);
+        if (this.ID_Seleccionado != -1) {
+            try {
+                ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
+                dialog.setModal(true);
+                dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
+                dialog.setVisible(true);
+            } catch (ItemNoEncontradoException ex) {
+                Logger.getLogger(ItemMenuPanelVendedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error, ItemMenu no seleccionado. Por favor seleccione un ItemMenu"
+                    + ".\nSi no se encuentra ninguno registrado cree uno y seleccionelo.", "ItemMenu no seleccionado", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_VerDetalleButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton VerDetalleButton;

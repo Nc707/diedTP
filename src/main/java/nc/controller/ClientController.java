@@ -6,16 +6,14 @@ package nc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.dao.ClienteDAO;
 import nc.dao.ItemMenuDAO;
 import nc.dao.ItemPedidoDAO;
 import nc.dao.jdbc.ClienteJDBC;
+import nc.dao.jdbc.ItemMenuJDBC;
+import nc.dao.jdbc.ItemPedidoJDBC;
 import nc.dao.memory.ClienteMemory;
-import nc.dao.memory.ItemMenuMemory;
-import nc.dao.memory.ItemPedidoMemory;
 import nc.excepciones.CantidadItemInvalidaException;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoIncorrectoException;
@@ -30,19 +28,18 @@ import nc.modelo.ItemPedido;
  * @author nicol
  */
 public class ClientController {
-    public enum metodoPago{
+
+    public enum metodoPago {
         MERCADO_PAGO,
         TRANSFERENCIA
-        }
+    }
 
-    private ItemMenuMemory items = ItemMenuMemory.getInstancia();
+    //private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     //private ClienteMemory clients = ClienteMemory.getInstancia();
-
-
-    //private ItemMenuDAO items  = ItemMenuMemory.getInstancia();
+    private ItemMenuDAO items = new ItemMenuJDBC();
     private ClienteDAO clients = new ClienteJDBC();
-
-    private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
+    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
+    //private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
     //private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
 
     public List<List> loadData() {
@@ -80,6 +77,7 @@ public class ClientController {
         clientData.add(client.getCoordenada().getLongitude());
         return clientData;
     }
+
     public Cliente getObjetCliente(int ID) {
         Cliente client = ClienteMemory.getInstancia().buscar(ID);
         return client;
@@ -100,54 +98,68 @@ public class ClientController {
         client.setCoordenada(new Coordenada(cx, cy));
     }
 
-    public void agregarProductoAlCarrito(int ID, int ID_menu, int cantidad){
-        ItemMenu item = items.buscar(ID_menu);
+    public void agregarProductoAlCarrito(int ID, int ID_menu, int cantidad) throws ItemNoEncontradoException {
+//        ItemMenu item = items.buscar(ID_menu);
+        ItemMenu item = items.getItem(ID_menu);
         Cliente client = clients.buscar(ID);
-        if(client.getCarrito()!=null)
+        if (client.getCarrito() != null) {
             client.agregarProductoAlCarrito(item, cantidad);
-        else try {
-            client.crearCarrito(client, item, cantidad, itemsPedido);
-        } catch (CantidadItemInvalidaException ex) {}
+        } else try {
+            client.crearCarrito(client, item, cantidad);
+        } catch (CantidadItemInvalidaException ex) {
+        }
     }
 
-    public void eliminarProducto(int ID, int ID_item) {
-        ItemPedido item = itemsPedido.getItemPedido(ID_item);
+    public void eliminarProducto(int ID, int ID_item) throws ItemNoEncontradoException {
+        ItemPedido item = itemsPedido.getItem(ID_item);
+        //ItemPedido item = itemsPedido.getItemPedido(ID_item);
         Cliente client = clients.buscar(ID);
         client.eliminarProductoDelCarrito(item);
     }
-    public List<List> getContenidoCarrito(int ID){
+
+    public List<List> getContenidoCarrito(int ID) {
         Cliente client = clients.buscar(ID);
         List<ItemPedido> data = client.getItemsCarrito();
-        if(data!=null && !data.isEmpty())
-        return data.stream().map((ItemPedido item) -> {
-            ArrayList list = new ArrayList();
-            list.add(item.getId());
-            list.add(item.getItemMenu().getNombre());
-            list.add(item.getItemMenu().getPrecio());
-            list.add(item.getCantidad());
-            list.add(item.getPrecio());
-            return list;
-        }).collect(Collectors.toList());
-        else return null;
+        if (data != null && !data.isEmpty()) {
+            return data.stream().map((ItemPedido item) -> {
+                ArrayList list = new ArrayList();
+                list.add(item.getId());
+                list.add(item.getItemMenu().getNombre());
+                list.add(item.getItemMenu().getPrecio());
+                list.add(item.getCantidad());
+                list.add(item.getPrecio());
+                return list;
+            }).collect(Collectors.toList());
+        } else {
+            return null;
+        }
     }
-    public void modificarItemCarrito(int ID, int ID_item, int nuevaCantidad){
+
+    public void modificarItemCarrito(int ID, int ID_item, int nuevaCantidad) {
         Cliente client = clients.buscar(ID);
         Carrito carrito = client.getCarrito();
         try {
             carrito.modificarCantidad(carrito.obtenerItem(ID), nuevaCantidad);
-         } catch (ItemNoEncontradoException | PedidoIncorrectoException ex) {}
-    }
-    public void setMetodoPago(int ID,metodoPago metodo, List args){
-        Cliente client = clients.buscar(ID);
-        switch (metodo){
-            case MERCADO_PAGO -> client.getCarrito().setMercadoPago(args.getFirst().toString());
-            case TRANSFERENCIA -> client.getCarrito().setTransferencia(args.getFirst().toString(), (int)args.getLast());
+        } catch (ItemNoEncontradoException | PedidoIncorrectoException ex) {
         }
     }
-    public int getVendedorCarrito(int clienteID){
+
+    public void setMetodoPago(int ID, metodoPago metodo, List args) {
+        Cliente client = clients.buscar(ID);
+        switch (metodo) {
+            case MERCADO_PAGO ->
+                client.getCarrito().setMercadoPago(args.getFirst().toString());
+            case TRANSFERENCIA ->
+                client.getCarrito().setTransferencia(args.getFirst().toString(), (int) args.getLast());
+        }
+    }
+
+    public int getVendedorCarrito(int clienteID) {
         Cliente client = clients.buscar(clienteID);
         Carrito carrito = client.getCarrito();
-        if(carrito!=null)return carrito.getPedido().getVendedor().getId();
+        if (carrito != null) {
+            return carrito.getPedido().getVendedor().getId();
+        }
         return -1;
     }
 }

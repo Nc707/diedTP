@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nc.controller.ItemMenuController;
+import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
 import nc.excepciones.VendedorIncorrectoException;
-import nc.modelo.ItemMenu;
 
 /**
  *
@@ -22,13 +22,13 @@ public class AgregarCarrito extends javax.swing.JDialog {
     /**
      * Creates new form AgregarCarrito
      */
-    public AgregarCarrito(java.awt.Frame parent, boolean modal,int id, ItemMenuController itemsMenu, ItemMenuPanelCliente panelSup) {
+    public AgregarCarrito(java.awt.Frame parent, boolean modal, int id, ItemMenuController itemsMenu, ItemMenuPanelCliente panelSup) throws ItemNoEncontradoException {
         super(parent, modal);
         initComponents();
         this.items = itemsMenu;
         item = items.getItemMenu(id);
-        txtName.setText((String)item.get(1));
-        precio = (float)item.get(4);
+        txtName.setText((String) item.get(1));
+        precio = (float) item.get(4);
         superior = panelSup;
     }
     ItemMenuPanelCliente superior;
@@ -37,7 +37,7 @@ public class AgregarCarrito extends javax.swing.JDialog {
     int cantidad;
     String info;
     float precio;
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,39 +131,38 @@ public class AgregarCarrito extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sumarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumarActionPerformed
-        cantidad = Integer.parseInt(cant.getText())+1;
-        info = cantidad+"";
+        cantidad = Integer.parseInt(cant.getText()) + 1;
+        info = cantidad + "";
         cant.setText(info);
-        info = (precio * cantidad)+"";
+        info = (precio * cantidad) + "";
         txtPrecio.setText(info);
-        
-        
+
     }//GEN-LAST:event_sumarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
-            superior.agregar(Integer.parseInt(cant.getText()),(int) item.get(0));
-            
-        //Excepciones
-        
+            superior.agregar(Integer.parseInt(cant.getText()), (int) item.get(0));
+
+            //Excepciones
         } catch (VendedorIncorrectoException ex) {
             Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PedidoIncorrectoException ex) {
             Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PedidoCerradoException ex) {
             Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ItemNoEncontradoException ex) {
+            Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void restarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restarActionPerformed
-        cantidad = Integer.parseInt(cant.getText())-1;
-        info = cantidad+"";
+        cantidad = Integer.parseInt(cant.getText()) - 1;
+        info = cantidad + "";
         cant.setText(info);
-        info = (precio * cantidad)+"";
+        info = (precio * cantidad) + "";
         txtPrecio.setText(info);
     }//GEN-LAST:event_restarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
