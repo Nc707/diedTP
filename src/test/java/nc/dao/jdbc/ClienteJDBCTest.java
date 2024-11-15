@@ -39,7 +39,7 @@ public class ClienteJDBCTest {
     DBConnector.getInstance();
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
-    HashSet<Integer> cuit = new HashSet<>();
+    HashSet<Long> cuit = new HashSet<>();
     
     for(Cliente cliente : clientes){
         boolean flag = cuit.add(cliente.getCuit());
@@ -69,7 +69,7 @@ public class ClienteJDBCTest {
     DBConnector.getInstance();
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
-    HashSet<Integer> cuits = new HashSet<>();
+    HashSet<Long> cuits = new HashSet<>();
     
     for(Cliente cliente : clientes){
         assertNotNull(cliente.getId(), "Error, un ID nunca puede ser NULL");
