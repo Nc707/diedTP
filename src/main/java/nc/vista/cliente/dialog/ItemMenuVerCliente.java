@@ -4,10 +4,9 @@
  */
 package nc.vista.cliente.dialog;
 
-import nc.vista.vendedor.*;
-import java.util.ArrayList;
 import java.util.List;
 import nc.controller.ItemMenuController;
+import nc.excepciones.ItemNoEncontradoException;
 
 /**
  *
@@ -20,24 +19,23 @@ public class ItemMenuVerCliente extends javax.swing.JDialog {
      */
     private ItemMenuController controller;
     private int ID;
-    public ItemMenuVerCliente(java.awt.Frame parent, boolean modal, int id,ItemMenuController controller) {
+
+    public ItemMenuVerCliente(java.awt.Frame parent, boolean modal, int id, ItemMenuController controller) throws ItemNoEncontradoException {
         super(parent, modal);
         initComponents();
         this.controller = controller;
         this.ID = id;
         List propiedades = controller.getItemMenu(id);
-        this.IDLabel.setText("ID: "+propiedades.get(0).toString());
+        this.IDLabel.setText("ID: " + propiedades.get(0).toString());
         this.TextNombre.setText(propiedades.get(1).toString());
         this.TextDescripcion.setText(propiedades.get(2).toString());
-        this.LabelVendedor.setText("Vendedor: " + propiedades.get(3).toString()); 
+        this.LabelVendedor.setText("Vendedor: " + propiedades.get(3).toString());
         this.TextPrecio.setText(propiedades.get(4).toString());
         this.BotonAceptar.setVisible(false);
         this.BotonAceptar.updateUI();
-        
-        
+
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +165,6 @@ public class ItemMenuVerCliente extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAceptar;
     private javax.swing.JButton BotonCerrar;

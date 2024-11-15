@@ -18,7 +18,7 @@ import nc.util.compareStategies.itemPedido.implementations.ItemPedidoPriceCompSt
 import nc.util.compareStategies.itemPedido.implementations.PedidoIdComp;
 import nc.util.compareStategies.itemPedido.implementations.PedidoPriceComp;
 
-public final class ItemPedidoMemory implements ItemPedidoDAO {
+public class ItemPedidoMemory implements ItemPedidoDAO {
 
     private static ItemPedidoMemory uniqueInstance;
     private ArrayList<ItemPedido> memory;
@@ -195,5 +195,10 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
     public ItemPedido getItem(int ID) throws ItemNoEncontradoException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItem'");
+    }
+
+    @Override
+    public List<ItemPedido> listarPorPedido(int id_pedido) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

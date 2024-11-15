@@ -5,15 +5,15 @@ import static java.util.Collections.sort;
 import java.util.List;
 import java.util.stream.Collectors;
 import nc.dao.ItemMenuDAO;
+import nc.excepciones.ItemNoEncontradoException;
 import nc.modelo.Bebida;
 import nc.modelo.Categoria;
 import nc.modelo.ItemMenu;
-import nc.util.compareStrategies.itemMenu.CompareItemMenuStrategyInterface;
 import nc.modelo.Plato;
 import nc.modelo.Vendedor;
-import nc.excepciones.ItemNoEncontradoException;
 import nc.util.compareStategies.itemMenu.implementations.NameComp;
 import nc.util.compareStategies.itemMenu.implementations.PriceComp;
+import nc.util.compareStrategies.itemMenu.CompareItemMenuStrategyInterface;
 
 public class ItemMenuMemory implements ItemMenuDAO {
 
@@ -31,7 +31,6 @@ public class ItemMenuMemory implements ItemMenuDAO {
     public void add(ItemMenu item) {
         items.add(item);
     }*/
-
     public void actualizar(ItemMenu item) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId() == item.getId()) {
@@ -59,6 +58,11 @@ public class ItemMenuMemory implements ItemMenuDAO {
         return null;
     }
 ///////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public List<ItemMenu> listarPorVendedor(int idVendedor) throws ItemNoEncontradoException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private class ItemWrapper implements Comparable {
 
