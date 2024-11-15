@@ -24,7 +24,7 @@ public class Cliente implements Observer {
     } //constructor generico para poder instanciar un cliente sin parametros
 
     //constructor para jdbc
-    public Cliente(int id, String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
+    public Cliente(int id, String nombre, long cuit, String email, String direccion, double latitud, double longitud) {
         this.id = id;
         this.cuit = cuit;
         this.email = email;
@@ -34,7 +34,7 @@ public class Cliente implements Observer {
     }
 
     //constructor para memory
-    public Cliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
+    public Cliente(String nombre, long cuit, String email, String direccion, double latitud, double longitud) {
         this.id = next_id;
         ++next_id;
         this.cuit = cuit;
@@ -72,7 +72,7 @@ public class Cliente implements Observer {
         return cuit;
     }
 
-    public void setCuit(int cuit) {
+    public void setCuit(long cuit) {
         this.cuit = cuit;
     }
 

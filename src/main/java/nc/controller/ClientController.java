@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.dao.ClienteDAO;
+import nc.dao.ItemMenuDAO;
+import nc.dao.ItemPedidoDAO;
 import nc.dao.jdbc.ClienteJDBC;
 import nc.dao.memory.ClienteMemory;
 import nc.dao.memory.ItemMenuMemory;
@@ -35,12 +37,13 @@ public class ClientController {
 
     private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     //private ClienteMemory clients = ClienteMemory.getInstancia();
-    private ClienteJDBC clients = new ClienteJDBC();
+    //private ItemMenuDAO items  = ItemMenuMemory.getInstancia();
+    private ClienteDAO clients = new ClienteJDBC();
     private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
+    //private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
 
     public List<List> loadData() {
-        ClienteDAO database = ClienteMemory.getInstancia();
-        List<Cliente> data = database.listar();
+        List<Cliente> data = clients.listar();
         return data.stream().map((Cliente c) -> {
             ArrayList list = new ArrayList();
             list.add(c.getId());
@@ -63,7 +66,8 @@ public class ClientController {
      */
     public List getCliente(int ID) {
         List clientData = new ArrayList();
-        Cliente client = ClienteMemory.getInstancia().buscar(ID);
+        Cliente client = clients.buscar(ID);
+  
         clientData.add(ID);
         clientData.add(client.getNombre());
         clientData.add(client.getDireccion());
