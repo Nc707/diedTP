@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.dao.ClienteDAO;
+import nc.dao.jdbc.ClienteJDBC;
 import nc.dao.memory.ClienteMemory;
 import nc.dao.memory.ItemMenuMemory;
 import nc.dao.memory.ItemPedidoMemory;
@@ -33,7 +34,8 @@ public class ClientController {
         }
 
     private ItemMenuMemory items = ItemMenuMemory.getInstancia();
-    private ClienteMemory clients = ClienteMemory.getInstancia();
+    //private ClienteMemory clients = ClienteMemory.getInstancia();
+    private ClienteJDBC clients = new ClienteJDBC();
     private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
 
     public List<List> loadData() {
@@ -70,6 +72,10 @@ public class ClientController {
         clientData.add(client.getCoordenada().getLatitude());
         clientData.add(client.getCoordenada().getLongitude());
         return clientData;
+    }
+    public Cliente getObjetCliente(int ID) {
+        Cliente client = ClienteMemory.getInstancia().buscar(ID);
+        return client;
     }
 
     public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {

@@ -44,7 +44,7 @@ public class ClienteJDBC implements ClienteDAO{
         String query = "INSERT INTO cliente (nombre, cuit, email, direccion, cx, cy) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, cliente.getNombre());
-            ps.setInt(2, cliente.getCuit());
+            ps.setLong(2, cliente.getCuit());
             ps.setString(3, cliente.getEmail());
             ps.setString(4, cliente.getDireccion());
             ps.setDouble(5, cliente.getCoordenada().getLatitude());
@@ -60,7 +60,7 @@ public class ClienteJDBC implements ClienteDAO{
         String query = "UPDATE cliente SET nombre = ?, cuit = ?, email = ?, direccion = ?, cx = ?, cy = ? WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, cliente.getNombre());
-            ps.setInt(2, cliente.getCuit());
+            ps.setLong(2, cliente.getCuit());
             ps.setString(3, cliente.getEmail());
             ps.setString(4, cliente.getDireccion());
             ps.setDouble(5, cliente.getCoordenada().getLatitude());

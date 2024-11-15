@@ -20,6 +20,14 @@ import javax.swing.event.ListSelectionEvent;
 import java.lang.String;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import nc.controller.ClientController;
+import nc.controller.VendedorController;
+import nc.dao.memory.ItemPedidoMemory;
+import nc.excepciones.PedidoCerradoException;
+import nc.excepciones.PedidoIncorrectoException;
+import nc.excepciones.VendedorIncorrectoException;
+import nc.vista.cliente.AgregarCarrito;
+import nc.modelo.Carrito;
 /**
  *
  * @author nicol
@@ -34,11 +42,15 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }
     private PersonalizatedTableModel modeloItemMenu;
     private ItemMenuController itemsMenu;
+    ClientController clientes;
     private TableRowSorter<PersonalizatedTableModel> sorter;
     private filterMode actualFilter;
     private int vendedorID = -1;
     private int ID_Seleccionado = -1;
     private ClientesFrame frameSuperior;
+    boolean hayCarrito = false;
+    int cliente;
+    Carrito carrito;
     /**
      * Creates new form ItemMenuPanel
      */
@@ -60,8 +72,12 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
                    }
                }   
            }});
-        
-        
+    }
+    public void setClientController(ClientController clientes){
+        this.clientes=clientes;
+    }
+    public void setCliente(int id){
+        cliente =id;
     }
     public void setUpperFrame(ClientesFrame frame){
         this.frameSuperior = frame;
@@ -74,7 +90,15 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         this.modeloItemMenu.setItems(itemsMenu.loadData());
         contentTable.updateUI();
     }
-
+    public void agregar(int cantidad, int idItemMenu) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
+        if(!hayCarrito){
+        ItemPedidoMemory ipm = ItemPedidoMemory.getItemPedidoMemory();
+        carrito = new Carrito(ipm, clientes.getObjetCliente(cliente), itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
+        hayCarrito = true;
+        }else{
+        carrito.agregarItem(itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +125,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         VerDetalleButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         backButton1 = new javax.swing.JButton();
+        agregarACarrito = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -218,6 +243,17 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel7.add(backButton1, gridBagConstraints);
 
+        agregarACarrito.setText("Agregar a Carrito");
+        agregarACarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarACarritoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        jPanel7.add(agregarACarrito, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -297,9 +333,22 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         this.frameSuperior.goBack();
     }//GEN-LAST:event_backButton1ActionPerformed
 
+    private void agregarACarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarACarritoActionPerformed
+         if(this.ID_Seleccionado!=-1){
+            AgregarCarrito carritoDialog = new AgregarCarrito((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu, this);
+            carritoDialog.setModal(true);
+            carritoDialog.setVisible(true);
+            carritoDialog.setLocationRelativeTo(null);
+            carritoDialog.setSize(500, 500);
+        }
+        else JOptionPane.showMessageDialog((JFrame) SwingUtilities.getWindowAncestor(this) , "Error, Item no seleccionado. Por favor seleccione un Item"
+                , "Item no seleccionado",JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_agregarACarritoActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton VerDetalleButton;
+    private javax.swing.JButton agregarACarrito;
     private javax.swing.JButton backButton;
     private javax.swing.JButton backButton1;
     private javax.swing.ButtonGroup buttonGroup1;

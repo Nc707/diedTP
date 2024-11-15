@@ -13,7 +13,7 @@ public class Cliente implements Observer {
 
     private static int next_id = 0;
     private int id;
-    private int cuit;
+    private long cuit;
     private String email;
     private String direccion;
     private Coordenada coordenadas;
@@ -60,11 +60,15 @@ public class Cliente implements Observer {
         this.direccion = direccion;
     }
 
+   /* public void setId(int id) {
+        this.id = id;
+    }*/
+
     public int getId() {
         return id;
     }
 
-    public int getCuit() {
+    public long getCuit() {
         return cuit;
     }
 
@@ -132,7 +136,7 @@ public class Cliente implements Observer {
     @Override
     public String toString() {
         return "Nombre: " + nombre + "\nId: " + Integer.toString(id) + "\nCuit: "
-                + Integer.toString(cuit) + "\nEmail: " + email + "\nDireccion: " + direccion;
+                + Long.toString(cuit) + "\nEmail: " + email + "\nDireccion: " + direccion;
     }
 
     @Override
@@ -165,6 +169,10 @@ public class Cliente implements Observer {
         }
         System.out.println("Pago recibido");
         return new Pago(pedido);
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

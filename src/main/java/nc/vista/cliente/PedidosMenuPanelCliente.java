@@ -62,7 +62,7 @@ public class PedidosMenuPanelCliente extends javax.swing.JPanel {
                        ID_Seleccionado = (Integer)contentTable.getValueAt(filaSeleccionada, 0);
                    }
                }   
-           }});
+           }});        
     }
     public void setUpperFrame(ClientesFrame frame){
         this.upperFrame = frame;
