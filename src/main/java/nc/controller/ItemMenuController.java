@@ -44,6 +44,10 @@ public class ItemMenuController {
         itemMenuData.add(item.getPrecio() );
         return itemMenuData;
     }
+    public ItemMenu getObjetItemMenu(int id){
+        ItemMenu item = ItemMenuMemory.getInstancia().buscar(id);
+        return item;
+     }
     public void setID(int vendedorID){
         this.vendedorID = vendedorID;
     }
