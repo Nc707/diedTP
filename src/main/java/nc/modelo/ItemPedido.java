@@ -22,13 +22,23 @@ public class ItemPedido implements Comparable {
     
     private CompareItemPedidoStrategyInterface compareStrategy;
     
-    //cons
+    //cons para memory
     public ItemPedido(ItemMenu item,int cant, Pedido pedido){
         this.cantidad=cant;
         this.id=next_id;
         next_id ++;
         this.itemMenu=item;
         this.precio = item.getPrecio() * cant;
+        this.pedido= pedido;
+        this.compareStrategy = new ItemPedidoPriceCompSt(this, true);
+    }
+
+    //cons para jdbc
+    public ItemPedido(int id, ItemMenu item,int cant, float precio, Pedido pedido){
+        this.cantidad=cant;
+        this.id=id;
+        this.itemMenu=item;
+        this.precio = precio;
         this.pedido= pedido;
         this.compareStrategy = new ItemPedidoPriceCompSt(this, true);
     }

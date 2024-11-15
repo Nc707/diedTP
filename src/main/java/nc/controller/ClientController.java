@@ -37,8 +37,10 @@ public class ClientController {
 
     private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     //private ClienteMemory clients = ClienteMemory.getInstancia();
+
     //private ItemMenuDAO items  = ItemMenuMemory.getInstancia();
     private ClienteDAO clients = new ClienteJDBC();
+
     private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
     //private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
 
