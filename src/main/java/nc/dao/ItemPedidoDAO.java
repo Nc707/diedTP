@@ -23,7 +23,7 @@ public interface ItemPedidoDAO {
         ID_ITEMPEDIDO
     }
     enum tipoFiltradoRango{
-    
+
         PRECIO_ITEMPEDIDO,
         PRECIO_PEDIDO,
         PRECIO_ITEMMENU   
@@ -36,6 +36,7 @@ public interface ItemPedidoDAO {
         PRECIO_ITEMMENU
     }
     public List<ItemPedido> getAll();
+    public List<ItemPedido> listarPorPedido(int id_pedido);
     public void add(ItemPedido item);
     public void update(int ID, ItemPedido item) throws ItemNoEncontradoException;
     public void delete(int ID) throws ItemNoEncontradoException;
