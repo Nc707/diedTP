@@ -23,7 +23,7 @@ public interface ItemPedidoDAO {
         ID_ITEMPEDIDO
     }
     enum tipoFiltradoRango{
-    
+
         PRECIO_ITEMPEDIDO,
         PRECIO_PEDIDO,
         PRECIO_ITEMMENU   

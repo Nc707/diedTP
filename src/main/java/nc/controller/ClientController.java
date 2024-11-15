@@ -38,6 +38,7 @@ public class ClientController {
     private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     //private ClienteMemory clients = ClienteMemory.getInstancia();
 
+
     //private ItemMenuDAO items  = ItemMenuMemory.getInstancia();
     private ClienteDAO clients = new ClienteJDBC();
 
@@ -69,7 +70,7 @@ public class ClientController {
     public List getCliente(int ID) {
         List clientData = new ArrayList();
         Cliente client = clients.buscar(ID);
-  
+
         clientData.add(ID);
         clientData.add(client.getNombre());
         clientData.add(client.getDireccion());

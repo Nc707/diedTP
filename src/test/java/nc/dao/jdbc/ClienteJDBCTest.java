@@ -16,9 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Pc
  */
 public class ClienteJDBCTest {
-    
-    public ClienteJDBCTest() {
 
+    public ClienteJDBCTest() {
      DBConnector.getInstance();
 
     }
@@ -30,7 +29,7 @@ public class ClienteJDBCTest {
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
     HashSet<Integer> ids = new HashSet<>();
-    
+
     for(Cliente cliente : clientes){
         boolean flag = ids.add(cliente.getId());
         assertTrue(flag,"No esta duplicado" + cliente.getId());
@@ -43,37 +42,37 @@ public class ClienteJDBCTest {
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
     HashSet<Long> cuit = new HashSet<>();
-    
+
     for(Cliente cliente : clientes){
         boolean flag = cuit.add(cliente.getCuit());
         assertTrue(flag,"No esta duplicado" + cliente.getCuit());
         }
     assertEquals(clientes.size(), cuit.size(), "Se reviso toda la tabla de Clientes");
     }
-   
-     
+
+
     @Test
     public void idNull(){
     DBConnector.getInstance();
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
     HashSet<Integer> ids = new HashSet<>();
-    
+
     for(Cliente cliente : clientes){
         assertNotNull(cliente.getId(), "Error, un ID nunca puede ser NULL");
         ids.add(cliente.getId());
         }
         assertEquals(clientes.size(), ids.size(), "Se reviso toda la tabla de Clientes");
     }
-    
-    
+
+
     @Test
     public void cuitNull(){
     DBConnector.getInstance();
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
     HashSet<Long> cuits = new HashSet<>();
-    
+
     for(Cliente cliente : clientes){
         assertNotNull(cliente.getId(), "Error, un ID nunca puede ser NULL");
         cuits.add(cliente.getCuit());
