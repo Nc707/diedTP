@@ -73,6 +73,10 @@ public class ClientController {
         clientData.add(client.getCoordenada().getLongitude());
         return clientData;
     }
+    public Cliente getObjetCliente(int ID) {
+        Cliente client = ClienteMemory.getInstancia().buscar(ID);
+        return client;
+    }
 
     public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         Cliente cliente = new Cliente(nombre, cuit, email, direccion, latitud, longitud);
