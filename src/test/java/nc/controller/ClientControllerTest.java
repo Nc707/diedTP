@@ -45,9 +45,8 @@ public class ClientControllerTest {
         ClientController controller = new ClientController();
     int testID = 1;
     
-    // Crear y agregar un cliente en memoria
     Cliente cliente = controller.crear(nombre,cuit,email, direccion, latitud, longitud);
-    cliente.setId(testID); // Asignar el ID esperado
+    cliente.setId(testID);
     List<Object> clientData = controller.getCliente(testID);
         assertNotNull(clientData, "Los datos del cliente no deben ser nulos");
         assertEquals(7, clientData.size(), "Se esperan 7 elementos en la lista");

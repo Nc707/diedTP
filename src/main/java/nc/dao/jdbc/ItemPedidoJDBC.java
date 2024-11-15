@@ -1,5 +1,6 @@
 package nc.dao.jdbc;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,7 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
     @Override
     public List<ItemPedido> getAll() {
         throw new UnsupportedOperationException("Unimplemented method");
+
     }
 
     @Override
@@ -36,10 +38,12 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @Override
     public void update(int ID, ItemPedido item) throws ItemNoEncontradoException {
+
         String query = "UPDATE item_pedido SET cantidad = ?, precio = ?, id_item_menu = ?, id_pedido = ? WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, item.getCantidad());
@@ -52,10 +56,12 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
             Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+
     }
 
     @Override
     public void delete(int ID) throws ItemNoEncontradoException {
+
         String query = "DELETE FROM item_pedido WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, ID);
@@ -63,13 +69,16 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @Override
     public void addAll(List<ItemPedido> items) {
+
         for (ItemPedido item : items) {
             add(item);
         }
+
     }
 
     @Override
@@ -124,6 +133,7 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
     }
 
 
+
     @Override
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException {
         // TODO Auto-generated method stub
@@ -152,7 +162,4 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
     }
 
 
-
-
-    
 }
