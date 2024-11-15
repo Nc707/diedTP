@@ -1,5 +1,7 @@
 package nc.dao.jdbc;
 
+import java.awt.Point;
+import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,17 +27,20 @@ public class ClienteJDBC implements ClienteDAO{
             while(rs.next()) {
                 int id = rs.getInt("id"); // regularizar tema de id?
                 String nombre = rs.getString("nombre");
-                int cuit = rs.getInt("cuit");
+                long cuit = rs.getLong("cuit");
                 String email = rs.getString("email");
                 String direccion = rs.getString("direccion");
-                double cx = rs.getDouble("cx");
-                double cy = rs.getDouble("cy");
+                byte[] bytes = rs.getBytes("coordenada");
+                double cx = ByteBuffer.wrap(bytes).getDouble();
+                double cy = ByteBuffer.wrap(bytes).getDouble();
                 Cliente c = new Cliente(id, nombre, cuit, email, direccion, cx, cy);
                 lista.add(c);
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ClienteJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(lista.size());
         return lista;
     }
 
@@ -91,11 +96,12 @@ public class ClienteJDBC implements ClienteDAO{
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
                 String nombre = rs.getString("nombre");
-                int cuit = rs.getInt("cuit");
+                long cuit = rs.getLong("cuit");
                 String email = rs.getString("email");
                 String direccion = rs.getString("direccion");
-                double cx = rs.getDouble("cx");
-                double cy = rs.getDouble("cy");
+                 byte[] bytes = rs.getBytes("coordenada");
+                double cx = ByteBuffer.wrap(bytes).getDouble();
+                double cy = ByteBuffer.wrap(bytes).getDouble();
                 return new Cliente(id, nombre, cuit, email, direccion, cx, cy);
             }
         } catch (SQLException ex) {
