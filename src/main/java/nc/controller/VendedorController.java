@@ -7,16 +7,19 @@ import java.util.stream.Collectors;
 import nc.modelo.Coordenada;
 import nc.modelo.Vendedor;
 import nc.dao.VendedorDAO;
-import nc.dao.memory.VendedorMemory;
+import nc.dao.jdbc.VendedorJDBC;
+//import nc.dao.memory.VendedorMemory;
+import nc.modelo.Cliente;
 
-/**
- *
- * @author nicol
- */
+
+
 public class VendedorController {
+    
+    private VendedorDAO vendedores = new VendedorJDBC();
+    
     public List<List> loadData(){
-        VendedorDAO database = VendedorMemory.getInstancia();
-        List<Vendedor> data = database.listar();
+        List<Vendedor> data = vendedores.listar();
+      
         return data.stream().map((Vendedor c) -> {
             ArrayList list = new ArrayList();
             list.add(c.getId());
@@ -27,7 +30,7 @@ public class VendedorController {
     }
         public List getVendedor(int ID){
         List vendedorData = new ArrayList();
-        Vendedor vendor = VendedorMemory.getInstancia().buscar(ID);
+        Vendedor vendor = vendedores.buscar(ID);
         vendedorData.add(ID);
         vendedorData.add(vendor.getNombre());
         vendedorData.add(vendor.getDireccion());
@@ -37,7 +40,7 @@ public class VendedorController {
     }
     
     public void modificarVendedor(int ID, String nombre, String direccion, double cx, double cy){
-        Vendedor vendor = VendedorMemory.getInstancia().buscar(ID);
+        Vendedor vendor = vendedores.buscar(ID);
         vendor.setNombre(nombre);
         vendor.setDireccion(direccion);
         vendor.setCoordenada(new Coordenada(cx, cy));
@@ -46,7 +49,7 @@ public class VendedorController {
 
     public Vendedor crear(String nombre, String direccion, double cx, double cy){
         Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
-        VendedorMemory.getInstancia().add(vendedor);
+        vendedores.add(vendedor);
         return vendedor;
     }
     

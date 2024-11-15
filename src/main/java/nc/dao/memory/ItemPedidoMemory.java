@@ -196,4 +196,9 @@ public final class ItemPedidoMemory implements ItemPedidoDAO {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItem'");
     }
+
+    @Override
+    public List<ItemPedido> listarPorPedido(int id_pedido) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

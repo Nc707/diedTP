@@ -1,5 +1,6 @@
 package nc.dao.jdbc;
 
+import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,8 +27,9 @@ public class VendedorJDBC implements VendedorDAO{
                 int id = rs.getInt("id"); // regularizar tema de id?
                 String nombre = rs.getString("nombre");
                 String direccion = rs.getString("direccion");
-                double cx = rs.getDouble("cx");
-                double cy = rs.getDouble("cy");
+                byte[] bytes = rs.getBytes("coordenada");
+                double cx = ByteBuffer.wrap(bytes).getDouble();
+                double cy = ByteBuffer.wrap(bytes).getDouble();
                 Vendedor v = new Vendedor(id, nombre, direccion, cx, cy);
                 lista.add(v);
             }
@@ -88,8 +90,9 @@ public class VendedorJDBC implements VendedorDAO{
             if (rs.next()) {
                 String nombre = rs.getString("nombre");
                 String direccion = rs.getString("direccion");
-                double cx = rs.getDouble("cx");
-                double cy = rs.getDouble("cy");
+                 byte[] bytes = rs.getBytes("coordenada");
+                double cx = ByteBuffer.wrap(bytes).getDouble();
+                double cy = ByteBuffer.wrap(bytes).getDouble();
                 return new Vendedor(id, nombre, direccion, cx, cy);
             }
         } catch (SQLException ex) {
