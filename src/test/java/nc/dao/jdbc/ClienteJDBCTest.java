@@ -48,7 +48,7 @@ public class ClienteJDBCTest {
     assertEquals(clientes.size(), cuit.size(), "Se reviso toda la tabla de Clientes");
     }
    
-   
+     
     @Test
     public void idNull(){
     DBConnector.getInstance();
