@@ -19,10 +19,12 @@ public class ClienteJDBCTest {
 
     public ClienteJDBCTest() {
      DBConnector.getInstance();
+
     }
 
     @Test
     public void idUnico(){
+
     DBConnector.getInstance();
     ClienteJDBC client = new ClienteJDBC();
     ArrayList<Cliente> clientes = client.listar();
