@@ -29,6 +29,7 @@ public class CreacionCliente extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        nonUsed = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -43,11 +44,25 @@ public class CreacionCliente extends javax.swing.JDialog {
         txtCoordX = new javax.swing.JTextField();
         txtCoordY = new javax.swing.JTextField();
 
+        nonUsed.setText("y:");
+        nonUsed.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nonUsedFocusGained(evt);
+            }
+        });
+        nonUsed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nonUsedActionPerformed(evt);
+            }
+        });
+        nonUsed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nonUsedKeyTyped(evt);
+            }
+        });
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
-        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        getContentPane().setLayout(layout);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -56,8 +71,9 @@ public class CreacionCliente extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 38;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jButton1, gridBagConstraints);
 
         jButton2.setText("Cancelar");
@@ -67,38 +83,42 @@ public class CreacionCliente extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 14;
-        gridBagConstraints.gridy = 38;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jButton2, gridBagConstraints);
 
         jLabel1.setText("Nombre");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Cuit");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jLabel2, gridBagConstraints);
 
         jLabel3.setText("Email");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jLabel3, gridBagConstraints);
 
         jLabel4.setText("Direccion");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 22;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("Coordenada");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 28;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jLabel5, gridBagConstraints);
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -107,9 +127,8 @@ public class CreacionCliente extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(txtNombre, gridBagConstraints);
 
         txtCuit.addActionListener(new java.awt.event.ActionListener() {
@@ -123,19 +142,23 @@ public class CreacionCliente extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(txtCuit, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 16;
-        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(txtEmail, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 22;
-        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 75;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(txtDireccion, gridBagConstraints);
 
         txtCoordX.setText("x:");
@@ -150,17 +173,16 @@ public class CreacionCliente extends javax.swing.JDialog {
             }
         });
         txtCoordX.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCoordXKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCoordXKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 28;
-        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 75;
+        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 15);
         getContentPane().add(txtCoordX, gridBagConstraints);
 
         txtCoordY.setText("y:");
@@ -180,10 +202,11 @@ public class CreacionCliente extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 14;
-        gridBagConstraints.gridy = 28;
-        gridBagConstraints.ipadx = 60;
-        gridBagConstraints.insets = new java.awt.Insets(1, 7, 1, 17);
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 75;
+        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 15);
         getContentPane().add(txtCoordY, gridBagConstraints);
 
         pack();
@@ -193,9 +216,9 @@ public class CreacionCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtCoordYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoordYActionPerformed
+    private void nonUsedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonUsedActionPerformed
     
-    }//GEN-LAST:event_txtCoordYActionPerformed
+    }//GEN-LAST:event_nonUsedActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      panelSuperior.crearCliente(txtNombre.getText(), (int) Long.parseLong(txtCuit.getText()), txtEmail.getText(), txtDireccion.getText(), Double.parseDouble(txtCoordX.getText()), Double.parseDouble(txtCoordY.getText()));
@@ -203,10 +226,6 @@ public class CreacionCliente extends javax.swing.JDialog {
       this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtCoordXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoordXActionPerformed
-
-    }//GEN-LAST:event_txtCoordXActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       this.dispose();
@@ -217,35 +236,50 @@ public class CreacionCliente extends javax.swing.JDialog {
         if((car<'0' || car>'9')) evt.consume();
     }//GEN-LAST:event_txtCuitKeyTyped
 
+    private void nonUsedKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nonUsedKeyTyped
+    char car = evt.getKeyChar();
+    if((car < '0' || car > '9') && car != '.') evt.consume();       
+    }//GEN-LAST:event_nonUsedKeyTyped
+
+    private void nonUsedFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nonUsedFocusGained
+        if (nonUsed.getText().equals("y:")) {
+                    nonUsed.setText("");
+                }
+    }//GEN-LAST:event_nonUsedFocusGained
+
+    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuitActionPerformed
+
+    private void txtCoordXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCoordXFocusGained
+        if (txtCoordX.getText().equals("x:")) {
+            txtCoordX.setText("");
+        }
+    }//GEN-LAST:event_txtCoordXFocusGained
+
+    private void txtCoordXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoordXActionPerformed
+
+    }//GEN-LAST:event_txtCoordXActionPerformed
+
     private void txtCoordXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordXKeyTyped
         char car = evt.getKeyChar();
         if((car < '0' || car > '9') && car != '.') evt.consume();
     }//GEN-LAST:event_txtCoordXKeyTyped
 
-    private void txtCoordYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordYKeyTyped
-    char car = evt.getKeyChar();
-    if((car < '0' || car > '9') && car != '.') evt.consume();       
-    }//GEN-LAST:event_txtCoordYKeyTyped
-
-    private void txtCoordXKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordXKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCoordXKeyPressed
-
-    private void txtCoordXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCoordXFocusGained
-        if (txtCoordX.getText().equals("x:")) {
-                    txtCoordX.setText("");
-                }
-    }//GEN-LAST:event_txtCoordXFocusGained
-
     private void txtCoordYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCoordYFocusGained
         if (txtCoordY.getText().equals("y:")) {
-                    txtCoordY.setText("");
-                }
+            txtCoordY.setText("");
+        }
     }//GEN-LAST:event_txtCoordYFocusGained
 
-    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCuitActionPerformed
+    private void txtCoordYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoordYActionPerformed
+        
+    }//GEN-LAST:event_txtCoordYActionPerformed
+
+    private void txtCoordYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoordYKeyTyped
+        char car = evt.getKeyChar();
+        if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_txtCoordYKeyTyped
 
     /**
      * @param args the command line arguments
@@ -260,6 +294,7 @@ public class CreacionCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField nonUsed;
     private javax.swing.JTextField txtCoordX;
     private javax.swing.JTextField txtCoordY;
     private javax.swing.JTextField txtCuit;

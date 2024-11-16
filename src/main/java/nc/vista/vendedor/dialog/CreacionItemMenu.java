@@ -24,6 +24,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         initComponents();
         this.idVendedor = idVendedor; 
         this.panelSuperior = panelSuperior;
+        ((CardLayout)jPanel1.getLayout()).show(jPanel1, "card3");
     }
 
     /**

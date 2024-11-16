@@ -30,7 +30,8 @@ public class Pedido implements Observable{
     public enum EstadoPedido{
         EN_CARRITO,
         RECIBIDO,
-        EN_ENVIO
+        EN_ENVIO,
+        ENTREGADO
     }
   
         
