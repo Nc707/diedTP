@@ -47,6 +47,7 @@ public class Carrito {
         ItemPedido itemAgregar = new ItemPedido(item, cantidadItems, pedido);
         pedido.addItem(itemAgregar);
         items.add(itemAgregar);
+        System.out.println("ItemAgregado!!!");
     }
 
     public void modificarCantidad(ItemPedido item, int nuevaCantidad) throws PedidoIncorrectoException {

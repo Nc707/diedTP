@@ -70,6 +70,7 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
         this.upperFrame = vista;
     }
     public void setCliente(){
+        //System.out.println("El ID del cliente es: " + ID_Seleccionado);
         this.upperFrame.upperPanel.setCliente(ID_Seleccionado);
     }
     public void modificar(int id, String name, String dir, String mail, String cuil, double coorX, double coorY){

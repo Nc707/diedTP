@@ -142,15 +142,7 @@ public class AgregarCarrito extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
             superior.agregar(Integer.parseInt(cant.getText()), (int) item.get(0));
-
-            //Excepciones
-        } catch (VendedorIncorrectoException ex) {
-            Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PedidoIncorrectoException ex) {
-            Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PedidoCerradoException ex) {
-            Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ItemNoEncontradoException ex) {
+        } catch (NumberFormatException | ItemNoEncontradoException | PedidoCerradoException | PedidoIncorrectoException | VendedorIncorrectoException ex) {
             Logger.getLogger(AgregarCarrito.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();

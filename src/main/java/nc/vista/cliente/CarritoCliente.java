@@ -40,8 +40,8 @@ public class CarritoCliente extends javax.swing.JPanel {
     private filterMode actualFilter;
     private int filterID = 0;
     int ID_Seleccionado = -1;
-    private int ClientID;
-    ClientesFrame frameSuperior;
+    private int ClientID = -1;
+    public ClientesFrame frameSuperior;
     /**
      * Creates new form ItemMenuPanel
      */
@@ -68,12 +68,16 @@ public class CarritoCliente extends javax.swing.JPanel {
     public void setUpperFrame(ClientesFrame frame){
         this.frameSuperior = frame;
     }
-    public void setCliente(int ID){
+    public void setCliente(int ID, ClientController carrito){
         this.ClientID = ID;
-        this.modeloItemsPedido.setItems(this.carrito.getContenidoCarrito(ID));
+        this.carrito = carrito;
+        List contenidoCarrito= this.carrito.getContenidoCarrito();
+        this.modeloItemsPedido.setItems((contenidoCarrito==null)?new ArrayList():contenidoCarrito);
         }
     public void updateModel(){
-       this.modeloItemsPedido.setItems(this.carrito.getContenidoCarrito(this.ClientID));
+       System.out.println(this.ClientID);
+       List contenidoCarrito= this.carrito.getContenidoCarrito();
+       this.modeloItemsPedido.setItems((contenidoCarrito==null)?new ArrayList():contenidoCarrito);
        this.contentTable.revalidate();
        this.contentTable.repaint();
     }
@@ -293,10 +297,10 @@ public class CarritoCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cerrarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPedidoButtonActionPerformed
-        if(carrito.getContenidoCarrito(this.ClientID)==null) 
+        if(carrito.getContenidoCarrito()==null) 
             JOptionPane.showMessageDialog(null, "No es posible cerrar su carrito, está vacío", "Carrito Vacío", JOptionPane.ERROR_MESSAGE);
         else
-            new CerrarPedido((JFrame) SwingUtilities.getWindowAncestor(this),true).setVisible(true);
+            new CerrarPedido((JFrame) SwingUtilities.getWindowAncestor(this),true, this.carrito, this).setVisible(true);
     }//GEN-LAST:event_cerrarPedidoButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
