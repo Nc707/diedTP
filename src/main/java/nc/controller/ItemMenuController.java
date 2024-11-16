@@ -103,5 +103,12 @@ public class ItemMenuController {
         itemsMenu.add(new Bebida(nombre, vendedor, precio, pes, grado, tam));
 
     }
+     public void editarItemMenu(int ID, String nombre, float precio, String descripcion) throws ItemNoEncontradoException{
+        ItemMenu editar = itemsMenu.getItem(ID);
+        editar.setDescripcion(descripcion);
+        editar.setNombre(nombre);
+        editar.setPrecio(precio);
+        itemsMenu.update(ID, editar);
+    }
 
 }
