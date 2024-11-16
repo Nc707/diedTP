@@ -49,10 +49,10 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private int vendedorID = -1;
     private int ID_Seleccionado = -1;
     private ClientesFrame frameSuperior;
-    boolean hayCarrito = false;
+    //boolean hayCarrito = false;
     int cliente;
     ItemPedidoDAO ipm = new ItemPedidoJDBC();
-    Carrito carrito;
+    //Carrito carrito;
 
     /**
      * Creates new form ItemMenuPanel
@@ -101,12 +101,8 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     }
 
     public void agregar(int cantidad, int idItemMenu) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException, ItemNoEncontradoException {
-        if (!hayCarrito) {
-            //ItemPedidoMemory ipm = ItemPedidoMemory.getItemPedidoMemory();
-            carrito = new Carrito(clientes.getObjetCliente(cliente), itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
-        } else {
-            carrito.agregarItem(itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
-        }
+        clientes.agregarProductoAlCarrito(idItemMenu, cantidad);
+        this.frameSuperior.updateCarrito();
     }
 
     /**
@@ -364,8 +360,6 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
                 carritoDialog.setModal(true);
                 carritoDialog.setVisible(true);
                 carritoDialog.setLocationRelativeTo(null);
-                carritoDialog.setSize(500, 500);
-                carritoDialog.setVisible(true);
             } catch (ItemNoEncontradoException ex) {
                 Logger.getLogger(ItemMenuPanelCliente.class.getName()).log(Level.SEVERE, null, ex);
             }

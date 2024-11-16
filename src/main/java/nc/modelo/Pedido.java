@@ -59,8 +59,11 @@ public class Pedido implements Observable{
 
     public void addItem(ItemPedido item) throws VendedorIncorrectoException, PedidoIncorrectoException, PedidoCerradoException{
            if(this.estado == EstadoPedido.RECIBIDO) throw new PedidoCerradoException("El pedido esta cerrado y no se puede modificar");
-           if(item.getVendedor().equals((Object)this.vendedor)) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
-           if(item.getPedido().equals((Object)this)) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
+           
+           if(item.getVendedor().getId()!=this.vendedor.getId()) throw new VendedorIncorrectoException("El vendedor del item:" + item.toString() + " no coincide con el pedido");
+           
+           if(!item.getPedido().equals((Object)this)) throw new PedidoIncorrectoException("El item: "+ item.toString() + " no corresponde al pedido");
+           
            this.precio += item.getPrecio();
            items.add(item);
        }

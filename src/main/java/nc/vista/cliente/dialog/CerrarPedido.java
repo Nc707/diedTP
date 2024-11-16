@@ -4,29 +4,36 @@
  */
 package nc.vista.cliente.dialog;
 
+import java.util.ArrayList;
+import java.util.List;
+import nc.controller.ClientController;
+import nc.controller.ClientController.metodoPago;
+import nc.vista.cliente.CarritoCliente;
+
 /**
  *
  * @author nicol
  */
 public class CerrarPedido extends javax.swing.JDialog {
 
-    private enum paymentMethod{
-        MERCADO_PAGO,
-        TRANSFERENCIA
-    }
-    private paymentMethod metodoPago;
+    private metodoPago metodoPago;
+    private ClientController control;
+    private CarritoCliente upperFrame;
     /**
      * Creates new form CerrarPedido
      * @param parent
      * @param modal
+     * @param controladora
      */
-    public CerrarPedido(java.awt.Frame parent, boolean modal) {
+    public CerrarPedido(java.awt.Frame parent, boolean modal, ClientController controladora, CarritoCliente upper) {
         super(parent, modal);
         initComponents();
+        this.control = controladora;
         this.mpRadio.setSelected(true);
         hidePayment();
-        this.metodoPago = paymentMethod.MERCADO_PAGO;
+        this.metodoPago = metodoPago.MERCADO_PAGO;
         this.aliasLabel.setVisible(true);
+        this.upperFrame = upper;
     }
 
     /**
@@ -181,21 +188,34 @@ public class CerrarPedido extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cerrarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPedidoButtonActionPerformed
-        // TODO add your handling code here:
+        List datos = new ArrayList();
+        switch(this.metodoPago){
+            case MERCADO_PAGO -> datos.add(this.aliasCBUText.getText());
+            case TRANSFERENCIA -> {
+                datos.add(this.aliasCBUText.getText());
+                datos.add(Long.valueOf(this.cuitText.getText()));
+            }
+        }
+        this.control.setMetodoPago(this.metodoPago, datos);
+        this.control.cerrarCarrito();
+        this.upperFrame.frameSuperior.updateMisPedidos();
+        this.dispose();
     }//GEN-LAST:event_cerrarPedidoButtonActionPerformed
 
     private void mpRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mpRadioActionPerformed
         hidePayment();
-        this.metodoPago = paymentMethod.MERCADO_PAGO;
+        this.metodoPago = metodoPago.MERCADO_PAGO;
         this.aliasLabel.setVisible(true);
+        this.resumeText.setText(this.control.getCarritoDescription());
     }//GEN-LAST:event_mpRadioActionPerformed
 
     private void transferenciaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferenciaRadioActionPerformed
          hidePayment();
-        this.metodoPago = paymentMethod.TRANSFERENCIA;
-        this.cbuLabel.setVisible(true);;
+        this.metodoPago = metodoPago.TRANSFERENCIA;
+        this.cbuLabel.setVisible(true);
         this.cuitLabel.setVisible(true);
         this.cuitText.setVisible(true);
+        this.resumeText.setText(this.control.getCarritoDescription());
     }//GEN-LAST:event_transferenciaRadioActionPerformed
 
     
