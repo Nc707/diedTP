@@ -1,6 +1,5 @@
 package nc.dao.jdbc;
 
-import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,27 +8,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import nc.config.DBConnector;
 import nc.dao.VendedorDAO;
 import nc.modelo.Vendedor;
 
-public class VendedorJDBC implements VendedorDAO{
+public class VendedorJDBC implements VendedorDAO {
+
     private Connection conn = DBConnector.getInstance();
 
     @Override
-    public ArrayList<Vendedor> listar(){
+    public ArrayList<Vendedor> listar() {
         ArrayList<Vendedor> lista = new ArrayList<>();
         String query = "SELECT * FROM vendedor";
-        try(Statement stm = conn.createStatement()) {
+        try (Statement stm = conn.createStatement()) {
             ResultSet rs = stm.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id"); // regularizar tema de id?
                 String nombre = rs.getString("nombre");
                 String direccion = rs.getString("direccion");
-                byte[] bytes = rs.getBytes("coordenada");
-                double cx = ByteBuffer.wrap(bytes).getDouble();
-                double cy = ByteBuffer.wrap(bytes).getDouble();
+                double cx = rs.getDouble("cx");
+                double cy = rs.getDouble("cy");
                 Vendedor v = new Vendedor(id, nombre, direccion, cx, cy);
                 lista.add(v);
             }
@@ -39,8 +37,9 @@ public class VendedorJDBC implements VendedorDAO{
         return lista;
 
     }
+
     @Override
-    public void add(Vendedor vendedor){
+    public void add(Vendedor vendedor) {
         String query = "INSERT INTO vendedor (nombre, direccion, cx, cy) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, vendedor.getNombre());
@@ -53,8 +52,9 @@ public class VendedorJDBC implements VendedorDAO{
         }
 
     }
+
     @Override
-    public void actualizar(Vendedor vendedor){
+    public void actualizar(Vendedor vendedor) {
         String query = "UPDATE vendedor SET nombre = ?, direccion = ?, cx = ?, cy = ? WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, vendedor.getNombre());
@@ -65,12 +65,13 @@ public class VendedorJDBC implements VendedorDAO{
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(VendedorJDBC.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
 
     }
+
     @Override
-    public void eliminar(int id){
+    public void eliminar(int id) {
         String query = "DELETE FROM vendedor WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, id);
@@ -82,7 +83,7 @@ public class VendedorJDBC implements VendedorDAO{
     }
 
     @Override
-    public Vendedor buscar(int id){
+    public Vendedor buscar(int id) {
         String query = "SELECT * FROM vendedor WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, id);
@@ -90,9 +91,8 @@ public class VendedorJDBC implements VendedorDAO{
             if (rs.next()) {
                 String nombre = rs.getString("nombre");
                 String direccion = rs.getString("direccion");
-                 byte[] bytes = rs.getBytes("coordenada");
-                double cx = ByteBuffer.wrap(bytes).getDouble();
-                double cy = ByteBuffer.wrap(bytes).getDouble();
+                double cx = rs.getDouble("cx");
+                double cy = rs.getDouble("cy");
                 return new Vendedor(id, nombre, direccion, cx, cy);
             }
         } catch (SQLException ex) {
@@ -101,8 +101,9 @@ public class VendedorJDBC implements VendedorDAO{
         return null;
 
     }
+
     @Override
-    public Vendedor crear(String nombre, String direccion, double cx, double cy){
+    public Vendedor crear(String nombre, String direccion, double cx, double cy) {
         String query = "INSERT INTO vendedor (nombre, direccion, cx, cy) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, nombre);
