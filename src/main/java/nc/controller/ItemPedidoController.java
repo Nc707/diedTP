@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 import nc.modelo.ItemPedido;
 import nc.dao.ItemPedidoDAO;
-import nc.dao.memory.ItemPedidoMemory;
+import nc.dao.jdbc.ItemPedidoJDBC;
+//import nc.dao.memory.ItemPedidoMemory;
 import nc.excepciones.ItemNoEncontradoException;
 
 /**
@@ -23,9 +24,11 @@ public class ItemPedidoController {
     public ItemPedidoController(int pedidoID){
         this.pedidoID = pedidoID;
     }
+    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
+
     public List getItemPedido(int ID) throws ItemNoEncontradoException{
         List itemMenuData = new ArrayList();
-        ItemPedido item = ItemPedidoMemory.getItemPedidoMemory().filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_ITEMPEDIDO, ID).getFirst();
+        ItemPedido item = itemsPedido.filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_ITEMPEDIDO, ID).getFirst();
         itemMenuData.add(ID);
         itemMenuData.add(item.getItemMenu().getNombre());
         itemMenuData.add(item.getCantidad());
@@ -33,13 +36,13 @@ public class ItemPedidoController {
         return itemMenuData;
     }
     public List<List> loadData(){
-        ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
+       // ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
         List<ItemPedido> data = new ArrayList<>();
         if(pedidoID<0){
-            data = database.getAll();
+            data = itemsPedido.getAll();
         }else{
         try{
-        data = database.filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_PEDIDO, pedidoID);
+        data = itemsPedido.filtrarPor(ItemPedidoDAO.tipoFiltrado.ID_PEDIDO, pedidoID);
             } catch (ItemNoEncontradoException ex) {return new ArrayList();}}
         return data.stream().map((ItemPedido item) -> {
             ArrayList list = new ArrayList();

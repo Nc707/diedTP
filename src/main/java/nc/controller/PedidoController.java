@@ -7,52 +7,90 @@ package nc.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import nc.dao.memory.ItemPedidoMemory;
+import nc.dao.ItemPedidoDAO;
+import nc.dao.PedidoDAO;
+import nc.dao.jdbc.ItemPedidoJDBC;
+import nc.dao.jdbc.PedidoJDBC;
 import nc.modelo.Pedido;
-import nc.excepciones.ItemNoEncontradoException;
 
 /**
  *
  * @author nicol/*
  */
 public class PedidoController {
+
     private Boolean isVendedor;
     private int ID = 0;
-    public PedidoController(Boolean isVendedor){
+    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
+    private PedidoDAO pedidos = new PedidoJDBC();
+
+    public PedidoController(Boolean isVendedor) {
         this.isVendedor = isVendedor;
     }
-    public PedidoController(int ID, Boolean isVendedor){
+
+    public PedidoController(int ID, Boolean isVendedor) {
         this.ID = ID;
         this.isVendedor = isVendedor;
     }
-    public void setID(int ID){
+
+    public void setID(int ID) {
         this.ID = ID;
     }
-    public List<List> loadData(){
-        ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
+
+    // public List<List> loadData(){
+    //     ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
+    //     List<Pedido> data;
+    //     try {
+    //         //data = itemsPedido.getPedidos(ID, isVendedor);
+    //     } catch (ItemNoEncontradoException ex) {return new ArrayList();}
+    //     return data.stream().map((Pedido p) -> {
+    //         ArrayList list = new ArrayList();
+    //         list.add(p.getId());
+    //         if(isVendedor)
+    //         {list.add(p.getCliente().getNombre());}
+    //         else
+    //         {  list.add(p.getVendedor().getNombre());}
+    //         list.add(p.getItemAmount());
+    //         list.add(p.getPrecio());
+    //         switch(p.getEstado()){
+    //             case EN_CARRITO ->
+    //                 list.add("En Carrito");
+    //             case RECIBIDO ->
+    //                 list.add("Recibido");
+    //             case EN_ENVIO ->
+    //                 list.add("En envío");
+    //             }
+    //         return list;
+    //     }).collect(Collectors.toList());
+    // }
+    public List<List> loadData() {
+
         List<Pedido> data;
-        try {
-            data = database.getPedidos(ID, isVendedor);
-        } catch (ItemNoEncontradoException ex) {return new ArrayList();}
+        if (isVendedor) {
+            data = pedidos.listarPorVendedor(ID);
+        } else {
+            data = pedidos.listarPorCliente(ID);
+        }
         return data.stream().map((Pedido p) -> {
             ArrayList list = new ArrayList();
             list.add(p.getId());
-            if(isVendedor)
-            {list.add(p.getCliente().getNombre());}
-            else
-            {  list.add(p.getVendedor().getNombre());}
+            if (isVendedor) {
+                list.add(p.getCliente().getNombre());
+            } else {
+                list.add(p.getVendedor().getNombre());
+            }
             list.add(p.getItemAmount());
             list.add(p.getPrecio());
-            switch(p.getEstado()){
-                case EN_CARRITO -> 
+            switch (p.getEstado()) {
+                case EN_CARRITO ->
                     list.add("En Carrito");
-                case RECIBIDO -> 
+                case RECIBIDO ->
                     list.add("Recibido");
-                case EN_ENVIO -> 
+                case EN_ENVIO ->
                     list.add("En envío");
-                }
+            }
             return list;
         }).collect(Collectors.toList());
     }
-    
+
 }

@@ -4,7 +4,6 @@
  */
 package nc.vista;
 
-import nc.modelo.initGen;
 
 /**
  *
@@ -16,7 +15,6 @@ public class mainFrame extends javax.swing.JFrame {
      * Creates new form mainFrame
      */
     public mainFrame() {
-        initGen.run();
         initComponents();
     }
 
