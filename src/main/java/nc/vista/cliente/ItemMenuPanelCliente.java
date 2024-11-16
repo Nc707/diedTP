@@ -104,7 +104,6 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
         if (!hayCarrito) {
             //ItemPedidoMemory ipm = ItemPedidoMemory.getItemPedidoMemory();
             carrito = new Carrito(clientes.getObjetCliente(cliente), itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
-            hayCarrito = true;
         } else {
             carrito.agregarItem(itemsMenu.getObjetItemMenu(idItemMenu), cantidad);
         }
@@ -366,6 +365,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
                 carritoDialog.setVisible(true);
                 carritoDialog.setLocationRelativeTo(null);
                 carritoDialog.setSize(500, 500);
+                carritoDialog.setVisible(true);
             } catch (ItemNoEncontradoException ex) {
                 Logger.getLogger(ItemMenuPanelCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
