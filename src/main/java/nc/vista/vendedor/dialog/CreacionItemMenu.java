@@ -20,14 +20,10 @@ public class CreacionItemMenu extends javax.swing.JDialog {
      * @param idVendedor
      * @param panelSuperior
      */
-    public CreacionItemMenu(int idVendedor, ItemMenuPanelVendedor panelSuperior ) {
+    public CreacionItemMenu(int idVendedor, ItemMenuPanelVendedor panelSuperior) {
         initComponents();
         this.idVendedor = idVendedor; 
         this.panelSuperior = panelSuperior;
-        this.setSize(600, 400);
-        
-        this.validate();
-        this.repaint();
     }
 
     /**
@@ -38,6 +34,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
@@ -49,8 +46,8 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         jMenu2 = new javax.swing.JMenu();
         comida = new javax.swing.JRadioButton();
         bebida = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        guardarButton = new javax.swing.JButton();
+        cancelarButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -58,8 +55,8 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         txtPrecio = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        creacionComida1 = new nc.vista.vendedor.dialog.CreacionComida();
         creacionBebida2 = new nc.vista.vendedor.dialog.CreacionBebida();
+        creacionComida1 = new nc.vista.vendedor.dialog.CreacionComida();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -67,7 +64,8 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(600, 400));
+        setLayout(new java.awt.GridBagLayout());
 
         buttonGroup1.add(comida);
         comida.setSelected(true);
@@ -77,7 +75,10 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 comidaActionPerformed(evt);
             }
         });
-        getContentPane().add(comida, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(comida, gridBagConstraints);
 
         buttonGroup1.add(bebida);
         bebida.setText("Bebida");
@@ -86,32 +87,57 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 bebidaActionPerformed(evt);
             }
         });
-        getContentPane().add(bebida, java.awt.BorderLayout.PAGE_START);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        add(bebida, gridBagConstraints);
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        guardarButton.setText("Guardar");
+        guardarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                guardarButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, java.awt.BorderLayout.PAGE_END);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(guardarButton, gridBagConstraints);
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelarButton.setText("Cancelar");
+        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelarButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, java.awt.BorderLayout.LINE_END);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(cancelarButton, gridBagConstraints);
 
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.LINE_START);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Precio");
-        getContentPane().add(jLabel2, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        add(jLabel2, gridBagConstraints);
 
         jLabel4.setText("Descripcion");
-        getContentPane().add(jLabel4, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        add(jLabel4, gridBagConstraints);
 
         txtNombre.setPreferredSize(new java.awt.Dimension(128, 22));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -119,35 +145,54 @@ public class CreacionItemMenu extends javax.swing.JDialog {
                 txtNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(txtNombre, java.awt.BorderLayout.CENTER);
-
-        txtPrecio.setPreferredSize(new java.awt.Dimension(128, 22));
-        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioActionPerformed(evt);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(txtNombre, gridBagConstraints);
+
+        txtPrecio.setPreferredSize(new java.awt.Dimension(128, 22));
         txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecioKeyTyped(evt);
             }
         });
-        getContentPane().add(txtPrecio, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(txtPrecio, gridBagConstraints);
 
+        txtDescripcion.setActionCommand("<Not Set>");
+        txtDescripcion.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtDescripcion.setPreferredSize(new java.awt.Dimension(128, 88));
-        getContentPane().add(txtDescripcion, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        add(txtDescripcion, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.CardLayout());
+        jPanel1.add(creacionBebida2, "card2");
         jPanel1.add(creacionComida1, "card3");
 
-        creacionBebida2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                creacionBebida2KeyTyped(evt);
-            }
-        });
-        jPanel1.add(creacionBebida2, "card2");
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(21, 0, 0, 0);
+        add(jPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bebidaActionPerformed
@@ -166,33 +211,29 @@ public class CreacionItemMenu extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioActionPerformed
-
-    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-         char car = evt.getKeyChar();
-        if((car < '0' || car > '9') && car != '.') evt.consume();
-    }//GEN-LAST:event_txtPrecioKeyTyped
-
-    private void creacionBebida2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creacionBebida2KeyTyped
-        char car = evt.getKeyChar();
-    if((car < '0' || car > '9') && car != '.') evt.consume();
-    }//GEN-LAST:event_creacionBebida2KeyTyped
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
         if(boolComida){
-            panelSuperior.crearPlato(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionComida1.getPeso(), creacionComida1.getCalorias());            
+            panelSuperior.crearPlato(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionComida1.getPeso(), creacionComida1.getCalorias());
+
         }else{
             panelSuperior.crearBebida(txtNombre.getText(), idVendedor, Float.parseFloat(txtPrecio.getText()), creacionBebida2.getPeso(), creacionBebida2.getGrado(), creacionBebida2.getTam());
         }
        panelSuperior.updateModel();
        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_guardarButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        char car = evt.getKeyChar();
+        if((car < '0' || car > '9') && car != '.') evt.consume();
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelarButtonActionPerformed
     void limpiar(){
         txtNombre.setText("");
         txtPrecio.setText("");
@@ -207,11 +248,11 @@ public class CreacionItemMenu extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.JButton cancelarButton;
     private javax.swing.JRadioButton comida;
     private nc.vista.vendedor.dialog.CreacionBebida creacionBebida2;
     private nc.vista.vendedor.dialog.CreacionComida creacionComida1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton guardarButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -224,5 +265,7 @@ public class CreacionItemMenu extends javax.swing.JDialog {
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 
-
+    private void setLocationRelativeTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

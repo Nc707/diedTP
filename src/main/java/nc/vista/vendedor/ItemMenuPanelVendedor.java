@@ -4,6 +4,7 @@
  */
 package nc.vista.vendedor;
 
+import java.awt.Dimension;
 import nc.vista.vendedor.dialog.CreacionItemMenu;
 import nc.vista.vendedor.dialog.ItemMenuVer;
 import java.util.Arrays;
@@ -46,6 +47,11 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
 
     /**
      * Creates new form ItemMenuPanel
+     * @param nombre
+     * @param idVendedor
+     * @param precio
+     * @param peso
+     * @param calorias
      */
     public void crearPlato(String nombre, int idVendedor, float precio, float peso, float calorias) {
         itemsMenu.crearPlato(nombre, idVendedor, precio, peso, calorias);
@@ -253,6 +259,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         CreacionItemMenu creacion = new CreacionItemMenu(vendedorID, this);
         creacion.setModal(true);
+        creacion.setSize(new Dimension(600,400));
         creacion.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
         creacion.setVisible(true);
         /*CreacionItemMenu panel = new CreacionItemMenu(vendedorID, this);
