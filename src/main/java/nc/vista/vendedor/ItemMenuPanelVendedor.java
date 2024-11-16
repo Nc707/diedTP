@@ -45,6 +45,8 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private int ID_Seleccionado = -1;
     private VendoresFrame frameSuperior;
 
+    
+   
     /**
      * Creates new form ItemMenuPanel
      * @param nombre

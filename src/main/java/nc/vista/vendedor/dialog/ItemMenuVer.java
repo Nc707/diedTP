@@ -7,6 +7,7 @@ package nc.vista.vendedor.dialog;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import nc.controller.ItemMenuController;
 import nc.excepciones.ItemNoEncontradoException;
 
@@ -134,11 +135,16 @@ public class ItemMenuVer extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         getContentPane().add(BotonCerrar, gridBagConstraints);
 
         BotonAceptar.setText("Aceptar");
+        BotonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAceptarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
@@ -177,6 +183,16 @@ public class ItemMenuVer extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
+
+    private void BotonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAceptarActionPerformed
+        try {
+            this.controller.editarItemMenu(ID, this.TextNombre.getText(), Float.parseFloat(this.TextPrecio.getText()) , this.TextDescripcion.getText());
+        } catch (ItemNoEncontradoException ex) {
+            JOptionPane.showMessageDialog(this, "Error, item no encontrado", "Error",JOptionPane.ERROR_MESSAGE);
+                    
+                    }
+        this.dispose();
+    }//GEN-LAST:event_BotonAceptarActionPerformed
 
     private void rutinaLimpieza() throws ItemNoEncontradoException {
         List propiedades = controller.getItemMenu(this.ID);

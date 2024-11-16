@@ -45,10 +45,10 @@ public abstract class ItemMenu {
     public String getNombre(){
         return nombre;
     }
-    private void setNombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    private void setPrecio(float precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
     private void setId(){

@@ -46,14 +46,16 @@ public class ClienteJDBC implements ClienteDAO{
 
     @Override
     public void add(Cliente cliente){
-        String query = "INSERT INTO cliente (nombre, cuit, email, direccion, cx, cy) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO cliente (nombre, cuit, email, direccion, coordenada) VALUES (?, ?, ?, ?, ST_GeomFromText())";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, cliente.getNombre());
             ps.setLong(2, cliente.getCuit());
             ps.setString(3, cliente.getEmail());
             ps.setString(4, cliente.getDireccion());
-            ps.setDouble(5, cliente.getCoordenada().getLatitude());
-            ps.setDouble(6, cliente.getCoordenada().getLongitude());
+            double latitude = cliente.getCoordenada().getLatitude();
+            double longitude = cliente.getCoordenada().getLongitude();
+            String point = String.format("POINT(%f %f)",latitude, longitude);
+            ps.setString(5, point);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteJDBC.class.getName()).log(Level.SEVERE, null, ex);

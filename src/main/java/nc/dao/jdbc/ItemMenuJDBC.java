@@ -190,12 +190,12 @@ public class ItemMenuJDBC implements ItemMenuDAO {
     @Override
     public ItemMenu getItem(int ID) throws ItemNoEncontradoException {
         String query = "SELECT im.id, im.nombre, im.descripcion, im.precio, im.id_vendedor, im.es_bebida,"
-                + "p.calorias, p.apto_celiaco, p.apto_vegano, p.peso,"
-                + "b.graduacion_alcoholica, b.tamaño AS tamaño_bebida, b.peso AS peso_bebida"
-                + "FROM item_menu im"
-                + "LEFT JOIN plato p ON p.id = im.id AND im.es_bebida = FALSE"
-                + "LEFT JOIN bebida b ON b.id = im.id AND im.es_bebida = TRUE"
-                + "WHERE im.id = ?;";
+                + " p.calorias, p.apto_celiaco, p.apto_vegano, p.peso,"
+                + " b.graduacion_alcoholica, b.tamaño AS tamaño_bebida, b.peso AS peso_bebida"
+                + " FROM item_menu im"
+                + " LEFT JOIN plato p ON p.id = im.id AND im.es_bebida = FALSE"
+                + " LEFT JOIN bebida b ON b.id = im.id AND im.es_bebida = TRUE"
+                + " WHERE im.id = ?;";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, ID);
             ResultSet rs = ps.executeQuery();
