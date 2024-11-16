@@ -279,19 +279,9 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //this.upperPanel.upperPanel.setVendedores();
-        int selectedRow = contentTable.getSelectedRow();
-        if (selectedRow != -1) {
-            // Convierte la fila seleccionada al índice de modelo en caso de que esté ordenada
-            int modelRow = contentTable.convertRowIndexToModel(selectedRow);
+        if (this.ID_Seleccionado != -1) {
 
-            List datosVendedor = vendedores.getVendedor((int) vendedorTableModel.getValueAt(modelRow, 0));
-            // Obtiene los datos del vendedor desde el modelo
-            //int id = (int) vendedorTableModel.getValueAt(modelRow, 0);
-            //String nombre = vendedorTableModel.getValueAt(modelRow, 1).toString();
-            //String direccion = vendedorTableModel.getValueAt(modelRow, 2).toString();
-            // String coordenadas = vendedores.getCoordenadas(id);
-
+            List datosVendedor = vendedores.getVendedor(ID_Seleccionado);
             // Crea y muestra el dialogo
             DialogVendedor dialog = new DialogVendedor((JFrame) SwingUtilities.getWindowAncestor(this), true, (ArrayList) datosVendedor, this);
             dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
