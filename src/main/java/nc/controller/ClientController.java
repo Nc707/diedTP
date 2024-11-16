@@ -13,7 +13,6 @@ import nc.dao.ItemPedidoDAO;
 import nc.dao.jdbc.ClienteJDBC;
 import nc.dao.jdbc.ItemMenuJDBC;
 import nc.dao.jdbc.ItemPedidoJDBC;
-import nc.dao.memory.ClienteMemory;
 import nc.excepciones.CantidadItemInvalidaException;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoIncorrectoException;
@@ -79,18 +78,20 @@ public class ClientController {
     }
 
     public Cliente getObjetCliente(int ID) {
-        Cliente client = ClienteMemory.getInstancia().buscar(ID);
+        Cliente client = clients.buscar(ID);
+        // Cliente client = ClienteMemory.getInstancia().buscar(ID);
         return client;
     }
 
     public Cliente crear(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         Cliente cliente = new Cliente(nombre, cuit, email, direccion, latitud, longitud);
-        ClienteMemory.getInstancia().add(cliente);
+        clients.add(cliente);
+        // ClienteMemory.getInstancia().add(cliente);
         return cliente;
     }
 
     public void modificarCliente(int ID, String nombre, String direccion, String mail, int cuit, double cx, double cy) {
-        Cliente client = ClienteMemory.getInstancia().buscar(ID);
+        Cliente client = clients.buscar(ID);
         client.setNombre(nombre);
         client.setDireccion(direccion);
         client.setEmail(mail);
