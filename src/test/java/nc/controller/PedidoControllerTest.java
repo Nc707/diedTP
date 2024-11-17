@@ -151,17 +151,4 @@ public class PedidoControllerTest {
         assertEquals(0, mockPedidoDAO.listar().size());
     }
 
-   /* @Test
-    public void testModificarPedido() {
-        Cliente cliente = new Cliente(1, "Cliente Uno", 123456789L, "cliente1@example.com", "Calle 1", -34.6037, -58.3816);
-        Vendedor vendedor = new Vendedor(1, "Vendedor Uno", "Direccion 1", -34.6037, -58.3816);
-        Pedido pedido = mockPedidoDAO.crear(vendedor, cliente);
-        pedido.setEstado(EstadoPedido.RECIBIDO);
-
-        mockPedidoDAO.actualizar(pedido);
-
-        Pedido updatedPedido = mockPedidoDAO.buscar(pedido.getId());
-        assertNotNull(updatedPedido);
-        assertEquals(EstadoPedido.RECIBIDO, updatedPedido.getEstado());
-    }*/
 }
