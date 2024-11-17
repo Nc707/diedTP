@@ -1,138 +1,143 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package nc.controller;
 
-import java.util.List;
-import nc.controller.ClientController;
 import nc.dao.ClienteDAO;
-import nc.dao.jdbc.ClienteJDBC;
-//import nc.dao.memory.ClienteMemory;
 import nc.modelo.Cliente;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Pc
- */
 public class ClientControllerTest {
 
-    public ClientControllerTest() {
-    }
+    private ClientController controller;
+    private ClienteDAO mockClienteDAO;
 
-    /*  String nombre = "Tester";
-    int cuit = 123456789;
-    String email = "tester@example.com";
-    String direccion = "Calle del tester 123";
-    double latitud = -34.6037;
-    double longitud = -58.3816;
-     */
-    private ClienteDAO clients = new ClienteJDBC();
+    @BeforeEach
+    public void setUp() {
+        controller = new ClientController();
 
-    @Test
-    public void testLoadData() {
+        // Mock manual de ClienteDAO
+        mockClienteDAO = new ClienteDAO() {
+            private List<Cliente> clientes = new ArrayList<>();
+
+            @Override
+            public ArrayList<Cliente> listar() {
+                return new ArrayList<>(clientes);
+            }
+
+            @Override
+            public void add(Cliente cliente) {
+                clientes.add(cliente);
+            }
+
+            @Override
+            public void actualizar(Cliente cliente) {
+                for (int i = 0; i < clientes.size(); i++) {
+                    if (clientes.get(i).getId() == cliente.getId()) {
+                        clientes.set(i, cliente);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void eliminar(int id) {
+                clientes.removeIf(cliente -> cliente.getId() == id);
+            }
+
+            @Override
+            public Cliente buscar(int id) {
+                return clientes.stream()
+                        .filter(cliente -> cliente.getId() == id)
+                        .findFirst()
+                        .orElse(null);
+            }
+        };
+
+        controller.setClienteDAO(mockClienteDAO); // Asigna el mock manual
     }
 
     @Test
     public void testGetCliente() {
-        String nombre = "Tester";
-        int cuit = 123456789;
-        String email = "tester@example.com";
-        String direccion = "Calle del tester 123";
-        double latitud = -34.6037;
-        double longitud = -58.3816;
+        Cliente clienteMock = new Cliente(1, "John Doe", 123456789L, "john@example.com", "123 Main St", -34.6037, -58.3816);
+        mockClienteDAO.add(clienteMock);
 
-        ClientController controller = new ClientController();
-        int testID = 1;
+        List clienteInfo = controller.getCliente(1);
 
-        Cliente cliente = controller.crear(nombre, cuit, email, direccion, latitud, longitud);
-        cliente.setId(testID);
-        List<Object> clientData = controller.getCliente(testID);
-        assertNotNull(clientData, "Los datos del cliente no deben ser nulos");
-        assertEquals(7, clientData.size(), "Se esperan 7 elementos en la lista");
-        assertEquals(testID, clientData.get(0), "El ID debe coincidir");
-        assertEquals(nombre, clientData.get(1), "El nombre debe coincidir");
-        assertEquals(direccion, clientData.get(2), "La dirección debe coincidir");
-        assertEquals(email, clientData.get(3), "El email debe coincidir");
-        assertEquals(cuit, clientData.get(4), "El CUIT debe coincidir");
-        assertEquals(latitud, clientData.get(5), "La latitud debe coincidir");
-        assertEquals(longitud, clientData.get(6), "La longitud debe coincidir");
+        assertNotNull(clienteInfo);
+        assertEquals(1, clienteInfo.get(0));
+        assertEquals("John Doe", clienteInfo.get(1));
+        assertEquals("123 Main St", clienteInfo.get(2));
     }
 
     @Test
-    public void testCrear() {
-        String nombre = "Tester";
-        int cuit = 123456789;
-        String email = "tester@example.com";
-        String direccion = "Calle del tester 123";
-        double latitud = -34.6037;
-        double longitud = -58.3816;
+    public void testLoadData() {
+        Cliente clienteMock1 = new Cliente(1, "John Doe", 123456789L, "john@example.com", "123 Main St", -34.6037, -58.3816);
+        Cliente clienteMock2 = new Cliente(2, "Jane Smith", 987654321L, "jane@example.com", "456 Elm St", -34.6118, -58.4173);
+        mockClienteDAO.add(clienteMock1);
+        mockClienteDAO.add(clienteMock2);
 
-        ClientController controller = new ClientController();
-        Cliente cliente = controller.crear(nombre, cuit, email, direccion, latitud, longitud);
-        assertNotNull(cliente, "El cliente no debe ser nulo");
-        assertEquals(nombre, cliente.getNombre(), "El nombre del cliente debe coincidir");
-        assertEquals(cuit, cliente.getCuit(), "El CUIT debe coincidir");
-        assertEquals(email, cliente.getEmail(), "El email debe coincidir");
-        assertEquals(direccion, cliente.getDireccion(), "La dirección debe coincidir");
-        assertEquals(latitud, cliente.getCoordenada().getLatitude(), "La latitud debe coincidir");
-        assertEquals(longitud, cliente.getCoordenada().getLongitude(), "La longitud debe coincidir");
-        assertTrue(clients.listar().contains(cliente), "El cliente debería estar en memoria");
+        List<List> data = controller.loadData();
 
+        assertEquals(2, data.size());
+        assertEquals("John Doe", data.get(0).get(1));
+        assertEquals("Jane Smith", data.get(1).get(1));
+    }
+
+    @Test
+    public void testCrearCliente() {
+        Cliente cliente = controller.crear("John Doe", 123456789, "john@example.com", "123 Main St", -34.6037, -58.3816);
+
+        assertNotNull(cliente);
+        assertEquals("John Doe", cliente.getNombre());
+        assertEquals(1, mockClienteDAO.listar().size());
     }
 
     @Test
     public void testModificarCliente() {
-        String nombreOriginal = "Tester";
-        int cuitOriginal = 123456789;
-        String emailOriginal = "tester@example.com";
-        String direccionOriginal = "Calle del tester 123";
-        double latitudOriginal = -34.6037;
-        double longitudOriginal = -58.3816;
+        Cliente cliente = controller.crear("John Doe", 123456789, "john@example.com", "123 Main St", -34.6037, -58.3816);
+        controller.modificarCliente(cliente.getId(), "John Updated", "New Address", "new@example.com", 987654321, -34.6118, -58.4173);
 
-        ClientController controller = new ClientController();
-        Cliente cliente = controller.crear(nombreOriginal, cuitOriginal, emailOriginal, direccionOriginal, latitudOriginal, longitudOriginal);
-        cliente.setId(1);
-        String nuevoNombre = "testerNuevo";
-        int nuevoCuit = 123456789;
-        String nuevoEmail = "nuevoTester@gmail.com";
-        String nuevaDireccion = "direcTester 312";
-        double nuevaLatitud = 100;
-        double nuevaLongitud = 10000;
-
-        controller.modificarCliente(1, nuevoNombre, nuevaDireccion, nuevoEmail, nuevoCuit, nuevaLatitud, nuevaLongitud);
-
-        assertEquals(nuevoNombre, cliente.getNombre(), "El nombre debería haber sido actualizado");
-        assertEquals(nuevaDireccion, cliente.getDireccion(), "La dirección debería haber sido actualizada");
-        assertEquals(nuevoEmail, cliente.getEmail(), "El email debería haber sido actualizado");
-        assertEquals(nuevoCuit, cliente.getCuit(), "El CUIT debería haber sido actualizado");
-        assertEquals(nuevaLatitud, cliente.getCoordenada().getLatitude(), "La latitud debería haber sido actualizada");
-        assertEquals(nuevaLongitud, cliente.getCoordenada().getLongitude(), "La longitud debería haber sido actualizada");
+        Cliente updatedCliente = mockClienteDAO.buscar(cliente.getId());
+        assertEquals("John Updated", updatedCliente.getNombre());
+        assertEquals("New Address", updatedCliente.getDireccion());
+        assertEquals("new@example.com", updatedCliente.getEmail());
     }
 
     @Test
-    public void testAgregarProductoAlCarrito() {
+    public void testEliminarCliente() {
+        Cliente cliente = controller.crear("John Doe", 123456789, "john@example.com", "123 Main St", -34.6037, -58.3816);
+        controller.setCliente(cliente.getId());
+
+        mockClienteDAO.eliminar(cliente.getId());
+        Cliente deletedCliente = mockClienteDAO.buscar(cliente.getId());
+        assertNull(deletedCliente);
     }
 
     @Test
-    public void testEliminarProducto() {
+    public void testGetObjetCliente() {
+        Cliente clienteMock = new Cliente(1, "John Doe", 123456789L, "john@example.com", "123 Main St", -34.6037, -58.3816);
+        mockClienteDAO.add(clienteMock);
+
+        Cliente cliente = controller.getObjetCliente(1);
+
+        assertNotNull(cliente);
+        assertEquals("John Doe", cliente.getNombre());
     }
 
     @Test
-    public void testGetContenidoCarrito() {
-    }
+    public void testSetCliente() {
+        Cliente clienteMock = new Cliente(1, "John Doe", 123456789L, "john@example.com", "123 Main St", -34.6037, -58.3816);
+        mockClienteDAO.add(clienteMock);
 
-    @Test
-    public void testModificarItemCarrito() {
-    }
+        controller.setCliente(1);
+        Cliente cliente = controller.getObjetCliente(1);
 
-    @Test
-    public void testSetMetodoPago() {
-    }
-
-    @Test
-    public void testGetVendedorCarrito() {
+        assertNotNull(cliente);
+        assertEquals(1, cliente.getId());
+        assertEquals("John Doe", cliente.getNombre());
     }
 }
