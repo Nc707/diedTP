@@ -52,6 +52,10 @@ public class VendedorController {
         vendedores.add(vendedor);
         return vendedor;
     }
+    public void setVendedorDAO(VendedorDAO vendedorDAO) {
+    this.vendedores = vendedorDAO;
+}
+
     
 }
 
