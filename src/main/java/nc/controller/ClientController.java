@@ -28,6 +28,10 @@ import nc.modelo.ItemPedido;
  */
 public class ClientController {
 
+ public void setClienteDAO(ClienteDAO clienteDAO) {
+    this.clients = clienteDAO;
+}
+
     public enum metodoPago {
         MERCADO_PAGO,
         TRANSFERENCIA
@@ -65,6 +69,7 @@ public class ClientController {
     *   Int Latitude
     *   Int Longitude
      */
+
     public void setCliente(int ID){
         Cliente cliente = clients.buscar(ID);
         this.client = cliente;
