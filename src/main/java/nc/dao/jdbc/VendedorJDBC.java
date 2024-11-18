@@ -19,18 +19,18 @@ public class VendedorJDBC implements VendedorDAO {
     @Override
     public ArrayList<Vendedor> listar() {
         ArrayList<Vendedor> lista = new ArrayList<>();
-        String query = "SELECT * FROM vendedor";
+        String query = "SELECT id, nombre, direccion, ST_X(coordenada) AS cx, ST_Y(coordenada) AS cy FROM vendedor";
         try (Statement stm = conn.createStatement()) {
             ResultSet rs = stm.executeQuery(query);
-            while (rs.next()) {
-                int id = rs.getInt("id"); // regularizar tema de id?
-                String nombre = rs.getString("nombre");
-                String direccion = rs.getString("direccion");
-                double cx = rs.getDouble("cx");
-                double cy = rs.getDouble("cy");
-                Vendedor v = new Vendedor(id, nombre, direccion, cx, cy);
-                lista.add(v);
-            }
+           while (rs.next()) {
+             int id = rs.getInt("id");
+             String nombre = rs.getString("nombre");
+             String direccion = rs.getString("direccion");
+            double cx = rs.getDouble("cx"); // Coordenada x
+            double cy = rs.getDouble("cy"); // Coordenada y
+            Vendedor v = new Vendedor(id, nombre, direccion, cx, cy);
+            lista.add(v);
+}
         } catch (SQLException ex) {
             Logger.getLogger(VendedorJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }

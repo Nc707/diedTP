@@ -12,6 +12,7 @@ import nc.dao.PedidoDAO;
 import nc.dao.jdbc.ItemPedidoJDBC;
 import nc.dao.jdbc.PedidoJDBC;
 import nc.modelo.Pedido;
+import nc.modelo.Pedido.EstadoPedido;
 
 /**
  *
@@ -23,10 +24,14 @@ public class PedidoController {
     private int ID = 0;
     private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
     private PedidoDAO pedidos = new PedidoJDBC();
-
+    private PedidoDAO pedidoDAO;
+    private EstadoPedido estado;
+   
     public PedidoController(Boolean isVendedor) {
         this.isVendedor = isVendedor;
     }
+
+
 
     public PedidoController(int ID, Boolean isVendedor) {
         this.ID = ID;
@@ -36,6 +41,14 @@ public class PedidoController {
     public void setID(int ID) {
         this.ID = ID;
     }
+    public void setPedidos(PedidoDAO pedidoDAO) {
+        this.pedidoDAO = pedidoDAO;
+}
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
+}
+
+
 
     // public List<List> loadData(){
     //     ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
