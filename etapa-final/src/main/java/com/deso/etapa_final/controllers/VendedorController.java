@@ -1,12 +1,8 @@
 package com.deso.etapa_final.controllers;
 
-import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +12,7 @@ import com.deso.etapa_final.repositories.VendedorRepository;
 
 @RestController
 public class VendedorController {
+    
     @Autowired
     private VendedorRepository vendedorRepository;
     
@@ -37,7 +34,8 @@ public class VendedorController {
     }
 
     @GetMapping("/getVendedores")
-    public Set<Vendedor> getVendedores() {
+    public Iterable<Vendedor> getVendedores() {
+        
         return vendedorRepository.findAll();
     }
 }

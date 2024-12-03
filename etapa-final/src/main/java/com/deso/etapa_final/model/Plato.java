@@ -1,13 +1,13 @@
 package com.deso.etapa_final.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,35 +23,8 @@ public class Plato extends ItemMenu {
     private boolean aptoVegano;
 
     @Column
+    @Setter(AccessLevel.NONE)
     private float peso;
-
-    public float getCalorias() {
-        return calorias;
-    }
-
-    public void setCalorias(float calorias) {
-        this.calorias = calorias;
-    }
-
-    public boolean isAptoCeliaco() {
-        return aptoCeliaco;
-    }
-
-    public void setAptoCeliaco(boolean aptoCeliaco) {
-        this.aptoCeliaco = aptoCeliaco;
-    }
-
-    public boolean isAptoVegano() {
-        return aptoVegano;
-    }
-
-    public void setAptoVegano(boolean aptoVegano) {
-        this.aptoVegano = aptoVegano;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
 
     public void setPeso(float peso) {
         this.peso = peso * 0.10f;
