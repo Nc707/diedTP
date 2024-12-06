@@ -25,7 +25,7 @@ public interface PedidoDAO {
 
     public ArrayList<Pedido> listarPorEstadoYCliente(int id_cliente, Pedido.EstadoPedido estado);
 
-    public void add(Pedido pedido);
+    public int add(Pedido pedido);
 
     public void actualizar(Pedido pedido);
 

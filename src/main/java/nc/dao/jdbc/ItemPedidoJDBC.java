@@ -27,13 +27,13 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
     }
 
     @Override
-    public void add(ItemPedido item) {
+    public void add(ItemPedido item, int id_pedido) {
         String query = "INSERT INTO item_pedido (cantidad, precio, id_item_menu, id_pedido) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, item.getCantidad());
             ps.setFloat(2, item.getPrecio());
             ps.setInt(3, item.getItemMenu().getId());
-            ps.setInt(4, item.getPedido().getId());
+            ps.setInt(4, id_pedido);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ItemPedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,10 +72,10 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
     }
 
     @Override
-    public void addAll(List<ItemPedido> items) {
+    public void addAll(List<ItemPedido> items, int id_pedido) {
 
         for (ItemPedido item : items) {
-            add(item);
+            add(item, id_pedido);
         }
 
     }

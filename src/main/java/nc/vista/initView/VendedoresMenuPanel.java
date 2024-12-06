@@ -32,6 +32,10 @@ public class VendedoresMenuPanel extends javax.swing.JPanel {
     public void crearVendedor(String nombre, String direccion, double cx, double cy) {
         vendedores.crear(nombre,  direccion,  cx,  cy);
     }
+    public void eliminar(int id){
+        vendedores.eliminar(id);
+        this.updateModel();
+    }
 
     public void crearModificarVendedor(Frame padre, boolean mdal, List lista, VendedoresMenuPanel panelSuperior) {
         ModificarVendedor modificarVendedor = new ModificarVendedor(padre, mdal, lista, panelSuperior);

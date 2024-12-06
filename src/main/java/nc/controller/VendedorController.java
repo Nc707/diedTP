@@ -54,7 +54,10 @@ public class VendedorController {
     }
     public void setVendedorDAO(VendedorDAO vendedorDAO) {
     this.vendedores = vendedorDAO;
-}
+    }
+    public void eliminar(int id){
+        vendedores.eliminar(id);
+    }
 
     
 }

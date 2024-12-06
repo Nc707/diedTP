@@ -19,7 +19,7 @@ public class VendedorJDBC implements VendedorDAO {
     @Override
     public ArrayList<Vendedor> listar() {
         ArrayList<Vendedor> lista = new ArrayList<>();
-        String query = "SELECT id, nombre, direccion, ST_X(coordenada) AS cx, ST_Y(coordenada) AS cy FROM vendedor";
+        String query = "SELECT * FROM vendedor";
         try (Statement stm = conn.createStatement()) {
             ResultSet rs = stm.executeQuery(query);
            while (rs.next()) {

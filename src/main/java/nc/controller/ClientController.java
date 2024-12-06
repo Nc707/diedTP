@@ -180,4 +180,7 @@ public class ClientController {
         Carrito carrito = client.getCarrito();
         return carrito.toString();
     }
+    public void elminar(int id){
+        clients.eliminar(id);
+    }
 }

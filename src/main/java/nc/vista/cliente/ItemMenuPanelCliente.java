@@ -26,6 +26,7 @@ import nc.excepciones.PedidoIncorrectoException;
 import nc.excepciones.VendedorIncorrectoException;
 import nc.modelo.Carrito;
 import nc.vista.PersonalizatedTableModel;
+import nc.vista.cliente.dialog.ItemMenuVerCliente;
 import nc.vista.vendedor.dialog.ItemMenuVer;
 
 /**
@@ -334,9 +335,9 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
 
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
         if (this.ID_Seleccionado != -1) {
-            ItemMenuVer dialog;
+            ItemMenuVerCliente dialog;
             try {
-                dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
+                dialog = new ItemMenuVerCliente((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
                 dialog.setModal(true);
                 dialog.setVisible(true);
             } catch (ItemNoEncontradoException ex) {
