@@ -37,10 +37,10 @@ public interface ItemPedidoDAO {
     }
     public List<ItemPedido> getAll();
     public List<ItemPedido> listarPorPedido(int id_pedido);
-    public void add(ItemPedido item);
+    public void add(ItemPedido item, int id_pedido);
     public void update(int ID, ItemPedido item) throws ItemNoEncontradoException;
     public void delete(int ID) throws ItemNoEncontradoException;
-    public void addAll(List<ItemPedido> items);
+    public void addAll(List<ItemPedido> items, int id_pedido);
     public ItemPedido getItem(int ID) throws ItemNoEncontradoException;
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro) throws ItemNoEncontradoException;
     public List<ItemPedido> filtrarPor(tipoFiltrado tipoFiltro, Object filtro, tipoOrdenamiento tipoOrden, boolean ascendente) throws ItemNoEncontradoException;

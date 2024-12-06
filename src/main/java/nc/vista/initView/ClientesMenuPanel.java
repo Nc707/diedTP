@@ -82,6 +82,10 @@ public class ClientesMenuPanel extends javax.swing.JPanel {
          modificarCliente.setVisible(true);
          modificarCliente.setLocationRelativeTo(null);
      }
+    public void eliminar(int id){
+        clients.elminar(id);
+        this.updateModel();
+    }
 
     public void crearCliente(String nombre, int cuit, String email, String direccion, double latitud, double longitud) {
         clients.crear(nombre, cuit, email, direccion, latitud, longitud);

@@ -6,6 +6,8 @@ package nc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.dao.ItemMenuDAO;
 import nc.dao.VendedorDAO;
@@ -89,5 +91,12 @@ public class ItemMenuController {
         editar.setPrecio(precio);
         itemsMenu.update(ID, editar);
     }
+     public void eliminar(int id){
+        try {
+            this.itemsMenu.delete(id);
+        } catch (ItemNoEncontradoException ex) {
+            Logger.getLogger(ItemMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
 
 }

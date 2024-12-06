@@ -18,10 +18,12 @@ public class DialogCliente extends javax.swing.JDialog {
 
    double coorX, coorY;
    ClientesMenuPanel panelSuperior;
+   int id;
     public DialogCliente(java.awt.Frame parent, boolean modal, ArrayList clientData, ClientesMenuPanel panelSuperior) {
         super(parent, modal);
         initComponents();
         txtID.setText(String.valueOf(clientData.get(0)));
+        id = (int)clientData.get(0);
         txtNombre.setText((String) clientData.get(1));
         txtDireccion.setText((String) clientData.get(2));
         txtMail.setText((String) clientData.get(3));
@@ -231,9 +233,8 @@ public class DialogCliente extends javax.swing.JDialog {
             "Está seguro? Se cancelarán todos los pedidos no finalizados. Esta acción no puede revertirse",
             "Eliminar Cliente",JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
         if(eliminar == JOptionPane.OK_OPTION)
-        {}
-        else{}
-        dispose();
+        {this.panelSuperior.eliminar(this.id);
+        this.dispose();}
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

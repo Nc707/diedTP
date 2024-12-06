@@ -204,8 +204,10 @@ public class DialogVendedor extends javax.swing.JDialog {
                 "Está seguro? Se eliminará el usuario y todos sus itemMenu, sus pedidos no enviados quedarán como cancelados. Esta acción no puede revertirse",
                 "Eliminar Vendedor",JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
         if(eliminar == JOptionPane.OK_OPTION)
-        {}
-        else{}
+        {this.panelSuperior.eliminar(this.idVendedor);
+        this.dispose();
+        }
+        
             
     }//GEN-LAST:event_jButton2ActionPerformed
 

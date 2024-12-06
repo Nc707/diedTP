@@ -40,19 +40,24 @@ public class PedidoJDBC implements PedidoDAO {
     }
 
     @Override
-    public void add(Pedido pedido) {
+    public int add(Pedido pedido) {
         String query = "INSERT INTO pedido (id_vendedor, id_cliente, precio, estado) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, pedido.getVendedor().getId());
             ps.setInt(2, pedido.getCliente().getId());
             ps.setFloat(3, pedido.getPrecio());
             ps.setString(4, pedido.getEstado().toString());
             ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1); // Retorna el primer valor de la clave generada
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PedidoJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }
+    return -1; // Retorna -1 en caso de error
+}
 
     @Override
     public void actualizar(Pedido pedido) {

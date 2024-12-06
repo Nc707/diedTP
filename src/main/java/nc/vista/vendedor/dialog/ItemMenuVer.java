@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import nc.controller.ItemMenuController;
 import nc.excepciones.ItemNoEncontradoException;
+import nc.vista.vendedor.ItemMenuPanelVendedor;
 
 /**
  *
@@ -22,8 +23,8 @@ public class ItemMenuVer extends javax.swing.JDialog {
      */
     private ItemMenuController controller;
     private int ID;
-
-    public ItemMenuVer(java.awt.Frame parent, boolean modal, int id, ItemMenuController controller) throws ItemNoEncontradoException {
+    ItemMenuPanelVendedor upperFrame;
+    public ItemMenuVer(java.awt.Frame parent, boolean modal, int id, ItemMenuController controller, ItemMenuPanelVendedor upperFrame) throws ItemNoEncontradoException {
         super(parent, modal);
         initComponents();
         this.controller = controller;
@@ -36,6 +37,7 @@ public class ItemMenuVer extends javax.swing.JDialog {
         this.TextPrecio.setText(propiedades.get(4).toString());
         this.BotonAceptar.setVisible(false);
         this.BotonAceptar.updateUI();
+        this.upperFrame = upperFrame;
 
     }
 
@@ -64,6 +66,7 @@ public class ItemMenuVer extends javax.swing.JDialog {
         BotonAceptar = new javax.swing.JButton();
         BotonModificar = new javax.swing.JToggleButton();
         LabelVendedor = new javax.swing.JLabel();
+        eliminarButton = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -165,6 +168,14 @@ public class ItemMenuVer extends javax.swing.JDialog {
         LabelVendedor.setText("Vendedor:");
         getContentPane().add(LabelVendedor, new java.awt.GridBagConstraints());
 
+        eliminarButton.setText("Eliminar");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(eliminarButton, new java.awt.GridBagConstraints());
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -193,6 +204,18 @@ public class ItemMenuVer extends javax.swing.JDialog {
                     }
         this.dispose();
     }//GEN-LAST:event_BotonAceptarActionPerformed
+
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+        int eliminar = JOptionPane.showConfirmDialog(this,
+                "Está seguro?",
+                "Eliminar ItemMenu",JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if(eliminar == JOptionPane.OK_OPTION){
+            this.controller.eliminar(ID);
+            this.upperFrame.updateModel();
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_eliminarButtonActionPerformed
 
     private void rutinaLimpieza() throws ItemNoEncontradoException {
         List propiedades = controller.getItemMenu(this.ID);
@@ -238,6 +261,7 @@ public class ItemMenuVer extends javax.swing.JDialog {
     private javax.swing.JTextArea TextDescripcion;
     private javax.swing.JTextPane TextNombre;
     private javax.swing.JTextPane TextPrecio;
+    private javax.swing.JButton eliminarButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

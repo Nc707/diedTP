@@ -327,7 +327,7 @@ public class ItemMenuPanelVendedor extends javax.swing.JPanel {
     private void VerDetalleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDetalleButtonActionPerformed
         if (this.ID_Seleccionado != -1) {
             try {
-                ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu);
+                ItemMenuVer dialog = new ItemMenuVer((JFrame) SwingUtilities.getWindowAncestor(this), true, this.ID_Seleccionado, this.itemsMenu, this);
                 dialog.setModal(true);
                 dialog.setLocationRelativeTo((JFrame) SwingUtilities.getWindowAncestor(this));
                 dialog.setVisible(true);

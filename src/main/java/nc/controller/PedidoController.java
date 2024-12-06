@@ -43,39 +43,10 @@ public class PedidoController {
     }
     public void setPedidos(PedidoDAO pedidoDAO) {
         this.pedidoDAO = pedidoDAO;
-}
+    }
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
-}
-
-
-
-    // public List<List> loadData(){
-    //     ItemPedidoMemory database = ItemPedidoMemory.getItemPedidoMemory();
-    //     List<Pedido> data;
-    //     try {
-    //         //data = itemsPedido.getPedidos(ID, isVendedor);
-    //     } catch (ItemNoEncontradoException ex) {return new ArrayList();}
-    //     return data.stream().map((Pedido p) -> {
-    //         ArrayList list = new ArrayList();
-    //         list.add(p.getId());
-    //         if(isVendedor)
-    //         {list.add(p.getCliente().getNombre());}
-    //         else
-    //         {  list.add(p.getVendedor().getNombre());}
-    //         list.add(p.getItemAmount());
-    //         list.add(p.getPrecio());
-    //         switch(p.getEstado()){
-    //             case EN_CARRITO ->
-    //                 list.add("En Carrito");
-    //             case RECIBIDO ->
-    //                 list.add("Recibido");
-    //             case EN_ENVIO ->
-    //                 list.add("En envío");
-    //             }
-    //         return list;
-    //     }).collect(Collectors.toList());
-    // }
+    }
     public List<List> loadData() {
 
         List<Pedido> data;
