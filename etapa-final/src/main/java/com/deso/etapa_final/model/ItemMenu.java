@@ -1,5 +1,7 @@
 package com.deso.etapa_final.model;
 
+import java.util.HashSet;
+
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -24,6 +26,24 @@ public abstract class ItemMenu {
 
     @Column(nullable = false)
     private float precio;
+
+    @Column
+    @Setter(AccessLevel.NONE)
+    private HashSet<Categoria> categoria = new HashSet<>();
+
+    public void addCategoria(Categoria categoria) {
+        this.categoria.add(categoria);
+    }
+    public boolean removeCategoria(Categoria categoria) {
+        return this.categoria.remove(categoria);
+    }
+    public void clearCategoria() {
+        this.categoria.clear();
+    }
+
+    public boolean hasCategoria(Categoria categoria) {
+        return this.categoria.contains(categoria);
+    }
 
     public abstract boolean esComida();
 
