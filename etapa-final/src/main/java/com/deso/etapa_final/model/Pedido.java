@@ -2,9 +2,13 @@ package com.deso.etapa_final.model;
 
 import java.util.HashSet;
 
+import org.hibernate.annotations.ManyToAny;
+
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.deso.etapa_final.model.interfaces.Observable;
 import com.deso.etapa_final.model.interfaces.Observer;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.*;
 
@@ -13,8 +17,10 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
-public class Pedido implements Observable{
+public class Pedido implements Observable {
 
     public enum EstadoPedido {
         EN_CARRITO,
@@ -22,19 +28,21 @@ public class Pedido implements Observable{
         EN_ENVIO,
         ENTREGADO
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long pedido_id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private EstadoPedido estado;
 
-
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id", nullable = false)
     private Vendedor vendedor;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
     private String descripcion;
@@ -45,8 +53,15 @@ public class Pedido implements Observable{
     @Column(nullable = false)
     private int cantidad;
 
-    @Column
-    private EstrategiasDePagoInterface metodoDePago;
+    // Columnas para almacenar la estrategia de pago
+    @Column(name = "tipo_metodo_de_pago")
+    private String tipoMetodoDePago;
+
+    @Column(name = "datos_metodo_de_pago")
+    private String datosMetodoDePago;
+
+    @Transient
+    private EstrategiasDePagoInterface metodoDePago; // No persistente, se carga/deserializa manualmente
 
     @Column
     @Setter(AccessLevel.NONE)
@@ -66,4 +81,30 @@ public class Pedido implements Observable{
         }
     }
 
+    // Métodos para manejar serialización y deserialización
+    @PrePersist
+    private void serializarMetodoDePago() {
+        if (metodoDePago != null) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                tipoMetodoDePago = metodoDePago.getClass().getSimpleName();
+                datosMetodoDePago = objectMapper.writeValueAsString(metodoDePago);
+            } catch (Exception e) {
+                throw new RuntimeException("Error al serializar metodoDePago", e);
+            }
+        }
+    }
+
+    @PostLoad
+    private void deserializarMetodoDePago() {
+        if (tipoMetodoDePago != null && datosMetodoDePago != null) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                Class<?> clazz = Class.forName("com.deso.etapa_final.model.estrategias." + tipoMetodoDePago);
+                metodoDePago = (EstrategiasDePagoInterface) objectMapper.readValue(datosMetodoDePago, clazz);
+            } catch (Exception e) {
+                throw new RuntimeException("Error al deserializar metodoDePago", e);
+            }
+        }
+    }
 }

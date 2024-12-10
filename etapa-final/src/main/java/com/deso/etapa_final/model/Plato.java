@@ -1,6 +1,6 @@
 package com.deso.etapa_final.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.*;
 

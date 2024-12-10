@@ -20,10 +20,13 @@ public class ItemPedido {
     @Setter(AccessLevel.NONE)
     private float precio;
 
-    @Column(nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "item_id")
     private ItemMenu itemMenu;
 
-    @Column(nullable = false)
+
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     public void setCantidad(int cantidad){
