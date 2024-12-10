@@ -1,6 +1,7 @@
 package com.deso.etapa_final.model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -10,13 +11,15 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED) // O SINGLE_TABLE, según el diseño deseado
+@DiscriminatorColumn(name = "tipo_item", discriminatorType = DiscriminatorType.STRING)
+@Entity
 public abstract class ItemMenu {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long item_id;
     
     @Column(nullable = false)
     private String nombre;
@@ -27,22 +30,28 @@ public abstract class ItemMenu {
     @Column(nullable = false)
     private float precio;
 
-    @Column
-    @Setter(AccessLevel.NONE)
-    private HashSet<Categoria> categoria = new HashSet<>();
+    // @Column
+    // @Setter(AccessLevel.NONE)
+    @ManyToMany
+    @JoinTable(
+        name = "item_categoria",
+        joinColumns = @JoinColumn(name = "item_id"),
+        inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private Set<Categoria> categorias = new HashSet<>();
 
     public void addCategoria(Categoria categoria) {
-        this.categoria.add(categoria);
+        this.categorias.add(categoria);
     }
     public boolean removeCategoria(Categoria categoria) {
-        return this.categoria.remove(categoria);
+        return this.categorias.remove(categoria);
     }
     public void clearCategoria() {
-        this.categoria.clear();
+        this.categorias.clear();
     }
 
     public boolean hasCategoria(Categoria categoria) {
-        return this.categoria.contains(categoria);
+        return this.categorias.contains(categoria);
     }
 
     public abstract boolean esComida();

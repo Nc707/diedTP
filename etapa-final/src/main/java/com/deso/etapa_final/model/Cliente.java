@@ -14,10 +14,10 @@ public class Cliente implements Observer{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long cliente_id;
 
     @Column(nullable = false)
-    private long cuit;
+    private Long cuit;
 
     @Column(nullable = false)
     private String email;
@@ -25,6 +25,7 @@ public class Cliente implements Observer{
     @Column(nullable = false)
     private String direccion;
 
+    @Embedded
     @Column(nullable = false)
     private Coordenada coordenadas;
 

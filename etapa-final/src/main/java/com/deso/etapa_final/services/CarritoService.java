@@ -46,7 +46,7 @@ public class CarritoService {
             pedido.setEstado(Pedido.EstadoPedido.EN_CARRITO);
             pedidoRepository.save(pedido);
         }
-        return pedido.getId();
+        return pedido.getPedido_id();
         
     }
 

@@ -1,10 +1,14 @@
 package com.deso.etapa_final.model.metodosDePago;
 
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor // Constructor sin argumentos para Jackson
+@JsonTypeName("PagoMercadoPago") // Nombre para identificar esta implementación
 public class PagoMercadoPago implements EstrategiasDePagoInterface {
     final float RECARGO = 0.02f;
 
@@ -13,8 +17,9 @@ public class PagoMercadoPago implements EstrategiasDePagoInterface {
     public PagoMercadoPago(String alias) {
         this.alias = alias;
     }
+
     @Override
     public float cerrarPago(float valor) {
-        return valor*(1.0f+RECARGO);
+        return valor * (1.0f + RECARGO);
     }
 }
