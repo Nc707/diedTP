@@ -10,6 +10,9 @@ public class PagoMercadoPago implements EstrategiasDePagoInterface {
 
     private String alias;
 
+    public PagoMercadoPago(String alias) {
+        this.alias = alias;
+    }
     @Override
     public float cerrarPago(float valor) {
         return valor*(1.0f+RECARGO);
