@@ -7,15 +7,14 @@ import java.util.stream.Collectors;
 import nc.modelo.Coordenada;
 import nc.modelo.Vendedor;
 import nc.dao.VendedorDAO;
-import nc.dao.jdbc.VendedorJDBC;
-//import nc.dao.memory.VendedorMemory;
+import nc.dao.memory.VendedorMemory;
 import nc.modelo.Cliente;
 
 
 
 public class VendedorController {
     
-    private VendedorDAO vendedores = new VendedorJDBC();
+    private VendedorDAO vendedores = VendedorMemory.getInstancia();
     
     public List<List> loadData(){
         List<Vendedor> data = vendedores.listar();

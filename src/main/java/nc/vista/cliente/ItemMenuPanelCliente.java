@@ -19,15 +19,13 @@ import javax.swing.table.TableRowSorter;
 import nc.controller.ClientController;
 import nc.controller.ItemMenuController;
 import nc.dao.ItemPedidoDAO;
-import nc.dao.jdbc.ItemPedidoJDBC;
+import nc.dao.memory.ItemPedidoMemory;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
 import nc.excepciones.VendedorIncorrectoException;
-import nc.modelo.Carrito;
 import nc.vista.PersonalizatedTableModel;
 import nc.vista.cliente.dialog.ItemMenuVerCliente;
-import nc.vista.vendedor.dialog.ItemMenuVer;
 
 /**
  *
@@ -52,7 +50,7 @@ public class ItemMenuPanelCliente extends javax.swing.JPanel {
     private ClientesFrame frameSuperior;
     //boolean hayCarrito = false;
     int cliente;
-    ItemPedidoDAO ipm = new ItemPedidoJDBC();
+    ItemPedidoDAO ipm = ItemPedidoMemory.getItemPedidoMemory();
     //Carrito carrito;
 
     /**

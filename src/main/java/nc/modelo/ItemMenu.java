@@ -7,7 +7,7 @@ package nc.modelo;
 import java.util.HashSet;
 import java.util.List;
 
-import nc.dao.jdbc.VendedorJDBC;
+import nc.dao.memory.VendedorMemory;
 import nc.excepciones.CategoriaIncompatibleException;
 
 public abstract class ItemMenu {
@@ -31,7 +31,7 @@ public abstract class ItemMenu {
         this.es_bebida = es_bebida;
     }
 
-    VendedorJDBC vendedorJDBC = new VendedorJDBC();
+    VendedorMemory vendedorMemory = VendedorMemory.getInstancia();
 
     public ItemMenu(int id, String nombre, String descripcion, float precio, int vendedor, boolean es_bebida){
         this.nombre = nombre;
@@ -39,7 +39,7 @@ public abstract class ItemMenu {
         this.id = id;
         this.descripcion = descripcion;
         this.categorias = new HashSet();
-        this.vendedor = vendedorJDBC.buscar(vendedor);
+        this.vendedor = vendedorMemory.buscar(vendedor);
         this.es_bebida = es_bebida;
     }
     public String getNombre(){
@@ -94,6 +94,9 @@ public abstract class ItemMenu {
     }
     public String getDescripcion(){
         return this.descripcion;
+    }
+    public int getVendedorId(){
+        return this.vendedor.getId();
     }
     public abstract void addCategoria(String cat) throws CategoriaIncompatibleException;
     public abstract boolean removeCategoria(String cat);

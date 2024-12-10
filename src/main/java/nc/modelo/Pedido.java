@@ -1,8 +1,6 @@
 package nc.modelo;
 
 import nc.excepciones.VendedorIncorrectoException;
-import nc.dao.jdbc.ClienteJDBC;
-import nc.dao.jdbc.VendedorJDBC;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
 import nc.util.metodosDePago.EstrategiaPago;
@@ -10,6 +8,8 @@ import nc.util.metodosDePago.PagoMercadoPago;
 import nc.util.metodosDePago.PagoTransferencia;
 import java.util.ArrayList;
 import java.util.List;
+import nc.dao.memory.ClienteMemory;
+import nc.dao.memory.VendedorMemory;
 
 import nc.util.interfacesPackage.Observable;
 import nc.util.interfacesPackage.Observer;
@@ -24,8 +24,8 @@ public class Pedido implements Observable{
     private EstrategiaPago metodoPago;
     private List<ItemPedido> items;
 
-    private VendedorJDBC vendedorJDBC = new VendedorJDBC();
-    private ClienteJDBC clienteJDBC = new ClienteJDBC();
+    private VendedorMemory vendedorMemory = VendedorMemory.getInstancia();
+    private ClienteMemory clienteJDBC = ClienteMemory.getInstancia();
 
     public enum EstadoPedido{
         EN_CARRITO,
@@ -50,7 +50,7 @@ public class Pedido implements Observable{
     public Pedido(int id, int id_vendedor, int id_cliente, float precio, EstadoPedido estado) {
 
         this.id = id;
-        this.vendedor = vendedorJDBC.buscar(id_vendedor);
+        this.vendedor = vendedorMemory.buscar(id_vendedor);
         this.cliente = clienteJDBC.buscar(id_cliente);
         this.precio = precio;
         this.estado = estado;
@@ -85,15 +85,18 @@ public class Pedido implements Observable{
         return this.precio;
     }
     
-  public int getId() {
-        return id;
-    }
+    public int getId() {
+          return id;
+      }
     
     public Cliente getCliente(){
         return cliente;
     }
     public Vendedor getVendedor(){
         return vendedor;
+    }
+    public int getVendedorId(){
+        return vendedor.getId();
     }
     public EstadoPedido getEstado(){
         return estado;
@@ -103,6 +106,9 @@ public class Pedido implements Observable{
     }
     public void setPagoTransferencia(String cbu, int cuit){
         this.metodoPago = new PagoTransferencia(cbu, cuit);
+    }
+    public int getClienteId(){
+        return this.cliente.getId();
     }
     public void cerrarPedido(){
         this.estado = EstadoPedido.RECIBIDO;

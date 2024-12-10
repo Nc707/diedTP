@@ -64,6 +64,18 @@ public class ItemPedido implements Comparable {
     public void setStrategy(CompareItemPedidoStrategyInterface cmp){
         this.compareStrategy = cmp;
     }
+    public void setCantidad(int cantidad){
+        this.cantidad = cantidad;
+    }
+    public void setPrecio(float precio){
+        this.precio = precio;
+    }
+    public void setItemMenu(ItemMenu item){
+        this.itemMenu = item;
+    }
+    public void setPedido(Pedido pedido){
+        this.pedido = pedido;
+    }
     public void modificarCantidad(int nuevaCantidad){
         float precioNuevo = nuevaCantidad * this.itemMenu.getPrecio();
         this.pedido.updatePrecio(this.precio, precioNuevo);

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nc.dao.memory;
 
 import nc.dao.VendedorDAO;
@@ -13,14 +9,17 @@ import nc.modelo.Vendedor;
  * @author lucia
  */
 public class VendedorMemory implements VendedorDAO{
+
     ArrayList<Vendedor> vendedores = new ArrayList<>();
     private static VendedorMemory uniqueInstance;
+
     public static VendedorMemory getInstancia(){
         if(uniqueInstance == null){
             uniqueInstance = new VendedorMemory();
         }
         return uniqueInstance;
     }
+    private VendedorMemory(){}
     @Override
     public ArrayList<Vendedor> listar() {
        return vendedores;
@@ -33,37 +32,31 @@ public class VendedorMemory implements VendedorDAO{
 
     @Override
     public void actualizar(Vendedor vendedor) {
-        for (int i = 0; i < vendedores.size(); i++) {
-            if (vendedores.get(i).getId() == vendedor.getId()) {
-                vendedores.set(i, vendedor);
-                return;
-            }
-        }
+        vendedores.stream()
+                  .filter(v -> v.getId() == vendedor.getId())
+                  .findFirst()
+                  .ifPresent(v -> {
+                      int index = vendedores.indexOf(v);
+                      vendedores.set(index, vendedor);
+                  });
     }
 
     @Override
     public void eliminar(int id) {
-         for (int i = 0; i <vendedores.size(); i++) {
-            if (vendedores.get(i).getId() == id){
-                vendedores.remove(i);
-                return;
-            }
-        }
+        vendedores.removeIf(vendedor -> vendedor.getId() == id);
     }
 
     @Override
     public Vendedor buscar(int id) {
-           for (int i = 0; i < vendedores.size(); i++) {
-            if (vendedores.get(i).getId() == id){
-                return vendedores.get(i);
-            }
-        }
-        return null;
-    
+        return vendedores.stream()
+                         .filter(vendedor -> vendedor.getId() == id)
+                         .findFirst()
+                         .orElse(null);
     }
+
     public Vendedor crear(String nombre, String direccion, double cx, double cy){
-    Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
-    add(vendedor);
-    return vendedor;
+        Vendedor vendedor = new Vendedor(nombre, direccion, cx, cy);
+        add(vendedor);
+        return vendedor;
     }
 }

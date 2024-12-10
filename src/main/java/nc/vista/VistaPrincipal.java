@@ -40,6 +40,7 @@ public class VistaPrincipal extends javax.swing.JPanel {
     public void setCliente(int idCliente){
         this.usuario = tipoUsuario.CLIENTE;
         this.clientesFrame1.setCliente(idCliente);
+        
         layout.show(this, "card4");
     }
     public void volverInicio(){

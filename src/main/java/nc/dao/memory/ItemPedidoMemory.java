@@ -5,7 +5,7 @@ import static java.util.Collections.sort;
 import java.util.List;
 import java.util.stream.Collectors;
 import nc.dao.ItemPedidoDAO;
-import static nc.dao.ItemPedidoDAO.tipoFiltrado.PEDIDO;
+import static nc.dao.ItemPedidoDAO.tipoFiltrado.*;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.modelo.Categoria;
 import nc.modelo.Cliente;
@@ -23,10 +23,6 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
     private static ItemPedidoMemory uniqueInstance;
     private ArrayList<ItemPedido> memory;
 
-    private ItemPedidoMemory() {
-        this.memory = new ArrayList<>();
-    }
-
     public static ItemPedidoMemory getItemPedidoMemory() {
         if (uniqueInstance == null) {
             uniqueInstance = new ItemPedidoMemory();
@@ -34,50 +30,58 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         return uniqueInstance;
     }
 
+    private ItemPedidoMemory() {
+        this.memory = new ArrayList<>();
+    }
+
+    @Override
     public List<ItemPedido> getAll() {
         return this.memory;
     }
 
-    public ItemPedido getItemPedido(int ID) {
-        for (int i = 0; i < memory.size(); i++) {
-            if (memory.get(i).getId() == ID) {
-                return memory.get(i);
-            }
-        }
-        return null;
+    @Override
+    public List<ItemPedido> listarPorPedido(int id_pedido) {
+        return memory.stream()
+                     .filter(item -> item.getPedido().getId() == id_pedido)
+                     .collect(Collectors.toList());
     }
 
-    public void addPedido(List<ItemPedido> items) {
+    @Override
+    public void add(ItemPedido item, int id_pedido) {
+        memory.add(item);
+    }
+
+    @Override
+    public void update(int ID, ItemPedido item) throws ItemNoEncontradoException {
+        ItemPedido itemToUpdate = this.filtrarPor(ID_ITEMPEDIDO, ID).getFirst();
+        if (itemToUpdate == null) {
+            throw new ItemNoEncontradoException("No se encontró el item a actualizar");
+        }
+        itemToUpdate.setCantidad(item.getCantidad());
+        itemToUpdate.setPrecio(item.getPrecio());
+        itemToUpdate.setItemMenu(item.getItemMenu());
+        itemToUpdate.setPedido(item.getPedido());
+    }
+
+    @Override
+    public void delete(int ID) throws ItemNoEncontradoException {
+        boolean removed = memory.removeIf(item -> item.getId() == ID);
+        if (!removed) {
+            throw new ItemNoEncontradoException("No se encontró el item a eliminar");
+        }
+    }
+
+    @Override
+    public void addAll(List<ItemPedido> items, int id_pedido) {
         memory.addAll(items);
-
     }
 
-    public void removePedido(Pedido p) throws ItemNoEncontradoException {
-        List<ItemPedido> elementsToRemove = this.filtrarPor(PEDIDO, p);
-        memory.removeAll(elementsToRemove);
-    }
-
-    public void removeItemPedido(ItemPedido ip) {
-        memory.remove(ip);
-    }
-
-    public List<Pedido> getPedidos(Vendedor vend) throws ItemNoEncontradoException {
-        return memory.stream().map(item -> item.getPedido()).distinct().filter(pedido -> pedido.getVendedor() == vend)
-                .collect(Collectors.toList());
-    }
-
-    public List<Pedido> getPedidos(int ID, Boolean isVendor) throws ItemNoEncontradoException {
-        if (isVendor) {
-            return memory.stream().map(item -> item.getPedido()).distinct().filter(pedido -> pedido.getVendedor().getId() == ID)
-                    .collect(Collectors.toList());
-        } else {
-            return memory.stream().map(item -> item.getPedido()).distinct().filter(pedido -> pedido.getCliente().getId() == ID)
-                    .collect(Collectors.toList());
-        }
-    }
-
-    public List<Pedido> getPedidos() {
-        return memory.stream().map(item -> item.getPedido()).distinct().collect(Collectors.toList());
+    @Override
+    public ItemPedido getItem(int ID) throws ItemNoEncontradoException {
+        return memory.stream()
+                     .filter(item -> item.getId() == ID)
+                     .findFirst()
+                     .orElseThrow(() -> new ItemNoEncontradoException("No se encontró el item"));
     }
 
     @Override
@@ -167,38 +171,10 @@ public class ItemPedidoMemory implements ItemPedidoDAO {
         return ordered;
     }
 
-    @Override
-    public void add(ItemPedido item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
+   
 
-    @Override
-    public void update(int ID, ItemPedido item) throws ItemNoEncontradoException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
+    
 
-    @Override
-    public void delete(int ID) throws ItemNoEncontradoException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-
-    @Override
-    public void addAll(List<ItemPedido> items) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
-    }
-
-    @Override
-    public ItemPedido getItem(int ID) throws ItemNoEncontradoException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItem'");
-    }
-
-    @Override
-    public List<ItemPedido> listarPorPedido(int id_pedido) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
+    
 }

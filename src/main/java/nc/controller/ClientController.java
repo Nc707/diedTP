@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import nc.dao.ClienteDAO;
 import nc.dao.ItemMenuDAO;
 import nc.dao.ItemPedidoDAO;
-import nc.dao.jdbc.ClienteJDBC;
-import nc.dao.jdbc.ItemMenuJDBC;
-import nc.dao.jdbc.ItemPedidoJDBC;
+import nc.dao.memory.ClienteMemory;
+import nc.dao.memory.ItemMenuMemory;
+import nc.dao.memory.ItemPedidoMemory;
 import nc.excepciones.CantidadItemInvalidaException;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoIncorrectoException;
@@ -40,10 +40,10 @@ public class ClientController {
     //private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     //private ItemMenuMemory items = ItemMenuMemory.getInstancia();
     //private ClienteMemory clients = ClienteMemory.getInstancia();
-    private ItemMenuDAO items = new ItemMenuJDBC();
+    private ItemMenuDAO items = ItemMenuMemory.getInstancia();
 
-    private ClienteDAO clients = new ClienteJDBC();
-    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
+    private ClienteDAO clients = ClienteMemory.getInstancia();
+    private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
     private Cliente client;
     //private ItemPedidoMemory itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
     //private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();

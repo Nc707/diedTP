@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import nc.dao.ItemPedidoDAO;
 import nc.dao.PedidoDAO;
-import nc.dao.jdbc.ItemPedidoJDBC;
-import nc.dao.jdbc.PedidoJDBC;
+import nc.dao.memory.ItemPedidoMemory;
+import nc.dao.memory.PedidoMemory;
 import nc.modelo.Pedido;
 import nc.modelo.Pedido.EstadoPedido;
 
@@ -22,8 +22,8 @@ public class PedidoController {
 
     private Boolean isVendedor;
     private int ID = 0;
-    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
-    private PedidoDAO pedidos = new PedidoJDBC();
+    private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
+    private PedidoDAO pedidos = PedidoMemory.getPedidoMemory();
     private PedidoDAO pedidoDAO;
     private EstadoPedido estado;
    

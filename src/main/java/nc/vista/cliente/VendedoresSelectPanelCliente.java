@@ -61,6 +61,10 @@ public class VendedoresSelectPanelCliente extends javax.swing.JPanel {
     public void setUpperFrame(ClientesFrame frame){
         this.frameSuperior = frame;
     }
+    public void updateTable(){
+        this.vendedorTableModel.setItems(vendedores.loadData());
+        //this.contentTable.updateUI()
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import nc.dao.ItemMenuDAO;
 import nc.dao.VendedorDAO;
-import nc.dao.jdbc.ItemMenuJDBC;
-import nc.dao.jdbc.VendedorJDBC;
+import nc.dao.memory.ItemMenuMemory;
+import nc.dao.memory.VendedorMemory;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.modelo.Bebida;
 import nc.modelo.ItemMenu;
@@ -29,8 +29,8 @@ public class ItemMenuController {
         this.vendedorID = vendedorID;
     }
 
-    ItemMenuDAO itemsMenu = new ItemMenuJDBC();
-    VendedorDAO vendedores = new VendedorJDBC();
+    ItemMenuDAO itemsMenu = ItemMenuMemory.getInstancia();
+    VendedorDAO vendedores = VendedorMemory.getInstancia();
 
     public List getItemMenu(int ID) throws ItemNoEncontradoException {
         List itemMenuData = new ArrayList();

@@ -10,8 +10,7 @@ import java.util.stream.Collectors;
 
 import nc.modelo.ItemPedido;
 import nc.dao.ItemPedidoDAO;
-import nc.dao.jdbc.ItemPedidoJDBC;
-//import nc.dao.memory.ItemPedidoMemory;
+import nc.dao.memory.ItemPedidoMemory;
 import nc.excepciones.ItemNoEncontradoException;
 
 /**
@@ -24,7 +23,7 @@ public class ItemPedidoController {
     public ItemPedidoController(int pedidoID){
         this.pedidoID = pedidoID;
     }
-    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
+    private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
 
     public List getItemPedido(int ID) throws ItemNoEncontradoException{
         List itemMenuData = new ArrayList();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import static java.util.Collections.sort;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import nc.dao.ItemMenuDAO;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.modelo.Bebida;
@@ -18,52 +19,8 @@ import nc.util.compareStrategies.itemMenu.CompareItemMenuStrategyInterface;
 public class ItemMenuMemory implements ItemMenuDAO {
 
     private static ItemMenuMemory uniqueInstance;
-    private ArrayList<ItemMenu> memory;
-    /////////////////////////////////////////////////////////////////////
-    ArrayList<ItemMenu> items = new ArrayList<>();
-
-    public ArrayList<ItemMenu> listar() {
-        return items;
-    }
-
-    /*
-    @Override
-    public void add(ItemMenu item) {
-        items.add(item);
-    }*/
-    public void actualizar(ItemMenu item) {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId() == item.getId()) {
-                items.set(i, item);
-                return;
-            }
-        }
-    }
-
-    public void eliminar(int id) {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId() == id) {
-                items.remove(i);
-                return;
-            }
-        }
-    }
-
-    public ItemMenu buscar(int id) {
-        for (int i = 0; i < memory.size(); i++) {
-            if (memory.get(i).getId() == id) {
-                return memory.get(i);
-            }
-        }
-        return null;
-    }
-///////////////////////////////////////////////////////////////////////////////
-
-    @Override
-    public List<ItemMenu> listarPorVendedor(int idVendedor) throws ItemNoEncontradoException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    private ArrayList<ItemMenu> memory = new ArrayList<>();
+    
     private class ItemWrapper implements Comparable {
 
         ItemMenu item;
@@ -89,25 +46,19 @@ public class ItemMenuMemory implements ItemMenuDAO {
 
     }
 
-    private ItemMenuMemory() {
-        this.memory = new ArrayList<>();
-    }
-
     public static ItemMenuMemory getInstancia() {
         if (uniqueInstance == null) {
             uniqueInstance = new ItemMenuMemory();
         }
         return uniqueInstance;
     }
-
-    public void crearPlato(String nombre, Vendedor vendedor, float precio, float peso, float calorias) {
-        ItemMenu item = new Plato(nombre, vendedor, precio, peso, calorias);
-        add(item);
+    private ItemMenuMemory() {
+        this.memory = new ArrayList<>();
     }
 
-    public void crearBebida(String nombre, Vendedor vendedor, float precio, float pes, int grado, float tam) {
-        ItemMenu item = new Bebida(nombre, vendedor, precio, pes, grado, tam);
-        add(item);
+    @Override
+    public List<ItemMenu> getAll() {
+        return (List<ItemMenu>) memory.clone();
     }
 
     @Override
@@ -116,8 +67,46 @@ public class ItemMenuMemory implements ItemMenuDAO {
     }
 
     @Override
+    public void update(int ID, ItemMenu item) throws ItemNoEncontradoException {
+        int index = IntStream.range(0, memory.size())
+                .filter(i -> memory.get(i).getId() == ID)
+                .findFirst()
+                .orElseThrow(() -> new ItemNoEncontradoException("Item no encontrado"));
+        memory.set(index, item);
+    }
+
+    @Override
+    public void delete(int ID) throws ItemNoEncontradoException {
+        boolean removed = memory.removeIf(item -> item.getId() == ID);
+        if (!removed) {
+            throw new ItemNoEncontradoException("Item no encontrado");
+        }
+    }
+
+    @Override
     public void addAll(List<ItemMenu> items) {
         memory.addAll(items);
+    }
+    
+    @Override
+    public List<ItemMenu> listarPorVendedor(int idVendedor) throws ItemNoEncontradoException {
+        List<ItemMenu> result = memory.stream()
+                .filter(item -> item.getVendedorId() == idVendedor)
+                .collect(Collectors.toList());
+        if (result.isEmpty()) {
+            throw new ItemNoEncontradoException("No se encontraron items para el vendedor");
+        }
+        return result;
+    }
+
+    @Override
+    public ItemMenu getItem(int id) throws ItemNoEncontradoException {
+        try {
+            return this.filtrarPor(tipoFiltrado.ID, id).getFirst();
+        } catch (ItemNoEncontradoException e) {
+            throw e;
+        }
+
     }
 
     @Override
@@ -203,32 +192,4 @@ public class ItemMenuMemory implements ItemMenuDAO {
         return this.ordenar(tipoOrden, filtrado.stream().map(item -> new ItemWrapper(item)).collect(Collectors.toList()), ascendente);
 
     }
-
-    @Override
-    public ItemMenu getItem(int id) throws ItemNoEncontradoException {
-        try {
-            return this.filtrarPor(tipoFiltrado.ID, id).getFirst();
-        } catch (ItemNoEncontradoException e) {
-            throw e;
-        }
-
-    }
-
-    @Override
-    public List<ItemMenu> getAll() {
-        return (List<ItemMenu>) memory.clone();
-    }
-
-    @Override
-    public void update(int ID, ItemMenu item) throws ItemNoEncontradoException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
-    @Override
-    public void delete(int ID) throws ItemNoEncontradoException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-
 }

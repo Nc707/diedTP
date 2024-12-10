@@ -83,8 +83,9 @@ public class ClientesFrame extends javax.swing.JPanel {
         int idVendedor = controlador.getVendedorCarrito();
         pedidosMenuPanelCliente1.setClientID(IDCliente);
         pedidosMenuPanelCliente1.updateTable();
-        if(idVendedor<0)
-            jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));
+        if(idVendedor<0){
+            this.vendedoresSelectPanelCliente1.updateTable();
+            jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfComponent(vendedoresSelectPanelCliente1));}
         else
             setVendedor(idVendedor);        
     }

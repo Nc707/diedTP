@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import nc.dao.ItemPedidoDAO;
 import nc.dao.PedidoDAO;
-import nc.dao.jdbc.ItemPedidoJDBC;
-import nc.dao.jdbc.PedidoJDBC;
+import nc.dao.memory.ItemPedidoMemory;
+import nc.dao.memory.PedidoMemory;
 import nc.excepciones.ItemNoEncontradoException;
 import nc.excepciones.PedidoCerradoException;
 import nc.excepciones.PedidoIncorrectoException;
@@ -16,8 +16,8 @@ public class Carrito {
 
     private ArrayList<ItemPedido> items;
     //private ItemPedidoMemory itemPedidoMemory;
-    private PedidoDAO pedidos = new PedidoJDBC();
-    private ItemPedidoDAO itemsPedido = new ItemPedidoJDBC();
+    private PedidoDAO pedidos = PedidoMemory.getPedidoMemory();
+    private ItemPedidoDAO itemsPedido = ItemPedidoMemory.getItemPedidoMemory();
     private Pedido pedido;
 
 //    public Carrito(ItemPedidoMemory ipm, Cliente c, ItemMenu primerItemMenu, int cantidad) {
