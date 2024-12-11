@@ -1,5 +1,6 @@
 package com.deso.etapa_final.services;
 
+
 import com.deso.etapa_final.model.*;
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.deso.etapa_final.repositories.PedidoRepository;
@@ -7,27 +8,33 @@ import com.deso.etapa_final.repositories.ItemPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
+
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
 
     public Pedido obtenerPedidoPorId(Long pedidoId) {
         return pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
     }
 
+
     public Pedido obtenerPedidoPorClienteYEstado(Cliente cliente, Pedido.EstadoPedido estado) {
         return pedidoRepository.findByClienteAndEstado(cliente, estado);
     }
+
     public EstrategiasDePagoInterface obtenerMetodoDePagoDePedido(Long pedidoId) {
         Pedido pedido = obtenerPedidoPorId(pedidoId);
         return pedido.getMetodoDePago(); // La deserialización ocurre automáticamente
     }
+
 
     public Pedido crearPedido(Cliente cliente, Vendedor vendedor) {
         Pedido pedido = new Pedido();
@@ -96,3 +103,4 @@ public class PedidoService {
                 .orElseThrow(() -> new RuntimeException("ItemPedido no encontrado"));
     }
 }
+
