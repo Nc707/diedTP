@@ -2,7 +2,7 @@ package com.deso.etapa_final.model;
 
 import java.util.HashSet;
 
-import org.hibernate.annotations.ManyToAny;
+
 
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.deso.etapa_final.model.interfaces.Observable;
