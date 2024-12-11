@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendedores</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Listado de Vendedores</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>CX</th>
+                <th>CY</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="vendedor : ${vendedores}">
+                <td th:text="${vendedor.vendedor_id}"></td>
+                <td th:text="${vendedor.nombre}"></td>
+                <td th:text="${vendedor.direccion}"></td>
+                <td th:text="${vendedor.coordenadas.latitud}"></td>
+                <td th:text="${vendedor.coordenadas.longitud}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</body>
+</html>

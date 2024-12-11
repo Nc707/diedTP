@@ -1,6 +1,10 @@
 package com.deso.etapa_final.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.services.VendedorService;
 
-@RestController
+@Controller
 @RequestMapping("/vendedores")
 public class VendedorController {
     
@@ -27,9 +31,16 @@ public class VendedorController {
         return vendedorService.addVendedor(nombre, direccion, latitud, longitud);
     }
 
+    // @GetMapping("/getAll")
+    // public Iterable<Vendedor> getVendedores() {
+    //     return vendedorService.getVendedores();
+    // }
     @GetMapping("/getAll")
-    public Iterable<Vendedor> getVendedores() {
-        return vendedorService.getVendedores();
+    public String getVendedores(Model model) {
+        Iterable<Vendedor> vendedores =  vendedorService.getVendedores();
+        model.addAttribute("vendedores", vendedores );
+        return "vendedores-listado";
+
     }
 
     @GetMapping("/getById")
