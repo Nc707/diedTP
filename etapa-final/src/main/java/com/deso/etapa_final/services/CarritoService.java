@@ -11,16 +11,12 @@ import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.deso.etapa_final.model.metodosDePago.PagoMercadoPago;
 import com.deso.etapa_final.model.metodosDePago.PagoTransferencia;
-import com.deso.etapa_final.repositories.ItemPedidoRepository;
-import com.deso.etapa_final.repositories.PedidoRepository;
 
 @Service
 public class CarritoService {
-    @Autowired
-    private PedidoRepository pedidoRepository;
 
     @Autowired
-    private ItemPedidoRepository itemPedidoRepository;
+    private PedidoService pedidoService;
 
     @Autowired
     private ClienteService clienteService;
@@ -29,120 +25,94 @@ public class CarritoService {
     private VendedorService vendedorService;
 
     @Autowired
-    private PlatoService PlatoService;
+    private PlatoService platoService;
 
     @Autowired
     private BebidaService bebidaService;
 
-    public Long obtenerCarrito(Long clienteId, Long vendedorId){
+    public Long obtenerCarrito(Long clienteId, Long vendedorId) {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Vendedor vendedor = vendedorService.getVendedorById(vendedorId);
 
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        if(pedido == null){
-            pedido = new Pedido();
-            pedido.setCliente(cliente);
-            pedido.setVendedor(vendedor);
-            pedido.setEstado(Pedido.EstadoPedido.EN_CARRITO);
-            pedidoRepository.save(pedido);
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        if (pedido == null) {
+            pedido = pedidoService.crearPedido(cliente, vendedor);
         }
         return pedido.getPedido_id();
-        
     }
 
-    public void agregarItem(Long clienteId, Long itemMenuId, int cantidad){
+    public void agregarItem(Long clienteId, Long itemMenuId, int cantidad) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findById(obtenerCarrito(clienteId, itemMenuId)).orElse(null);
-        ItemMenu item = PlatoService.getPlatoById(itemMenuId);
-        if(item == null){
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        ItemMenu item = platoService.getPlatoById(itemMenuId);
+        if (item == null) {
             item = bebidaService.getBebidaById(itemMenuId);
         }
-        if(pedido != null && item != null && cantidad > 0){
+        if (pedido != null && item != null && cantidad > 0) {
             ItemPedido itemPedido = new ItemPedido();
             itemPedido.setCantidad(cantidad);
             itemPedido.setItemMenu(item);
-            itemPedido.setPedido(pedido);
-            actualizarPrecio(pedido);
-            itemPedidoRepository.save(itemPedido);
+            pedidoService.agregarItem(pedido, itemPedido);
         }
     }
 
-    public void eliminarItem(Long clienteId, Long itemPedidoId){
+    public void eliminarItem(Long clienteId, Long itemPedidoId) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElse(null);
-        if(pedido != null && itemPedido != null){
-            itemPedidoRepository.delete(itemPedido);
-            actualizarPrecio(pedido);
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        ItemPedido itemPedido = pedidoService.obtenerItemPedidoPorId(itemPedidoId);
+        if (pedido != null && itemPedido != null) {
+            pedidoService.eliminarItem(pedido, itemPedido);
         }
     }
 
-    public void modificarCantidad(Long clienteId, Long itemPedidoId, int cantidad){
+    public void modificarCantidad(Long clienteId, Long itemPedidoId, int cantidad) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElse(null);
-        if(pedido != null && itemPedido != null && cantidad > 0){
-            itemPedido.setCantidad(cantidad);
-            itemPedidoRepository.save(itemPedido);
-            actualizarPrecio(pedido);
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        ItemPedido itemPedido = pedidoService.obtenerItemPedidoPorId(itemPedidoId);
+        if (pedido != null && itemPedido != null && cantidad > 0) {
+            pedidoService.modificarCantidad(itemPedido, cantidad);
         }
     }
 
-    public void confirmarPedido(Long clienteId){
+    public void confirmarPedido(Long clienteId) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        if(pedido != null){
-            pedido.setEstado(Pedido.EstadoPedido.RECIBIDO);
-            pedidoRepository.save(pedido);
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        if (pedido != null) {
+            pedidoService.confirmarPedido(pedido);
         }
     }
 
-    public void cancelarPedido(Long clienteId){
+    public void cancelarPedido(Long clienteId) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        if(pedido != null){
-            pedidoRepository.delete(pedido);
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        if (pedido != null) {
+            pedidoService.cancelarPedido(pedido);
         }
     }
 
-    public void setMercadoPago(Long clienteId,  String alias){
+    public void setMercadoPago(Long clienteId, String alias) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        if(pedido != null){
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        if (pedido != null) {
             EstrategiasDePagoInterface metodoDePago = new PagoMercadoPago(alias);
-            pedido.setMetodoDePago(metodoDePago);
-            pedidoRepository.save(pedido);
+            pedidoService.setMetodoDePago(pedido, metodoDePago);
         }
     }
 
-    public void setTransferencia(Long clienteId, String cbu, long cuit){
+    public void setTransferencia(Long clienteId, String cbu, long cuit) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        if(pedido != null){
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
+        if (pedido != null) {
             EstrategiasDePagoInterface metodoDePago = new PagoTransferencia(cbu, cuit);
-            pedido.setMetodoDePago(metodoDePago);
-            pedidoRepository.save(pedido);
+            pedidoService.setMetodoDePago(pedido, metodoDePago);
         }
     }
 
-    private void actualizarPrecio(Pedido pedido){
-        double precio = 0;
-        for(ItemPedido itemPedido : itemPedidoRepository.findByPedido(pedido)){
-            precio += itemPedido.getPrecio();
-        }
-        pedido.setPrecio(precio);
-        pedidoRepository.save(pedido);
-    }
-
-    public void cerrarPedido(Long clienteId){
+    public void cerrarPedido(Long clienteId) {
         Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoRepository.findByClienteAndEstado(cliente, Pedido.EstadoPedido.RECIBIDO);
-        if(pedido != null && pedido.getMetodoDePago() != null){
-            pedido.setEstado(Pedido.EstadoPedido.RECIBIDO);
-            pedidoRepository.save(pedido);
-            pedido.notifyObservers();
+        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.RECIBIDO);
+        if (pedido != null && pedido.getMetodoDePago() != null) {
+            pedidoService.cerrarPedido(pedido);
         }
     }
-
- }   
-
+}
