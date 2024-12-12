@@ -37,8 +37,8 @@ public class ItemMenuController {
     @Autowired
     private ItemMenuService itemMenuService;
     
-    @GetMapping("/getItemMenuByVendedor/{id}")
-    public String mostrarMenuVendedor(@PathVariable Integer id, Model model) {
+    @GetMapping("/getItemMenuByVendedor")
+    public String mostrarMenuVendedor(@RequestParam("id") Long id, Model model) {
         List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id));
         model.addAttribute("itemsMenu", itemsMenu);
         return "items-menu";
