@@ -30,6 +30,9 @@ public abstract class ItemMenu {
     @Column(nullable = false)
     private float precio;
 
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
     // @Column
     // @Setter(AccessLevel.NONE)
     @ManyToMany
@@ -39,6 +42,8 @@ public abstract class ItemMenu {
         inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
     private Set<Categoria> categorias = new HashSet<>();
+    @Column
+    private Boolean es_bebida;
 
     public void addCategoria(Categoria categoria) {
         this.categorias.add(categoria);
