@@ -1,5 +1,6 @@
 package com.deso.etapa_final.controllers;
 
+import com.deso.etapa_final.exception.AlreadyExistentCarritoException;
 import com.deso.etapa_final.exception.NonExistentCarritoException;
 import com.deso.etapa_final.exception.NonExistentException;
 import com.deso.etapa_final.exception.NonSettedMetodoPagoException;
@@ -24,6 +25,11 @@ public class PedidoController {
         return new ResponseEntity<>(carritoId, HttpStatus.OK);
         
        
+    }
+    @PostMapping("/carrito/crearCarrito/{clienteId}/{vendedorId}")
+    public ResponseEntity<Long> crearCarrito(@PathVariable Long clienteId, @PathVariable Long vendedorId) throws AlreadyExistentCarritoException {
+        Long carritoId = carritoService.crearCarrito(clienteId, vendedorId);
+        return new ResponseEntity<>(carritoId, HttpStatus.OK);
     }
 
     @PostMapping("/carrito/{clienteId}/agregarItem/{itemMenuId}/{cantidad}")

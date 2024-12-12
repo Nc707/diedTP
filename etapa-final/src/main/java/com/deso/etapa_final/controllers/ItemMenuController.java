@@ -47,11 +47,6 @@ public class ItemMenuController {
     // public List<ItemMenu> mostrarMenuVendedor(@PathVariable Long  id) {
     //     return itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id)); 
     // }
-    // @PostMapping("/obtenerMenuVendedor")
-    // public String mostrarMenuVendedor(Long id) {
-    //     return "redirect:/ItemMenu/getItemMenuByVendedor/" + id;
-
-
 
     // Endpoint para crear una nueva bebida
     @PostMapping("/createBebida")
