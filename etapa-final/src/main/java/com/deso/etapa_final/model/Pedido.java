@@ -1,6 +1,5 @@
 package com.deso.etapa_final.model;
 
-import java.util.HashSet;
 
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class Pedido  {
     private String descripcion;
 
     @Column(nullable = false)
-    private Double precio;
+    private Double precio = 0.0d;
 
     @Column(nullable = false)
     private int cantidad;

@@ -2,10 +2,11 @@ package com.deso.etapa_final.services;
 
 import com.deso.etapa_final.model.Cliente;
 import com.deso.etapa_final.model.Coordenada;
-//import com.deso.etapa_final.model.Pago;
+import com.deso.etapa_final.model.Pago;
 import com.deso.etapa_final.model.Pedido;
 import com.deso.etapa_final.repositories.ClienteRepository;
-//import com.deso.etapa_final.repositories.PagoRepository;
+import com.deso.etapa_final.repositories.PagoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,8 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    //@Autowired
-    //private PagoRepository pagoRepository;
+    @Autowired
+    private PagoRepository pagoRepository;
 
     public Cliente addCliente(long cuit, String email, String direccion, Coordenada coordenadas, String nombre) {
         Cliente cliente = new Cliente();
@@ -56,24 +57,8 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
-    public void subscribeToPedido(Long clienteId, Pedido pedido) {
-        Cliente cliente = getClienteById(clienteId);
-        if (cliente != null) {
-            pedido.addObserver(cliente);
-        }
-    }
-
-    public void unsubscribeFromPedido(Long clienteId, Pedido pedido) {
-        Cliente cliente = getClienteById(clienteId);
-        if (cliente != null) {
-            pedido.removeObserver(cliente);
-        }
-    }
-
-    /*
-    public void handlePedidoUpdate(Pedido pedido) {
-        Cliente cliente = pedido.getCliente();
-        Pago pago = cliente.generarPago(pedido);
+    public void generarPago(Pedido pedido) {
+        Pago pago = new Pago(pedido);
         pagoRepository.save(pago);
-    }*/
+    }
 }

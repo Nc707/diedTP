@@ -37,8 +37,10 @@ public class ItemMenuController {
     @Autowired
     private ItemMenuService itemMenuService;
     
-    @GetMapping("/getItemMenuByVendedor/{id}")
-    public String mostrarMenuVendedor(@PathVariable Integer id, Model model) {
+
+    @GetMapping("/getItemMenuByVendedor")
+    public String mostrarMenuVendedor(@RequestParam("id") Long id, Model model) {
+
         List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id));
         model.addAttribute("itemsMenu", itemsMenu);
         return "items-menu";
@@ -47,10 +49,6 @@ public class ItemMenuController {
     // public List<ItemMenu> mostrarMenuVendedor(@PathVariable Long  id) {
     //     return itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id)); 
     // }
-    // @PostMapping("/obtenerMenuVendedor")
-    // public String mostrarMenuVendedor(Long id) {
-    //     return "redirect:/ItemMenu/getItemMenuByVendedor/" + id;
-
 
 
     // Endpoint para crear una nueva bebida
