@@ -33,11 +33,10 @@
         </tbody>
     </table>
 
-// dejo esto pero no funciona ni va a funcionar q sad
     <div>
-        <form th:action="@{/obtenerMenuVendedor}" th:object="${id}"method="post"></form>
+        <form th:action="@{/ItemMenu/getItemMenuByVendedor{id}(id=${id})}" method="GET">
             <label for="id">ID:</label><br>
-            <input type="text" id="id" name="id" required><br><br>
+            <input type="text" id="id" th:value="${id}" value ="1" name="id" required><br><br>
             <button type="submit">Iniciar Sesión</button>
         </form>
     </div>
