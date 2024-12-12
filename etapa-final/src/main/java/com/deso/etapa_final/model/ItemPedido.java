@@ -20,7 +20,7 @@ public class ItemPedido {
     @Setter(AccessLevel.NONE)
     private float precio;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     private ItemMenu itemMenu;
 

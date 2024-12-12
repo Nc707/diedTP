@@ -1,6 +1,7 @@
 package com.deso.etapa_final.services;
 
 import com.deso.etapa_final.model.Plato;
+import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.model.Categoria;
 import com.deso.etapa_final.repositories.PlatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,17 @@ public class PlatoService {
     @Autowired
     private CategoriaService categoriaService;
 
-    public Plato createPlato(String nombre, String descripcion, float precio, float peso, float tamaño, Iterable<String> categorias) {
+    @Autowired
+    private VendedorService vendedorService;
+
+    public Plato createPlato(String nombre, String descripcion, float precio, long id_vendedor, float peso, float tamaño, Iterable<String> categorias) {
         Plato plato = new Plato();
+        Vendedor vendedor = vendedorService.getVendedorById(id_vendedor);
         plato.setNombre(nombre);
         plato.setDescripcion(descripcion);
         plato.setPrecio(precio);
+        plato.setVendedor(vendedor);
+        plato.setEs_bebida(false);
         plato.setPeso(peso);
         if (categorias != null) {
             plato.addCategoria(categoriaService.getCategoriaByNombre("Plato", Categoria.TipoCategoria.PLATO));
