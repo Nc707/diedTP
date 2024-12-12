@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendedores</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>ItemsMenu</h1>
+    <!--Tabla de platos-->
+    <h2>Platos</h2>
+    <table border = 1>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Calorias</th>
+                <th>Peso</th>
+                <th>Apto Celiaco</th>
+                <th>Apto Vegano</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${itemsMenu}" th:if="${!item.es_bebida}" >
+                <td th:text="${item.item_id}"></td>
+                <td th:text="${item.nombre}"></td>
+                <td th:text="${item.descripcion}"></td>
+                <td th:text="${item.precio}"></td>
+                <td th:text="${item.calorias}"></td>
+                <td th:text="${item.peso}"></td>
+                <td th:text="${item.aptoCeliaco}"></td>
+                <td th:text="${item.aptoVegano}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--Tabla de bebidas-->
+    <h2>Bebidas</h2>
+    <table border = 1>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Graduacion Alcoholica</th>
+                <th>Tamaño</th>
+                <th>Peso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${itemsMenu}" th:if="${item.es_bebida}" >
+                <td th:text="${item.item_id}"></td>
+                <td th:text="${item.nombre}"></td>
+                <td th:text="${item.descripcion}"></td>
+                <td th:text="${item.precio}"></td>
+                <td th:text="${item.graduacionAlcoholica}"></td>
+                <td th:text="${item.tamaño}"></td>
+                <td th:text="${item.peso}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</body>
+</html>
