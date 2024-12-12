@@ -1,12 +1,10 @@
 package com.deso.etapa_final.model;
 
 import java.util.HashSet;
-
-
+import java.util.List;
 
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
-import com.deso.etapa_final.model.interfaces.Observable;
-import com.deso.etapa_final.model.interfaces.Observer;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,7 +18,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class Pedido implements Observable {
+public class Pedido  {
 
     public enum EstadoPedido {
         EN_CARRITO,
@@ -45,6 +43,9 @@ public class Pedido implements Observable {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItemPedido> items;
+
     private String descripcion;
 
     @Column(nullable = false)
@@ -63,23 +64,7 @@ public class Pedido implements Observable {
     @Transient
     private EstrategiasDePagoInterface metodoDePago; // No persistente, se carga/deserializa manualmente
 
-    @Column
-    @Setter(AccessLevel.NONE)
-    private HashSet<Observer> observers = new HashSet<>();
 
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
-    }
-
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(this);
-        }
-    }
 
     // Métodos para manejar serialización y deserialización
     @PrePersist

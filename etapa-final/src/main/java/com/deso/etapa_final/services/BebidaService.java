@@ -3,6 +3,8 @@ package com.deso.etapa_final.services;
 import com.deso.etapa_final.model.Bebida;
 import com.deso.etapa_final.repositories.BebidaRepository;
 import com.deso.etapa_final.model.Categoria;
+import com.deso.etapa_final.model.Vendedor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,17 @@ public class BebidaService {
     @Autowired
     private CategoriaService categoriaService;
 
-    public Bebida createBebida(String nombre, String descripcion, float precio, float graduacionAlcoholica, float tamaño, float peso, Iterable<String> categoria) {
+    @Autowired
+    private VendedorService vendedorService;
+
+    public Bebida createBebida(String nombre, String descripcion, float precio, Long id_vendedor, float graduacionAlcoholica, float tamaño, float peso, Iterable<String> categoria) {
         Bebida bebida = new Bebida();
+        Vendedor vendedor = vendedorService.getVendedorById(id_vendedor);
         bebida.setNombre(nombre);
         bebida.setDescripcion(descripcion);
         bebida.setPrecio(precio);
+        bebida.setVendedor(vendedor);
+        bebida.setEs_bebida(true);
         bebida.setGraduacionAlcoholica(graduacionAlcoholica);
         bebida.setTamaño(tamaño);
         bebida.setPeso(peso);
