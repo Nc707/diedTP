@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendedores</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Listado de Clientes</h1>
+
+    <table border = 1>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>CX</th>
+                <th>CY</th>
+                <th>CUIT</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="cliente : ${clientes}">
+
+                <td th:text="${cliente.cliente_id}"></td>
+                <td th:text="${cliente.nombre}"></td>
+                <td th:text="${cliente.direccion}"></td>
+                <td th:text="${cliente.coordenadas.latitud}"></td>
+                <td th:text="${cliente.coordenadas.longitud}"></td>
+                <td th:text="${cliente.cuit}"></td>
+                <td th:text="${cliente.email}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- <div>
+        <form th:action="@{/ItemMenu/getItemMenuByVendedor{id}(id=${id})}" method="GET">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" th:value="${id}" value ="1" name="id" required><br><br>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div> -->
+
+
+
+</body>
+</html>

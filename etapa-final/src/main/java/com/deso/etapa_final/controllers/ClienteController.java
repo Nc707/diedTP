@@ -6,6 +6,7 @@ import com.deso.etapa_final.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -17,7 +18,14 @@ public class ClienteController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, @RequestParam String email, @RequestParam String direccion, @RequestParam long latitud,@RequestParam long longitud, @RequestParam String nombre) {
+
+    public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, 
+                                            @RequestParam String email, 
+                                            @RequestParam String direccion, 
+                                            @RequestParam double latitud,
+                                            @RequestParam double longitud, 
+                                            @RequestParam String nombre) {
+
         Coordenada coordenada = new Coordenada();
         coordenada.setLatitud(latitud);
         coordenada.setLongitud(longitud);
@@ -25,12 +33,22 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
-    @GetMapping
-    @ResponseBody
-    public ResponseEntity<Iterable<Cliente>> getClientes() {
-        Iterable<Cliente> clientes = clienteService.getClientes();
-        return ResponseEntity.ok(clientes);
+
+    // @GetMapping("/getAll")
+    // @ResponseBody
+    // public ResponseEntity<Iterable<Cliente>> getClientes() {
+    //     Iterable<Cliente> clientes = clienteService.getClientes();
+    //     return ResponseEntity.ok(clientes);
+    // }
+    @GetMapping("/getAll")
+    public String getClientes(Model model) {
+        Iterable<Cliente> clientes =  clienteService.getClientes();
+        model.addAttribute("clientes", clientes );
+        return "clientes-listado";
+
     }
+
+
 
     @GetMapping("/{id}")
     @ResponseBody

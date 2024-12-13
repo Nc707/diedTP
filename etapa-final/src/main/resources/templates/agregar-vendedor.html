@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Alta de vendedor</h1>
+    <form th:action="@{/vendedores/add}" method="POST">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="direccion">Dirección:</label><br>
+        <input type="text" id="direccion" name="direccion" required><br><br>
+
+        <label for="latitud">Latitud:</label><br>
+        <input type="number" id="latitud" name="latitud" step="any" required><br><br>
+
+        <label for="longitud">Longitud:</label><br>
+        <input type="number" id="longitud" name="longitud" step="any" required><br><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+    
+</body>
+</html>

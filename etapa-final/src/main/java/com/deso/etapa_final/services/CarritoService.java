@@ -61,6 +61,7 @@ public class CarritoService {
         if(item==null) throw new NonExistentException("El item no existe");
         if(cantidad<=0) throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
         if(pedido==null) throw new NonExistentCarritoException(clienteId);
+
         ItemPedido itemPedido = new ItemPedido(item, cantidad);
 
         pedidoService.agregarItem(pedido, itemPedido);
