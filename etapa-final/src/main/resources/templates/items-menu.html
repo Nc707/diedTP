@@ -25,7 +25,7 @@
         </thead>
         <tbody>
             <tr th:each="item : ${itemsMenu}" th:if="${!item.es_bebida}" >
-                <td th:text="${item.item_id}"></td>
+                <td th:text="${item.itemid}"></td>
                 <td th:text="${item.nombre}"></td>
                 <td th:text="${item.descripcion}"></td>
                 <td th:text="${item.precio}"></td>
@@ -53,7 +53,7 @@
         </thead>
         <tbody>
             <tr th:each="item : ${itemsMenu}" th:if="${item.es_bebida}" >
-                <td th:text="${item.item_id}"></td>
+                <td th:text="${item.itemid}"></td>
                 <td th:text="${item.nombre}"></td>
                 <td th:text="${item.descripcion}"></td>
                 <td th:text="${item.precio}"></td>

@@ -18,18 +18,21 @@ public class ClienteController {
 
     @PostMapping("/add")
     @ResponseBody
+
     public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, 
                                             @RequestParam String email, 
                                             @RequestParam String direccion, 
                                             @RequestParam double latitud,
                                             @RequestParam double longitud, 
                                             @RequestParam String nombre) {
+
         Coordenada coordenada = new Coordenada();
         coordenada.setLatitud(latitud);
         coordenada.setLongitud(longitud);
         Cliente cliente = clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
         return ResponseEntity.ok(cliente);
     }
+
 
     // @GetMapping("/getAll")
     // @ResponseBody
@@ -45,6 +48,12 @@ public class ClienteController {
 
     }
 
+    @GetMapping("/search")
+    public String searchClientes(@RequestParam("search") String searchable, @RequestParam String orderBy, @RequestParam String orderDirection, Model model) {
+        Iterable<Cliente> clientes = clienteService.generalSearch(searchable, orderBy, orderDirection);
+        model.addAttribute("clientes", clientes);
+        return "clientes-listado";
+    }
 
     @GetMapping("/{id}")
     @ResponseBody

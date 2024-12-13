@@ -6,6 +6,12 @@ import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 import com.deso.etapa_final.repositories.PedidoRepository;
 import com.deso.etapa_final.repositories.ItemPedidoRepository;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -22,9 +28,112 @@ public class PedidoService {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
+
+
     public Iterable<Pedido> getAllPedidos() {
         return pedidoRepository.findAll();
     }
+    public Iterable<Pedido> generalSearch(String searchable, String orderBy, String orderDirection){
+        if(orderBy.equals("precio_mayor_que") || orderBy.equals("precio_menor_que")){
+            try{
+            Double precio = Double.parseDouble(searchable);
+            List <Pedido> resultList = new ArrayList<>();
+            if(orderBy.equals("precio_menor_que"))
+                resultList.addAll(pedidoRepository.findByPrecioLessThanEqual(precio));
+            else
+                resultList.addAll(pedidoRepository.findByPrecioGreaterThanEqual(precio));
+            resultList.sort((p1, p2) -> {
+                int comparison = 0;
+                if (p1.getPrecio() > p2.getPrecio()) {
+                    comparison = 1;
+                } else if (p1.getPrecio() < p2.getPrecio()) {
+                    comparison = -1;
+                }
+                return comparison;
+            });
+            return resultList;
+        }catch(NumberFormatException e){
+            return new ArrayList<>();
+        }
+        }else if(orderBy.equals("cantidad_mayor_que") || orderBy.equals("cantidad_menor_que")){
+            try{
+            int cantidad = Integer.parseInt(searchable);
+            List <Pedido> resultList = new ArrayList<>();
+            if(orderBy.equals("cantidad_menor_que"))
+                resultList.addAll(pedidoRepository.findByCantidadLessThanEqual(cantidad));
+            else
+                resultList.addAll(pedidoRepository.findByCantidadGreaterThanEqual(cantidad));
+            resultList.sort((p1, p2) -> {
+                int comparison = 0;
+                if (p1.getCantidad() > p2.getCantidad()) {
+                    comparison = 1;
+                } else if (p1.getCantidad() < p2.getCantidad()) {
+                    comparison = -1;
+                }
+                return comparison;
+            });
+            return resultList;
+        }catch(NumberFormatException e){
+            return new ArrayList<>();
+        }
+    }
+    Set<Pedido> resultSet = new HashSet<>();
+    List<Pedido> byDescripcion = pedidoRepository.findByDescripcionContaining(searchable);
+    resultSet.addAll(byDescripcion);
+    List<Pedido> byEstado = pedidoRepository.findByEstado(Pedido.EstadoPedido.valueOf(searchable));
+    resultSet.addAll(byEstado);
+    List<Pedido> byTipoMetodoDePago = pedidoRepository.findByTipoMetodoDePago(searchable);
+    resultSet.addAll(byTipoMetodoDePago);
+    List<Pedido> byClienteNombre = pedidoRepository.findByCliente_nombre(searchable);
+    resultSet.addAll(byClienteNombre);
+    List<Pedido> byVendedorNombre = pedidoRepository.findByVendedor_nombre(searchable);
+    resultSet.addAll(byVendedorNombre);
+    List<Pedido> byItemsMenuNombre = pedidoRepository.findByItems_ItemMenu_nombre(searchable);
+    resultSet.addAll(byItemsMenuNombre);
+    Long longValue = null;
+    try {
+        longValue = Long.parseLong(searchable);
+        Pedido byId = pedidoRepository.findById(longValue).get();
+        if(byId != null) resultSet.add(byId);
+    } catch (NumberFormatException e) {}
+
+    List<Pedido> resultList = new ArrayList<>(resultSet);
+    resultList.sort((p1, p2) -> {
+        int comparison = 0;
+        switch (orderBy) {
+            case "id":
+                comparison = p1.getPedidoid().compareTo(p2.getPedidoid());
+                break;
+            case "precio":
+                comparison = Double.compare(p1.getPrecio(), p2.getPrecio());
+                break;
+            case "precio_mayor_que":
+            comparison = Double.compare(p1.getPrecio(), p2.getPrecio());
+            break;
+            case "precio_menor_que":
+            comparison = Double.compare(p1.getPrecio(), p2.getPrecio());
+            break;
+            case "cantidad":
+                comparison = Integer.compare(p1.getCantidad(), p2.getCantidad());
+                break;
+            case "cantidad_menor_que":
+                comparison = Integer.compare(p1.getCantidad(), p2.getCantidad());
+                break;
+            case "cantidad_mayor_que":
+            comparison = Integer.compare(p1.getCantidad(), p2.getCantidad());
+            break;
+            case "estado":
+                comparison = p1.getEstado().compareTo(p2.getEstado());
+                break;
+            default:
+                comparison = p1.getPedidoid().compareTo(p2.getPedidoid());
+                break;
+        }
+        return orderDirection.equals("ASC") ? comparison : -comparison;
+    });
+    return resultList;
+    }
+
 
     public Pedido obtenerPedidoPorId(Long pedidoId) {
         return pedidoRepository.findById(pedidoId)

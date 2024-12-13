@@ -41,14 +41,15 @@ public class CarritoService {
     @Autowired
     private EstrategiasDePagoService estrategiasDePagoService;
 
-
     public Long obtenerCarrito(Long clienteId) throws NonExistentCarritoException {
         Cliente cliente = clienteService.getClienteById(clienteId);
 
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if (pedido == null) throw new NonExistentCarritoException(clienteId);
     
-        return pedido.getPedido_id();
+
+        return pedido.getPedidoid();
+
 
     }
     public Long crearCarrito(Long clienteId, Long vendedorId) throws AlreadyExistentCarritoException {
@@ -57,7 +58,9 @@ public class CarritoService {
         throw new AlreadyExistentCarritoException(clienteId);
         Vendedor vendedor = vendedorService.getVendedorById(vendedorId);
         Pedido pedido = pedidoService.crearPedido(cliente, vendedor);
-        return pedido.getPedido_id();
+
+        return pedido.getPedidoid();
+
     }
 
     public void agregarItem(Long clienteId, Long itemMenuId, int cantidad) throws NonExistentCarritoException, NonExistentException {
@@ -66,13 +69,16 @@ public class CarritoService {
         ItemMenu item = itemMenuService.obtenerItemMenuPorId(itemMenuId);
         // ItemMenu item = platoService.getPlatoById(itemMenuId);
         // if (item == null) item = bebidaService.getBebidaById(itemMenuId);
+
         
         if(item==null) throw new NonExistentException("El item no existe");
         if(cantidad<=0) throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
         if(pedido==null) throw new NonExistentCarritoException(clienteId);
-        ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setItemMenu(item);
-        itemPedido.setCantidad(cantidad);
+
+
+        ItemPedido itemPedido = new ItemPedido(item, cantidad);
+
+
         pedidoService.agregarItem(pedido, itemPedido);
     }
 
@@ -113,7 +119,9 @@ public class CarritoService {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if(pedido == null) throw new NonExistentCarritoException(clienteId);
+
         EstrategiasDePago metodoDePago = estrategiasDePagoService.guardarMercadoPago(alias);
+
         pedidoService.setMetodoDePago(pedido, metodoDePago);
         
     }
@@ -122,7 +130,9 @@ public class CarritoService {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if(pedido == null) throw new NonExistentCarritoException(clienteId);
+
         EstrategiasDePago metodoDePago = estrategiasDePagoService.guardarTransferencia(cbu, cuit);
+
         pedidoService.setMetodoDePago(pedido, metodoDePago);
     }
 

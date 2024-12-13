@@ -19,7 +19,7 @@ public abstract class ItemMenu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long item_id;
+    private Long itemid;
     
     @Column(nullable = false)
     private String nombre;
@@ -31,15 +31,15 @@ public abstract class ItemMenu {
     private float precio;
 
     @ManyToOne
-    @JoinColumn(name = "vendedor_id")
+    @JoinColumn(name = "vendedorid")
     private Vendedor vendedor;
     // @Column
     // @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
         name = "item_categoria",
-        joinColumns = @JoinColumn(name = "item_id"),
-        inverseJoinColumns = @JoinColumn(name = "categoria_id")
+        joinColumns = @JoinColumn(name = "itemid"),
+        inverseJoinColumns = @JoinColumn(name = "categoriaid")
     )
     private Set<Categoria> categorias = new HashSet<>();
     @Column

@@ -3,9 +3,10 @@ package com.deso.etapa_final.model;
 
 import java.util.List;
 
-
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
+
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.*;
@@ -15,10 +16,8 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
-public class Pedido  {
+public class Pedido {
 
     public enum EstadoPedido {
         EN_CARRITO,
@@ -29,23 +28,24 @@ public class Pedido  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pedido_id;
+    private Long pedidoid;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EstadoPedido estado;
 
     @ManyToOne
-    @JoinColumn(name = "vendedor_id", nullable = false)
+    @JoinColumn(name = "vendedorid", nullable = false)
     private Vendedor vendedor;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "clienteid", nullable = false)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> items;
 
+    @Column
     private String descripcion;
 
     @Column(nullable = false)
@@ -60,6 +60,7 @@ public class Pedido  {
 
     @Column(name = "datos_metodo_de_pago")
     private String datosMetodoDePago;
+
 
     //@Transient
     @ManyToOne
@@ -95,3 +96,4 @@ public class Pedido  {
     //     }
     // }
 }
+

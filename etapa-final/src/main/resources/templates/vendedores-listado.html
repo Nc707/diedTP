@@ -4,13 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendedores</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" th:href="@{static/styles.css}">
 </head>
 <body>
     <h1>Listado de Vendedores</h1>
+    <div>
+        <form th:action="@{/vendedores/search}" method="GET">
+            <label for="busqueda">Busqueda:</label><br>
+            <input type="text" id="search" name="search"><br><br>
+            
 
+            <label for="orderBy">Ordenar por:</label><br>
+            <select id="orderBy" name="orderBy">
+                <option value="id">ID</option>
+                <option value="nombre">Nombre</option>
+                <option value="direccion">Direccion</option>
+                <option value="latitud">Latitud</option>
+                <option value="longitud">Longitud</option>
+            </select><br><br>
+            
+            <label for="orderDirection">Dirección:</label><br>
+            <select id="orderDirection" name="orderDirection">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
     <table border = 1>
-
+        
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,7 +47,7 @@
 
             <tr th:each="vendedor : ${vendedores}">
 
-                <td th:text="${vendedor.vendedor_id}"></td>
+                <td th:text="${vendedor.vendedorid}"></td>
                 <td th:text="${vendedor.nombre}"></td>
                 <td th:text="${vendedor.direccion}"></td>
                 <td th:text="${vendedor.coordenadas.latitud}"></td>
@@ -34,8 +57,6 @@
     </table>
 
 
-
-    
     <div>
         <form th:action="@{/ItemMenu/getItemMenuByVendedor{id}(id=${id})}" method="GET">
             <label for="id">ID:</label>

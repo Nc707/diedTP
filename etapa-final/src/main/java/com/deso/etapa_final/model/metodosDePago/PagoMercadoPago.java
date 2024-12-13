@@ -1,8 +1,15 @@
 package com.deso.etapa_final.model.metodosDePago;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import jakarta.persistence.Embeddable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +25,7 @@ import jakarta.persistence.*;
 @Entity
 @DiscriminatorValue("MERCADOPAGO")
 public class PagoMercadoPago extends EstrategiasDePago {
+
 
     private static final float RECARGO = 0.02f;
 
