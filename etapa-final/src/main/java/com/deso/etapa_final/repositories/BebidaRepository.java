@@ -20,4 +20,5 @@ public interface BebidaRepository extends CrudRepository<Bebida, Long> {
         List<Bebida> findByTamañoLessThanEqual(Float tamanio);
         List<Bebida> findByPesoGreaterThanEqual(Float peso);
         List<Bebida> findByPesoLessThanEqual(Float peso);
+        List<Bebida> findByCategorias_nombreContaining(String nombre);
 }
