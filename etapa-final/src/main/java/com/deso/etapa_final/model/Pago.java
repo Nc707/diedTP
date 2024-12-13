@@ -27,7 +27,7 @@ public class Pago {
     private String resumen;
 
     @ManyToOne(optional = false) // Relación con la entidad Vendedor
-    @JoinColumn(name = "vendedor_id", nullable = false)
+    @JoinColumn(name = "vendedorid", nullable = false)
     private Vendedor vendedor;
 
     // Constructor que inicializa a partir de un Pedido

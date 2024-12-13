@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendedores</title>
+    <title>Pedidos</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Pedidos</h1>
 
-    <table border = 1>
+    <div>
+        <form th:action="@{/pedidos/search}" method="GET">
+            <label for="search">Busqueda:</label><br>
+            <input type="text" id="search" name="search"><br><br>
+
+            <label for="orderBy">Ordenar por:</label><br>
+            <select id="orderBy" name="orderBy">
+                <option value="id">ID</option>
+                <option value="precio">Precio</option>
+                <option value="Cantidad">Cantidad</option>
+                <option value="estado">Estado</option>
+                <option value="cantidad_menor_que">Cantidad menor que</option>
+                <option value="cantidad_mayor_que">Cantidad mayor que</option>
+                <option value="precio_menor_que">Precio menor que</option>
+                <option value="precio_mayor_que">Precio mayor que</option>
+            </select><br><br>
+
+            <label for="orderDirection">Dirección:</label><br>
+            <select id="orderDirection" name="orderDirection">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,20 +51,16 @@
         </thead>
         <tbody>
             <tr th:each="pedido : ${pedidos}"  >
-                <td th:text="${pedido.pedido_id}"></td>
+                <td th:text="${pedido.pedidoid}"></td>
                 <td th:text="${pedido.estado}"></td>
-                <td th:text="${pedido.vendedor.vendedor_id}"></td>
+                <td th:text="${pedido.vendedor.vendedorid}"></td>
                 <td th:text="${pedido.vendedor.nombre}"></td>
-                <td th:text="${pedido.cliente.cliente_id}"></td>
+                <td th:text="${pedido.cliente.clienteid}"></td>
                 <td th:text="${pedido.cliente.nombre}"></td>
                 <td th:text="${pedido.items}"></td>
                 <td th:text="${pedido.precio}"></td>
             </tr>
         </tbody>
     </table>
-
-    
-
-
 </body>
 </html>

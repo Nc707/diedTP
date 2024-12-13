@@ -40,7 +40,7 @@ public class CarritoService {
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if (pedido == null) throw new NonExistentCarritoException(clienteId);
     
-        return pedido.getPedido_id();
+        return pedido.getPedidoid();
 
     }
     public Long crearCarrito(Long clienteId, Long vendedorId) throws AlreadyExistentCarritoException {
@@ -49,7 +49,7 @@ public class CarritoService {
         throw new AlreadyExistentCarritoException(clienteId);
         Vendedor vendedor = vendedorService.getVendedorById(vendedorId);
         Pedido pedido = pedidoService.crearPedido(cliente, vendedor);
-        return pedido.getPedido_id();
+        return pedido.getPedidoid();
     }
 
     public void agregarItem(Long clienteId, Long itemMenuId, int cantidad) throws NonExistentCarritoException, NonExistentException {

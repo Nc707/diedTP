@@ -74,6 +74,9 @@ public class VendedorService {
                 case "longitud":
                     comparison = Double.compare(v1.getCoordenadas().getLongitud(), v2.getCoordenadas().getLongitud());
                     break;
+                default:
+                    comparison = Long.compare(v1.getId(), v2.getId());
+                    break;
             }
             return "DESC".equals(orderDirection) ? -comparison : comparison;
         });
