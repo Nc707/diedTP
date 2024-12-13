@@ -18,9 +18,9 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
     List<Pedido> findByEstado(Pedido.EstadoPedido estado);
     List<Pedido> findByVendedor_vendedorid(Long vendedorId);
     List<Pedido> findByCliente_clienteid(Long clienteId);
-    List<Pedido> findByCliente_nombre(String clienteNombre);
-    List<Pedido> findByTipoMetodoDePago(String tipoMetodoDePago);
+    List<Pedido> findByCliente_nombreContaining(String clienteNombre);
+    //List<Pedido> findByMetodoDePago(String tipoMetodoDePago);
     List<Pedido> findByItems_ItemMenu_itemid(Long itemMenuId);
-    List<Pedido> findByItems_ItemMenu_nombre(String itemMenuNombre);
-    List<Pedido> findByVendedor_nombre(String vendedorNombre);
+    List<Pedido> findByItems_ItemMenu_nombreContaining(String itemMenuNombre);
+    List<Pedido> findByVendedor_nombreContaining(String vendedorNombre);
 }

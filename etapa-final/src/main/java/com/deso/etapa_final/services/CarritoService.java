@@ -103,13 +103,6 @@ public class CarritoService {
         pedidoService.modificarCantidad(itemPedido, cantidad);
     }
 
-    public void confirmarPedido(Long clienteId) throws NonExistentCarritoException {
-        Cliente cliente = clienteService.getClienteById(clienteId);
-        Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        if(pedido == null) throw new NonExistentCarritoException(clienteId);
-        pedidoService.confirmarPedido(pedido);
-    }
-
     public void cancelarPedido(Long clienteId) throws NonExistentCarritoException {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
