@@ -22,5 +22,6 @@ public interface PlatoRepository extends CrudRepository<Plato, Long> {
     List<Plato> findByPesoLessThanEqual(Double peso);
     List<Plato> findByAptoCeliaco(Boolean aptoCeliaco);
     List<Plato> findByAptoVegano(Boolean aptoVegano);
+    List<Plato> findByCategorias_nombreContaining(String nombre);
 
 }

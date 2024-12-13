@@ -37,7 +37,6 @@ public class BebidaService {
         bebida.setTamaño(tamaño);
         bebida.setPeso(peso);
         if(categoria != null) {
-            bebida.addCategoria(categoriaService.getCategoriaByNombre("Bebida", Categoria.TipoCategoria.BEBIDA));
             for (String cat : categoria) {
                 bebida.addCategoria(categoriaService.getCategoriaByNombre(cat, Categoria.TipoCategoria.BEBIDA));
                 
@@ -49,7 +48,7 @@ public class BebidaService {
     public List<Bebida> getAllBebidas() {
         return (List<Bebida>) bebidaRepository.findAll();
     }
-    public List<Bebida> generalSearch(String searchable, String orderBy, String orderDirection){
+    public Iterable<Bebida> generalSearch(String searchable, String orderBy, String orderDirection){
             if(orderBy.equals("precio_mayor_que") || orderBy.equals("precio_menor_que")){
                 try{
                 Double precio = Double.parseDouble(searchable);
@@ -88,11 +87,11 @@ public class BebidaService {
                 });
                 return resultList;
             }catch(NumberFormatException e){return new ArrayList<>();}
-        }else if(orderBy.equals("tamaño_mayor_que") || orderBy.equals("tamaño_menor_que")){
+        }else if(orderBy.equals("tamanio_mayor_que") || orderBy.equals("tamanio_menor_que")){
                 try{
                 Float tamaño = Float.parseFloat(searchable);
                 List <Bebida> resultList = new ArrayList<>();
-                if(orderBy.equals("tamaño_menor_que"))
+                if(orderBy.equals("tamanio_menor_que"))
                     resultList.addAll(bebidaRepository.findByTamañoLessThanEqual(tamaño));
                 else
                     resultList.addAll(bebidaRepository.findByTamañoGreaterThanEqual(tamaño));
@@ -138,6 +137,9 @@ public class BebidaService {
         List<Bebida> byVendedor = bebidaRepository.findByVendedor_nombre(searchable);
         resultSet.addAll(byVendedor);
 
+        List<Bebida> byCategoria = bebidaRepository.findByCategorias_nombreContaining(searchable);
+        resultSet.addAll(byCategoria);
+
         try {
             Long id = Long.parseLong(searchable);
             List<Bebida> byVendedorId = bebidaRepository.findByVendedor_Vendedorid(id);
@@ -157,9 +159,6 @@ public class BebidaService {
                 case "nombre":
                     comparison = p1.getNombre().compareTo(p2.getNombre());
                     break;
-                case "descripcion":
-                    comparison = p1.getDescripcion().compareTo(p2.getDescripcion());
-                    break;
                 case "vendedor":
                     comparison = p1.getVendedor().getNombre().compareTo(p2.getVendedor().getNombre());
                     break;
@@ -169,7 +168,7 @@ public class BebidaService {
                 case "graduacionAlcoholica":
                     comparison = Float.compare(p1.getGraduacionAlcoholica(), p2.getGraduacionAlcoholica());
                     break;
-                case "tamaño":
+                case "tamanio":
                     comparison = Float.compare(p1.getTamaño(), p2.getTamaño());
                     break;
                 case "peso":

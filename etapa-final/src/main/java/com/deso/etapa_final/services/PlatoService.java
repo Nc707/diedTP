@@ -33,7 +33,6 @@ public class PlatoService {
         plato.setEs_bebida(false);
         plato.setPeso(peso);
         if (categorias != null) {
-            plato.addCategoria(categoriaService.getCategoriaByNombre("Plato", Categoria.TipoCategoria.PLATO));
             for (String cat : categorias) {
                 plato.addCategoria(categoriaService.getCategoriaByNombre(cat, Categoria.TipoCategoria.PLATO));
             }
@@ -117,7 +116,8 @@ public class PlatoService {
     resultSet.addAll(platoRepository.findByNombreContaining(searchable));
     resultSet.addAll(platoRepository.findByDescripcionContaining(searchable));
     resultSet.addAll(platoRepository.findByVendedor_nombre(searchable));
-
+    List<Plato> byNombreCategoria = platoRepository.findByCategorias_nombreContaining(searchable);
+    resultSet.addAll(byNombreCategoria);
     try {
         Long id = Long.parseLong(searchable);
         resultSet.addAll(platoRepository.findByVendedor_Vendedorid(id));
@@ -143,7 +143,7 @@ public class PlatoService {
             case "precio":
                 comparison = Double.compare(p1.getPrecio(), p2.getPrecio());
                 break;
-            case "Calorias":
+            case "calorias":
                 comparison = Double.compare(p1.getCalorias(), p2.getCalorias());
                 break;
             case "peso":

@@ -55,6 +55,7 @@
                 <th>Peso</th>
                 <th>Apto Celiaco</th>
                 <th>Apto Vegano</th>
+                <th>Categoria</th>
             </tr>
         </thead>
         <tbody>
@@ -69,6 +70,15 @@
                 <td th:text="${item.peso}"></td>
                 <td th:text="${item.aptoCeliaco}"></td>
                 <td th:text="${item.aptoVegano}"></td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr th:each="categoria : ${item.categorias}">
+                                <td th:text="${categoria.nombre}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -120,6 +130,7 @@
                 <th>Graduacion Alcoholica</th>
                 <th>Tamaño</th>
                 <th>Peso</th>
+                <th>Categoria</th>
             </tr>
         </thead>
         <tbody>
@@ -133,6 +144,15 @@
                 <td th:text="${item.graduacionAlcoholica}"></td>
                 <td th:text="${item.tamaño}"></td>
                 <td th:text="${item.peso}"></td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr th:each="categoria : ${item.categorias}">
+                                <td th:text="${categoria.nombre}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
         </tbody>
     </table>

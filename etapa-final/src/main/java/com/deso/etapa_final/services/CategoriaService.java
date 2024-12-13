@@ -55,8 +55,6 @@ public class CategoriaService {
 
     public void deleteCategoriaByNombre(String nombre, Categoria.TipoCategoria tipo) {
         Categoria categoria = getCategoriaByNombre(nombre, tipo);
-        if (!categoria.getNombre().equalsIgnoreCase("plato") && !categoria.getNombre().equalsIgnoreCase("bebida")) {
-            categoriaRepository.delete(categoria);
-        }
+        categoriaRepository.delete(categoria);
     }
 }
