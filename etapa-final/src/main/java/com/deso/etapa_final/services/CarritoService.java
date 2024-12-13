@@ -12,9 +12,10 @@ import com.deso.etapa_final.model.ItemMenu;
 import com.deso.etapa_final.model.ItemPedido;
 import com.deso.etapa_final.model.Pedido;
 import com.deso.etapa_final.model.Vendedor;
-import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
+import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 import com.deso.etapa_final.model.metodosDePago.PagoMercadoPago;
 import com.deso.etapa_final.model.metodosDePago.PagoTransferencia;
+import com.deso.etapa_final.repositories.EstrategiasDePagoRepository;
 
 @Service
 public class CarritoService {
@@ -34,13 +35,21 @@ public class CarritoService {
     @Autowired
     private BebidaService bebidaService;
 
+    @Autowired
+    private ItemMenuService itemMenuService;
+
+    @Autowired
+    private EstrategiasDePagoService estrategiasDePagoService;
+
     public Long obtenerCarrito(Long clienteId) throws NonExistentCarritoException {
         Cliente cliente = clienteService.getClienteById(clienteId);
 
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if (pedido == null) throw new NonExistentCarritoException(clienteId);
     
+
         return pedido.getPedidoid();
+
 
     }
     public Long crearCarrito(Long clienteId, Long vendedorId) throws AlreadyExistentCarritoException {
@@ -49,20 +58,26 @@ public class CarritoService {
         throw new AlreadyExistentCarritoException(clienteId);
         Vendedor vendedor = vendedorService.getVendedorById(vendedorId);
         Pedido pedido = pedidoService.crearPedido(cliente, vendedor);
+
         return pedido.getPedidoid();
+
     }
 
     public void agregarItem(Long clienteId, Long itemMenuId, int cantidad) throws NonExistentCarritoException, NonExistentException {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        ItemMenu item = platoService.getPlatoById(itemMenuId);
-        if (item == null) item = bebidaService.getBebidaById(itemMenuId);
+        ItemMenu item = itemMenuService.obtenerItemMenuPorId(itemMenuId);
+        // ItemMenu item = platoService.getPlatoById(itemMenuId);
+        // if (item == null) item = bebidaService.getBebidaById(itemMenuId);
+
         
         if(item==null) throw new NonExistentException("El item no existe");
         if(cantidad<=0) throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
         if(pedido==null) throw new NonExistentCarritoException(clienteId);
 
+
         ItemPedido itemPedido = new ItemPedido(item, cantidad);
+
 
         pedidoService.agregarItem(pedido, itemPedido);
     }
@@ -104,7 +119,9 @@ public class CarritoService {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if(pedido == null) throw new NonExistentCarritoException(clienteId);
-        EstrategiasDePagoInterface metodoDePago = new PagoMercadoPago(alias);
+
+        EstrategiasDePago metodoDePago = estrategiasDePagoService.guardarMercadoPago(alias);
+
         pedidoService.setMetodoDePago(pedido, metodoDePago);
         
     }
@@ -113,7 +130,9 @@ public class CarritoService {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
         if(pedido == null) throw new NonExistentCarritoException(clienteId);
-        EstrategiasDePagoInterface metodoDePago = new PagoTransferencia(cbu, cuit);
+
+        EstrategiasDePago metodoDePago = estrategiasDePagoService.guardarTransferencia(cbu, cuit);
+
         pedidoService.setMetodoDePago(pedido, metodoDePago);
     }
 

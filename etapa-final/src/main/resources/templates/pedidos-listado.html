@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pedidos</title>
 
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Pedidos</h1>
+
     <div>
         <form th:action="@{/pedidos/search}" method="GET">
             <label for="search">Busqueda:</label><br>
@@ -52,16 +54,37 @@
         </thead>
         <tbody>
             <tr th:each="pedido : ${pedidos}"  >
+
                 <td th:text="${pedido.pedidoid}"></td>
                 <td th:text="${pedido.estado}"></td>
                 <td th:text="${pedido.vendedor.vendedorid}"></td>
                 <td th:text="${pedido.vendedor.nombre}"></td>
                 <td th:text="${pedido.cliente.clienteid}"></td>
                 <td th:text="${pedido.cliente.nombre}"></td>
-                <td th:text="${pedido.items}"></td>
+                <!-- <td th:text="${pedido.items}"></td> -->
+                <td>
+                    <table border = 1>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${pedido.items}">
+                                <td th:text="${item.itemMenu.nombre}"></td>
+                                <td th:text="${item.cantidad}"></td>
+                                <td th:text="${item.precio}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+
                 <td th:text="${pedido.precio}"></td>
             </tr>
         </tbody>
     </table>
+
 </body>
 </html>

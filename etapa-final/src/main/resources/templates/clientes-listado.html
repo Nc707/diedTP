@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Listado de Clientes</h1>
+
     <div>
         <form th:action="@{/clientes/search}" method="GET">
             <label for="busqueda">Busqueda:</label><br>
@@ -35,6 +36,7 @@
         </form>
     </div>
 
+
     <table border = 1>
 
         <thead>
@@ -42,16 +44,19 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Direccion</th>
+
                 <th>CUIT</th>
                 <th>Email</th>
                 <th>CX</th>
                 <th>CY</th>
+
 
             </tr>
         </thead>
         <tbody>
 
             <tr th:each="cliente : ${clientes}">
+
                 <td th:text="${cliente.clienteid}"></td>
                 <td th:text="${cliente.nombre}"></td>
                 <td th:text="${cliente.direccion}"></td>
