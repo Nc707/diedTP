@@ -3,12 +3,14 @@ package com.deso.etapa_final.model.metodosDePago;
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor // Constructor sin argumentos para Jackson
 @JsonTypeName("PagoTransferencia") // Nombre para identificar esta implementación
+@Embeddable
 public class PagoTransferencia implements EstrategiasDePagoInterface {
     final float RECARGO = 0.04f;
 

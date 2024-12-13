@@ -50,12 +50,6 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/carrito/{clienteId}/confirmar")
-    public ResponseEntity<Void> confirmarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
-        carritoService.confirmarPedido(clienteId);
-        return ResponseEntity.ok().build();
-    }
-
     @DeleteMapping("/carrito/{clienteId}/cancelar")
     public ResponseEntity<Void> cancelarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
         carritoService.cancelarPedido(clienteId);

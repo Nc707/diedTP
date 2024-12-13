@@ -2,10 +2,7 @@ package com.deso.etapa_final.model;
 
 import java.util.List;
 
-
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.*;
@@ -15,10 +12,8 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
-public class Pedido  {
+public class Pedido {
 
     public enum EstadoPedido {
         EN_CARRITO,
@@ -58,38 +53,38 @@ public class Pedido  {
     @Column(name = "tipo_metodo_de_pago")
     private String tipoMetodoDePago;
 
-    @Column(name = "datos_metodo_de_pago")
+    @Column(name = "datos_metodo_de_pago", columnDefinition = "TEXT")
     private String datosMetodoDePago;
 
     @Transient
     private EstrategiasDePagoInterface metodoDePago; // No persistente, se carga/deserializa manualmente
 
-
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // Métodos para manejar serialización y deserialización
     @PrePersist
+    @PreUpdate
     private void serializarMetodoDePago() {
-        if (metodoDePago != null) {
+                // Reuse the static ObjectMapper instance
             try {
-                ObjectMapper objectMapper = new ObjectMapper();
                 tipoMetodoDePago = metodoDePago.getClass().getSimpleName();
                 datosMetodoDePago = objectMapper.writeValueAsString(metodoDePago);
             } catch (Exception e) {
                 throw new RuntimeException("Error al serializar metodoDePago", e);
             }
         }
-    }
 
     @PostLoad
-    private void deserializarMetodoDePago() {
-        if (tipoMetodoDePago != null && datosMetodoDePago != null) {
+    @PostPersist
+    @PostUpdate
+    private void deserializarMetodoDePago() {    
             try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                Class<?> clazz = Class.forName("com.deso.etapa_final.model.estrategias." + tipoMetodoDePago);
+                Class<?> clazz = Class.forName("com.deso.etapa_final.model.metodosDePago." + tipoMetodoDePago, true, EstrategiasDePagoInterface.class.getClassLoader());
                 metodoDePago = (EstrategiasDePagoInterface) objectMapper.readValue(datosMetodoDePago, clazz);
             } catch (Exception e) {
+                
                 throw new RuntimeException("Error al deserializar metodoDePago", e);
             }
         }
+    
     }
-}

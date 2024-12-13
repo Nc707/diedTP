@@ -42,6 +42,12 @@ public class VendedorController {
         return "vendedores-listado";
 
     }
+    @GetMapping("/search")
+    public String searchVendedores(Model model, @RequestParam("search") String searchable, @RequestParam("orderBy") String orderBy, @RequestParam("orderDirection") String orderDirection) {
+        Iterable<Vendedor> vendedores =  vendedorService.generalSearch(searchable, orderBy, orderDirection);
+        model.addAttribute("vendedores", vendedores );
+        return "vendedores-listado";
+    }
 
     @GetMapping("/getById")
     public Vendedor getVendedorById(@RequestParam long id) {
