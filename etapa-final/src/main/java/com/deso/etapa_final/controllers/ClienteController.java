@@ -18,18 +18,21 @@ public class ClienteController {
 
     @PostMapping("/add")
     @ResponseBody
+
     public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, 
                                             @RequestParam String email, 
                                             @RequestParam String direccion, 
                                             @RequestParam double latitud,
                                             @RequestParam double longitud, 
                                             @RequestParam String nombre) {
+
         Coordenada coordenada = new Coordenada();
         coordenada.setLatitud(latitud);
         coordenada.setLongitud(longitud);
         Cliente cliente = clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
         return ResponseEntity.ok(cliente);
     }
+
 
     // @GetMapping("/getAll")
     // @ResponseBody
@@ -44,6 +47,7 @@ public class ClienteController {
         return "clientes-listado";
 
     }
+
 
 
     @GetMapping("/{id}")

@@ -21,9 +21,11 @@ public class PedidoService {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
+
     public Iterable<Pedido> getAllPedidos() {
         return pedidoRepository.findAll();
     }
+
 
     public Pedido obtenerPedidoPorId(Long pedidoId) {
         return pedidoRepository.findById(pedidoId)

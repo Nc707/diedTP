@@ -3,7 +3,8 @@ package com.deso.etapa_final.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@ToString
 @NoArgsConstructor
 @Entity
 public class ItemPedido {
@@ -29,6 +30,13 @@ public class ItemPedido {
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
+    public ItemPedido(ItemMenu itemMenu, int cantidad){
+        this.itemMenu = itemMenu;
+        this.setCantidad(cantidad);
+    }
+    public void setPedido(Pedido pedido){
+        this.pedido = pedido;
+    }
     public void setCantidad(int cantidad){
         this.cantidad = cantidad;
         this.precio = cantidad * itemMenu.getPrecio();
