@@ -1,6 +1,5 @@
 package com.deso.etapa_final.model;
 
-
 import java.util.List;
 
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
