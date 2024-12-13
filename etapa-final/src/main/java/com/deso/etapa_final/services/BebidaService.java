@@ -139,7 +139,6 @@ public class BebidaService {
 
         List<Bebida> byCategoria = bebidaRepository.findByCategorias_nombreContaining(searchable);
         resultSet.addAll(byCategoria);
-
         try {
             Long id = Long.parseLong(searchable);
             List<Bebida> byVendedorId = bebidaRepository.findByVendedor_Vendedorid(id);
