@@ -38,9 +38,9 @@ public class ItemMenuController {
     private ItemMenuService itemMenuService;
     
 
-
     @GetMapping("/getItemMenuByVendedor")
     public String mostrarMenuVendedor(@RequestParam("id") Long id, Model model) {
+
         List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id));
         model.addAttribute("itemsMenu", itemsMenu);
         return "items-menu";
@@ -49,6 +49,7 @@ public class ItemMenuController {
     // public List<ItemMenu> mostrarMenuVendedor(@PathVariable Long  id) {
     //     return itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id)); 
     // }
+
 
     // Endpoint para crear una nueva bebida
     @PostMapping("/createBebida")

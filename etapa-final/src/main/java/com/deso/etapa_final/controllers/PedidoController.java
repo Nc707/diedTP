@@ -7,6 +7,7 @@ import com.deso.etapa_final.exception.NonSettedMetodoPagoException;
 import com.deso.etapa_final.model.Pedido;
 import com.deso.etapa_final.services.CarritoService;
 import com.deso.etapa_final.services.PedidoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,21 @@ public class PedidoController {
         return "pedidos-listado";
 
     }
-    
+    @GetMapping("/search")
+    public String searchPedidos(@RequestParam String searchable, @RequestParam String orderBy, @RequestParam String orderDirection, Model model) {
+        Iterable<Pedido> pedidos = pedidoService.generalSearch(searchable, orderBy, orderDirection);
+        model.addAttribute("pedidos", pedidos);
+        return "pedidos-listado";
+
+    }
+  
+    @GetMapping("/carrito/{clienteId}/{vendedorId}")
+    public ResponseEntity<Long> obtenerCarrito(@PathVariable Long clienteId) throws NonExistentCarritoException {
+        Long carritoId = carritoService.obtenerCarrito(clienteId);
+        return new ResponseEntity<>(carritoId, HttpStatus.OK);
+        
+       
+    }
 
     @GetMapping("/{pedidoId}")
     public ResponseEntity<Pedido> getPedidoById(@PathVariable Long pedidoId) {
@@ -67,6 +82,7 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
+
     @DeleteMapping("/carrito/{clienteId}/eliminarItem/{itemPedidoId}")
     public ResponseEntity<Void> eliminarItem(@PathVariable Long clienteId, @PathVariable Long itemPedidoId) throws NonExistentCarritoException, NonExistentException {
         carritoService.eliminarItem(clienteId, itemPedidoId);
@@ -78,11 +94,13 @@ public class PedidoController {
         carritoService.modificarCantidad(clienteId, itemPedidoId, cantidad);
         return ResponseEntity.ok().build();
     }
+
     @DeleteMapping("/carrito/{clienteId}/cancelar")
     public ResponseEntity<Void> cancelarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
         carritoService.cancelarPedido(clienteId);
         return ResponseEntity.ok().build();
     }
+
 
     @PostMapping("/carrito/{clienteId}/setMercadoPago")
     public ResponseEntity<Void> setMercadoPago(@PathVariable Long clienteId, @RequestParam String alias) throws NonExistentCarritoException {

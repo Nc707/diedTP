@@ -56,7 +56,12 @@ public class ClienteController {
 
 
 
-
+    @GetMapping("/search")
+    public String searchClientes(@RequestParam("search") String searchable, @RequestParam String orderBy, @RequestParam String orderDirection, Model model) {
+        Iterable<Cliente> clientes = clienteService.generalSearch(searchable, orderBy, orderDirection);
+        model.addAttribute("clientes", clientes);
+        return "clientes-listado";
+    }
 
     @GetMapping("/{id}")
     @ResponseBody
