@@ -10,6 +10,7 @@
 </head>
 <body>
     <h1>Pedidos</h1>
+
     <div>
         <form th:action="@{/pedidos/search}" method="GET">
             <label for="search">Busqueda:</label><br>
@@ -110,6 +111,7 @@
                         </tbody>
                     </table>
                 </td>
+
                 <td th:text="${pedido.cantidad}"></td>
                 <td th:text="${pedido.precio}"></td>
                 <td th:text="${pedido.getTipoMetodoDePago}"></td>

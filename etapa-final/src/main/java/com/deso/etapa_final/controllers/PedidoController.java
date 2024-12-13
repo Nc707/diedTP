@@ -40,6 +40,7 @@ public class PedidoController {
         Iterable<Pedido> pedidos =  pedidoService.getAllPedidos();
         model.addAttribute("pedidos", pedidos );
         return "pedidos-listado";
+
     }
     @GetMapping("/search")
     public String searchPedidos(@RequestParam("search") String searchable, @RequestParam String orderBy, @RequestParam String orderDirection, Model model) {

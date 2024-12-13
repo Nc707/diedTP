@@ -55,6 +55,7 @@ public class Pedido {
     private int cantidad;
 
     // Columnas para almacenar la estrategia de pago
+
     //@Column(name = "tipo_metodo_de_pago")
     //private String tipoMetodoDePago;
 
@@ -62,10 +63,12 @@ public class Pedido {
     //private String datosMetodoDePago;
 
 
+
     //@Transient
     @ManyToOne
     @JoinColumn(name = "metodopagoid")
     private EstrategiasDePago metodoDePago; // No persistente, se carga/deserializa manualmente
+
 
     public String getTipoMetodoDePago() {
         if (metodoDePago != null) {
@@ -73,6 +76,7 @@ public class Pedido {
         }
         return "No seteado";
     }
+
 
 
     // // Métodos para manejar serialización y deserialización
