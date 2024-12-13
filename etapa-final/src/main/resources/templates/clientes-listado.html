@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Listado de Clientes</h1>
+    <div>
+        <form th:action="@{/clientes/search}" method="GET">
+            <label for="busqueda">Busqueda:</label><br>
+            <input type="text" id="search" name="search"><br><br>
+            
+
+            <label for="orderBy">Ordenar por:</label><br>
+            <select id="orderBy" name="orderBy">
+                <option value="id">ID</option>
+                <option value="nombre">Nombre</option>
+                <option value="cuit">CUIT</option>
+                <option value="email">Email</option>
+                <option value="direccion">Direccion</option>
+                <option value="latitud">Latitud</option>
+                <option value="longitud">Longitud</option>
+            </select><br><br>
+            
+            <label for="orderDirection">Dirección:</label><br>
+            <select id="orderDirection" name="orderDirection">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <table border = 1>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+
+                <th>CUIT</th>
+                <th>Email</th>
+                <th>CX</th>
+                <th>CY</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="cliente : ${clientes}">
+
+                <td th:text="${cliente.clienteid}"></td>
+                <td th:text="${cliente.nombre}"></td>
+                <td th:text="${cliente.direccion}"></td>
+                <td th:text="${cliente.cuit}"></td>
+                <td th:text="${cliente.email}"></td>
+                <td th:text="${cliente.coordenadas.latitud}"></td>
+                <td th:text="${cliente.coordenadas.longitud}"></td>
+
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- <div>
+        <form th:action="@{/ItemMenu/getItemMenuByVendedor{id}(id=${id})}" method="GET">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" th:value="${id}" value ="1" name="id" required><br><br>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div> -->
+
+
+
+</body>
+</html>

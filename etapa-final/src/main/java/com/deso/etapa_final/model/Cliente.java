@@ -7,14 +7,14 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Cliente {
+public class Cliente{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long clienteid;
 
     @Column(nullable = false)
-    private long cuit;
+    private Long cuit;
 
     @Column(nullable = false)
     private String email;
@@ -22,10 +22,10 @@ public class Cliente {
     @Column(nullable = false)
     private String direccion;
 
+    @Embedded
     @Column(nullable = false)
     private Coordenada coordenadas;
 
     @Column(nullable = false)
     private String nombre;
-
 }

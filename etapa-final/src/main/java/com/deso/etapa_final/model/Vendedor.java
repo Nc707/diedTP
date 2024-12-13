@@ -13,7 +13,7 @@ public class Vendedor{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long vendedorid;
 
     @Column(nullable = false)
     private String nombre;
@@ -22,6 +22,7 @@ public class Vendedor{
     private String direccion;
 
     @Column
+    @Embedded
     private Coordenada coordenadas;
 
     public Vendedor(String nombre, String direccion, Coordenada coordenadas) {
@@ -31,11 +32,11 @@ public class Vendedor{
     }
 
     public Long getId() {
-        return id;
+        return vendedorid;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.vendedorid = id;
     }
 
     public String getNombre() {
@@ -65,7 +66,7 @@ public class Vendedor{
     @Override
     public String toString() {
         return "Vendedor{" +
-                "id=" + id +
+                "id=" + vendedorid +
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", coordenadas=" + coordenadas +

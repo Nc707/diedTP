@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ItemsMenu</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>ItemsMenu</h1>
+    <!--Tabla de platos-->
+    <h2>Platos</h2>
+    <div>
+        <form th:action="@{/ItemMenu/search}" method="GET">
+            <label for="searchPlato">Busqueda:</label><br>
+            <input type="text" id="searchPlato" name="searchPlato"><br><br>
+
+            <label for="orderByPlato">Ordenar por:</label><br>
+            <select id="orderByPlato" name="orderByPlato">
+                <option value="id">ID</option>
+                <option value="nombre">Nombre</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="precio">Precio</option>
+                <option value="calorias">Calorias</option>
+                <option value="peso">Peso</option>
+                <option value="aptoCeliaco">Celiaco</option>
+                <option value="aptoVegano">Vegano</option>
+                <option value="calorias_menor_que">Calorias menor que</option>
+                <option value="calorias_mayor_que">Calorias mayor que</option>
+                <option value="precio_menor_que">Precio menor que</option>
+                <option value="precio_mayor_que">Precio mayor que</option>
+                <option value="peso_menor_que">Peso menor que</option>
+                <option value="peso_mayor_que">Peso mayor que</option>
+            </select><br><br>
+
+            <label for="orderDirectionPlato">Dirección:</label><br>
+            <select id="orderDirectionPlato" name="orderDirectionPlato">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <table border = 1>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Vendedor</th>
+                <th>Vendedor ID</th>
+                <th>Precio</th>
+                <th>Calorias</th>
+                <th>Peso</th>
+                <th>Apto Celiaco</th>
+                <th>Apto Vegano</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${platos}" >
+                <td th:text="${item.itemid}"></td>
+                <td th:text="${item.nombre}"></td>
+                <td th:text="${item.descripcion}"></td>
+                <td th:text="${item.vendedor.nombre}"></td>
+                <td th:text="${item.vendedor.vendedorid}"></td>
+                <td th:text="${item.precio}"></td>
+                <td th:text="${item.calorias}"></td>
+                <td th:text="${item.peso}"></td>
+                <td th:text="${item.aptoCeliaco}"></td>
+                <td th:text="${item.aptoVegano}"></td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr th:each="categoria : ${item.categorias}">
+                                <td th:text="${categoria.nombre}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--Tabla de bebidas-->
+    <h2>Bebidas</h2>
+    <div>
+        <form th:action="@{/ItemMenu/search}" method="GET">
+            <label for="searchBebida">Busqueda:</label><br>
+            <input type="text" id="searchBebida" name="searchBebida"><br><br>
+
+            <label for="orderByBebida">Ordenar por:</label><br>
+            <select id="orderByBebida" name="orderByBebida">
+                <option value="id">ID</option>
+                <option value="nombre">Nombre</option>
+                <option value="vendedor">Vendedor</option>
+                <option value="precio">Precio</option>
+                <option value="graduacionAlcoholica">Grado Alcoholico</option>
+                <option value="tamanio">Peso</option>
+                <option value="peso">Peso</option>
+                <option value="graduacion_menor_que">Graduacion menor que</option>
+                <option value="graduacion_mayor_que">Graduacion mayor que</option>
+                <option value="tamanio_menor_que">Tamaño menor que</option>
+                <option value="tamanio_mayor_que">Tamaño mayor que</option>
+                <option value="precio_menor_que">Precio menor que</option>
+                <option value="precio_mayor_que">Precio mayor que</option>
+                <option value="peso_menor_que">Peso menor que</option>
+                <option value="peso_mayor_que">Peso mayor que</option>
+            </select><br><br>
+
+            <label for="orderDirectionBebida">Dirección:</label><br>
+            <select id="orderDirectionBebida" name="orderDirectionBebida">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <table border = 1>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Vendedor</th>
+                <th>Vendedor ID</th>
+                <th>Precio</th>
+                <th>Graduacion Alcoholica</th>
+                <th>Tamaño</th>
+                <th>Peso</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${bebidas}" >
+                <td th:text="${item.itemid}"></td>
+                <td th:text="${item.nombre}"></td>
+                <td th:text="${item.descripcion}"></td>
+                <td th:text="${item.vendedor.nombre}"></td>
+                <td th:text="${item.vendedor.vendedorid}"></td>
+                <td th:text="${item.precio}"></td>
+                <td th:text="${item.graduacionAlcoholica}"></td>
+                <td th:text="${item.tamaño}"></td>
+                <td th:text="${item.peso}"></td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr th:each="categoria : ${item.categorias}">
+                                <td th:text="${categoria.nombre}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</body>
+</html>

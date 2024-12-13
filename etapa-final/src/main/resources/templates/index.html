@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Menu Principal</h1>
+    <ul>
+        <li><a th:href="@{/vendedores/getAll}">Iniciar como vendedor</a></li>
+        <li><a th:href="@{/clientes/getAll}">Iniciar como cliente</a></li>
+    </ul>
+
+</body>
+</html>
