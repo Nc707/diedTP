@@ -8,6 +8,32 @@
 </head>
 <body>
     <h1>Listado de Clientes</h1>
+    <div>
+        <form th:action="@{/clientes/search}" method="GET">
+            <label for="busqueda">Busqueda:</label><br>
+            <input type="text" id="search" name="search"><br><br>
+            
+
+            <label for="orderBy">Ordenar por:</label><br>
+            <select id="orderBy" name="orderBy">
+                <option value="id">ID</option>
+                <option value="nombre">Nombre</option>
+                <option value="cuit">CUIT</option>
+                <option value="email">Email</option>
+                <option value="direccion">Direccion</option>
+                <option value="latitud">Latitud</option>
+                <option value="longitud">Longitud</option>
+            </select><br><br>
+            
+            <label for="orderDirection">Dirección:</label><br>
+            <select id="orderDirection" name="orderDirection">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
 
     <div>
         <form th:action="@{/clientes/search}" method="GET">
