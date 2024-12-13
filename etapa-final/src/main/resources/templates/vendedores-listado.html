@@ -34,12 +34,36 @@
     </table>
 
 
+
+    
     <div>
         <form th:action="@{/ItemMenu/getItemMenuByVendedor{id}(id=${id})}" method="GET">
-            <label for="id">ID:</label><br>
+            <label for="id">ID:</label>
             <input type="text" id="id" th:value="${id}" value ="1" name="id" required><br><br>
 
             <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <div>
+        
+        
+        <form th:action="@{/vendedores/agregar-vendedor}" method="GET">
+            <button type="submit">Agregar Vendedor</button>
+        </form>
+
+        
+        <form th:action="@{/vendedores/modificar}" method="GET">
+            <label for="modificarId">ID del Vendedor:</label>
+            <input type="text" id="modificarId" name="id" placeholder="Ingrese ID" required>
+            <button type="submit">Modificar Vendedor</button>
+        </form>
+
+        
+        <form th:action="@{/vendedores/eliminar}" method="POST">
+            <label for="eliminarId">ID del Vendedor:</label>
+            <input type="text" id="eliminarId" name="id" placeholder="Ingrese ID" required>
+            <button type="submit" onclick="return confirm('¿Está seguro de que desea eliminar este vendedor?');">Eliminar Vendedor</button>
         </form>
     </div>
 

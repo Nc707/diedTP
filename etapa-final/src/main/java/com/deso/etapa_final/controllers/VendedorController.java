@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.services.VendedorService;
@@ -22,13 +23,29 @@ public class VendedorController {
     @Autowired
     private VendedorService vendedorService;
 
+    // @PostMapping("/add")
+    // public Vendedor addVendedor(
+    //         @RequestParam String nombre,
+    //         @RequestParam String direccion,
+    //         @RequestParam double latitud,
+    //         @RequestParam double longitud) {
+    //     return vendedorService.addVendedor(nombre, direccion, latitud, longitud);
+    // }
     @PostMapping("/add")
-    public Vendedor addVendedor(
-            @RequestParam String nombre,
-            @RequestParam String direccion,
-            @RequestParam double latitud,
-            @RequestParam double longitud) {
-        return vendedorService.addVendedor(nombre, direccion, latitud, longitud);
+    public String addVendedor(
+        @RequestParam String nombre,
+        @RequestParam String direccion,
+        @RequestParam double latitud,
+        @RequestParam double longitud,
+        RedirectAttributes redirectAttributes) {
+        // Guardar el vendedor usando el servicio
+        Vendedor nuevoVendedor = vendedorService.addVendedor(nombre, direccion, latitud, longitud);
+
+        // Mensaje de éxito opcional
+        redirectAttributes.addFlashAttribute("mensaje", "El vendedor se agregó correctamente");
+
+        // Redirigir al listado de vendedores
+        return "redirect:/vendedores/getAll";
     }
 
     // @GetMapping("/getAll")
@@ -48,7 +65,10 @@ public class VendedorController {
         return vendedorService.getVendedorById(id);
     }
 
-
+    @GetMapping("/agregar-vendedor")
+    public String mostrarFormularioAgregar() {
+        return "agregar-vendedor";
+    }
     
 
     @PostMapping("/update")

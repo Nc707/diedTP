@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendedores</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Pedidos</h1>
+
+    <table border = 1>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Estado</th>
+                <th>Vendedor ID</th>
+                <th>Vendedor Nombre</th>
+                <th>Cliente ID</th>
+                <th>Cliente Nombre</th>
+                <th>Items</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pedido : ${pedidos}"  >
+                <td th:text="${pedido.pedido_id}"></td>
+                <td th:text="${pedido.estado}"></td>
+                <td th:text="${pedido.vendedor.vendedor_id}"></td>
+                <td th:text="${pedido.vendedor.nombre}"></td>
+                <td th:text="${pedido.cliente.cliente_id}"></td>
+                <td th:text="${pedido.cliente.nombre}"></td>
+                <td th:text="${pedido.items}"></td>
+                <td th:text="${pedido.precio}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+
+
+</body>
+</html>
