@@ -6,11 +6,18 @@ import com.deso.etapa_final.exception.NonExistentException;
 import com.deso.etapa_final.exception.NonSettedMetodoPagoException;
 import com.deso.etapa_final.model.Pedido;
 import com.deso.etapa_final.services.CarritoService;
+import com.deso.etapa_final.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/pedidos")
@@ -19,13 +26,29 @@ public class PedidoController {
     @Autowired
     private CarritoService carritoService;
 
-    @GetMapping("/carrito/{clienteId}/{vendedorId}")
-    public ResponseEntity<Long> obtenerCarrito(@PathVariable Long clienteId) throws NonExistentCarritoException {
-        Long carritoId = carritoService.obtenerCarrito(clienteId);
-        return new ResponseEntity<>(carritoId, HttpStatus.OK);
-        
-       
+    @Autowired
+    private PedidoService pedidoService;
+
+    // @GetMapping("/getAll")
+    // public ResponseEntity<Iterable<Pedido>> getPedidos() {
+    //     Iterable<Pedido> pedidos = pedidoService.getAllPedidos();
+    //     return new ResponseEntity<>(pedidos, HttpStatus.OK);
+    // }
+    @GetMapping("getAll")
+    public String getPedidos(Model model) {
+        Iterable<Pedido> pedidos =  pedidoService.getAllPedidos();
+        model.addAttribute("pedidos", pedidos );
+        return "pedidos-listado";
+
     }
+    
+
+    @GetMapping("/{pedidoId}")
+    public ResponseEntity<Pedido> getPedidoById(@PathVariable Long pedidoId) {
+        Pedido pedido = pedidoService.obtenerPedidoPorId(pedidoId);
+        return new ResponseEntity<>(pedido, HttpStatus.OK);
+    }
+
     @PostMapping("/carrito/crearCarrito/{clienteId}/{vendedorId}")
     public ResponseEntity<Long> crearCarrito(@PathVariable Long clienteId, @PathVariable Long vendedorId) throws AlreadyExistentCarritoException {
         Long carritoId = carritoService.crearCarrito(clienteId, vendedorId);
@@ -49,6 +72,13 @@ public class PedidoController {
         carritoService.modificarCantidad(clienteId, itemPedidoId, cantidad);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/carrito/{clienteId}/confirmar")
+    public ResponseEntity<Void> confirmarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
+        carritoService.confirmarPedido(clienteId);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/carrito/{clienteId}/cancelar")
     public ResponseEntity<Void> cancelarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
         carritoService.cancelarPedido(clienteId);
@@ -72,4 +102,6 @@ public class PedidoController {
         carritoService.cerrarPedido(clienteId);
         return ResponseEntity.ok().build();
     }
+
+
 }
