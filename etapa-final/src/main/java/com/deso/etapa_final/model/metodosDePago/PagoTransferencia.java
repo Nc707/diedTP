@@ -1,25 +1,29 @@
 package com.deso.etapa_final.model.metodosDePago;
-
-import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
+import lombok.ToString;
+import jakarta.persistence.*;
 @Getter
-@NoArgsConstructor // Constructor sin argumentos para Jackson
-@JsonTypeName("PagoTransferencia") // Nombre para identificar esta implementación
-public class PagoTransferencia implements EstrategiasDePagoInterface {
-    final float RECARGO = 0.04f;
+@Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@DiscriminatorValue("TRANSFERENCIA")
+public class PagoTransferencia extends EstrategiasDePago {
 
+    private static final float RECARGO = 0.04f;
+
+    @Column(nullable = false)
     private String cbu;
 
+    @Column(nullable = false)
     private Long cuit;
-
-    public PagoTransferencia(String cbu, Long cuit) {
-        this.cbu = cbu;
-        this.cuit = cuit;
-    }
 
     @Override
     public float cerrarPago(float valor) {

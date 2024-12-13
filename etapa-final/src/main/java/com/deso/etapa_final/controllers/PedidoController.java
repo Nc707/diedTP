@@ -84,11 +84,6 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/carrito/{clienteId}/confirmar")
-    public ResponseEntity<Void> confirmarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
-        carritoService.confirmarPedido(clienteId);
-        return ResponseEntity.ok().build();
-    }
 
     @DeleteMapping("/carrito/{clienteId}/cancelar")
     public ResponseEntity<Void> cancelarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
@@ -96,12 +91,18 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
+    // @PostMapping("/carrito/{clienteId}/setMercadoPago/{alias}")
+    // public ResponseEntity<Void> setMercadoPago(@PathVariable Long clienteId, @RequestParam String alias) throws NonExistentCarritoException {
+    //     carritoService.setMercadoPago(clienteId, alias);
+    //     return ResponseEntity.ok().build();
+    // }
+
     @PostMapping("/carrito/{clienteId}/setMercadoPago")
     public ResponseEntity<Void> setMercadoPago(@PathVariable Long clienteId, @RequestParam String alias) throws NonExistentCarritoException {
         carritoService.setMercadoPago(clienteId, alias);
+        carritoService.setMercadoPago(clienteId, alias);
         return ResponseEntity.ok().build();
     }
-
     @PostMapping("/carrito/{clienteId}/setTransferencia")
     public ResponseEntity<Void> setTransferencia(@PathVariable Long clienteId, @RequestParam String cbu, @RequestParam long cuit) throws NonExistentCarritoException {
         carritoService.setTransferencia(clienteId, cbu, cuit);

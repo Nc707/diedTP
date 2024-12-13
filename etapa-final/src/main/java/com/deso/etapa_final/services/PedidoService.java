@@ -3,6 +3,7 @@ package com.deso.etapa_final.services;
 import com.deso.etapa_final.event.PedidoEnEnvioEvent;
 import com.deso.etapa_final.model.*;
 import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
+import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 import com.deso.etapa_final.repositories.PedidoRepository;
 import com.deso.etapa_final.repositories.ItemPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class PedidoService {
         return pedidoRepository.findByClienteAndEstado(cliente, estado);
     }
 
-    public EstrategiasDePagoInterface obtenerMetodoDePagoDePedido(Long pedidoId) {
+    public EstrategiasDePago obtenerMetodoDePagoDePedido(Long pedidoId) {
         Pedido pedido = obtenerPedidoPorId(pedidoId);
         return pedido.getMetodoDePago(); // La deserialización ocurre automáticamente
     }
@@ -90,7 +91,7 @@ public class PedidoService {
         pedidoRepository.delete(pedido);
     }
 
-    public void setMetodoDePago(Pedido pedido, EstrategiasDePagoInterface metodoDePago) {
+    public void setMetodoDePago(Pedido pedido, EstrategiasDePago metodoDePago) {
         pedido.setMetodoDePago(metodoDePago);
         pedidoRepository.save(pedido);
     }

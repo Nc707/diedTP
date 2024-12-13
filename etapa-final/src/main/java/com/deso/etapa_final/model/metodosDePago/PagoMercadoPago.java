@@ -1,22 +1,28 @@
 package com.deso.etapa_final.model.metodosDePago;
 
-import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import jakarta.persistence.*;
 
 @Getter
-@NoArgsConstructor // Constructor sin argumentos para Jackson
-@JsonTypeName("PagoMercadoPago") // Nombre para identificar esta implementación
-public class PagoMercadoPago implements EstrategiasDePagoInterface {
-    final float RECARGO = 0.02f;
+@Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor   
+@Entity
+@DiscriminatorValue("MERCADOPAGO")
+public class PagoMercadoPago extends EstrategiasDePago {
 
+    private static final float RECARGO = 0.02f;
+
+    @Column(nullable = false)
     private String alias;
-
-    public PagoMercadoPago(String alias) {
-        this.alias = alias;
-    }
 
     @Override
     public float cerrarPago(float valor) {

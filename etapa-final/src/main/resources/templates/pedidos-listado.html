@@ -30,7 +30,25 @@
                 <td th:text="${pedido.vendedor.nombre}"></td>
                 <td th:text="${pedido.cliente.cliente_id}"></td>
                 <td th:text="${pedido.cliente.nombre}"></td>
-                <td th:text="${pedido.items}"></td>
+                <!-- <td th:text="${pedido.items}"></td> -->
+                <td>
+                    <table border = 1>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${pedido.items}">
+                                <td th:text="${item.itemMenu.nombre}"></td>
+                                <td th:text="${item.cantidad}"></td>
+                                <td th:text="${item.precio}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
                 <td th:text="${pedido.precio}"></td>
             </tr>
         </tbody>
