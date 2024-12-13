@@ -56,6 +56,8 @@ public class ClienteController {
 
 
 
+
+
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {

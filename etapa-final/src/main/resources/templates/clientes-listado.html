@@ -34,6 +34,7 @@
             <button type="submit">Buscar</button>
         </form>
     </div>
+
     <table border = 1>
 
         <thead>
@@ -45,12 +46,12 @@
                 <th>Email</th>
                 <th>CX</th>
                 <th>CY</th>
+
             </tr>
         </thead>
         <tbody>
 
             <tr th:each="cliente : ${clientes}">
-
                 <td th:text="${cliente.clienteid}"></td>
                 <td th:text="${cliente.nombre}"></td>
                 <td th:text="${cliente.direccion}"></td>
@@ -58,6 +59,8 @@
                 <td th:text="${cliente.email}"></td>
                 <td th:text="${cliente.coordenadas.latitud}"></td>
                 <td th:text="${cliente.coordenadas.longitud}"></td>
+
+
             </tr>
         </tbody>
     </table>
