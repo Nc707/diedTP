@@ -24,23 +24,24 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pedido_id;
+    private Long pedidoid;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EstadoPedido estado;
 
     @ManyToOne
-    @JoinColumn(name = "vendedor_id", nullable = false)
+    @JoinColumn(name = "vendedorid", nullable = false)
     private Vendedor vendedor;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "clienteid", nullable = false)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> items;
 
+    @Column
     private String descripcion;
 
     @Column(nullable = false)
@@ -53,7 +54,7 @@ public class Pedido {
     @Column(name = "tipo_metodo_de_pago")
     private String tipoMetodoDePago;
 
-    @Column(name = "datos_metodo_de_pago", columnDefinition = "TEXT")
+    @Column(name = "datos_metodo_de_pago")
     private String datosMetodoDePago;
 
     @Transient

@@ -22,12 +22,12 @@ public class ItemPedido {
     private float precio;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "itemid")
     private ItemMenu itemMenu;
 
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedidoid")
     private Pedido pedido;
 
     public ItemPedido(ItemMenu itemMenu, int cantidad){
