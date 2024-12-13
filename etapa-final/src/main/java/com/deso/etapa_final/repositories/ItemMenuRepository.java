@@ -7,8 +7,6 @@ import com.deso.etapa_final.model.Vendedor;
 
 import java.util.List;
 
-
 public interface ItemMenuRepository extends CrudRepository<ItemMenu, Long> {
     List<ItemMenu> findByVendedor(Vendedor vendedor);
-    
 }

@@ -80,21 +80,27 @@ public class PedidoService {
     Set<Pedido> resultSet = new HashSet<>();
     List<Pedido> byDescripcion = pedidoRepository.findByDescripcionContaining(searchable);
     resultSet.addAll(byDescripcion);
-    List<Pedido> byEstado = pedidoRepository.findByEstado(Pedido.EstadoPedido.valueOf(searchable));
-    resultSet.addAll(byEstado);
-    List<Pedido> byTipoMetodoDePago = pedidoRepository.findByTipoMetodoDePago(searchable);
-    resultSet.addAll(byTipoMetodoDePago);
-    List<Pedido> byClienteNombre = pedidoRepository.findByCliente_nombre(searchable);
+    try {
+        List<Pedido> byEstado = pedidoRepository.findByEstado(Pedido.EstadoPedido.valueOf(searchable.toUpperCase()));
+        resultSet.addAll(byEstado);
+    }catch(IllegalArgumentException e){}
+    //List<Pedido> byTipoMetodoDePago = pedidoRepository.findByTipoMetodoDePago(searchable);
+    //resultSet.addAll(byTipoMetodoDePago);
+    List<Pedido> byClienteNombre = pedidoRepository.findByCliente_nombreContaining(searchable);
     resultSet.addAll(byClienteNombre);
-    List<Pedido> byVendedorNombre = pedidoRepository.findByVendedor_nombre(searchable);
+    List<Pedido> byVendedorNombre = pedidoRepository.findByVendedor_nombreContaining(searchable);
     resultSet.addAll(byVendedorNombre);
-    List<Pedido> byItemsMenuNombre = pedidoRepository.findByItems_ItemMenu_nombre(searchable);
+    List<Pedido> byItemsMenuNombre = pedidoRepository.findByItems_ItemMenu_nombreContaining(searchable);
     resultSet.addAll(byItemsMenuNombre);
     Long longValue = null;
     try {
         longValue = Long.parseLong(searchable);
         Pedido byId = pedidoRepository.findById(longValue).get();
         if(byId != null) resultSet.add(byId);
+        List<Pedido> byVendedorId = pedidoRepository.findByVendedor_vendedorid(longValue);
+        resultSet.addAll(byVendedorId);
+        List<Pedido> byClienteId = pedidoRepository.findByCliente_clienteid(longValue);
+        resultSet.addAll(byClienteId);
     } catch (NumberFormatException e) {}
 
     List<Pedido> resultList = new ArrayList<>(resultSet);
@@ -169,6 +175,7 @@ public class PedidoService {
         itemPedido.setPedido(pedido);
         itemPedidoRepository.save(itemPedido);
         actualizarPrecio(pedido);
+        actualizarCantidad(pedido);
     }
 
     public void eliminarItem(Pedido pedido, ItemPedido itemPedido) {
@@ -190,9 +197,12 @@ public class PedidoService {
         pedido.setPrecio(precio);
         pedidoRepository.save(pedido);
     }
-
-    public void confirmarPedido(Pedido pedido) {
-        pedido.setEstado(Pedido.EstadoPedido.RECIBIDO);
+    public void actualizarCantidad(Pedido pedido) {
+        int cantidad = 0;
+        for (ItemPedido itemPedido : itemPedidoRepository.findByPedido(pedido)) {
+            cantidad += itemPedido.getCantidad();
+        }
+        pedido.setCantidad(cantidad);
         pedidoRepository.save(pedido);
     }
 

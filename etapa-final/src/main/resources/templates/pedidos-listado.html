@@ -77,7 +77,9 @@
                 <th>Cliente ID</th>
                 <th>Cliente Nombre</th>
                 <th>Items</th>
+                <th>Cantidad Items</th>
                 <th>Precio</th>
+                <th>Metodo de Pago</th>
             </tr>
         </thead>
         <tbody>
@@ -108,8 +110,9 @@
                         </tbody>
                     </table>
                 </td>
-
+                <td th:text="${pedido.cantidad}"></td>
                 <td th:text="${pedido.precio}"></td>
+                <td th:text="${pedido.getTipoMetodoDePago}"></td>
             </tr>
         </tbody>
     </table>

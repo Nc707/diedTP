@@ -3,7 +3,6 @@ package com.deso.etapa_final.controllers;
 import com.deso.etapa_final.model.Bebida;
 import com.deso.etapa_final.model.ItemMenu;
 import com.deso.etapa_final.model.Plato;
-import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.services.BebidaService;
 import com.deso.etapa_final.services.ItemMenuService;
 import com.deso.etapa_final.services.PlatoService;
@@ -45,10 +44,31 @@ public class ItemMenuController {
         model.addAttribute("itemsMenu", itemsMenu);
         return "items-menu";
     }
-    // @GetMapping("/getItemMenuByVendedor/{id}")
-    // public List<ItemMenu> mostrarMenuVendedor(@PathVariable Long  id) {
-    //     return itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id)); 
-    // }
+
+    @GetMapping("/getAll")
+    public String getAllItemsMenu(Model model) {
+        Iterable<Bebida> bebidas = bebidaService.getAllBebidas();
+        Iterable<Plato> platos = platoService.getAllPlatos();
+        model.addAttribute("bebidas", bebidas);
+        model.addAttribute("platos", platos);
+        return "items-menu";
+    }
+
+    @GetMapping("/search")
+    public String searchItemsMenu(
+            @RequestParam(value = "searchPlato", defaultValue = "") String searchPlato,
+            @RequestParam(value = "searchBebida", defaultValue = "") String searchBebida,
+            @RequestParam(value = "orderByPlato", defaultValue = "id") String orderByPlato,
+            @RequestParam(value = "orderByBebida", defaultValue = "id") String orderByBebida,
+            @RequestParam(value = "orderDirectionPlato", defaultValue = "ASC") String orderDirectionPlato,
+            @RequestParam(value = "orderDirectionBebida", defaultValue = "ASC") String orderDirectionBebida,
+            Model model) {
+        Iterable<Bebida> bebidas = bebidaService.generalSearch(searchBebida, orderByBebida, orderDirectionBebida);
+        Iterable<Plato> platos = platoService.generalSearch(searchPlato, orderByPlato, orderDirectionPlato);
+        model.addAttribute("bebidas", bebidas);
+        model.addAttribute("platos", platos);
+        return "items-menu";
+    }
 
 
     // Endpoint para crear una nueva bebida

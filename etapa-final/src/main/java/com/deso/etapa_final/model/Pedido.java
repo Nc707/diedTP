@@ -55,11 +55,11 @@ public class Pedido {
     private int cantidad;
 
     // Columnas para almacenar la estrategia de pago
-    @Column(name = "tipo_metodo_de_pago")
-    private String tipoMetodoDePago;
+    //@Column(name = "tipo_metodo_de_pago")
+    //private String tipoMetodoDePago;
 
-    @Column(name = "datos_metodo_de_pago")
-    private String datosMetodoDePago;
+    //@Column(name = "datos_metodo_de_pago")
+    //private String datosMetodoDePago;
 
 
     //@Transient
@@ -67,6 +67,12 @@ public class Pedido {
     @JoinColumn(name = "metodopagoid")
     private EstrategiasDePago metodoDePago; // No persistente, se carga/deserializa manualmente
 
+    public String getTipoMetodoDePago() {
+        if (metodoDePago != null) {
+            return metodoDePago.getClass().getSimpleName();
+        }
+        return "No seteado";
+    }
 
 
     // // Métodos para manejar serialización y deserialización
