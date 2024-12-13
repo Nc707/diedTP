@@ -49,7 +49,6 @@ public class PedidoController {
         carritoService.modificarCantidad(clienteId, itemPedidoId, cantidad);
         return ResponseEntity.ok().build();
     }
-
     @DeleteMapping("/carrito/{clienteId}/cancelar")
     public ResponseEntity<Void> cancelarPedido(@PathVariable Long clienteId) throws NonExistentCarritoException {
         carritoService.cancelarPedido(clienteId);
