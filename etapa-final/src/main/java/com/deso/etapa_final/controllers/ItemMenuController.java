@@ -8,6 +8,7 @@ import com.deso.etapa_final.services.ItemMenuService;
 import com.deso.etapa_final.services.PlatoService;
 import com.deso.etapa_final.services.VendedorService;
 
+import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -90,26 +91,49 @@ public class ItemMenuController {
         model.addAttribute("vendedor", vendedorService.getVendedorById(vendedorId));
         return "items-menu-vendedor";
     }
+    @GetMapping("/crearBebidaRedirect")
+    public String crearBebidaRedirect(@RequestParam Long vendedorid, Model model) {
+        model.addAttribute("vendedorid", vendedorid);
+        return "crear-bebida";
+    }
 
-
-    // Endpoint para crear una nueva bebida
     @PostMapping("/createBebida")
-    public ResponseEntity<Bebida> createBebida(
+    public String createBebida(
             @RequestParam String nombre,
             @RequestParam String descripcion,
             @RequestParam float precio,
-            @RequestParam Long id_vendedor, 
+            @RequestParam Long id_vendedor,
             @RequestParam float graduacionAlcoholica,
             @RequestParam float tamanio,
             @RequestParam float peso,
-            @RequestParam(required = false) List<String> categorias) {
+            @RequestParam(required = false) List<String> categorias,
+            RedirectAttributes redirectAttributes) {
         
         Bebida bebida = bebidaService.createBebida(nombre, descripcion, precio, id_vendedor, graduacionAlcoholica, tamanio, peso, categorias);
-        return ResponseEntity.ok(bebida);
+        redirectAttributes.addFlashAttribute("mensaje", "La bebida se creó correctamente");
+        return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + id_vendedor;
     }
 
+
+    // Endpoint para crear una nueva bebida
+    // @PostMapping("/createBebida")
+    // public ResponseEntity<Bebida> createBebida(
+    //         @RequestParam String nombre,
+    //         @RequestParam String descripcion,
+    //         @RequestParam float precio,
+    //         @RequestParam Long id_vendedor, 
+    //         @RequestParam float graduacionAlcoholica,
+    //         @RequestParam float tamanio,
+    //         @RequestParam float peso,
+    //         @RequestParam(required = false) List<String> categorias) {
+        
+    //     Bebida bebida = bebidaService.createBebida(nombre, descripcion, precio, id_vendedor, graduacionAlcoholica, tamanio, peso, categorias);
+    //     return ResponseEntity.ok(bebida);
+    // }
+
     @GetMapping("/crearPlatoRedirect")
-    public String crearPlatoRedirect() {
+    public String crearPlatoRedirect(@RequestParam Long vendedorid, Model model) {
+        model.addAttribute("vendedorid", vendedorid);
         return "crear-plato";
     }
     @PostMapping("/createPlato")
@@ -118,12 +142,14 @@ public class ItemMenuController {
             @RequestParam String descripcion,
             @RequestParam float precio,
             @RequestParam Long id_vendedor,
-            @RequestParam float peso,
-            @RequestParam float tamanio,
             @RequestParam(required = false) List<String> categorias,
+            @RequestParam float calorias,
+            @RequestParam(defaultValue = "false") Boolean aptoCeliaco,
+            @RequestParam(defaultValue = "false") Boolean aptoVegano,
+            @RequestParam float peso,
             RedirectAttributes redirectAttributes) {
         
-        Plato plato = platoService.createPlato(nombre, descripcion, precio, id_vendedor, peso, tamanio, categorias);
+        Plato plato = platoService.createPlato(nombre, descripcion, precio, id_vendedor, categorias, calorias, aptoCeliaco, aptoVegano,peso);
         redirectAttributes.addFlashAttribute("mensaje", "El plato se creó correctamente");
         return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + id_vendedor;
     }
