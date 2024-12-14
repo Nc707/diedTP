@@ -9,7 +9,6 @@ import java.util.Optional;
 import com.deso.etapa_final.model.Coordenada;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.repositories.VendedorRepository;
-import com.deso.etapa_final.services.VendedorService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,17 +24,25 @@ class VendedorServiceTest {
     @InjectMocks
     private VendedorService vendedorService;
 
+    private Vendedor vendedor1;
+    private Vendedor vendedor2;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        // Inicialización de objetos de prueba reutilizables
+        vendedor1 = new Vendedor("Juan", "Calle 123", new Coordenada(10.0, 20.0));
+        vendedor1.setId(1L);
+
+        vendedor2 = new Vendedor("Pedro", "Calle 456", new Coordenada(30.0, 40.0));
+        vendedor2.setId(2L);
     }
 
     @Test
     void testAddVendedor() {
         // Arrange
-        Coordenada coordenada = new Coordenada(10.0, 20.0);
-        Vendedor vendedor = new Vendedor("Juan", "Calle 123", coordenada);
-        when(vendedorRepository.save(any(Vendedor.class))).thenReturn(vendedor);
+        when(vendedorRepository.save(any(Vendedor.class))).thenReturn(vendedor1);
 
         // Act
         Vendedor result = vendedorService.addVendedor("Juan", "Calle 123", 10.0, 20.0);
@@ -50,9 +57,7 @@ class VendedorServiceTest {
     @Test
     void testGetVendedorById() {
         // Arrange
-        Coordenada coordenada = new Coordenada(10.0, 20.0);
-        Vendedor vendedor = new Vendedor("Juan", "Calle 123", coordenada);
-        when(vendedorRepository.findById(1L)).thenReturn(Optional.of(vendedor));
+        when(vendedorRepository.findById(1L)).thenReturn(Optional.of(vendedor1));
 
         // Act
         Vendedor result = vendedorService.getVendedorById(1L);
@@ -66,10 +71,6 @@ class VendedorServiceTest {
     @Test
     void testGetVendedores() {
         // Arrange
-        Coordenada coordenada1 = new Coordenada(10.0, 20.0);
-        Coordenada coordenada2 = new Coordenada(30.0, 40.0);
-        Vendedor vendedor1 = new Vendedor("Juan", "Calle 123", coordenada1);
-        Vendedor vendedor2 = new Vendedor("Pedro", "Calle 456", coordenada2);
         when(vendedorRepository.findAll()).thenReturn(Arrays.asList(vendedor1, vendedor2));
 
         // Act
@@ -82,15 +83,45 @@ class VendedorServiceTest {
     }
 
     @Test
-    void testDeleteVendedor() {
+    void testUpdateVendedor() {
         // Arrange
-        long id = 1L;
-        doNothing().when(vendedorRepository).deleteById(id);
+        when(vendedorRepository.findById(1L)).thenReturn(Optional.of(vendedor1));
+        when(vendedorRepository.save(any(Vendedor.class))).thenReturn(vendedor1);
 
         // Act
-        vendedorService.deleteVendedor(id);
+        Vendedor result = vendedorService.updateVendedor(1L, "Juan Actualizado", "Calle Nueva", 15.0, 25.0);
 
         // Assert
-        verify(vendedorRepository, times(1)).deleteById(id);
+        assertNotNull(result);
+        assertEquals("Juan Actualizado", result.getNombre());
+        assertEquals("Calle Nueva", result.getDireccion());
+        verify(vendedorRepository, times(1)).save(any(Vendedor.class));
+    }
+
+    @Test
+    void testDeleteVendedor() {
+        // Arrange
+        doNothing().when(vendedorRepository).deleteById(1L);
+
+        // Act
+        vendedorService.deleteVendedor(1L);
+
+        // Assert
+        verify(vendedorRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void testGeneralSearchByName() {
+        // Arrange
+        when(vendedorRepository.findByNombreContaining("Juan")).thenReturn(Arrays.asList(vendedor1));
+
+        // Act
+        Iterable<Vendedor> result = vendedorService.generalSearch("Juan", "nombre", "ASC");
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, ((java.util.List<?>) result).size());
+        assertEquals("Juan", ((java.util.List<Vendedor>) result).get(0).getNombre());
+        verify(vendedorRepository, times(1)).findByNombreContaining("Juan");
     }
 }
