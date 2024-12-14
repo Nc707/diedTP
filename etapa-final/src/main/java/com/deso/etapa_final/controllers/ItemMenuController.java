@@ -38,7 +38,7 @@ public class ItemMenuController {
     
 
     @GetMapping("/getItemMenuByVendedor")
-    public String mostrarMenuVendedor(@RequestParam("id") Long id, Model model) {
+    public String mostrarMenuVendedor(@RequestParam Long id, Model model) {
 
         List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id));
         model.addAttribute("itemsMenu", itemsMenu);
@@ -87,20 +87,39 @@ public class ItemMenuController {
         return ResponseEntity.ok(bebida);
     }
 
-    // Endpoint para crear un nuevo plato
+    @GetMapping("/crearPlatoRedirect")
+    public String crearPlatoRedirect() {
+        return "crear-plato";
+    }
     @PostMapping("/createPlato")
-    public ResponseEntity<Plato> createPlato(
+    public String createPlato(
             @RequestParam String nombre,
             @RequestParam String descripcion,
             @RequestParam float precio,
             @RequestParam Long id_vendedor,
             @RequestParam float peso,
             @RequestParam float tamanio,
-            @RequestParam(required = false) List<String> categorias) {
+            @RequestParam(required = false) List<String> categorias,
+            RedirectAttributes redirectAttributes) {
         
         Plato plato = platoService.createPlato(nombre, descripcion, precio, id_vendedor, peso, tamanio, categorias);
-        return ResponseEntity.ok(plato);
+        redirectAttributes.addFlashAttribute("mensaje", "El plato se creó correctamente");
+        return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + id_vendedor;
     }
+    // Endpoint para crear un nuevo plato
+    //@PostMapping("/createPlato")
+    // public ResponseEntity<Plato> createPlato(
+    //         @RequestParam String nombre,
+    //         @RequestParam String descripcion,
+    //         @RequestParam float precio,
+    //         @RequestParam Long id_vendedor,
+    //         @RequestParam float peso,
+    //         @RequestParam float tamanio,
+    //         @RequestParam(required = false) List<String> categorias) {
+        
+    //     Plato plato = platoService.createPlato(nombre, descripcion, precio, id_vendedor, peso, tamanio, categorias);
+    //     return ResponseEntity.ok(plato);
+    // }
 
     // Endpoint para actualizar una bebida existente
     @PostMapping("/updateBebida")

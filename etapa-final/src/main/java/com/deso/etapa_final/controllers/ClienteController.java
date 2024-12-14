@@ -15,23 +15,44 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
-
+    
     @PostMapping("/add")
-    @ResponseBody
-
-    public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, 
-                                            @RequestParam String email, 
-                                            @RequestParam String direccion, 
-                                            @RequestParam double latitud,
-                                            @RequestParam double longitud, 
-                                            @RequestParam String nombre) {
+    public String addCliente(@RequestParam String nombre,
+                            @RequestParam long cuit, 
+                            @RequestParam String email, 
+                            @RequestParam String direccion, 
+                            @RequestParam double latitud,
+                            @RequestParam double longitud 
+                            ) {
 
         Coordenada coordenada = new Coordenada();
         coordenada.setLatitud(latitud);
         coordenada.setLongitud(longitud);
         Cliente cliente = clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
-        return ResponseEntity.ok(cliente);
+        return "redirect:/clientes/getAll";
     }
+
+    @GetMapping("/agregar-cliente")
+    public String mostrarFormularioAgregar() {
+        return "agregar-cliente";
+    }
+
+    // @PostMapping("/add")
+    // @ResponseBody
+
+    // public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, 
+    //                                         @RequestParam String email, 
+    //                                         @RequestParam String direccion, 
+    //                                         @RequestParam double latitud,
+    //                                         @RequestParam double longitud, 
+    //                                         @RequestParam String nombre) {
+
+    //     Coordenada coordenada = new Coordenada();
+    //     coordenada.setLatitud(latitud);
+    //     coordenada.setLongitud(longitud);
+    //     Cliente cliente = clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
+    //     return ResponseEntity.ok(cliente);
+    // }
 
 
     // @GetMapping("/getAll")
