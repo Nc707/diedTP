@@ -1,6 +1,8 @@
 package com.deso.etapa_final.model;
 import java.util.List;
+
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,7 +50,6 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "metodopagoid")
     private EstrategiasDePago metodoDePago; 
-
 
     public String getTipoMetodoDePago() {
         if (metodoDePago != null) {
