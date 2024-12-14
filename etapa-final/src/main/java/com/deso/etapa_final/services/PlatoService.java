@@ -23,7 +23,7 @@ public class PlatoService {
     @Autowired
     private VendedorService vendedorService;
 
-    public Plato createPlato(String nombre, String descripcion, float precio, long id_vendedor, float peso, float tamaño, Iterable<String> categorias) {
+    public Plato createPlato(String nombre, String descripcion, float precio, long id_vendedor,  Iterable<String> categorias, float calorias, boolean aptoCeliaco, boolean aptoVegano , float peso) {
         Plato plato = new Plato();
         Vendedor vendedor = vendedorService.getVendedorById(id_vendedor);
         plato.setNombre(nombre);
@@ -32,11 +32,14 @@ public class PlatoService {
         plato.setVendedor(vendedor);
         plato.setEs_bebida(false);
         plato.setPeso(peso);
+        plato.setCalorias(calorias);
         if (categorias != null) {
             for (String cat : categorias) {
                 plato.addCategoria(categoriaService.getCategoriaByNombre(cat, Categoria.TipoCategoria.PLATO));
             }
         }
+        plato.setAptoCeliaco(aptoCeliaco);
+        plato.setAptoVegano(aptoVegano);
         return platoRepository.save(plato);
     }
     public Iterable<Plato> getPlatosByVendedorId(Long id) {
