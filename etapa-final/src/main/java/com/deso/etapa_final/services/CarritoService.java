@@ -71,12 +71,11 @@ public class CarritoService {
         ItemMenu item = itemMenuService.obtenerItemMenuPorId(itemMenuId);
         // ItemMenu item = platoService.getPlatoById(itemMenuId);
         // if (item == null) item = bebidaService.getBebidaById(itemMenuId);
-
         
         if(item==null) throw new NonExistentException("El item no existe");
-        if(cantidad<=0) throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
         if(pedido==null) throw new NonExistentCarritoException(clienteId);
-
+        if(!(pedido.getVendedor().equals(item.getVendedor()))) throw new IllegalArgumentException("El item no pertenece al vendedor del pedido");
+        if(cantidad<=0) throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
 
         ItemPedido itemPedido = new ItemPedido(item, cantidad);
 
