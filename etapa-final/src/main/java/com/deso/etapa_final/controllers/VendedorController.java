@@ -3,6 +3,8 @@ package com.deso.etapa_final.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.services.VendedorService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/vendedores")
@@ -88,7 +92,13 @@ public class VendedorController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteVendedor(@RequestParam long id) {
+public ResponseEntity<?> deleteVendedor(@RequestParam long id) {
+    try {
         vendedorService.deleteVendedor(id);
+        return ResponseEntity.ok("Vendedor eliminado con éxito");
+    } catch (EntityNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+}
+
 }

@@ -12,6 +12,8 @@ import com.deso.etapa_final.model.Coordenada;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.repositories.VendedorRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class VendedorService {
 
@@ -109,6 +111,8 @@ public class VendedorService {
     }
     
     public void deleteVendedor(long id) {
+        if (!vendedorRepository.existsById(id)) {        }
         vendedorRepository.deleteById(id);
     }
+    
 }
