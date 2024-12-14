@@ -2,7 +2,9 @@ package com.deso.etapa_final.repositories;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.deso.etapa_final.model.Cliente;
 import com.deso.etapa_final.model.Pedido;
@@ -19,7 +21,6 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
     List<Pedido> findByVendedor_vendedorid(Long vendedorId);
     List<Pedido> findByCliente_clienteid(Long clienteId);
     List<Pedido> findByCliente_nombreContaining(String clienteNombre);
-    //List<Pedido> findByMetodoDePago(String tipoMetodoDePago);
     List<Pedido> findByItems_ItemMenu_itemid(Long itemMenuId);
     List<Pedido> findByItems_ItemMenu_nombreContaining(String itemMenuNombre);
     List<Pedido> findByVendedor_nombreContaining(String vendedorNombre);

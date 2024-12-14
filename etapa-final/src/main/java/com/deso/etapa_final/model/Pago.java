@@ -9,40 +9,33 @@ import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor // Constructor sin argumentos requerido por JPA
-@AllArgsConstructor // Constructor completo para pruebas o inicializaciones rápidas
+@AllArgsConstructor
 @Entity
 public class Pago {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Clave primaria con generación automática
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private long fecha;
+    @ManyToOne
+    @JoinColumn(name = "pedido_id", nullable = false)
+    private Pedido pedido;
 
-    @Column(nullable = false)
-    private double monto;
+    private Double monto;
 
-    @Column(nullable = false, length = 500)
-    private String resumen;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaPago;
 
-    @ManyToOne(optional = false) // Relación con la entidad Vendedor
-    @JoinColumn(name = "vendedorid", nullable = false)
-    private Vendedor vendedor;
-
-    // Constructor que inicializa a partir de un Pedido
     public Pago(Pedido pedido) {
-        this.fecha = new Date().getTime();
+        this.pedido = pedido;
         this.monto = pedido.getPrecio();
-        //this.resumen = pedido.toString();
-        this.resumen = "Pago de pedido";
-        this.vendedor = pedido.getVendedor();
+        this.fechaPago = new Date();
     }
 
-    @Override
-    public String toString() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String fechaFormateada = format.format(new Date(this.fecha));
-        return fechaFormateada + " | Vendedor: " + vendedor.getNombre() + " | Resumen: " + resumen;
+    public String getResumen() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Cliente cliente = pedido.getCliente(); 
+        Vendedor vendedor = pedido.getVendedor(); 
+        return String.format("Pago ID: %d, Pedido ID: %d, Cliente: %s, Vendedor: %s, Monto: %.2f, Fecha de Pago: %s",
+                id, pedido.getPedidoid(), cliente.getNombre(), vendedor.getNombre(), monto, sdf.format(fechaPago));
     }
 }
