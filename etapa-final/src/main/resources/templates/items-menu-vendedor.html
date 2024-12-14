@@ -9,10 +9,10 @@
 <body>
     <h1>ItemsMenu</h1>
 
-    <!-- Mostrar información del vendedor -->
+
     <h2>Vendedor: <span th:text="${vendedor.nombre}"></span></h2>
     
-    <!--Tabla de platos-->
+    <!--tabla de platos-->
     <h2>Platos</h2>
     <div>
         <form th:action="@{/ItemMenu/searchByVendedor}" method="GET">
@@ -87,7 +87,7 @@
         <button type="submit">Crear nuevo Plato</button>
     </form>
 
-    <!--Tabla de bebidas-->
+    <!--tabla de bebidas-->
     <h2>Bebidas</h2>
     <div>
         <form th:action="@{/ItemMenu/searchByVendedor}" method="GET">

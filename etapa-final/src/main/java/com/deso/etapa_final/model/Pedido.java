@@ -2,15 +2,8 @@ package com.deso.etapa_final.model;
 
 
 import java.util.List;
-
-import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
-
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import jakarta.persistence.*;
-
 import lombok.*;
 
 @Data
@@ -54,18 +47,9 @@ public class Pedido {
     @Column(nullable = false)
     private int cantidad;
 
-    // Columnas para almacenar la estrategia de pago
-    //@Column(name = "tipo_metodo_de_pago")
-    //private String tipoMetodoDePago;
-
-    //@Column(name = "datos_metodo_de_pago")
-    //private String datosMetodoDePago;
-
-
-    //@Transient
     @ManyToOne
     @JoinColumn(name = "metodopagoid")
-    private EstrategiasDePago metodoDePago; // No persistente, se carga/deserializa manualmente
+    private EstrategiasDePago metodoDePago; 
 
     public String getTipoMetodoDePago() {
         if (metodoDePago != null) {
@@ -75,31 +59,5 @@ public class Pedido {
     }
 
 
-    // // Métodos para manejar serialización y deserialización
-    // @PrePersist
-    // private void serializarMetodoDePago() {
-    //     if (metodoDePago != null) {
-    //         try {
-    //             ObjectMapper objectMapper = new ObjectMapper();
-    //             tipoMetodoDePago = metodoDePago.getClass().getSimpleName();
-    //             datosMetodoDePago = objectMapper.writeValueAsString(metodoDePago);
-    //         } catch (Exception e) {
-    //             throw new RuntimeException("Error al serializar metodoDePago", e);
-    //         }
-    //     }
-    // }
-
-    // @PostLoad
-    // private void deserializarMetodoDePago() {
-    //     if (tipoMetodoDePago != null && datosMetodoDePago != null) {
-    //         try {
-    //             ObjectMapper objectMapper = new ObjectMapper();
-    //             Class<?> clazz = Class.forName("com.deso.etapa_final.model.estrategias." + tipoMetodoDePago);
-    //             metodoDePago = (EstrategiasDePagoInterface) objectMapper.readValue(datosMetodoDePago, clazz);
-    //         } catch (Exception e) {
-    //             throw new RuntimeException("Error al deserializar metodoDePago", e);
-    //         }
-    //     }
-    // }
 }
 

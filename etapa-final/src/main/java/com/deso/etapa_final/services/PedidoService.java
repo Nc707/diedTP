@@ -2,7 +2,6 @@ package com.deso.etapa_final.services;
 
 import com.deso.etapa_final.event.PedidoEnEnvioEvent;
 import com.deso.etapa_final.model.*;
-import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 import com.deso.etapa_final.repositories.PedidoRepository;
 import com.deso.etapa_final.repositories.ItemPedidoRepository;
@@ -84,8 +83,6 @@ public class PedidoService {
         List<Pedido> byEstado = pedidoRepository.findByEstado(Pedido.EstadoPedido.valueOf(searchable.toUpperCase()));
         resultSet.addAll(byEstado);
     }catch(IllegalArgumentException e){}
-    //List<Pedido> byTipoMetodoDePago = pedidoRepository.findByTipoMetodoDePago(searchable);
-    //resultSet.addAll(byTipoMetodoDePago);
     List<Pedido> byClienteNombre = pedidoRepository.findByCliente_nombreContaining(searchable);
     resultSet.addAll(byClienteNombre);
     List<Pedido> byVendedorNombre = pedidoRepository.findByVendedor_nombreContaining(searchable);
@@ -152,7 +149,7 @@ public class PedidoService {
 
     public EstrategiasDePago obtenerMetodoDePagoDePedido(Long pedidoId) {
         Pedido pedido = obtenerPedidoPorId(pedidoId);
-        return pedido.getMetodoDePago(); // La deserialización ocurre automáticamente
+        return pedido.getMetodoDePago(); 
     }
 
     public Pedido crearPedido(Cliente cliente, Vendedor vendedor) {

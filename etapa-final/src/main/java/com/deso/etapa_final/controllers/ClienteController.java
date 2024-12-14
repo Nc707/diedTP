@@ -37,30 +37,6 @@ public class ClienteController {
         return "agregar-cliente";
     }
 
-    // @PostMapping("/add")
-    // @ResponseBody
-
-    // public ResponseEntity<Cliente> addCliente(@RequestParam long cuit, 
-    //                                         @RequestParam String email, 
-    //                                         @RequestParam String direccion, 
-    //                                         @RequestParam double latitud,
-    //                                         @RequestParam double longitud, 
-    //                                         @RequestParam String nombre) {
-
-    //     Coordenada coordenada = new Coordenada();
-    //     coordenada.setLatitud(latitud);
-    //     coordenada.setLongitud(longitud);
-    //     Cliente cliente = clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
-    //     return ResponseEntity.ok(cliente);
-    // }
-
-
-    // @GetMapping("/getAll")
-    // @ResponseBody
-    // public ResponseEntity<Iterable<Cliente>> getClientes() {
-    //     Iterable<Cliente> clientes = clienteService.getClientes();
-    //     return ResponseEntity.ok(clientes);
-    // }
     @GetMapping("/getAll")
     public String getClientes(Model model) {
         Iterable<Cliente> clientes =  clienteService.getClientes();
