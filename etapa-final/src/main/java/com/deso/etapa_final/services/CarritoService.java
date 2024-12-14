@@ -2,7 +2,6 @@ package com.deso.etapa_final.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.deso.etapa_final.exception.AlreadyExistentCarritoException;
 import com.deso.etapa_final.exception.NonExistentCarritoException;
 import com.deso.etapa_final.exception.NonExistentException;
@@ -59,10 +58,7 @@ public class CarritoService {
     public void agregarItem(Long clienteId, Long itemMenuId, int cantidad) throws NonExistentCarritoException, NonExistentException {
         Cliente cliente = clienteService.getClienteById(clienteId);
         Pedido pedido = pedidoService.obtenerPedidoPorClienteYEstado(cliente, Pedido.EstadoPedido.EN_CARRITO);
-        ItemMenu item = itemMenuService.obtenerItemMenuPorId(itemMenuId);
-        // ItemMenu item = platoService.getPlatoById(itemMenuId);
-        // if (item == null) item = bebidaService.getBebidaById(itemMenuId);
-        
+        ItemMenu item = itemMenuService.obtenerItemMenuPorId(itemMenuId);     
         if(item==null) throw new NonExistentException("El item no existe");
         if(pedido==null) throw new NonExistentCarritoException(clienteId);
         if(!(pedido.getVendedor().equals(item.getVendedor()))) throw new IllegalArgumentException("El item no pertenece al vendedor del pedido");

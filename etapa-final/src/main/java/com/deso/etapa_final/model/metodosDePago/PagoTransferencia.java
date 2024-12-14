@@ -1,14 +1,8 @@
 package com.deso.etapa_final.model.metodosDePago;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
-import com.deso.etapa_final.model.interfaces.EstrategiasDePagoInterface;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
-import jakarta.persistence.Embeddable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

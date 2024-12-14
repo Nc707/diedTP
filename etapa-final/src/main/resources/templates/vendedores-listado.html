@@ -84,7 +84,7 @@
         <form th:action="@{/vendedores/eliminar}" method="POST">
             <label for="eliminarId">ID del Vendedor:</label>
             <input type="text" id="eliminarId" name="id" placeholder="Ingrese ID" required>
-            <button type="submit" onclick="return confirm('¿Está seguro de que desea eliminar este vendedor?');">Eliminar Vendedor</button>
+            <button type="submit">Eliminar Vendedor</button>
         </form>
     </div>
     <a th:href="@{/}">Volver al menu principal</a>

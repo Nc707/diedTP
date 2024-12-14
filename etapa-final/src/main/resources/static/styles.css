@@ -145,19 +145,19 @@ div:last-of-type {
 
 .crearItemMenu {
     display: flex;
-    justify-content: center; /* Centra el formulario en el contenedor */
+    justify-content: center; 
     align-items: center;
     padding: 20px;
-    background-color: #f8f9fa; /* Un color de fondo ligero opcional */
-    border-radius: 8px; /* Bordes redondeados opcionales */
+    background-color: #f8f9fa; 
+    border-radius: 8px; 
 }
 
 .crearItemMenu form {
     display: flex;
-    flex-direction: column; /* Organiza los campos uno abajo del otro */
-    gap: 15px; /* Espaciado entre cada fila */
+    flex-direction: column; 
+    gap: 15px; 
     width: 100%;
-    max-width: 400px; /* Máximo ancho del formulario */
+    max-width: 400px; 
 }
 
 .crearItemMenu label {
@@ -170,8 +170,8 @@ div:last-of-type {
 .crearItemMenu input[type="checkbox"],
 .crearItemMenu button {
     margin-bottom: 10px;
-    width: 100%; /* Hace que los inputs ocupen todo el ancho del contenedor */
-    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    width: 100%;
+    box-sizing: border-box; 
 }
 
 .crearItemMenu button {
