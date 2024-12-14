@@ -230,17 +230,20 @@ public class PedidoService {
         switch (pedido.getEstado()) {
             case EN_CARRITO:
                 pedido.setEstado(Pedido.EstadoPedido.RECIBIDO);
+                pedidoRepository.save(pedido);
                 break;
             case RECIBIDO:
                 pedido.setEstado(Pedido.EstadoPedido.EN_ENVIO);
+                pedidoRepository.save(pedido);
                 eventPublisher.publishEvent(new PedidoEnEnvioEvent(this, pedido));
                 break;
             case EN_ENVIO:
                 pedido.setEstado(Pedido.EstadoPedido.ENTREGADO);
+                pedidoRepository.save(pedido);
                 break;
             case ENTREGADO:
                 throw new IllegalStateException("El pedido ya ha sido entregado");
         }
-        pedidoRepository.save(pedido);
+        
     }
 }

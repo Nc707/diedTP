@@ -25,7 +25,6 @@ import jakarta.persistence.*;
 @DiscriminatorValue("TRANSFERENCIA")
 public class PagoTransferencia extends EstrategiasDePago {
 
-
     private static final float RECARGO = 0.04f;
 
     @Column(nullable = false)
@@ -38,4 +37,10 @@ public class PagoTransferencia extends EstrategiasDePago {
     public float cerrarPago(float valor) {
         return valor * (1.0f + RECARGO);
     }
+
+    @Override
+    public String getNombre() {
+        return "Transferencia";
+    }
+
 }

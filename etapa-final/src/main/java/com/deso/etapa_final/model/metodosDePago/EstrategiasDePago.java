@@ -21,4 +21,6 @@ public abstract class EstrategiasDePago {
     private Long metodopagoid;
 
     public abstract float cerrarPago(float valor);
+
+    public abstract String getNombre();
 }

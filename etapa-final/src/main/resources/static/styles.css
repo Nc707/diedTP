@@ -116,15 +116,12 @@ a {
 a:hover {
     color: #004d40; 
 }
-
-
 div:last-of-type {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
 }
-
 
 @media (max-width: 768px) {
     div {
