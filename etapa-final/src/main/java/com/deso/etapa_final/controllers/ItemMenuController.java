@@ -40,9 +40,12 @@ public class ItemMenuController {
     @GetMapping("/getItemMenuByVendedor")
     public String mostrarMenuVendedor(@RequestParam Long id, Model model) {
 
-        List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenuPorVendedor(vendedorService.getVendedorById(id));
-        model.addAttribute("itemsMenu", itemsMenu);
-        return "items-menu";
+        Iterable<Bebida> bebidas = bebidaService.getBebidasByVendedorId(id);
+        Iterable<Plato> platos = platoService.getPlatosByVendedorId(id);
+        model.addAttribute("bebidas", bebidas);
+        model.addAttribute("platos", platos);
+        model.addAttribute("vendedor", vendedorService.getVendedorById(id));
+        return "items-menu-vendedor";
     }
 
     @GetMapping("/getAll")
@@ -62,12 +65,30 @@ public class ItemMenuController {
             @RequestParam(value = "orderByBebida", defaultValue = "id") String orderByBebida,
             @RequestParam(value = "orderDirectionPlato", defaultValue = "ASC") String orderDirectionPlato,
             @RequestParam(value = "orderDirectionBebida", defaultValue = "ASC") String orderDirectionBebida,
+            @RequestParam(value = "vendedorId", required = false) Long vendedorId,
             Model model) {
         Iterable<Bebida> bebidas = bebidaService.generalSearch(searchBebida, orderByBebida, orderDirectionBebida);
         Iterable<Plato> platos = platoService.generalSearch(searchPlato, orderByPlato, orderDirectionPlato);
         model.addAttribute("bebidas", bebidas);
         model.addAttribute("platos", platos);
         return "items-menu";
+    }
+    @GetMapping("/searchByVendedor")
+    public String searchItemsMenubyVendedor(
+            @RequestParam(value = "searchPlato", defaultValue = "") String searchPlato,
+            @RequestParam(value = "searchBebida", defaultValue = "") String searchBebida,
+            @RequestParam(value = "orderByPlato", defaultValue = "id") String orderByPlato,
+            @RequestParam(value = "orderByBebida", defaultValue = "id") String orderByBebida,
+            @RequestParam(value = "orderDirectionPlato", defaultValue = "ASC") String orderDirectionPlato,
+            @RequestParam(value = "orderDirectionBebida", defaultValue = "ASC") String orderDirectionBebida,
+            @RequestParam(value = "vendedorId") Long vendedorId,
+            Model model) {
+        Iterable<Bebida> bebidas = bebidaService.generalSearchByVendedor(searchBebida, orderByBebida, orderDirectionBebida, vendedorId);
+        Iterable<Plato> platos = platoService.generalSearchByVendedor(searchPlato, orderByPlato, orderDirectionPlato, vendedorId);
+        model.addAttribute("bebidas", bebidas);
+        model.addAttribute("platos", platos);
+        model.addAttribute("vendedor", vendedorService.getVendedorById(vendedorId));
+        return "items-menu-vendedor";
     }
 
 
