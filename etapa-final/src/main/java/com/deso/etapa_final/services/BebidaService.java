@@ -48,6 +48,9 @@ public class BebidaService {
     public List<Bebida> getAllBebidas() {
         return (List<Bebida>) bebidaRepository.findAll();
     }
+    public Iterable<Bebida> getBebidasByVendedorId(Long id) {
+        return bebidaRepository.findByVendedor_Vendedorid(id);
+    }
     public Iterable<Bebida> generalSearch(String searchable, String orderBy, String orderDirection){
             if(orderBy.equals("precio_mayor_que") || orderBy.equals("precio_menor_que")){
                 try{
@@ -185,6 +188,139 @@ public class BebidaService {
         });
         return resultList;
     }
+    public Iterable<Bebida> generalSearchByVendedor(String searchable, String orderBy, String orderDirection, Long idVendedor){
+        if(orderBy.equals("precio_mayor_que") || orderBy.equals("precio_menor_que")){
+            try{
+            Double precio = Double.parseDouble(searchable);
+            List <Bebida> resultList = new ArrayList<>();
+            if(orderBy.equals("precio_menor_que"))
+                resultList.addAll(bebidaRepository.findByPrecioLessThanEqualAndVendedor_Vendedorid(precio, idVendedor));
+            else
+                resultList.addAll(bebidaRepository.findByPrecioGreaterThanEqualAndVendedor_Vendedorid(precio, idVendedor));
+            resultList.sort((p1, p2) -> {
+                int comparison = 0;
+                if (p1.getPrecio() > p2.getPrecio()) {
+                    comparison = 1;
+                } else if (p1.getPrecio() < p2.getPrecio()) {
+                    comparison = -1;
+                }
+                return comparison;
+            });
+            return resultList;
+        }catch(NumberFormatException e){return new ArrayList<>();}
+    }else if(orderBy.equals("graduacion_mayor_que") || orderBy.equals("graduacion_menor_que")){
+            try{
+            Float graduacion = Float.parseFloat(searchable);
+            List <Bebida> resultList = new ArrayList<>();
+            if(orderBy.equals("graduacion_menor_que"))
+                resultList.addAll(bebidaRepository.findByGraduacionAlcoholicaLessThanEqualAndVendedor_Vendedorid(graduacion, idVendedor));
+            else
+                resultList.addAll(bebidaRepository.findByGraduacionAlcoholicaGreaterThanEqualAndVendedor_Vendedorid(graduacion, idVendedor));
+            resultList.sort((p1, p2) -> {
+                int comparison = 0;
+                if (p1.getGraduacionAlcoholica() > p2.getGraduacionAlcoholica()) {
+                    comparison = 1;
+                } else if (p1.getGraduacionAlcoholica() < p2.getGraduacionAlcoholica()) {
+                    comparison = -1;
+                }
+                return comparison;
+            });
+            return resultList;
+        }catch(NumberFormatException e){return new ArrayList<>();}
+    }else if(orderBy.equals("tamanio_mayor_que") || orderBy.equals("tamanio_menor_que")){
+            try{
+            Float tamaño = Float.parseFloat(searchable);
+            List <Bebida> resultList = new ArrayList<>();
+            if(orderBy.equals("tamanio_menor_que"))
+                resultList.addAll(bebidaRepository.findByTamañoLessThanEqualAndVendedor_Vendedorid(tamaño, idVendedor));
+            else
+                resultList.addAll(bebidaRepository.findByTamañoGreaterThanEqualAndVendedor_Vendedorid(tamaño, idVendedor));
+            resultList.sort((p1, p2) -> {
+                int comparison = 0;
+                if (p1.getTamaño() > p2.getTamaño()) {
+                    comparison = 1;
+                } else if (p1.getTamaño() < p2.getTamaño()) {
+                    comparison = -1;
+                }
+                return comparison;
+            });
+            return resultList;
+        }catch(NumberFormatException e){return new ArrayList<>();}
+    }else if(orderBy.equals("peso_mayor_que") || orderBy.equals("peso_menor_que")){
+            try{
+            Float peso = Float.parseFloat(searchable);
+            List <Bebida> resultList = new ArrayList<>();
+            if(orderBy.equals("peso_menor_que"))
+                resultList.addAll(bebidaRepository.findByPesoLessThanEqualAndVendedor_Vendedorid(peso, idVendedor));
+            else
+                resultList.addAll(bebidaRepository.findByPesoGreaterThanEqualAndVendedor_Vendedorid(peso, idVendedor));
+            resultList.sort((p1, p2) -> {
+                int comparison = 0;
+                if (p1.getPeso() > p2.getPeso()) {
+                    comparison = 1;
+                } else if (p1.getPeso() < p2.getPeso()) {
+                    comparison = -1;
+                }
+                return comparison;
+            });
+            return resultList;
+        }catch(NumberFormatException e){return new ArrayList<>();}
+    }
+    HashSet<Bebida> resultSet = new HashSet<>();
+
+    List<Bebida> byNombre = bebidaRepository.findByNombreContainingAndVendedor_Vendedorid(searchable, idVendedor);
+    resultSet.addAll(byNombre);
+
+    List<Bebida> byDescripcion = bebidaRepository.findByDescripcionContainingAndVendedor_Vendedorid(searchable, idVendedor);
+    resultSet.addAll(byDescripcion);
+
+
+    List<Bebida> byCategoria = bebidaRepository.findByCategorias_nombreContainingAndVendedor_Vendedorid(searchable, idVendedor);
+    resultSet.addAll(byCategoria);
+
+    try {
+        Long id = Long.parseLong(searchable);
+
+        Bebida byId = bebidaRepository.findByItemidAndVendedor_Vendedorid(id, idVendedor).orElse(null);
+        if(byId != null) resultSet.add(byId);
+    } catch (NumberFormatException e) {}
+
+    List<Bebida> resultList = new ArrayList<>(resultSet);
+    resultList.sort((p1, p2) -> {
+        int comparison = 0;
+        switch (orderBy) {
+            case "id":
+                comparison = p1.getItemid().compareTo(p2.getItemid());
+                break;
+            case "nombre":
+                comparison = p1.getNombre().compareTo(p2.getNombre());
+                break;
+            case "vendedor":
+                comparison = p1.getVendedor().getNombre().compareTo(p2.getVendedor().getNombre());
+                break;
+            case "precio":
+                comparison = Float.compare(p1.getPrecio(), p2.getPrecio());
+                break;
+            case "graduacionAlcoholica":
+                comparison = Float.compare(p1.getGraduacionAlcoholica(), p2.getGraduacionAlcoholica());
+                break;
+            case "tamanio":
+                comparison = Float.compare(p1.getTamaño(), p2.getTamaño());
+                break;
+            case "peso":
+                comparison = Float.compare(p1.getPeso(), p2.getPeso());
+                break;
+            default:
+                comparison = p1.getItemid().compareTo(p2.getItemid());
+                break;
+        }
+        if (orderDirection.equals("DESC")) {
+            comparison *= -1;
+        }
+        return comparison;
+    });
+    return resultList;
+}
 
     public Bebida getBebidaById(Long id) {
         return bebidaRepository.findById(id).orElse(null);
