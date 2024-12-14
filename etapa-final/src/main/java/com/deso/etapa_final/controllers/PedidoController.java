@@ -113,5 +113,11 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/avanzarEstado")
+    public ResponseEntity<Void> avanzarEstadoPedido(@RequestParam Long pedidoId) {
+        pedidoService.avanzarEstadoPedido(pedidoId);
+        return ResponseEntity.ok().build();
+    }
+
 
 }
