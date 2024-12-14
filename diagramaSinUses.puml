@@ -1,0 +1,453 @@
+@startuml
+package com.deso.etapa_final.model {
+    class Cliente {
+        Long clienteid
+        Long cuit
+        String email
+        String direccion
+        String nombre
+    }
+
+    class Coordenada {
+        - Double latitud
+        - Double longitud
+    }
+
+    class Vendedor {
+        - Long vendedorid
+        - String nombre
+        - String direccion
+    }
+
+    class Pedido {
+        Long pedidoid
+        EstadoPedido estado
+        String descripcion
+        Double precio
+        int cantidad
+    }
+
+    enum EstadoPedido {
+        EN_CARRITO
+        RECIBIDO
+        EN_ENVIO
+        ENTREGADO
+    }
+
+    class ItemPedido {
+        Long itemPedidoId
+        int cantidad
+        Double precio
+    }
+
+    abstract class ItemMenu {
+        Long itemid
+        String nombre
+        String descripcion
+        float precio
+        Boolean es_bebida
+        abstract boolean esComida()
+        abstract boolean esBebida()
+        abstract boolean aptoVegano()
+    }
+
+    class Plato extends ItemMenu {
+        - float calorias
+        - boolean aptoCeliaco
+        - boolean aptoVegano
+        - float peso
+        + boolean esComida()
+        + boolean esBebida()
+        + boolean aptoVegano()
+    }
+
+    class Bebida extends ItemMenu {
+        Float graduacionAlcoholica
+        Float tamaño
+        Float peso
+        boolean esComida()
+        boolean esBebida()
+        boolean aptoVegano()
+    }
+
+    class Categoria {
+        Long categoriaid
+        String nombre
+        TipoCategoria tipo
+    }
+
+    enum TipoCategoria {
+        PLATO
+        BEBIDA
+    }
+    interface EstrategiasDePagoInterface{
+        float cerrarPago(float valor)
+    }
+
+    abstract class EstrategiasDePago implements EstrategiasDePagoInterface{
+        Long metodopagoid
+        abstract float cerrarPago(float valor)
+    }
+
+    class PagoTransferencia extends EstrategiasDePago {
+        String cbu
+        Long cuit
+        float cerrarPago(float valor)
+    }
+
+    class PagoMercadoPago extends EstrategiasDePago {
+        String alias
+        float cerrarPago(float valor)
+    }
+
+    class Pago {
+        Long id
+        Double monto
+        Date fechaPago
+        String getResumen()
+    }
+}
+
+package com.deso.etapa_final.services {
+    class PedidoService {
+
+        + Iterable<Pedido> getAllPedidos()
+        + Iterable<Pedido> generalSearch(String searchable, String orderBy, String orderDirection)
+        + Pedido obtenerPedidoPorId(Long pedidoId)
+        + Pedido obtenerPedidoPorClienteYEstado(Cliente cliente, Pedido.EstadoPedido estado)
+        + EstrategiasDePago obtenerMetodoDePagoDePedido(Long pedidoId)
+        + Pedido crearPedido(Cliente cliente, Vendedor vendedor)
+        + void guardarPedido(Pedido pedido)
+        + void eliminarPedido(Pedido pedido)
+        + void agregarItem(Pedido pedido, ItemPedido itemPedido)
+        + void eliminarItem(Pedido pedido, ItemPedido itemPedido)
+        + void modificarCantidad(ItemPedido itemPedido, int cantidad)
+        + void actualizarPrecio(Pedido pedido)
+        + void actualizarCantidad(Pedido pedido)
+        + void cancelarPedido(Pedido pedido)
+        + void setMetodoDePago(Pedido pedido, EstrategiasDePago metodoDePago)
+        + void cerrarPedido(Pedido pedido)
+        + ItemPedido obtenerItemPedidoPorId(Long itemPedidoId)
+        + void avanzarEstadoPedido(Long pedidoId)
+    }
+
+    class ClienteService {
+        
+        + Cliente addCliente(long cuit, String email, String direccion, Coordenada coordenadas, String nombre)
+        + Iterable<Cliente> getClientes()
+        + Iterable<Cliente> generalSearch(String searchable, String orderBy, String orderDirection)
+        + Cliente getClienteById(Long id)
+        + Cliente updateCliente(Long id, long cuit, String email, String direccion, Coordenada coordenadas, String nombre)
+        + void deleteCliente(Long id)
+        + void generarPago(Pedido pedido)
+    }
+
+    class PagoService {
+        - PagoRepository pagoRepository
+        
+        + Iterable<Pago> getAllPagos()
+    }
+
+    class VendedorService {
+
+        + Iterable<Vendedor> generalSearch(String searchable, String orderBy, String orderDirection)
+        + Vendedor addVendedor(String nombre, String direccion, double latitud, double longitud)
+        + Iterable<Vendedor> getVendedores()
+        + Vendedor getVendedorById(long id)
+        + Vendedor updateVendedor(long id, String nombre, String direccion, double latitud, double longitud)
+        + void deleteVendedor(long id)
+    }
+
+    class PlatoService {
+
+        + Plato createPlato(String nombre, String descripcion, float precio, long id_vendedor, Iterable<String> categorias, float calorias, boolean aptoCeliaco, boolean aptoVegano, float peso)
+        + Iterable<Plato> getPlatosByVendedorId(Long id)
+        + Iterable<Plato> generalSearch(String searchable, String orderBy, String orderDirection)
+        + Iterable<Plato> generalSearchByVendedor(String searchable, String orderBy, String orderDirection, Long idVendedor)
+        + List<Plato> getAllPlatos()
+        + Plato getPlatoById(Long id)
+        + Plato updatePlato(Long id, String nombre, String descripcion, float precio, float peso, float tamaño, Iterable<String> categorias)
+        + void deletePlato(Long id)
+    }
+    
+    class EstrategiasDePagoService {
+
+        + EstrategiasDePago guardarMercadoPago(String alias)
+        + EstrategiasDePago guardarTransferencia(String cbu, Long cuit)
+        + EstrategiasDePago obtenerEstrategia(Long id)
+    }
+
+    class CategoriaService {
+
+        + Categoria addCategoria(String nombre, Categoria.TipoCategoria tipo)
+        + Iterable<Categoria> getAllCategorias()
+        + Optional<Categoria> getCategoriaById(Long id)
+        + Categoria updateCategoria(Long id, String nombre, Categoria.TipoCategoria tipo)
+        + void deleteCategoria(Long id)
+        + Categoria getCategoriaByNombre(String nombre, Categoria.TipoCategoria tipo)
+        + void deleteCategoriaByNombre(String nombre, Categoria.TipoCategoria tipo)
+    }
+
+    class CarritoService {
+
+        + Long obtenerCarrito(Long clienteId) throws NonExistentCarritoException
+        + Long crearCarrito(Long clienteId, Long vendedorId) throws AlreadyExistentCarritoException
+        + void agregarItem(Long clienteId, Long itemMenuId, int cantidad) throws NonExistentCarritoException, NonExistentException
+        + void eliminarItem(Long clienteId, Long itemPedidoId) throws NonExistentCarritoException, NonExistentException
+        + void modificarCantidad(Long clienteId, Long itemPedidoId, int cantidad) throws NonExistentCarritoException, NonExistentException
+        + void cancelarPedido(Long clienteId) throws NonExistentCarritoException
+        + void setMercadoPago(Long clienteId, String alias) throws NonExistentCarritoException
+        + void setTransferencia(Long clienteId, String cbu, long cuit) throws NonExistentCarritoException
+        + void cerrarPedido(Long clienteId) throws NonSettedMetodoPagoException, NonExistentCarritoException
+    }
+
+    class BebidaService {
+
+        + Bebida createBebida(String nombre, String descripcion, float precio, Long id_vendedor, float graduacionAlcoholica, float tamaño, float peso, Iterable<String> categoria)
+        + List<Bebida> getAllBebidas()
+        + Iterable<Bebida> getBebidasByVendedorId(Long id)
+        + Iterable<Bebida> generalSearch(String searchable, String orderBy, String orderDirection)
+        + Iterable<Bebida> generalSearchByVendedor(String searchable, String orderBy, String orderDirection, Long idVendedor)
+        + Bebida getBebidaById(Long id)
+        + Bebida updateBebida(Long id, String nombre, String descripcion, float precio, float graduacionAlcoholica, float tamaño, float peso, Iterable<String> categoria)
+        + void deleteBebida(Long id)
+    }
+
+    class ItemMenuService {
+
+        + List<ItemMenu> obtenerItemsMenuPorVendedor(Vendedor vendedor)
+        + void agregarItemMenu(ItemMenu itemMenu)
+        + void eliminarItemMenu(Long id)
+        + ItemMenu obtenerItemMenuPorId(Long id)
+        + Iterable<ItemMenu> obtenerTodosLosItemsMenu()
+        + void actualizarItemMenu(ItemMenu itemMenu)
+    }
+}
+
+package com.deso.etapa_final.repositories {
+    interface PedidoRepository {
+        List<Pedido> findByClienteAndEstado(Cliente cliente, Pedido.EstadoPedido estado)
+        List<Pedido> findByDescripcionContaining(String descripcion)
+        List<Pedido> findByPrecioGreaterThanEqual(Double precio)
+        List<Pedido> findByPrecioLessThanEqual(Double precio)
+        List<Pedido> findByPrecioBetween(Double precio1, Double precio2)
+        List<Pedido> findByCantidadGreaterThanEqual(int cantidad)
+        List<Pedido> findByCantidadLessThanEqual(int cantidad)
+        List<Pedido> findByCantidadBetween(int cantidad1, int cantidad2)
+        List<Pedido> findByEstado(Pedido.EstadoPedido estado)
+        List<Pedido> findByVendedorId(Long vendedorId)
+        List<Pedido> findByCliente_ClienteId(Long clienteId)
+        List<Pedido> findByTipoMetodoDePago(String tipoMetodoDePago)
+        List<Pedido> findByMetodoDePago_Nombre(String nombre)
+    }
+
+    interface BebidaRepository {
+        + List<Bebida> findByNombreContaining(String nombre)
+        + List<Bebida> findByDescripcionContaining(String descripcion)
+        + List<Bebida> findByVendedor_nombre(String nombre)
+        + List<Bebida> findByVendedor_Vendedorid(Long vendedorId)
+        + List<Bebida> findByPrecioGreaterThanEqual(Double precio)
+        + List<Bebida> findByPrecioLessThanEqual(Double precio)
+        + List<Bebida> findByGraduacionAlcoholicaGreaterThanEqual(Float graduacion)
+        + List<Bebida> findByGraduacionAlcoholicaLessThanEqual(Float graduacion)
+        + List<Bebida> findByTamañoGreaterThanEqual(Float tamanio)
+        + List<Bebida> findByTamañoLessThanEqual(Float tamanio)
+        + List<Bebida> findByPesoGreaterThanEqual(Float peso)
+        + List<Bebida> findByPesoLessThanEqual(Float peso)
+        + List<Bebida> findByCategorias_nombreContaining(String nombre)
+        + List<Bebida> findByNombreContainingAndVendedor_Vendedorid(String nombre, Long idVendedor)
+        + List<Bebida> findByDescripcionContainingAndVendedor_Vendedorid(String descripcion, Long idVendedor)
+        + List<Bebida> findByPrecioGreaterThanEqualAndVendedor_Vendedorid(Double precio, Long idVendedor)
+        + List<Bebida> findByPrecioLessThanEqualAndVendedor_Vendedorid(Double precio, Long idVendedor)
+        + List<Bebida> findByGraduacionAlcoholicaGreaterThanEqualAndVendedor_Vendedorid(Float graduacion, Long idVendedor)
+        + List<Bebida> findByGraduacionAlcoholicaLessThanEqualAndVendedor_Vendedorid(Float graduacion, Long idVendedor)
+        + List<Bebida> findByTamañoGreaterThanEqualAndVendedor_Vendedorid(Float tamanio, Long idVendedor)
+        + List<Bebida> findByTamañoLessThanEqualAndVendedor_Vendedorid(Float tamanio, Long idVendedor)
+        + List<Bebida> findByPesoGreaterThanEqualAndVendedor_Vendedorid(Float peso, Long idVendedor)
+        + List<Bebida> findByPesoLessThanEqualAndVendedor_Vendedorid(Float peso, Long idVendedor)
+        + List<Bebida> findByCategorias_nombreContainingAndVendedor_Vendedorid(String nombre, Long idVendedor)
+        + Optional<Bebida> findByItemidAndVendedor_Vendedorid(Long id, Long idVendedor)
+    }
+
+    interface CategoriaRepository {
+    }
+
+    interface PlatoRepository {
+        + List<Plato> findByNombreContaining(String nombre)
+        + List<Plato> findByDescripcionContaining(String descripcion)
+        + List<Plato> findByVendedor_nombre(String nombre)
+        + List<Plato> findByVendedor_Vendedorid(Long vendedorId)
+        + List<Plato> findByPrecioGreaterThanEqual(Double precio)
+        + List<Plato> findByPrecioLessThanEqual(Double precio)
+        + List<Plato> findByCaloriasGreaterThanEqual(Double calorias)
+        + List<Plato> findByCaloriasLessThanEqual(Double calorias)
+        + List<Plato> findByPesoGreaterThanEqual(Double peso)
+        + List<Plato> findByPesoLessThanEqual(Double peso)
+        + List<Plato> findByAptoCeliaco(Boolean aptoCeliaco)
+        + List<Plato> findByAptoVegano(Boolean aptoVegano)
+        + List<Plato> findByCategorias_nombreContaining(String nombre)
+        + List<Plato> findByNombreContainingAndVendedor_vendedorid(String nombre, Long idVendedor)
+        + List<Plato> findByDescripcionContainingAndVendedor_vendedorid(String descripcion, Long idVendedor)
+        + List<Plato> findByPrecioGreaterThanEqualAndVendedor_vendedorid(Double precio, Long idVendedor)
+        + List<Plato> findByPrecioLessThanEqualAndVendedor_vendedorid(Double precio)
+        + List<Plato> findByCaloriasGreaterThanEqualAndVendedor_vendedorid(Double calorias)
+        + List<Plato> findByCaloriasLessThanEqualAndVendedor_vendedorid(Double calorias)
+        + List<Plato> findByPesoGreaterThanEqualAndVendedor_vendedorid(Double peso)
+        + List<Plato> findByPesoLessThanEqualAndVendedor_vendedorid(Double peso)
+        + List<Plato> findByAptoCeliacoAndVendedor_vendedorid(Boolean aptoCeliaco, Long idVendedor)
+        + List<Plato> findByAptoVeganoAndVendedor_vendedorid(Boolean aptoVegano, Long idVendedor)
+        + List<Plato> findByCategorias_nombreContainingAndVendedor_vendedorid(String nombre, Long idVendedor)
+        + Optional<Plato> findByitemidAndVendedor_vendedorid(Long id, Long idVendedor)
+    }
+
+    interface ClienteRepository {
+        + List<Cliente> findByNombreContaining(String nombre)
+        + List<Cliente> findByDireccionContaining(String direccion)
+        + List<Cliente> findByCuit(Long cuit)
+        + List<Cliente> findByEmailContaining(String email)
+        + List<Cliente> findByCoordenadasLatitud(Double latitud)
+        + List<Cliente> findByCoordenadasLongitud(Double longitud)
+    }
+
+    interface EstrategiasDePagoRepository {
+    }
+
+    interface ItemMenuRepository {
+        + List<ItemMenu> findByVendedor(Vendedor vendedor)
+    }
+
+    interface ItemPedidoRepository {
+        + Set<ItemPedido> findByPedido(Pedido pedido)
+    }
+
+    interface PagoRepository {
+        + Iterable<Pago> findAll()
+    }
+
+
+    interface ClienteRepository {
+        List<Cliente> findByNombreContaining(String nombre)
+        List<Cliente> findByDireccionContaining(String direccion)
+        List<Cliente> findByEmailContaining(String email)
+        List<Cliente> findByCuit(Long cuit)
+        List<Cliente> findByCoordenadasLatitud(Double latitud)
+        List<Cliente> findByCoordenadasLongitud(Double longitud)
+    }
+
+    interface VendedorRepository {
+        + List<Vendedor> findByNombreContaining(String nombre)
+        + List<Vendedor> findByDireccionContaining(String direccion)
+        + List<Vendedor> findByCoordenadasLatitud(Double latitud)
+        + List<Vendedor> findByCoordenadasLongitud(Double longitud)
+        + Optional<Vendedor> findById(Long vendedor_id)
+    }
+
+}
+
+package com.deso.etapa_final.controllers {
+     class ItemMenuController {
+        - BebidaService bebidaService
+        - PlatoService platoService
+        - VendedorService vendedorService
+        - ItemMenuService itemMenuService
+
+        + String mostrarMenuVendedor(Long id, Model model)
+        + String getAllItemsMenu(Model model)
+        + String searchItemsMenu(String searchPlato, String searchBebida, String orderByPlato, String orderByBebida, String orderDirectionPlato, String orderDirectionBebida, Long vendedorId, Model model)
+        + String searchItemsMenubyVendedor(String searchPlato, String searchBebida, String orderByPlato, String orderByBebida, String orderDirectionPlato, String orderDirectionBebida, Long vendedorId, Model model)
+        + String crearBebidaRedirect(Long vendedorid, Model model)
+        + String createBebida(String nombre, String descripcion, float precio, Long id_vendedor, float graduacionAlcoholica, float tamanio, float peso, List<String> categorias, RedirectAttributes redirectAttributes)
+        + String crearPlatoRedirect(Long vendedorid, Model model)
+        + String createPlato(String nombre, String descripcion, float precio, Long id_vendedor, List<String> categorias, float calorias, Boolean aptoCeliaco, Boolean aptoVegano, float peso, RedirectAttributes redirectAttributes)
+        + ResponseEntity<Bebida> updateBebida(long id, String nombre, String descripcion, float precio, float graduacionAlcoholica, float tamaño, float peso, List<String> categorias)
+        + ResponseEntity<Plato> updatePlato(long id, String nombre, String descripcion, float precio, float peso, float tamaño, List<String> categorias)
+        + void deleteBebida(long id)
+        + void deletePlato(long id)
+        + ResponseEntity<List<Bebida>> getAllBebidas()
+        + ResponseEntity<List<Plato>> getAllPlatos()
+    }
+
+    class ClienteController {
+
+        + String addCliente(String nombre, long cuit, String email, String direccion, double latitud, double longitud)
+        + String mostrarFormularioAgregar()
+        + String getClientes(Model model)
+        + String searchClientes(String searchable, String orderBy, String orderDirection, Model model)
+        + ResponseEntity<Cliente> getClienteById(Long id)
+        + ResponseEntity<Cliente> updateCliente(Long id, long cuit, String email, String direccion, Coordenada coordenadas, String nombre)
+        + ResponseEntity<Void> deleteCliente(Long id)
+    }
+    class PagoController {
+
+        + ResponseEntity<Iterable<String>> getAllPagos()
+    }
+     class PedidoController {
+
+        + String getPedidos(Model model)
+        + String searchPedidos(String searchable, String orderBy, String orderDirection, Model model)
+        + ResponseEntity<Long> obtenerCarrito(Long clienteId)
+        + ResponseEntity<Pedido> getPedidoById(Long pedidoId)
+        + ResponseEntity<Long> crearCarrito(Long clienteId, Long vendedorId) throws AlreadyExistentCarritoException
+        + ResponseEntity<Void> agregarItem(Long clienteId, Long itemMenuId, int cantidad) throws NonExistentCarritoException, NonExistentException
+        + ResponseEntity<Void> eliminarItem(Long clienteId, Long itemPedidoId) throws NonExistentCarritoException, NonExistentException
+        + ResponseEntity<Void> modificarCantidad(Long clienteId, Long itemPedidoId, int cantidad) throws NonExistentCarritoException, NonExistentException
+        + ResponseEntity<Void> cancelarPedido(Long clienteId) throws NonExistentCarritoException
+        + ResponseEntity<Void> setMercadoPago(Long clienteId, String alias) throws NonExistentCarritoException
+        + ResponseEntity<Void> setTransferencia(Long clienteId, String cbu, long cuit) throws NonExistentCarritoException
+        + ResponseEntity<Void> cerrarPedido(Long clienteId) throws NonSettedMetodoPagoException, NonExistentCarritoException
+        + ResponseEntity<Void> avanzarEstadoPedido(Long pedidoId)
+    }
+     class VendedorController {
+
+        + String addVendedor(String nombre, String direccion, double latitud, double longitud, RedirectAttributes redirectAttributes)
+        + String getVendedores(Model model)
+        + String searchVendedores(Model model, String searchable, String orderBy, String orderDirection)
+        + Vendedor getVendedorById(long id)
+        + String mostrarFormularioAgregar()
+        + Vendedor updateVendedor(long id, String nombre, String direccion, double latitud, double longitud)
+        + ResponseEntity<?> deleteVendedor(long id)
+    }
+}
+
+Pedido "*" --> "1" Cliente
+Pedido "*" --> "1" Vendedor
+Pedido "1" <--> "*" ItemPedido
+Pedido "1..*" --> "0..1" EstrategiasDePago
+Cliente "1..*" --> "1" Coordenada
+Vendedor "1..*" --> "1" Coordenada
+ItemPedido "1" --> "1" ItemMenu
+ItemMenu "*" --> "1" Vendedor
+ItemMenu "1..*" --> "*" Categoria
+Categoria --> TipoCategoria
+Pago "0..1" --> "1" Pedido
+PedidoService --> PedidoRepository
+PedidoService --> ItemPedidoRepository
+ClienteService --> ClienteRepository
+ClienteService --> PagoRepository
+PagoService --> PagoRepository
+VendedorService --> VendedorRepository
+PlatoService --> PlatoRepository
+PlatoService --> CategoriaService
+PlatoService --> VendedorService
+EstrategiasDePagoService --> EstrategiasDePagoRepository
+CategoriaService --> CategoriaRepository
+CarritoService --> PedidoService
+CarritoService --> ClienteService
+CarritoService --> VendedorService
+CarritoService --> ItemMenuService
+CarritoService --> EstrategiasDePagoService
+BebidaService --> BebidaRepository
+BebidaService --> CategoriaService
+BebidaService --> VendedorService
+ItemMenuService --> ItemMenuRepository
+ClienteController --> ClienteService
+ItemMenuController --> BebidaService
+ItemMenuController --> PlatoService
+ItemMenuController --> VendedorService
+ItemMenuController --> ItemMenuService
+PagoController --> PagoService
+PedidoController --> CarritoService
+PedidoController --> PedidoService
+VendedorController --> VendedorService
+
+@enduml

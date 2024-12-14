@@ -13,9 +13,6 @@ import com.deso.etapa_final.model.ItemPedido;
 import com.deso.etapa_final.model.Pedido;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
-import com.deso.etapa_final.model.metodosDePago.PagoMercadoPago;
-import com.deso.etapa_final.model.metodosDePago.PagoTransferencia;
-import com.deso.etapa_final.repositories.EstrategiasDePagoRepository;
 
 @Service
 public class CarritoService {
@@ -28,12 +25,6 @@ public class CarritoService {
 
     @Autowired
     private VendedorService vendedorService;
-
-    @Autowired
-    private PlatoService platoService;
-
-    @Autowired
-    private BebidaService bebidaService;
 
     @Autowired
     private ItemMenuService itemMenuService;
