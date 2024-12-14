@@ -1,7 +1,7 @@
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    background-color: #e0f7fa; /* Light blue background */
-    color: #004d40; /* Dark teal text */
+    font-family: 'Verdana', cursive, sans-serif;
+    background-color: #e0f7fa; 
+    color: #004d40; 
     margin: 0;
     padding: 20px;
     display: flex;
@@ -12,7 +12,7 @@ body {
 }
 
 h1 {
-    color: #00796b; /* Teal heading */
+    color: #00796b;
     font-size: 2.5em;
     margin-bottom: 20px;
     text-align: center;
@@ -23,17 +23,17 @@ div {
     max-width: 1600px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #ffffff; /* White background for forms */
+    background-color: #ffffff; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
 form {
     display: flex;
-    flex-wrap: wrap; /* Allow elements to wrap */
-    gap: 15px; /* Space between elements */
-    align-items: center; /* Align items vertically */
-    justify-content: space-between; /* Space between fields */
+    flex-wrap: wrap; 
+    gap: 15px; 
+    align-items: center; 
+    justify-content: space-between; 
     margin-bottom: 20px;
 }
 
@@ -44,8 +44,8 @@ form label {
 }
 
 form input[type="text"], form select {
-    flex: 1; /* Allow inputs to grow */
-    min-width: 150px; /* Prevent shrinking */
+    flex: 1;
+    min-width: 150px; 
     padding: 10px;
     font-size: 1em;
     border: 1px solid #b2dfdb;
@@ -59,7 +59,7 @@ form input[type="text"]:focus, form select:focus {
 }
 
 form button {
-    flex: 0 1 auto; /* Keep button size consistent */
+    flex: 0 1 auto;
     padding: 10px 20px;
     font-size: 1em;
     color: #ffffff;
@@ -108,16 +108,16 @@ table tr:nth-child(even) {
 
 a {
     text-decoration: none;
-    color: #00796b; /* Teal links */
+    color: #00796b; 
     font-size: 1.2em;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #004d40; /* Dark teal on hover */
+    color: #004d40; 
 }
 
-/* Flexbox for buttons */
+
 div:last-of-type {
     display: flex;
     flex-wrap: wrap;
@@ -125,7 +125,7 @@ div:last-of-type {
     justify-content: center;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     div {
         width: 100%;
@@ -144,4 +144,49 @@ div:last-of-type {
     button {
         font-size: 0.9em;
     }
+}
+
+.crearItemMenu {
+    display: flex;
+    justify-content: center; /* Centra el formulario en el contenedor */
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* Un color de fondo ligero opcional */
+    border-radius: 8px; /* Bordes redondeados opcionales */
+}
+
+.crearItemMenu form {
+    display: flex;
+    flex-direction: column; /* Organiza los campos uno abajo del otro */
+    gap: 15px; /* Espaciado entre cada fila */
+    width: 100%;
+    max-width: 400px; /* Máximo ancho del formulario */
+}
+
+.crearItemMenu label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.crearItemMenu input[type="text"],
+.crearItemMenu input[type="number"],
+.crearItemMenu input[type="checkbox"],
+.crearItemMenu button {
+    margin-bottom: 10px;
+    width: 100%; /* Hace que los inputs ocupen todo el ancho del contenedor */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+}
+
+.crearItemMenu button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.crearItemMenu button:hover {
+    background-color: #0056b3;
 }

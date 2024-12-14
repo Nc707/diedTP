@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ItemsMenu</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
 </head>
 <body>
     <h1>ItemsMenu</h1>
@@ -82,6 +82,11 @@
         </tbody>
     </table>
 
+    <form th:action="@{/ItemMenu/crearPlatoRedirect{vendedorid}(vendedorid=${vendedorid})}" method="GET">
+        <input type="text" id="vendedorid" th:value ="${vendedor.vendedorid}" name="vendedorid" hidden>
+        <button type="submit">Crear nuevo Plato</button>
+    </form>
+
     <!--Tabla de bebidas-->
     <h2>Bebidas</h2>
     <div>
@@ -150,6 +155,11 @@
             </tr>
         </tbody>
     </table>
+
+    <form th:action="@{/ItemMenu/crearBebidaRedirect{vendedorid}(vendedorid=${vendedorid})}" method="GET">
+        <input type="text" id="vendedorid" th:value ="${vendedor.vendedorid}" name="vendedorid" hidden>
+        <button type="submit">Crear nueva Bebida</button>
+    </form>
 
 
 

@@ -7,9 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Crear Plato</h1>
+    <h1>Crear Bebida</h1>
     <div class="crearItemMenu">
-    <form th:action="@{/ItemMenu/createPlato}" method="POST">
+    <form th:action="@{/ItemMenu/createBebida}" method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required><br><br>
 
@@ -22,15 +22,12 @@
         
         <input type="text" id="id_vendedor" name="id_vendedor" th:value="${vendedorid}" hidden>
 
-        <label for="calorias">Calorias:</label>
-        <input type="number" id="calorias" name="calorias" step="any" required><br><br>
+        <label for="graduacionAlcoholica">Gradiacion Alcoholica:</label>
+        <input type="number" id="graduacionAlcoholica" name="graduacionAlcoholica" step="any" required><br><br>
 
-        <label for="aptoCeliaco">AptoCeliaco:</label>
-        <input type="checkbox" id="aptoCeliaco" name="aptoCeliaco" required><br><br>
-
-        <label for="aptoVegano">AptoVegano:</label>
-        <input type="checkbox" id="aptoVegano" name="aptoVegano" required><br><br>
-
+        <label for="tamanio">Tamaño:</label>
+        <input type="number" id="tamanio" name="tamanio" step="any" required><br><br>
+        
         <label for="peso">Peso:</label>
         <input type="number" id="peso" name="peso" step="any" required><br><br>
 
