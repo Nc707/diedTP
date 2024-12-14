@@ -10,34 +10,6 @@
 </head>
 <body>
     <h1>Pedidos</h1>
-    <div>
-        <form th:action="@{/pedidos/search}" method="GET">
-            <label for="search">Busqueda:</label><br>
-            <input type="text" id="search" name="search"><br><br>
-
-            <label for="orderBy">Ordenar por:</label><br>
-            <select id="orderBy" name="orderBy">
-                <option value="id">ID</option>
-                <option value="precio">Precio</option>
-                <option value="Cantidad">Cantidad</option>
-                <option value="estado">Estado</option>
-                <option value="cantidad_menor_que">Cantidad menor que</option>
-                <option value="cantidad_mayor_que">Cantidad mayor que</option>
-                <option value="precio_menor_que">Precio menor que</option>
-                <option value="precio_mayor_que">Precio mayor que</option>
-            </select><br><br>
-
-            <label for="orderDirection">Dirección:</label><br>
-            <select id="orderDirection" name="orderDirection">
-                <option value="ASC">Ascendente</option>
-                <option value="DESC">Descendente</option>
-            </select><br><br>
-
-            <button type="submit">Buscar</button>
-        </form>
-    </div>
-
-    <table border="1">
 
     <div>
         <form th:action="@{/pedidos/search}" method="GET">
@@ -65,6 +37,35 @@
             <button type="submit">Buscar</button>
         </form>
     </div>
+
+    <!-- <table border="1"> -->
+
+    <!-- <div>
+        <form th:action="@{/pedidos/search}" method="GET">
+            <label for="search">Busqueda:</label><br>
+            <input type="text" id="search" name="search"><br><br>
+
+            <label for="orderBy">Ordenar por:</label><br>
+            <select id="orderBy" name="orderBy">
+                <option value="id">ID</option>
+                <option value="precio">Precio</option>
+                <option value="Cantidad">Cantidad</option>
+                <option value="estado">Estado</option>
+                <option value="cantidad_menor_que">Cantidad menor que</option>
+                <option value="cantidad_mayor_que">Cantidad mayor que</option>
+                <option value="precio_menor_que">Precio menor que</option>
+                <option value="precio_mayor_que">Precio mayor que</option>
+            </select><br><br>
+
+            <label for="orderDirection">Dirección:</label><br>
+            <select id="orderDirection" name="orderDirection">
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
+            </select><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div> -->
 
     <table border="1">
 
@@ -110,12 +111,13 @@
                         </tbody>
                     </table>
                 </td>
+
                 <td th:text="${pedido.cantidad}"></td>
                 <td th:text="${pedido.precio}"></td>
                 <td th:text="${pedido.getTipoMetodoDePago}"></td>
             </tr>
         </tbody>
     </table>
-
+    <a th:href="@{/}">Volver al menu principal</a>
 </body>
 </html>
