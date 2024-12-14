@@ -76,7 +76,9 @@ public class VendedorController {
     }
 
     @DeleteMapping("/delete")
+
     public ResponseEntity<?> deleteVendedor(@RequestParam long id) {
+
     try {
         vendedorService.deleteVendedor(id);
         return ResponseEntity.ok("Vendedor eliminado con éxito");
@@ -92,5 +94,7 @@ public class VendedorController {
         return "La distancia entre el vendedor y el cliente es: " + distancia;
     }
     
+
+}
 
 }

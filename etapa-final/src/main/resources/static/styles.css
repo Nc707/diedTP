@@ -124,7 +124,6 @@ div:last-of-type {
     justify-content: center;
 }
 
-
 @media (max-width: 768px) {
     div {
         width: 100%;

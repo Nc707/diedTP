@@ -61,7 +61,7 @@ public class VendedorService {
             int comparison = 0;
             switch (orderBy) {
                 case "id":
-                    comparison = Long.compare(v1.getId(), v2.getId());
+                    comparison = Long.compare(v1.getVendedorid(), v2.getVendedorid());
                     break;
                 case "nombre":
                     comparison = v1.getNombre().compareTo(v2.getNombre());
@@ -76,7 +76,7 @@ public class VendedorService {
                     comparison = Double.compare(v1.getCoordenadas().getLongitud(), v2.getCoordenadas().getLongitud());
                     break;
                 default:
-                    comparison = Long.compare(v1.getId(), v2.getId());
+                    comparison = Long.compare(v1.getVendedorid(), v2.getVendedorid());
                     break;
             }
             return "DESC".equals(orderDirection) ? -comparison : comparison;

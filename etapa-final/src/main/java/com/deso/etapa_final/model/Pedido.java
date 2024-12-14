@@ -1,6 +1,4 @@
 package com.deso.etapa_final.model;
-
-
 import java.util.List;
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 import jakarta.persistence.*;
@@ -51,13 +49,12 @@ public class Pedido {
     @JoinColumn(name = "metodopagoid")
     private EstrategiasDePago metodoDePago; 
 
+
     public String getTipoMetodoDePago() {
         if (metodoDePago != null) {
             return metodoDePago.getClass().getSimpleName();
         }
         return "No seteado";
     }
-
-
 }
 
