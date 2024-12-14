@@ -34,8 +34,9 @@ public class Pago {
     public Pago(Pedido pedido) {
         this.fecha = new Date().getTime();
         this.monto = pedido.getPrecio();
-        this.resumen = pedido.toString();
-        this.vendedor = pedido.getVendedor(); // Asume que Pedido tiene un objeto Vendedor
+        //this.resumen = pedido.toString();
+        this.resumen = "Pago de pedido";
+        this.vendedor = pedido.getVendedor();
     }
 
     @Override
