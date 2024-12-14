@@ -3,7 +3,6 @@ package com.deso.etapa_final.services;
 import com.deso.etapa_final.model.Bebida;
 import com.deso.etapa_final.repositories.BebidaRepository;
 import com.deso.etapa_final.model.Categoria;
-import com.deso.etapa_final.model.ItemMenu;
 import com.deso.etapa_final.model.Vendedor;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -13,7 +13,7 @@ import com.deso.etapa_final.repositories.ItemMenuRepository;
 public class ItemMenuService {
     @Autowired
     private ItemMenuRepository itemMenuRepository;
-    
+
     public List<ItemMenu> obtenerItemsMenuPorVendedor(Vendedor vendedor) {
         return itemMenuRepository.findByVendedor(vendedor);
     }
