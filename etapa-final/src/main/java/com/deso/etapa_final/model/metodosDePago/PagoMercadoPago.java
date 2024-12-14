@@ -26,7 +26,6 @@ import jakarta.persistence.*;
 @DiscriminatorValue("MERCADOPAGO")
 public class PagoMercadoPago extends EstrategiasDePago {
 
-
     private static final float RECARGO = 0.02f;
 
     @Column(nullable = false)
@@ -35,5 +34,10 @@ public class PagoMercadoPago extends EstrategiasDePago {
     @Override
     public float cerrarPago(float valor) {
         return valor * (1.0f + RECARGO);
+    }
+
+    @Override
+    public String getNombre() {
+        return "Mercado Pago";
     }
 }
