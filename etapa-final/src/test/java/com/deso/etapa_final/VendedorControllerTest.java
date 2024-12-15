@@ -114,19 +114,6 @@ class VendedorControllerTest {
         verify(vendedorService, times(1)).deleteVendedor(id);
     }
 
-   /* @Test
-    void testDeleteVendedor_NotFound() {
-        long id = 1L;
-
-        doThrow(new EntityNotFoundException("Vendedor no encontrado")).when(vendedorService).deleteVendedor(id);
-
-        ResponseEntity<?> response = vendedorController.deleteVendedor(id);
-
-        assertEquals(404, response.getStatusCodeValue());
-        assertEquals("Vendedor no encontrado", response.getBody());
-        verify(vendedorService, times(1)).deleteVendedor(id);
-    }*/
-
     @Test
     void testDistancia() {
         long vendedorId = 1L;
