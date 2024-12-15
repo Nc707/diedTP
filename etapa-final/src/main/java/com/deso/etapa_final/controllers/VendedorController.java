@@ -37,7 +37,8 @@ public class VendedorController {
         @RequestParam double longitud,
         RedirectAttributes redirectAttributes) {
         
-        Vendedor nuevoVendedor = vendedorService.addVendedor(nombre, direccion, latitud, longitud);
+        vendedorService.addVendedor(nombre, direccion, latitud, longitud);
+
         return "redirect:/vendedores/getAll";
     }
 
@@ -66,25 +67,30 @@ public class VendedorController {
     }
 
     @PostMapping("/update")
-    public Vendedor updateVendedor(
+    public ResponseEntity<Vendedor> updateVendedor(
             @RequestParam long id,
             @RequestParam String nombre,
             @RequestParam String direccion,
             @RequestParam double latitud,
             @RequestParam double longitud) {
-        return vendedorService.updateVendedor(id, nombre, direccion, latitud, longitud);
+        Vendedor updatedVendedor = vendedorService.updateVendedor(id, nombre, direccion, latitud, longitud);
+        return ResponseEntity.ok(updatedVendedor);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete-api")
+    public ResponseEntity<?> deleteVendedorAPI(@RequestParam long id) {
+        try {
+            vendedorService.deleteVendedor(id);
+            return ResponseEntity.ok("Vendedor eliminado con éxito");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @PostMapping("/delete")
+    public String deleteVendedor(@RequestParam("id") long id) {
 
-    public ResponseEntity<?> deleteVendedor(@RequestParam long id) {
-
-    try {
         vendedorService.deleteVendedor(id);
-        return ResponseEntity.ok("Vendedor eliminado con éxito");
-    } catch (EntityNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
+        return "redirect:/vendedores/getAll";
     }
 
     @GetMapping("/getDistancia")
@@ -93,8 +99,5 @@ public class VendedorController {
         double distancia = vendedorService.distancia(vendedorid, clienteid);
         return "La distancia entre el vendedor y el cliente es: " + distancia;
     }
-    
-
-}
 
 }

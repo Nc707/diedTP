@@ -70,19 +70,12 @@
         <form th:action="@{/clientes/agregar-cliente}" method="GET">
             <button type="submit">Agregar Cliente</button>
         </form>
-
-                
-        <form th:action="@{/clientes/modificar}" method="GET">
-            <label for="modificarId">ID del Vendedor:</label>
-            <input type="text" id="modificarId" name="id" placeholder="Ingrese ID" required>
-            <button type="submit">Modificar Vendedor</button>
-        </form>
-
         
-        <form th:action="@{/clientes/eliminar}" method="POST">
-            <label for="eliminarId">ID del Vendedor:</label>
-            <input type="text" id="eliminarId" name="id" placeholder="Ingrese ID" required>
-            <button type="submit">Eliminar Vendedor</button>
+        <form th:action="@{/clientes/delete}" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <label for="eliminarId">ID del Cliente:</label>
+            <input type="number" id="eliminarId" name="id" placeholder="Ingrese ID" step="any" required>
+            <button type="submit">Eliminar Cliente</button>
         </form>
     </div>
 

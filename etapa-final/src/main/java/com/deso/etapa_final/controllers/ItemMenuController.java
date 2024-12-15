@@ -100,8 +100,8 @@ public class ItemMenuController {
             @RequestParam float peso,
             @RequestParam(required = false) List<String> categorias,
             RedirectAttributes redirectAttributes) {
-        
-        Bebida bebida = bebidaService.createBebida(nombre, descripcion, precio, id_vendedor, graduacionAlcoholica, tamanio, peso, categorias);
+        bebidaService.createBebida(nombre, descripcion, precio, id_vendedor, graduacionAlcoholica, tamanio, peso, categorias);
+
         return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + id_vendedor;
     }
 
@@ -123,8 +123,7 @@ public class ItemMenuController {
             @RequestParam(defaultValue = "false") Boolean aptoVegano,
             @RequestParam float peso,
             RedirectAttributes redirectAttributes) {
-        
-        Plato plato = platoService.createPlato(nombre, descripcion, precio, id_vendedor, categorias, calorias, aptoCeliaco, aptoVegano,peso);
+        platoService.createPlato(nombre, descripcion, precio, id_vendedor, categorias, calorias, aptoCeliaco, aptoVegano,peso);
         return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + id_vendedor;
     }
 

@@ -28,7 +28,7 @@ public class ClienteController {
         Coordenada coordenada = new Coordenada();
         coordenada.setLatitud(latitud);
         coordenada.setLongitud(longitud);
-        Cliente cliente = clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
+        clienteService.addCliente(cuit, email, direccion, coordenada, nombre);
         return "redirect:/clientes/getAll";
     }
 
@@ -62,9 +62,9 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     @ResponseBody
-    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestParam long cuit, @RequestParam String email, @RequestParam String direccion, @RequestParam Coordenada coordenadas, @RequestParam String nombre) {
+    public ResponseEntity<Cliente> updateCliente(@RequestParam Long id, @RequestParam long cuit, @RequestParam String email, @RequestParam String direccion, @RequestParam Coordenada coordenadas, @RequestParam String nombre) {
         Cliente cliente = clienteService.updateCliente(id, cuit, email, direccion, coordenadas, nombre);
         if (cliente != null) {
             return ResponseEntity.ok(cliente);
@@ -73,10 +73,16 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete-api")
     @ResponseBody
-    public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteClienteAPI(@RequestParam Long id) {
         clienteService.deleteCliente(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/delete")
+    public String deleteCliente(@RequestParam("id") Long id) {
+        clienteService.deleteCliente(id);
+        return "redirect:/clientes/getAll";
     }
 }
