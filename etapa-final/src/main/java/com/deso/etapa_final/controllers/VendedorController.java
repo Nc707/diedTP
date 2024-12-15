@@ -38,6 +38,7 @@ public class VendedorController {
         RedirectAttributes redirectAttributes) {
         
         vendedorService.addVendedor(nombre, direccion, latitud, longitud);
+
         return "redirect:/vendedores/getAll";
     }
 
@@ -87,6 +88,7 @@ public class VendedorController {
     }
     @PostMapping("/delete")
     public String deleteVendedor(@RequestParam("id") long id) {
+
         vendedorService.deleteVendedor(id);
         return "redirect:/vendedores/getAll";
     }
@@ -97,6 +99,5 @@ public class VendedorController {
         double distancia = vendedorService.distancia(vendedorid, clienteid);
         return "La distancia entre el vendedor y el cliente es: " + distancia;
     }
-    
 
 }
