@@ -1,6 +1,5 @@
 package com.deso.etapa_final.services;
 
-import com.deso.etapa_final.model.Cliente;
 import com.deso.etapa_final.model.Coordenada;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.repositories.VendedorRepository;

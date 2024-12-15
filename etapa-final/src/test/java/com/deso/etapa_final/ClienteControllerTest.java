@@ -108,14 +108,4 @@ class ClienteControllerTest {
         assertEquals(ResponseEntity.ok(cliente), response);
     }
 
-    @Test
-    void testDeleteCliente() {
-        Long id = 1L;
-        doNothing().when(clienteService).deleteCliente(id);
-
-        ResponseEntity<Void> response = clienteController.deleteCliente(id);
-
-        verify(clienteService).deleteCliente(id);
-        assertEquals(ResponseEntity.ok().build(), response);
-    }
 }

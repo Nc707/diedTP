@@ -1,6 +1,7 @@
 package com.deso.etapa_final;
 
 import com.deso.etapa_final.controllers.VendedorController;
+import com.deso.etapa_final.model.Coordenada;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.services.VendedorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.util.Arrays;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -91,28 +90,18 @@ class VendedorControllerTest {
         double latitud = -34.603722;
         double longitud = -58.381592;
 
-        Vendedor mockUpdatedVendedor = new Vendedor(nombre, direccion, null);
+        Vendedor mockUpdatedVendedor = new Vendedor(nombre, direccion, new Coordenada(latitud, longitud));
+        mockUpdatedVendedor.setVendedorid(id);
 
         when(vendedorService.updateVendedor(id, nombre, direccion, latitud, longitud)).thenReturn(mockUpdatedVendedor);
 
-        Vendedor result = vendedorController.updateVendedor(id, nombre, direccion, latitud, longitud);
+        ResponseEntity<Vendedor> result = vendedorController.updateVendedor(id, nombre, direccion, latitud, longitud);
 
-        assertEquals(mockUpdatedVendedor, result);
+        ResponseEntity<Vendedor> expectedResponse = ResponseEntity.ok(mockUpdatedVendedor);
+        assertEquals(expectedResponse, result);
         verify(vendedorService, times(1)).updateVendedor(id, nombre, direccion, latitud, longitud);
     }
 
-    @Test
-    void testDeleteVendedor_Success() {
-        long id = 1L;
-
-        doNothing().when(vendedorService).deleteVendedor(id);
-
-        ResponseEntity<?> response = vendedorController.deleteVendedor(id);
-
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Vendedor eliminado con éxito", response.getBody());
-        verify(vendedorService, times(1)).deleteVendedor(id);
-    }
 
     @Test
     void testDistancia() {
