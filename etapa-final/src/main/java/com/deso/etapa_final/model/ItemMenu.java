@@ -30,8 +30,8 @@ public abstract class ItemMenu {
     @Column(nullable = false)
     private float precio;
 
-    @ManyToOne
-    @JoinColumn(name = "vendedorid")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vendedorid", nullable = true)
     private Vendedor vendedor;
     // @Column
     // @Setter(AccessLevel.NONE)

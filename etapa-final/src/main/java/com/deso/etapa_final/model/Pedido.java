@@ -27,12 +27,12 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private EstadoPedido estado;
 
-    @ManyToOne
-    @JoinColumn(name = "vendedorid", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vendedorid", nullable = true)
     private Vendedor vendedor;
 
-    @ManyToOne
-    @JoinColumn(name = "clienteid", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "clienteid", nullable = true)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -47,7 +47,7 @@ public class Pedido {
     @Column(nullable = false)
     private int cantidad;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "metodopagoid")
     private EstrategiasDePago metodoDePago; 
 
