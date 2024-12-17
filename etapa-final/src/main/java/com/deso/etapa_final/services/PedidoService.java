@@ -4,6 +4,9 @@ import com.deso.etapa_final.event.PedidoEnEnvioEvent;
 import com.deso.etapa_final.model.*;
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 import com.deso.etapa_final.repositories.PedidoRepository;
+
+import jakarta.transaction.Transactional;
+
 import com.deso.etapa_final.repositories.ItemPedidoRepository;
 
 import java.util.ArrayList;
@@ -151,6 +154,10 @@ public class PedidoService {
         Pedido pedido = obtenerPedidoPorId(pedidoId);
         return pedido.getMetodoDePago(); 
     }
+    @Transactional  
+    public void eliminarAllPedidosPorVendedor(Long idvendedor){
+        pedidoRepository.deleteByVendedor_vendedorid(idvendedor);
+    }
 
     public Pedido crearPedido(Cliente cliente, Vendedor vendedor) {
         Pedido pedido = new Pedido();
@@ -166,6 +173,19 @@ public class PedidoService {
 
     public void eliminarPedido(Pedido pedido) {
         pedidoRepository.delete(pedido);
+    }
+
+    public void eliminarPedidoPorId(Long id){
+        pedidoRepository.deleteById(id);
+    }
+
+    public List<Pedido> obtenerPedidosPorItemMenu(ItemMenu itemMenu) {
+        return pedidoRepository.findByItems_ItemMenu_itemid(itemMenu.getItemid());
+    }
+    
+    public void deleteAllPedidos(List<Pedido> pedidos){
+        pedidoRepository.deleteAll(pedidos);
+        
     }
 
     public void agregarItem(Pedido pedido, ItemPedido itemPedido) {

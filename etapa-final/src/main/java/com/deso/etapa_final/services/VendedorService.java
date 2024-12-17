@@ -12,6 +12,8 @@ import com.deso.etapa_final.model.Coordenada;
 import com.deso.etapa_final.model.Vendedor;
 import com.deso.etapa_final.repositories.VendedorRepository;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class VendedorService {
@@ -21,6 +23,8 @@ public class VendedorService {
 
     @Autowired
     private ClienteService clienteService;
+
+
 
      public Iterable<Vendedor> generalSearch(String searchable, String orderBy, String orderDirection) {    
         Set<Vendedor> resultSet = new HashSet<>();
@@ -108,7 +112,7 @@ public class VendedorService {
         }
         return null;
     }
-    
+    @Transactional
     public void deleteVendedor(long id) {
         if (!vendedorRepository.existsById(id)) {        }
         vendedorRepository.deleteById(id);

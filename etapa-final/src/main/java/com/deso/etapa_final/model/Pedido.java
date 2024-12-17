@@ -1,6 +1,9 @@
 package com.deso.etapa_final.model;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.deso.etapa_final.model.metodosDePago.EstrategiasDePago;
 
 import jakarta.persistence.*;
@@ -27,15 +30,18 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private EstadoPedido estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "vendedorid", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Vendedor vendedor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "clienteid", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ItemPedido> items;
 
     @Column
@@ -47,7 +53,7 @@ public class Pedido {
     @Column(nullable = false)
     private int cantidad;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "metodopagoid")
     private EstrategiasDePago metodoDePago; 
 

@@ -2,6 +2,7 @@ package com.deso.etapa_final.controllers;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.deso.etapa_final.model.Vendedor;
+import com.deso.etapa_final.services.ItemMenuService;
+import com.deso.etapa_final.services.PedidoService;
 import com.deso.etapa_final.services.VendedorService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -27,6 +30,12 @@ public class VendedorController {
     
     @Autowired
     private VendedorService vendedorService;
+
+    @Autowired
+    private ItemMenuService itemMenuService;
+
+    @Autowired
+    private PedidoService pedidoService;
 
 
     @PostMapping("/add")
@@ -87,8 +96,9 @@ public class VendedorController {
         }
     }
     @PostMapping("/delete")
-    public String deleteVendedor(@RequestParam("id") long id) {
-
+    public String deleteVendedor(@RequestParam Long id) {
+        pedidoService.eliminarAllPedidosPorVendedor(id);
+        itemMenuService.eliminarItemsMenuPorVendedor(id);
         vendedorService.deleteVendedor(id);
         return "redirect:/vendedores/getAll";
     }
