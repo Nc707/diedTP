@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 15, 2024 at 03:29 AM
+-- Generation Time: Dec 17, 2024 at 04:52 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -196,12 +196,9 @@ INSERT INTO `item_pedido` (`cantidad`, `precio`, `id`, `itemid`, `pedidoid`) VAL
 --
 
 CREATE TABLE `pago` (
-  `monto` double NOT NULL,
-  `fecha` bigint NOT NULL,
-  `id` bigint NOT NULL,
-  `vendedorid` bigint NOT NULL,
-  `resumen` varchar(500) NOT NULL,
+  `monto` double DEFAULT NULL,
   `fecha_pago` datetime(6) DEFAULT NULL,
+  `id` bigint NOT NULL,
   `pedido_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -245,10 +242,10 @@ CREATE TABLE `pago_transferencia` (
 CREATE TABLE `pedido` (
   `cantidad` int NOT NULL,
   `precio` double NOT NULL,
-  `clienteid` bigint NOT NULL,
+  `clienteid` bigint DEFAULT NULL,
   `metodopagoid` bigint DEFAULT NULL,
   `pedidoid` bigint NOT NULL,
-  `vendedorid` bigint NOT NULL,
+  `vendedorid` bigint DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `estado` enum('ENTREGADO','EN_CARRITO','EN_ENVIO','RECIBIDO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -371,7 +368,6 @@ ALTER TABLE `item_pedido`
 --
 ALTER TABLE `pago`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FKgerrcsd7doxqqytgevbxswy8y` (`vendedorid`),
   ADD KEY `FKfequlwg494wsub1nc7cqiwbk6` (`pedido_id`);
 
 --
@@ -486,15 +482,14 @@ ALTER TABLE `item_menu`
 -- Constraints for table `item_pedido`
 --
 ALTER TABLE `item_pedido`
-  ADD CONSTRAINT `FK8rgwu0chpjx111dkljxg327dt` FOREIGN KEY (`itemid`) REFERENCES `item_menu` (`itemid`),
-  ADD CONSTRAINT `FKe4qvfgo0fap0j8jmyd0qfy5o5` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`pedidoid`);
+  ADD CONSTRAINT `FK8rgwu0chpjx111dkljxg327dt` FOREIGN KEY (`itemid`) REFERENCES `item_menu` (`itemid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKe4qvfgo0fap0j8jmyd0qfy5o5` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`pedidoid`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `pago`
 --
 ALTER TABLE `pago`
-  ADD CONSTRAINT `FKfequlwg494wsub1nc7cqiwbk6` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`pedidoid`),
-  ADD CONSTRAINT `FKgerrcsd7doxqqytgevbxswy8y` FOREIGN KEY (`vendedorid`) REFERENCES `vendedor` (`vendedorid`);
+  ADD CONSTRAINT `FKfequlwg494wsub1nc7cqiwbk6` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`pedidoid`);
 
 --
 -- Constraints for table `pago_mercado_pago`
@@ -513,8 +508,8 @@ ALTER TABLE `pago_transferencia`
 --
 ALTER TABLE `pedido`
   ADD CONSTRAINT `FK68e76trfl76ga5f9gc6lo212m` FOREIGN KEY (`metodopagoid`) REFERENCES `estrategias_de_pago` (`metodopagoid`),
-  ADD CONSTRAINT `FKh8d7bcjt8gprquawf6of075p6` FOREIGN KEY (`clienteid`) REFERENCES `cliente` (`clienteid`),
-  ADD CONSTRAINT `FKk1yj2me8vn6ct9u358iv2d3ce` FOREIGN KEY (`vendedorid`) REFERENCES `vendedor` (`vendedorid`);
+  ADD CONSTRAINT `FKh8d7bcjt8gprquawf6of075p6` FOREIGN KEY (`clienteid`) REFERENCES `cliente` (`clienteid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKk1yj2me8vn6ct9u358iv2d3ce` FOREIGN KEY (`vendedorid`) REFERENCES `vendedor` (`vendedorid`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `plato`
