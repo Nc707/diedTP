@@ -1,5 +1,8 @@
 package com.deso.etapa_final.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,12 +25,14 @@ public class ItemPedido {
     private float precio;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "itemid")
+    @JoinColumn(name = "itemid", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ItemMenu itemMenu;
 
 
     @ManyToOne
     @JoinColumn(name = "pedidoid")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Pedido pedido;
 
     public ItemPedido(ItemMenu itemMenu, int cantidad){

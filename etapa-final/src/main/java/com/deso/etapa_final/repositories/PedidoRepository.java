@@ -22,4 +22,5 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
     List<Pedido> findByItems_ItemMenu_itemid(Long itemMenuId);
     List<Pedido> findByItems_ItemMenu_nombreContaining(String itemMenuNombre);
     List<Pedido> findByVendedor_nombreContaining(String vendedorNombre);
+    void deleteByVendedor_vendedorid(Long vendedorId);
 }

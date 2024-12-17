@@ -1,7 +1,9 @@
 package com.deso.etapa_final.controllers;
 import com.deso.etapa_final.model.Bebida;
+import com.deso.etapa_final.model.Pedido;
 import com.deso.etapa_final.model.Plato;
 import com.deso.etapa_final.services.BebidaService;
+import com.deso.etapa_final.services.PedidoService;
 import com.deso.etapa_final.services.PlatoService;
 import com.deso.etapa_final.services.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+
 
 
 
@@ -27,6 +30,9 @@ public class ItemMenuController {
 
     @Autowired
     private VendedorService vendedorService;
+
+    @Autowired
+    private PedidoService pedidoService;
     
     
 
@@ -178,4 +184,21 @@ public class ItemMenuController {
         List<Plato> platos = platoService.getAllPlatos();
         return ResponseEntity.ok(platos);
     }
+
+    @PostMapping("/deletePlato")
+    public String deletePlato(@RequestParam Long id , @RequestParam Long vendedorid) {
+        //OBTENER TODOS LOS PEDIDOS QUE CONTENGAN ESTE ITEM
+        List<Pedido> pedidos = pedidoService.obtenerPedidosPorItemMenu(platoService.getPlatoById(id));
+        pedidoService.deleteAllPedidos(pedidos); //eliminamos todos los pedidos que tengan ese plato
+        platoService.deletePlato(id);
+        return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + vendedorid;
+    }
+    
+    @PostMapping("/deleteBebida")
+    public String deleteBebida(@RequestParam Long id, @RequestParam Long vendedorid) {
+
+        bebidaService.deleteBebida(id);
+        return "redirect:/ItemMenu/getItemMenuByVendedor?id=" + vendedorid;
+    }
+    
 }

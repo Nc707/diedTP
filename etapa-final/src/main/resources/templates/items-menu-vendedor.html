@@ -86,6 +86,13 @@
         <input type="text" id="vendedorid" th:value ="${vendedor.vendedorid}" name="vendedorid" hidden>
         <button type="submit">Crear nuevo Plato</button>
     </form>
+    <form th:action="@{/ItemMenu/deletePlato}" method="POST">
+        <label for="eliminarId">ID del Plato:</label>
+        <input type="number" id="eliminarId" name="id" placeholder="Ingrese ID" step="any" required>
+        <input type="text" id="vendedorid" th:value ="${vendedor.vendedorid}" name="vendedorid" hidden>
+        <button type="submit">Eliminar Plato</button>
+    </form>
+
 
     <!--tabla de bebidas-->
     <h2>Bebidas</h2>
@@ -160,7 +167,12 @@
         <input type="text" id="vendedorid" th:value ="${vendedor.vendedorid}" name="vendedorid" hidden>
         <button type="submit">Crear nueva Bebida</button>
     </form>
-
+    <form th:action="@{/ItemMenu/deleteBebida}" method="POST">
+        <label for="eliminarId">ID del Bebida:</label>
+        <input type="number" id="eliminarId" name="id" placeholder="Ingrese ID" step="any" required>
+        <input type="text" id="vendedorid" th:value ="${vendedor.vendedorid}" name="vendedorid" hidden>
+        <button type="submit">Eliminar Bebida</button>
+    </form>
 
 
 </body>

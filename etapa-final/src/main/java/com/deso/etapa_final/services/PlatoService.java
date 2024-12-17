@@ -45,6 +45,9 @@ public class PlatoService {
     public Iterable<Plato> getPlatosByVendedorId(Long id) {
         return platoRepository.findByVendedor_Vendedorid(id);
     }
+    public Plato getPlatoById(Long id) {
+        return platoRepository.findById(id).orElse(null);
+    }
     public Iterable<Plato> generalSearch(String searchable, String orderBy, String orderDirection){
         if(orderBy.equals("precio_mayor_que") || orderBy.equals("precio_menor_que")){
             try{
@@ -287,9 +290,7 @@ public class PlatoService {
         return (List<Plato>) platoRepository.findAll();
     }
 
-    public Plato getPlatoById(Long id) {
-        return platoRepository.findById(id).orElse(null);
-    }
+
 
     public Plato updatePlato(Long id, String nombre, String descripcion, float precio, float peso, float tamaño, Iterable<String> categorias) {
         Plato plato = platoRepository.findById(id).orElse(null);

@@ -10,4 +10,5 @@ import com.deso.etapa_final.model.Pedido;
 public interface ItemPedidoRepository extends CrudRepository<ItemPedido, Long> {
     
     Set<ItemPedido> findByPedido(Pedido pedido);
+    void deleteByItemMenu_Itemid(Long id);
 }
